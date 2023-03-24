@@ -1,0 +1,131 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: views/auth
+ * -----------------------------------------------------------------------------
+ */
+
+body.auth {
+  background-color: #f9f9f9;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
+  main.site-auth {
+    min-height: 100vh;
+  
+    > div {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: inherit;
+      min-height: inherit;
+      width: 100%;
+    }
+  }
+
+  section {
+    @extend %pb-12x;
+    @extend %pt-12x;
+    @extend %pl-10x;
+    @extend %pr-10x;
+    background-color: $color-white;
+    border-radius: 5px;
+    max-width: 480px;
+    width: 100%;
+    
+    > svg {
+      @extend %mb-25x;
+      display: block;
+      height: auto;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    h1 {
+      @include font-size($fs-md);
+    }
+  
+    .form-group {
+      @extend %mb-20x;
+    }
+  
+    .form-action {
+      @extend %mt-22x;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    label {
+      @extend %mb-5x;
+      display: block;
+      color: $color-grey;
+    }
+
+    // Helpers
+    .form-helper {
+      @extend %ml-5x;
+      color: $color-grey;
+      text-decoration: underline;
+      &:hover {
+        color: $color-black;
+      }
+    }
+
+   
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+      @extend %pt-2x;
+      @extend %pb-5x;
+      padding-left: 0;
+      padding-right: 0;
+      background-color: $color-white;
+      border: none;
+      border-bottom: 2px solid $color-medium;
+      border-radius: 0 !important;
+      color: $color-black;
+      display: block;
+      @include font-size($fs-md);
+      width: 100%;
+      -webkit-appearance: none;
+
+      &:focus {
+        border-bottom: 2px solid $color-black;
+      }
+    }
+    
+    input[type=email]::-webkit-input-placeholder,
+    input[type=password]::-webkit-input-placeholder {
+      color: $color-white;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    input[type=email]::-moz-placeholder,
+    input[type=password]::-moz-placeholder {
+      color: $color-black;
+      padding: 0;
+      opacity: 1 !important;
+      line-height: 1;
+    }
+    
+    input[type=email]:-ms-input-placeholder,
+    input[type=password]:-ms-input-placeholder {
+      color: $color-black;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    input[type=email]:-moz-placeholder,
+    input[type=password]:-moz-placeholder {
+      color: $color-black;
+      padding: 0;
+      opacity: 1 !important;
+      line-height: 1;
+    }
+  }
+}
+

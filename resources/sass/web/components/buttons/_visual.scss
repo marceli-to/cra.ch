@@ -1,0 +1,24 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/buttons/visual
+ * -----------------------------------------------------------------------------
+ */
+
+.btn-visual {
+  display: block;
+  height: 23px;
+  left: calc(50% - 21px);
+  color: $color-white;
+  position: absolute;
+  top: calc(100% - 45px);
+  width: 43px;
+
+  @include bp-sm() {
+    display: none;
+  }
+
+  @include bp-lg() {
+    left: calc(50% - 38px);
+  }
+ 
+}

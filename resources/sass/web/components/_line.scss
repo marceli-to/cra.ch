@@ -1,0 +1,19 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/line
+ * -----------------------------------------------------------------------------
+ */
+
+%line,
+.line {
+  border-top: 2px solid $color-black;
+}
+
+%line-thin,
+.line-thin {
+  border-top: 1px solid $color-black !important;
+}
+
+.no-line {
+  border-top: none !important;
+}

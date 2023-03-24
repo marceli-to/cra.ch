@@ -1,0 +1,112 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/lists/global
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+.listing {
+  border-bottom: 2px solid $color-light;
+  @include responsive-prop('margin-bottom', $space-xs);
+
+  &.is-grouped {
+    border-bottom: none;
+  }
+
+  &.is-form {
+    border-bottom: 2px solid $color-light-grey;
+
+    .listing__item {
+      border-top: 2px solid $color-light-grey;
+    }
+  }
+
+  &.is-collapsible {
+    
+    .listing__item {
+      padding-left: 5px;
+      &:first-of-type {
+        border-top: none;
+      }
+    }
+  }
+
+  &.no-entries {
+    border-bottom: none;
+    padding-left: 2px;
+    padding-right: 2px;
+    @include responsive-prop('padding-top', $space-xs);
+    @include responsive-prop('padding-bottom', $space-xs);
+  }
+}
+
+.listing-group {
+  border-bottom: 2px solid $color-light;
+  @include responsive-prop('margin-bottom', $space-md);
+}
+
+.listing__item {
+  border-top: 2px solid $color-light;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding-left: 2px;
+  padding-right: 2px;
+  @include responsive-prop('padding-top', $space-xs);
+  @include responsive-prop('padding-bottom', $space-xs);
+
+
+  &:hover {
+    background-color: $color-light;
+  }
+
+  &.is-disabled {
+    * {
+      opacity: .7;
+    }
+  }
+
+  &.is-draggable {
+    cursor: move;
+    margin-bottom: 0 !important;
+    @include responsive-prop('padding-bottom', $space-xs);
+  }
+
+  &.is-narrow {
+    @include responsive-prop('padding-top', $space-xxs);
+    @include responsive-prop('padding-bottom', $space-xxs);   
+  }
+}
+
+.listing__item-body {
+  align-items: center;
+  display: flex;
+  @include responsive-prop('padding-right', $space-sm);
+
+  > a {
+    color: $color-black;
+    text-decoration: underline;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+}
+
+.listing__item-action {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+
+  > div {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 28px;
+
+    a {
+      line-height: 1 !important;
+    }
+  }
+}

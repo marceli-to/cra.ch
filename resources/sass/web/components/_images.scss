@@ -1,0 +1,68 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/images
+ * -----------------------------------------------------------------------------
+ *
+ * Various classes for image elements
+ */
+
+%is-responsive,
+.is-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+
+  &.desktop-only {
+    display: none;
+    @include bp-lg() {
+      display: block;
+    }
+  }
+  
+}
+
+figure.is-responsive {
+  img {
+    @extend %is-responsive;
+  }
+}
+
+figure {
+  figcaption {
+    display: block;
+    padding-top: $space-4x;
+  }
+}
+
+
+.visual {
+
+  img {
+    @extend %is-responsive;
+  }
+  
+  &.is-full-height {
+    height: calc(100vh - #{$header-height});
+    height: calc(100vh - var(--vh-offset, 0px) - #{$header-height});
+    @include bp-md {
+      height: auto;
+      min-height: auto;
+    }
+  
+    img, 
+    svg {
+      display: block;
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      width: 100%;
+  
+      @include bp-md() {
+        height: auto;
+        object-fit: unset;
+      }
+    }
+  }
+  
+}

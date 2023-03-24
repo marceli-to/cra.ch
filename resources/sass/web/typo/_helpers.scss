@@ -1,0 +1,91 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/typo/helpers
+ * -----------------------------------------------------------------------------
+ *
+ * Helper classes for typography
+ *
+ */
+
+%uppercase,
+.text-uc { 
+  text-transform: uppercase;
+}
+
+%lowercase,
+.text-lc { 
+  text-transform: lowercase;
+}
+
+%text-indent,
+.text-indent {
+  margin-bottom: 0;
+  &:not(:first-of-type) {
+    text-indent: $space-14x;
+  }
+}
+
+%prevent-text-indent,
+.prevent-text-indent {
+  text-indent: 0 !important;
+}
+
+%letter-spacing,
+.letter-spacing {
+  letter-spacing: .02em;
+}
+
+.cap { text-transform: capitalize; }
+.align-center { text-align: center; }
+.align-justify { text-align: justify; }
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+.nobr { white-space: nowrap; }
+
+.text-bold {
+  @include font-bold();
+}
+
+.text-regular {
+  @include font-regular();
+}
+
+.text-xs {
+  @include font-size($fs-xs);
+}
+
+.text-sm {
+  @include font-size($fs-sm);
+}
+
+.text-md {
+  @include font-size($fs-md);
+}
+
+.text-lead {
+  @include font-bold();
+}
+
+.text-max-width {
+  max-width: 720px;
+}
+
+/**
+ * Typography - Generic elements
+ * -----------------------------------------------------------------------------
+ */
+
+strong, b {
+	@include font-bold();
+}
+
+p {
+  @extend %mb-10x;
+	&:last-child {
+		margin-bottom: 0 !important;
+	}
+}
+
+i, em {
+	@include font-regular();
+}

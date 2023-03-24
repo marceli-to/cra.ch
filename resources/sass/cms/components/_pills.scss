@@ -1,0 +1,43 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/pills
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+.pill {
+  @extend %flex;
+  @extend %items-center;
+  @extend %justify-center;
+  border-radius: 12px;
+  background-color: $color-dark;
+  color: $color-white !important;
+  @include font-regular();
+  font-size: 11px !important;
+  margin-left: 16px;
+  padding: 0 8px;
+  height: 20px;
+  min-width: 60px;
+
+  &.is-danger {
+    background-color: $color-red;
+  }
+
+  &.is-open,
+  &.is-queued,
+  &.is-special {
+    background-color: $color-blue;
+  }
+
+  &.is-paid,
+  &.is-verified,
+  &.is-processed {
+    background-color: $color-green;
+  }
+
+  &.is-left {
+    margin-left: 0;
+    margin-right: 16px;
+  }
+  
+}

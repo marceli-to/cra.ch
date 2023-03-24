@@ -1,0 +1,48 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/buttons/primary
+ * -----------------------------------------------------------------------------
+ */
+
+%btn-primary,
+.btn-primary {
+	@extend %btn-ib;
+	background-color: $color-primary;
+	border-radius: 2px;
+	border: none;
+	color: $color-white !important;
+  @include font-size($fs-btn);
+  @include font-bold();
+  letter-spacing: 0.06em;
+  line-height: 1 !important;
+	padding: 16px 24px;
+	width: auto;
+  text-transform: uppercase;
+	transition: background-color .1s ease-out;
+
+	&.is-sm {
+		padding: 12px 16px;
+	}
+
+  &.is-tiny {
+    @include font-size($fs-xs);
+    background-color: $color-blue;
+    padding: 8px 10px;
+    line-height: 1 !important;
+  }
+
+	&.has-icon {
+		align-items: center;
+		display: inline-flex;
+		padding-left: 10px;
+
+		span {
+			display: block;
+			padding-left: 10px;
+		}
+	}
+
+	&:hover {
+		background-color: $color-secondary;
+	}
+}

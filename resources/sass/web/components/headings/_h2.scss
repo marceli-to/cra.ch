@@ -1,0 +1,20 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/headings/h2
+ * -----------------------------------------------------------------------------
+ */
+
+h2 {
+  @extend %uppercase;
+  @extend %mb-1x;
+  @extend %lg\:mb-6x;
+  @extend %letter-spacing;
+  @include font-size($fs-md);
+  @include font-bold();
+  max-width: 560px;
+  position: relative;
+
+  @include bp-xl() {
+    max-width: 700px;
+  }
+}

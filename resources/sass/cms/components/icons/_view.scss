@@ -1,0 +1,12 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/icons/view
+ * -----------------------------------------------------------------------------
+ */
+
+.icon-view {
+  @extend %icon-ib;
+  color: $color-primary;
+  margin-bottom: 20px;
+  text-decoration: none !important;
+}

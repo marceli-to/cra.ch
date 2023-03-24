@@ -1,0 +1,81 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/section
+ * -----------------------------------------------------------------------------
+ */
+
+section.content {
+  @extend %inner-block;
+  @extend %mb-22x;
+  @extend %md\:mb-25x;
+  @extend %lg\:mb-28x;
+
+  &.is-first {
+    > div {
+      @extend %line;
+      @extend %mt-22x;
+      @extend %lg\:mt-35x;
+      @extend %pt-4x;
+      @extend %lg\:pt-6x;
+    }
+  }
+}
+
+section.content-visual {
+  @extend %visual-block;
+  @extend %mb-15x;
+  @extend %lg\:mb-18x;
+  position: relative;
+  @include bp-lg() {
+    padding-left: $space-8x;
+    padding-right: $space-8x;
+  }
+}
+
+section.content-lightbox {
+  @extend %outer-block;
+  padding-top: $space-8x;
+  position: relative;
+
+  > div {
+    @extend %mx-auto;
+    max-width: $lightbox-max-width;
+
+    @include bp-xxl() {
+      max-width: $lightbox-max-width-xxl;
+    }
+  }
+
+  h2 {
+    max-width: none !important;
+  }
+
+  header {
+    @extend %mb-4x;
+    @extend %lg\:mb-6x;
+
+    h2 {
+      @extend %lg\:mb-0;
+    }
+
+    > div {
+      text-transform: uppercase;
+    }
+  }
+
+  footer {
+    margin-top: $space-24x;
+
+    @include bp-md() {
+      margin-top: 2 * $space-18x;
+    }
+
+    @include bp-lg() {
+      margin-top: 2 * $space-15x;
+    }
+
+    a {
+      @extend %link;
+    }
+  }
+}

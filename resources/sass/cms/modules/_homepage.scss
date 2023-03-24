@@ -1,0 +1,62 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: modules/homepage
+ * -----------------------------------------------------------------------------
+ */
+
+.grid-items {
+
+  header.content-header {
+    margin-top: $space-12x;
+  }
+
+  img {
+    @extend %is-responsive;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    right: $space-4x;
+    position: absolute;
+    top: $space-4x;
+  }
+
+  .grid-item__hero,
+  .grid-item {
+    position: relative;
+
+    &.draggable {
+      cursor: move;
+    }
+  }
+
+  .grid-item__hero {
+    img {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .grid-item {
+    border: 2px dashed $color-light-grey;
+    padding: $space-2x;
+
+    .btn-primary  {
+      right: $space-3x;
+      top: $space-3x;
+    }
+
+    h2 {
+      text-transform: uppercase;
+    }
+
+    img {
+      @include responsive-prop('margin-bottom', $space-xs);
+    }
+
+    p {
+      @extend %word-break;
+      color: $color-black;
+      margin: 0;
+    }
+  }
+}

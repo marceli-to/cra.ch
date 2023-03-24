@@ -1,0 +1,101 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/collapsible
+ * -----------------------------------------------------------------------------
+ */
+
+.collapsible {
+
+  &.is-article {
+    @extend %mb-0;
+
+    &.is-expanded {
+      @extend %mb-12x;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.is-list-item {
+    @extend %mb-10x;
+    @extend %md\:mb-12x;
+    border-bottom: 2px solid $color-black;
+
+    &.is-expanded {
+      // @extend %pb-8x;
+      // @extend %md\:pb-10x;
+      // @extend %lg\:pb-12x;
+      @extend %pb-12x;
+      @extend %md\:pb-16x;
+      @extend %lg\:pb-20x;
+      border-bottom: 2px solid transparent;
+      margin-bottom: 0 !important;
+      &:last-of-type {
+        padding-bottom: 0 !important;
+      }
+    }    
+  }
+
+  &.is-expanded {
+
+    .btn-collapsible {
+      svg {
+        &:first-of-type {
+          display: none;
+        }
+        &:last-of-type {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &.is-last {
+    margin-bottom: 0 !important;
+    .grid {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  h2 {
+    @extend %mb-5x;
+    @extend %md\:mb-5x;
+    @extend %lg\:mb-5x;
+  }
+
+  .grid {
+    @extend %mb-16x;
+    @extend %md\:mb-12x;
+    @extend %lg\:mb-18x;
+  }
+
+  .btn-collapsible {
+    display: flex;
+
+    span {
+      display: inline-block;
+      padding-right: $space-6x;
+    }
+
+    > svg {
+      @extend %mt-3x;
+      @extend %xxl\:mt-4x;
+      
+      &:first-of-type {
+        display: inline-block;
+      }
+      &:last-of-type {
+        display: none;
+      }
+    }
+
+    &.has-subtitle {
+      align-items: center;
+      > svg {
+        @extend %mt-10x;
+      }
+    }
+  }
+
+}

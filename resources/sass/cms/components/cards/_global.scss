@@ -1,0 +1,73 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/cards/global
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+.cards {
+  @include responsive-prop('margin-top', $space-lg);
+
+  @include bp-sm() {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    @include responsive-prop('grid-gap', $space-md);
+  }
+
+  &.cards__newsletter {
+    margin-top: 0 !important;
+    @include bp-sm() {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+
+%card,
+.card {
+  border: 2px solid $color-light;
+  color: $color-primary;
+  margin-top: $space-8x;
+  @include responsive-prop('padding-left', $space-xs);
+  @include responsive-prop('padding-right', $space-xs);
+  @include responsive-prop('padding-bottom', $space-sm);
+  @include responsive-prop('padding-top', $space-xs);
+  transition: border .12s ease-in;
+
+  @include bp-sm() {
+    margin-top: 0;
+  }
+  
+  &:hover {
+    border: 2px solid $color-primary;
+  }
+  
+  a {
+    color: $color-primary;
+  }
+
+  h2 {
+    color: $color-primary;
+    @include font-size($fs-lg);
+    @include responsive-prop('margin-bottom', $space-xs);
+  }
+
+  p {
+    color: $color-dark;
+    margin: 0 !important;
+  }
+
+  .card__action {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    @include responsive-prop('margin-top', $space-xs);
+
+    > div {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 28px;
+    }
+  }
+}

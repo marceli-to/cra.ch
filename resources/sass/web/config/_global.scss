@@ -1,0 +1,67 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: config/global
+ * -----------------------------------------------------------------------------
+ *
+ * Global settings and variables
+ *
+ */
+ 
+/* Box shadows
+ * -------------------- */
+
+$box-shadow: 5px 8px 20px 0px rgba(0,0,0,0.45);
+
+/* Default easing
+ * -------------------- */
+
+$easing: cubic-bezier(0.980, 0.310, 0.940, 0.840);
+
+/* Urls
+ * -------------------- */
+ 
+$url-images: '../img/';
+$url-icons:  '../img/icons/';
+$url-svg:    '../img/svg/';
+
+/* Breakpoints
+ * -------------------- */
+
+$bp-sm:   600px;
+$bp-md:   700px;
+$bp-lg:  1000px;
+$bp-xl:  1200px;
+$bp-xxl: 1600px;
+
+$breakpoints: (
+  sm: $bp-sm,
+  md: $bp-md,
+  lg: $bp-lg,
+  xl: $bp-xxl,
+);
+
+/* Site
+ * -------------------- */
+
+// standard screen size
+$page-max-width:     1200px;
+$lightbox-max-width:  950px;
+
+// extra large screen size
+$page-max-width-xxl:     1440px;
+$lightbox-max-width-xxl:  1200px;
+
+/* Header
+ * -------------------- */
+
+$header-height:     58px;
+$header-height-lg:  82px;
+$header-height-xxl: 89px;
+
+/* Grids
+ * -------------------- */
+
+$grid-gap-sm: 10px;
+$grid-gap-md: 15px;
+
+

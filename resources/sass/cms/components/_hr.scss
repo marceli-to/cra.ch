@@ -1,0 +1,18 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/hr
+ * -----------------------------------------------------------------------------
+ */
+
+hr,
+.hr {
+  background-color: transparent;
+  border-bottom: 2px dashed $color-light-grey;
+  height: 1px;
+  display: block;
+  line-height: 1;
+  width: 100%;
+  @include responsive-prop('margin-bottom', $space-sm);
+  @include responsive-prop('margin-top', $space-sm);
+
+}

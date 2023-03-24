@@ -1,0 +1,76 @@
+
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/menu/lightbox
+ * -----------------------------------------------------------------------------
+ */
+
+nav.lightbox {
+  @extend %mx-auto;
+  @extend %mb-16x;
+  @extend %lg\:mb-12x;
+  display: flex;
+  justify-content: flex-start;
+  max-width: $lightbox-max-width;
+  position: relative;
+
+  @include bp-xl() {
+    justify-content: flex-end;
+  }
+
+  @include bp-xxl() {
+    max-width: $lightbox-max-width-xxl;
+  }
+
+  &.is-top {
+    min-height: 35px;
+    @include bp-lg() {
+      min-height: 49px;
+    }
+  }
+
+  &.is-bottom {
+    @extend %mt-16x;
+    @extend %lg\:mt-32x;
+    margin-bottom: 0 !important;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    max-width: 64px;
+    width: 100%;
+
+    @include bp-lg() {
+      max-width: 86px;
+    }
+  }
+
+  li {
+    position: relative;
+  }
+
+  .lightbox__hover {
+    display: none;
+    @include font-size($fs-md);
+    line-height: 1 !important;
+    position: absolute;
+
+    @include bp-md() {
+      display: block;
+      left: 85px;
+      top: 8px;
+    }
+
+    @include bp-lg() {
+      left: 106px;
+      top: 14px;
+    }
+
+    @include bp-xl() {
+      left: auto;
+      right: 116px;
+      top: 14px;
+    }
+  }
+}

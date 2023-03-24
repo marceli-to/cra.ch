@@ -1,0 +1,30 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/columns
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+%columns,
+.columns {
+  @include bp-md() {
+    columns: 2 auto;
+    column-gap: $space-9x;
+  }
+}
+
+%columns-lg,
+.columns-lg {
+  @include bp-lg() {
+    columns: 2 auto;
+    column-gap: $space-9x;
+  }
+}
+
+%columns-3,
+.columns-3 {
+  @extend %columns;
+  @include bp-md() {
+    columns: 3 auto;
+  }
+}

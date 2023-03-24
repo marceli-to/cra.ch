@@ -1,0 +1,23 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/header
+ * -----------------------------------------------------------------------------
+ */
+
+header.site-header {
+  > div {
+    @extend %outer-block;
+    @extend %pt-8x;
+    @extend %lg\:pt-9x;
+    height: $header-height;
+    position: relative;
+
+    @include bp-lg() {
+      height: $header-height-lg;
+    }
+
+    @include bp-xxl() {
+      height: $header-height-xxl;
+    }
+  }
+}

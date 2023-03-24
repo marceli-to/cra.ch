@@ -1,0 +1,43 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/logo
+ * -----------------------------------------------------------------------------
+ */
+
+.logo {
+  display: block;
+  width: 155px;
+  left: 16px;
+  position: absolute;
+  top: 16px;
+  z-index: 601;
+
+  @include bp-md() {
+    position: absolute;
+  }
+
+  @include bp-lg() {
+    left: 19px;
+    top: 18px;
+    width: 235px;
+  }
+
+  @include bp-xxl() {
+    left: 18px;
+    width: 258px;
+  }
+
+  svg {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.has-menu {
+  .logo {
+    position: fixed;
+    @include bp-md() {
+      position: absolute;
+    }
+  }
+}

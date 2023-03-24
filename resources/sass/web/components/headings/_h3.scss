@@ -1,0 +1,14 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/headings/h3
+ * -----------------------------------------------------------------------------
+ */
+
+h3 {
+  @extend %uppercase;
+  @extend %mb-1x;
+  @extend %letter-spacing;
+  @include font-size($fs-md);
+  @include font-bold();
+  position: relative;
+}

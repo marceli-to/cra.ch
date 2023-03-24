@@ -1,0 +1,30 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/buttons/submit
+ * -----------------------------------------------------------------------------
+ */
+
+.btn-submit {
+  @extend %btn;
+  color: $color-black;
+  @include font-bold();
+  padding: 0;
+  text-transform: uppercase;
+
+  &.is-newsletter {
+    margin-left: 0 !important;
+  }
+
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+@keyframes loading {
+  0% { 
+		transform: translate(0,0);
+	}
+  100% { 
+		transform: translate(100px,0);
+	}
+}

@@ -1,0 +1,39 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/buttons/close
+ * -----------------------------------------------------------------------------
+ */
+
+a.btn-lightbox-close {
+  display: block;
+  height: 29px;
+  position: fixed;
+  right: $space-8x;
+  top: $space-8x;
+  width: 29px;
+  z-index: 500;
+  
+  @include bp-lg() {
+    height: 43px;
+    right: calc((100% - #{$lightbox-max-width}) / 2);
+    width: 43px;
+  }
+
+  @include bp-xl() {
+    right: calc(((100% - #{$page-max-width}) / 2) + 20px);
+  }
+
+  @include bp-xxl() {
+    right: calc(((100% - #{$page-max-width-xxl}) / 2) + 20px);
+  }
+
+  &.is-workshop {
+    @include bp-xl() {
+      right: calc(((100% - #{$page-max-width}) / 2) + 20px);
+    }
+  
+    @include bp-xxl() {
+      right: calc(((100% - #{$page-max-width-xxl}) / 2) + 20px);
+    }
+  }
+}

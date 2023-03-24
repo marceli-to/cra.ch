@@ -1,0 +1,21 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/main
+ * -----------------------------------------------------------------------------
+ */
+ 
+$space-bottom: (
+  null:  80px,
+  sm:    80px,
+  md:    130px,
+  lg:    130px
+);
+
+main.site {
+  @include responsive-prop('padding-top', $space-md);
+  @include responsive-prop('padding-bottom', $space-bottom);
+
+  > div {
+    @extend %page-block;
+  }
+}

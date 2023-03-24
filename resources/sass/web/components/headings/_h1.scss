@@ -1,0 +1,14 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/headings/h1
+ * -----------------------------------------------------------------------------
+ */
+
+h1 {
+  @extend %mb-8x;
+  @extend %lg\:mb-10x;
+  @include font-bold();
+  @include font-size($fs-lg);
+  line-height: 1 !important;
+  text-transform: uppercase;
+}

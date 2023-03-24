@@ -1,0 +1,123 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: form/placeholder
+ * -----------------------------------------------------------------------------
+ */
+
+input[type=text]::-webkit-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=text]::-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=text]:-ms-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=text]:-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=number]::-webkit-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=number]::-moz-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=number]:-ms-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=number]:-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=email]::-webkit-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=email]::-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=email]:-ms-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+input[type=email]:-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+textarea::-webkit-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+textarea::-moz-placeholder {
+  color: $color-black;
+  opacity: 1 !important;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+textarea:-ms-input-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}
+
+textarea:-moz-placeholder {
+  color: $color-black;
+  &.is-invalid {
+    color: $color-danger;
+  }
+}

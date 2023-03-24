@@ -1,0 +1,19 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: form/input
+ * -----------------------------------------------------------------------------
+ */
+
+input {
+  &.is-small {
+    max-width: 120px;
+    padding: 10px !important;
+  }
+}
+
+input, textarea {
+
+  &.is-inline-edit {
+    border: 1px dashed $color-light-grey;
+  }
+}

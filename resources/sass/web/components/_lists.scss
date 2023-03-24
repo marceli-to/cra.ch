@@ -1,0 +1,27 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/lists
+ * -----------------------------------------------------------------------------
+ */
+
+ul.list {
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-left: 20px;
+  padding: 0;
+
+  li {
+    display: list-item;
+    padding-left: 5px;
+    position: relative;
+    
+    &:before {
+      @include font-regular();
+      content: '\2014';
+      position: absolute;
+      margin-left: -25px;
+    }
+  }
+}
+
