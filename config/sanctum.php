@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,127.0.0.1,cristinarutz.ch.local,itavolidelvagabondo.ch.ch,www.itavolidelvagabondo.ch.ch')),
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,127.0.0.1,gmuerarch.ch.local,itavolidelvagabondo.ch.ch,www.itavolidelvagabondo.ch.ch')),
 
     /*
     |--------------------------------------------------------------------------

@@ -12,7 +12,7 @@
   color: $color-white;
   display: inline-block !important;
   @include font-mono();
-  @include font-size($fs-xs);
+  @include font-size($fs-xxs);
   line-height: 1 !important;
   padding: 6px;
   position: relative;

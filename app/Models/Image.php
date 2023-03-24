@@ -22,21 +22,47 @@ class Image extends Base
     'caption',
     'description',
     'orientation',
+    'ratio',
 		'coords_w',
     'coords_h',
     'coords_x',
     'coords_y',
     'order',
+    'preview',
     'publish',
     'locked',
     'imageable_id',
     'imageable_type'
   ];
 
+  /**
+   * The accessors to append to the model's array form.
+   *
+   * @var array
+   */
+
+  protected $appends = [
+    'coords',
+  ];
+
+  /**
+   * Relationships
+   * 
+   */
+
   public function imageable()
   {
     return $this->morphTo();
   }
+
+	/**
+   * Scope for preview images
+   */
+
+	public function scopePreview($query)
+	{
+		return $query->where('preview', 1);
+	}
 
 	/**
    * Scope for published images
@@ -70,20 +96,5 @@ class Image extends Base
       $coords = floor($this->coords_w) . ',' .  floor($this->coords_h) . ',' .  floor($this->coords_x) . ',' .  floor($this->coords_y);
     }
     return $coords;
-  }
-
-	/**
-	 * Get the image ratio
-	 *
-	 * @return string
-	 */
-  
-	public function getRatioAttribute()
-	{
-    if (($this->coords_w && $this->coords_h) && ($this->coords_w > $this->coords_h))
-    {
-      return 'wide';
-    }
-    return '';
   }
 }

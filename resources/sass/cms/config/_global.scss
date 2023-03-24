@@ -47,16 +47,16 @@ $breakpoints: (
  * ---------------------- */
 
 // Page layout
-$page-max-width:      640px;
-$page-max-width-sm:   728px;
-$page-max-width-md:   860px;
-$page-max-width-lg:   1100px;
+$site-max-width:      640px;
+$site-max-width-sm:   728px;
+$site-max-width-md:   860px;
+$site-max-width-lg:   1100px;
 
-$page-max-width: (
-  null:  $page-max-width,
-  sm:    $page-max-width-sm,
-  md:    $page-max-width-md,
-  lg:    $page-max-width-lg
+$site-max-width: (
+  null:  $site-max-width,
+  sm:    $site-max-width-sm,
+  md:    $site-max-width-md,
+  lg:    $site-max-width-lg
 );
 
 // Header

@@ -13,5 +13,5 @@
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
-  @include responsive-prop('max-width', $page-max-width);
+  @include responsive-prop('max-width', $site-max-width);
 }

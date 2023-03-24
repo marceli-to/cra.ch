@@ -1,41 +1,64 @@
 <template>
-  <div class="is-loaded">
-    <page-header>
-      <h1>Startseite</h1>
-    </page-header>
-    <div class="content content--wide cards">
-      <div class="card">
-        <router-link :to="{name: 'home-layout'}">
-          <h2>Layout</h2>
-          <p>Verwaltung der Startseite</p>
-        </router-link>
-      </div>
-      <div class="card">
-        <router-link :to="{name: 'teasers'}">
-          <h2>Teaser</h2>
-          <p>Verwaltung der Teaser</p>
-        </router-link>
-      </div>
-    </div>
-    <page-footer>
-      <button-back :route="'dashboard'">Zurück</button-back>
-    </page-footer>
+  <div v-if="isFetched">
+    <loading-indicator v-if="isLoading"></loading-indicator>
+    <grid 
+      :grids="home.grids"
+      :model="home" 
+      :modelName="'Home'"
+      @sortedRows="fetch()"
+      @addedRowItem="fetch()"
+      @resetItem="fetch()"
+      @addedRow="fetch()"
+      @deletedRow="fetch()">
+    </grid>
   </div>
 </template>
 <script>
-import Helpers from "@/mixins/Helpers";
-import ButtonBack from "@/components/ui/ButtonBack.vue";
-import PageHeader from "@/components/ui/PageHeader.vue";
-import PageFooter from "@/components/ui/PageFooter.vue";
+import Grid from "@/modules/grid/Index.vue";
 
 export default {
 
   components: {
-    PageHeader,
-    PageFooter,
-    ButtonBack
+    Grid
   },
 
-  mixins: [Helpers],
-}
+  data() {
+    return {
+
+      home: {},
+
+      // Routes
+      routes: {
+        get: '/api/home',
+      },
+
+      // States
+      isLoading: false,
+      isFetched: false,
+
+      // Messages
+      messages: {
+        emptyData: 'Es sind noch keine Daten vorhanden...',
+        confirm: 'Bitte löschen bestätigen!',
+        updated: 'Daten aktualisiert',
+      }
+    };
+  },
+
+  created() {
+    this.fetch();
+  },
+
+  methods: {
+    fetch() {
+      this.isLoading = true;
+      this.axios.get(`${this.routes.get}`).then(response => {
+        this.home = response.data.home;
+        this.isFetched = true;
+        this.isLoading = false;
+      });
+    },
+  }
+
+};
 </script>

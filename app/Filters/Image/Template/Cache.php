@@ -19,7 +19,7 @@ class Cache implements FilterInterface
   {
     $this->maxSize   = $maxSize ? $maxSize : 1500;
     $this->coords    = $coords;
-    $this->ratio     = $ratio ? $ratio : '3x2';
+    $this->ratio     = $ratio;
   }
 
   public function applyFilter(Image $image)
@@ -88,10 +88,9 @@ class Cache implements FilterInterface
         return $image->fit(floor($y), floor($x), function ($constraint) {
           $constraint->upsize();
         });
-
       }
 
-      return $image->fit($this->maxSize, $this->maxSize, function ($constraint) {
+      return $image->resize($this->maxSize, $this->maxSize, function ($constraint) {
         $constraint->aspectRatio();
         $constraint->upsize();
       });

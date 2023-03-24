@@ -37,9 +37,14 @@ nav.page {
     display: flex;
     justify-content: space-between;
     @include responsive-prop('height', $header-heights);
+  
+    strong {
+      @include font-bold();
+    }
 
     span {
       color: $color-primary;
+      @include font-regular();
       @include font-size($fs-xs);
 
       .feather-icon {

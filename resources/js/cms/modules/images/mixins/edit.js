@@ -28,15 +28,19 @@ export default {
 
   methods: {
     toggle(image, $event) {
-      this.$parent.toggleImage(image, $event)
+      this.$parent.toggleImage(image, $event);
+    },
+
+    togglePreviewState(image, $event) {
+      this.$parent.togglePreviewState(image, $event);
     },
 
     destroy(image, $event) {
-      this.$parent.destroyImage(image, $event)
+      this.$parent.destroyImage(image, $event);
     },
 
     update(image, $event) {
-      this.$parent.updateImage(image, $event)
+      this.$parent.updateImage(image, $event);
       this.hideEdit();
     },
 

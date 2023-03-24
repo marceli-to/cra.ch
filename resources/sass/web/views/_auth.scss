@@ -44,9 +44,11 @@ body.auth {
     }
 
     h1 {
+      @include font-bold();
       @include font-size($fs-md);
+      @extend %mb-10x;
     }
-  
+    
     .form-group {
       @extend %mb-20x;
     }
@@ -61,16 +63,19 @@ body.auth {
     label {
       @extend %mb-5x;
       display: block;
-      color: $color-grey;
+      color: $color-black;
     }
 
     // Helpers
     .form-helper {
       @extend %ml-5x;
-      color: $color-grey;
+      color: $color-black;
       text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+
       &:hover {
-        color: $color-black;
+        text-decoration: none;
       }
     }
 

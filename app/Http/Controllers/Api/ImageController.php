@@ -92,7 +92,7 @@ class ImageController extends Controller
   }
 
   /**
-   * Toggle the status a given image
+   * Toggle the publish state a given image
    *
    * @param  Image $image
    * @return \Illuminate\Http\Response
@@ -102,6 +102,19 @@ class ImageController extends Controller
     $image->publish = $image->publish == 0 ? 1 : 0;
     $image->save();
     return response()->json($image->publish);
+  }
+
+  /**
+   * Toggle the preview state a given image
+   *
+   * @param  Image $image
+   * @return \Illuminate\Http\Response
+   */
+  public function preview(Image $image)
+  {
+    $image->preview = $image->preview == 0 ? 1 : 0;
+    $image->save();
+    return response()->json($image->preview);
   }
 
   /**

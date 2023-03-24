@@ -40,28 +40,23 @@ import store from '@/config/store';
 
 // Routes
 import baseRoutes from '@/config/routes';
-import imageRoutes from '@/modules/images/config/routes';
+import officeRoutes from '@/views/pages/office/config/routes';
+import discourseRoutes from '@/views/pages/discourse/config/routes';
+import projectRoutes from '@/views/pages/project/config/routes';
 import homeRoutes from '@/views/pages/home/config/routes';
-import eventRoutes from '@/views/pages/event/config/routes';
-import programRoutes from '@/views/pages/annual_program/config/routes';
-import activityRoutes from '@/views/pages/activity/config/routes';
-import pageRoutes from '@/views/pages/page/config/routes';
-import aboutRoutes from '@/views/pages/about/config/routes';
-import galleryRoutes from '@/views/pages/gallery/config/routes';
+import imageRoutes from '@/modules/images/config/routes';
+
 
 const router = new VueRouter(
   { 
     mode: 'history', 
     routes: [
       ...baseRoutes,
+      ...officeRoutes,
+      ...discourseRoutes,
+      ...projectRoutes,
       ...imageRoutes,
-      ...homeRoutes,
-      ...eventRoutes,
-      ...programRoutes,
-      ...activityRoutes,
-      ...aboutRoutes,
-      ...pageRoutes,
-      ...galleryRoutes,
+      ...homeRoutes
     ]
   }
 );

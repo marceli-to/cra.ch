@@ -10,7 +10,8 @@
   color: #ffffff;
   background: $color-info;
   border-radius: 0;
-  @include font-size($fs-sm);
+  @include font-mono();
+  @include font-size($fs-xs);
   margin: 10px 10px 0 0;
   padding: 10px;
 

@@ -38,6 +38,7 @@
 @import 'components/buttons/danger';
 @import 'components/buttons/misc';
 @import 'components/cards/global';
+@import 'components/chip';
 @import 'components/collapsible';
 @import 'components/headings/global';
 @import 'components/headings/h1';
@@ -92,7 +93,7 @@
 
 // Modules
 @import 'modules/global';
-@import 'modules/homepage';
+@import 'modules/grid';
 
 // Vendor
 @import 'vendor/dropzone';

@@ -22,17 +22,6 @@ return [
   |
   */
 
-  'description' => 'Homepage des Cristina Rutz Architekten',   
-
-  /*
-  |--------------------------------------------------------------------------
-  | Seo keywords
-  |--------------------------------------------------------------------------
-  |
-  | Meta keywords
-  |
-  */
-
-  'keywords' => ''
+  'description' => 'Cristina Rutz Architekten',   
 
 ];

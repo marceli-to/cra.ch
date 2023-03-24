@@ -24,7 +24,7 @@ header.content-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  @include responsive-prop('margin-bottom', $space-sm);
+  @include responsive-prop('margin-bottom', $space-md);
 
   &.is-narrow {
     @include responsive-prop('margin-bottom', $space-xs);

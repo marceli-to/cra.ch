@@ -12,12 +12,10 @@
 	border: none;
 	color: $color-white !important;
   @include font-size($fs-btn);
-  @include font-bold();
-  letter-spacing: 0.06em;
+  @include font-regular();
   line-height: 1 !important;
 	padding: 16px 24px;
 	width: auto;
-  text-transform: uppercase;
 	transition: background-color .1s ease-out;
 
 	&.is-sm {

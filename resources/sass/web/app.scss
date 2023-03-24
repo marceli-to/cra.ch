@@ -31,14 +31,9 @@
 @import 'components/boxes/global';
 @import 'components/boxes/ratio';
 @import 'components/buttons/global';
-@import 'components/buttons/close';
 @import 'components/buttons/primary';
-@import 'components/buttons/menu';
-@import 'components/buttons/submit';
-@import 'components/buttons/visual';
 @import 'components/cards';
 @import 'components/collapsible';
-@import 'components/columns';
 @import 'components/icons/global';
 @import 'components/icons/dash';
 @import 'components/headings/global';
@@ -72,10 +67,8 @@
 
 // Menu
 @import 'menu/global';
-@import 'menu/lightbox';
 @import 'menu/site';
 
 // Views
 @import 'views/auth';
-@import 'views/workshop';
 

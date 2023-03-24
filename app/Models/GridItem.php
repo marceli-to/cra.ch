@@ -1,27 +1,58 @@
 <?php
 namespace App\Models;
 use App\Models\Base;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class GridItem extends Base
 {
-  use HasFactory;
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
 
   protected $fillable = [
-    'event_id',
-    'teaser_id',
-    'order'
+    'position',
+    'project_id',
+    'image_id',
+    'grid_id'
   ];
 
-  public function event()
+
+  /**
+   * The grid that belongs to this image grid item.
+   */
+  
+  public function grid()
   {
-		$constraint = date('Y-m-d', time());
-    return $this->hasOne(Event::class, 'id', 'event_id')->where('date', '>=', $constraint)->orWhere('sticky', 1)->orWhere('placeholder', 1);
+    return $this->belongsTo(Grid::class);
   }
 
-  public function teaser()
+  /**
+   * The image that belongs to this image grid item.
+   */
+  
+  public function image()
   {
-    return $this->hasOne(Teaser::class, 'id', 'teaser_id');
+    return $this->belongsTo(Image::class);
   }
+
+  /**
+   * The discourse article that belongs to this image grid item.
+   */
+  
+  public function discourse()
+  {
+    return $this->belongsTo(Discourse::class);
+  }
+
+  /**
+   * The project that belongs to this image grid item.
+   */
+  
+  public function project()
+  {
+    return $this->belongsTo(Project::class);
+  }
+
 }

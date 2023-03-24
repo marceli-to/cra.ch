@@ -21,11 +21,13 @@ class CreateImagesTable extends Migration
           $table->string('extension', 4);
           $table->float('size', 24, 0)->default(0);
           $table->string('caption')->nullable();
+          $table->text('description')->nullable();
           $table->string('orientation', 5)->nullable();
           $table->double('coords_w', 16, 12)->nullable();
           $table->double('coords_h', 16, 12)->nullable();
           $table->double('coords_x', 16, 12)->nullable();
           $table->double('coords_y', 16, 12)->nullable();
+          $table->tinyInteger('order')->default(-1);
           $table->tinyInteger('publish')->default(0);
           $table->tinyInteger('locked')->default(0);
           $table->nullableMorphs('imageable');

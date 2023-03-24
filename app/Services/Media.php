@@ -72,11 +72,13 @@ class Media
     $filetype = File::extension($this->upload_path . $filename);
     $filesize = File::size($this->upload_path . DIRECTORY_SEPARATOR . $filename);
     $orientation = null;
+    $ratio = null;
 
     if (in_array(strtolower($filetype), $this->image_types))
     {
       $img = \Image::make($this->upload_path . DIRECTORY_SEPARATOR . $filename);
       $orientation = $img->width() >= $img->height() ? 'l' : 'p';
+      $ratio = $img->width() . 'x' . $img->height();
     }
 
     return [
@@ -84,7 +86,8 @@ class Media
       'original_name' => $name, 
       'extension' => $filetype, 
       'size' => $filesize,
-      'orientation' => $orientation
+      'orientation' => $orientation,
+      'ratio' => $ratio
     ];
   }
 

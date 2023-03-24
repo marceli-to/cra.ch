@@ -5,7 +5,7 @@
   {{ __('Please confirm your password before continuing.') }}
 </div>
 @if ($errors->any())
-  <x-alert type="danger" message="{{__('messages.general_error')}}" />
+  <x-alert type="danger" message="{{__('messages.Bitte alle markierten Felder prüfen!')}}" />
 @endif
 <form method="POST" action="{{ route('password.confirm') }}">
   @csrf

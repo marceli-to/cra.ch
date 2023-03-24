@@ -1,0 +1,25 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/chip
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+.chip {
+  @extend %flex;
+  @extend %items-center;
+  @extend %justify-center;
+  @extend %mx-1x;
+  @extend %px-1x;
+  @extend %py-1x;
+  border-radius: 2px;
+  background-color: $color-grey;
+  color: $color-white;
+  @include font-mono();
+  font-size: 12px !important;
+  line-height: 1 !important;
+
+  &.chip-dark {
+    background-color: $color-black;
+  }
+}

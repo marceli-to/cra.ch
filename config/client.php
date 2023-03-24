@@ -9,7 +9,7 @@ return [
   |
   */
 
-  'company' => env('CRA_COMPANY_NAME', 'Cristina Rutz Architekten'),
+  'company' => env('CRA_COMPANY_NAME', 'Cristina Rutz Architekten '),
 
   /*
   |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ return [
   'email' => [
     'from' => env('CRA_MAIL_FROM', 'marcel@jamon.digital'),
     'recipient' => env('CRA_MAIL_RECIPIENT', 'm@marceli.to'),
-    'bcc' => env('CRA_MAIL_BCC', 'info@cristinarutz.ch'),
+    'bcc' => env('CRA_MAIL_BCC', 'm@marceli.to'),
     'recipient_test' => env('CRA_MAIL_RECIPIENT_TEST', 'm@marceli.to')
   ],
 
@@ -32,7 +32,7 @@ return [
   |
   */
 
-  'domain' => env('CRA_DOMAIN', 'https://forum-architektur.ch'),
+  'domain' => env('CRA_DOMAIN', 'https://gmuerarch.ch'),
 
   /*
   |--------------------------------------------------------------------------

@@ -39,7 +39,8 @@
   .grid-item {
     border: 2px dashed $color-light-grey;
     padding: $space-2x;
-
+    position: relative;
+    
     .btn-primary  {
       right: $space-3x;
       top: $space-3x;

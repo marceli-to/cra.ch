@@ -1,5 +1,6 @@
 @extends('layout.web')
 @section('content')
-<section>
+<section class="content">
+  
 </section>
 @endsection

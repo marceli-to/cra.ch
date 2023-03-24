@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
-// use App\Services\GridItems;
+use App\Models\Home;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
@@ -21,12 +21,13 @@ class HomeController extends BaseController
 
   public function index()
   {
-    // Get grid items
-    // $grid_items = [
-    //   'events' => (new GridItems())->get('event'),
-    //   'teasers' => (new GridItems())->get('teaser'),
-    // ];
-    // return view($this->viewPath . 'index', ['hero' => $hero, 'grid_items' => $grid_items]);
+    // $grid = Home::with(
+    //   'grids.gridItems.image', 
+    //   'grids.gridItems.project',
+    //   'grids.gridItems.discourse.publishedImage',
+    //   'grids.gridItems.discourse.topics'
+    // )->find(1);
+    // return view($this->viewPath . 'index', ['grid' => $grid]);
     return view($this->viewPath . 'index');
   }
 

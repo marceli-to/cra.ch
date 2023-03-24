@@ -1,6 +1,15 @@
 <template>
   <div class="listing__item-action">
 
+    <div v-if="hasGrid">
+      <router-link
+        :to="{name: routes.grid, params: { id: id }}"
+        class="feather-icon"
+      >
+        <grid-icon size="18"></grid-icon>
+      </router-link>
+    </div>
+
     <div v-if="hasDownload">
       <a
         :href="'/storage/uploads/' + record.file"
@@ -23,7 +32,7 @@
     <div v-if="hasToggle">
       <a
         href="javascript:;"
-        @click.prevent="toggle(id,$event)"
+        @click.prevent="$emit('toggle', id)"
       >
         <span v-if="record.publish" class="feather-icon">
           <eye-icon size="18"></eye-icon>
@@ -38,7 +47,7 @@
       <a
         href="javascript:;"
         class="feather-icon"
-        @click.prevent="copy(id,$event)"
+        @click.prevent="$emit('copy', id)"
       >
         <copy-icon size="18"></copy-icon>
       </a>
@@ -48,7 +57,7 @@
       <a
         href="javascript:;"
         class="feather-icon"
-        @click.prevent="destroy(id,$event)"
+        @click.prevent="$emit('destroy', id)"
       >
         <trash2-icon size="18"></trash2-icon>
       </a>
@@ -72,7 +81,8 @@ import {
   DollarSignIcon,
   ClipboardIcon,
   MailIcon,
-  XCircleIcon
+  XCircleIcon,
+  GridIcon,
 }
 from 'vue-feather-icons';
 
@@ -92,7 +102,8 @@ export default {
     DollarSignIcon,
     ClipboardIcon,
     MailIcon,
-    XCircleIcon
+    XCircleIcon,
+    GridIcon
   },
 
   props: {
@@ -132,6 +143,11 @@ export default {
       default: false
     },
 
+    hasGrid: {
+      type: Boolean,
+      default: false
+    },
+
     isCollapsible: {
       type: Boolean,
       default: false,
@@ -146,28 +162,6 @@ export default {
   },
 
   methods: {
-
-    toggle(id,$event) {
-      if (this.hasDraggable || this.isCollapsible) {
-        this.$parent.$parent.toggle(id,$event,this.model);
-      }
-      else {
-        this.$parent.toggle(id,$event,this.model);
-      }
-    },
-
-    destroy(id,$event) {
-      if (this.hasDraggable || this.isCollapsible) {
-        this.$parent.$parent.destroy(id,$event,this.model);
-      }
-      else {
-        this.$parent.destroy(id,$event,this.model);
-      }
-    },
-
-    copy(id,$event) {
-      this.$parent.copy(id,$event,this.model);
-    },
 
   },
 }

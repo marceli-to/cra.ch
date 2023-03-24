@@ -7,18 +7,40 @@
 
 .btn-add,
 .btn-edit,
-.btn-delete {
+.btn-delete,
+.btn-select,
+.btn-move {
   @extend %btn-primary;
-  @include font-size($fs-xs);
-  padding: 8px 10px;
+  @include font-regular();
+  padding: 10px;
   line-height: 1 !important;
+  transition: background-color .12s ease-in-out;
 }
 
 .btn-add {
-  background-color: $color-blue;
+  background-color: $color-green;
 }
 
 .btn-edit,
 .btn-delete {
-  background-color: $color-grey;
+  background-color: $color-dark-grey;
+}
+
+.btn-select {
+  background-color: $color-green;
+}
+
+.btn-move {
+  background-color: $color-blue;
+
+}
+
+.btn-close {
+  color: $color-primary;
+  display: block;
+  height: 20px;
+  right: $space-3x;
+  position: absolute;
+  top: $space-2x;
+  width: 20px;
 }

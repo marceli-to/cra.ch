@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 class UploadController extends Controller
 {
   /**
-   * Upload a media item
+   * Upload a file
    * 
    * @param  Request $request
    * @return \Illuminate\Http\Response

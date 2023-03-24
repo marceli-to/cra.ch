@@ -24,13 +24,6 @@
   }
 }
 
-%lg\:block,
-.lg\:block {
-  @include bp-lg() {
-    display: block;
-  }
-}
-
 %\!md\:block,
 .\!md\:block {
   @include bp-md() {

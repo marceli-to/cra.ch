@@ -7,8 +7,8 @@
 .is-info,
 .is-required {
   color: $color-grey;
-  @include font-regular();
-  @include font-size($fs-xs);
+  @include font-mono();
+  @include font-size($fs-xxs);
   display: block;
   margin-top: 5px;
   position: absolute;

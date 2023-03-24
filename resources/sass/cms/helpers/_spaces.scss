@@ -7,60 +7,170 @@
  *
  */
 
- $step: 5px;
+// Step
+$step: 5px;
 
- // Margin
- .mx-auto {
-   margin-left: auto;
-   margin-right: auto;
- }
- 
- @for $i from 1 through 50 {
-   .my-#{$i}x { margin: $i * $step 0; }
- }
- 
- @for $i from 1 through 50 {
-   .mx-#{$i}x { margin: 0 $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .mt-#{$i}x { margin-top: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .mb-#{$i}x { margin-bottom: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .ml-#{$i}x { margin-left: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .mr-#{$i}x { margin-right: $i * $step; }
- }
- 
- // Padding
- @for $i from 1 through 50 {
-   .py-#{$i}x { padding: $i * $step 0; }
- }
- 
- @for $i from 1 through 50 {
-   .px-#{$i}x { padding: 0 $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .pt-#{$i}x { padding-top: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .pb-#{$i}x { padding-bottom: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .pl-#{$i}x { padding-left: $i * $step; }
- }
- 
- @for $i from 1 through 50 {
-   .pr-#{$i}x { padding-right: $i * $step; }
- }
- 
+// Max step
+$max-step: 25;
+
+// Spaces
+$space-tiny:       2px;
+$space-1x:       $step;
+$space-2x:   2 * $step;
+$space-3x:   3 * $step;
+$space-4x:   4 * $step;
+$space-5x:   5 * $step;
+$space-6x:   6 * $step;
+$space-7x:   7 * $step;
+$space-8x:   8 * $step;
+$space-9x:   9 * $step;
+$space-10x: 10 * $step;
+$space-11x: 11 * $step;
+$space-12x: 12 * $step;
+$space-13x: 13 * $step;
+$space-14x: 14 * $step;
+$space-15x: 15 * $step;
+$space-16x: 16 * $step;
+$space-17x: 17 * $step;
+$space-18x: 18 * $step;
+$space-19x: 19 * $step;
+$space-20x: 20 * $step;
+$space-21x: 21 * $step;
+$space-22x: 22 * $step;
+$space-23x: 23 * $step;
+$space-24x: 24 * $step;
+$space-25x: 25 * $step;
+
+// Margin
+%mx-auto, .mx-auto { margin-left: auto; margin-right: auto; }
+
+@for $i from 1 through $max-step { %m-#{$i}x, .m-#{$i}x { margin: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:m-#{$i}x, .sm\:m-#{$i}x { @include bp-sm() { margin: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:m-#{$i}x, .md\:m-#{$i}x { @include bp-md() { margin: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:m-#{$i}x, .lg\:m-#{$i}x { @include bp-lg() { margin: $i * $step; } } }
+
+@for $i from 1 through $max-step { %my-#{$i}x, .my-#{$i}x { margin-bottom: $i * $step; margin-top: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:my-#{$i}x, .sm\:my-#{$i}x { @include bp-sm() { margin-bottom: $i * $step; margin-top: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:my-#{$i}x, .md\:my-#{$i}x { @include bp-md() { margin-bottom: $i * $step; margin-top: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:my-#{$i}x, .lg\:my-#{$i}x { @include bp-lg() { margin-bottom: $i * $step; margin-top: $i * $step; } } }
+
+@for $i from 1 through $max-step { %mx-#{$i}x, .mx-#{$i}x { margin-left: $i * $step; margin-right: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:mx-#{$i}x, .sm\:mx-#{$i}x { @include bp-sm() { margin-left: $i * $step; margin-right: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:mx-#{$i}x, .md\:mx-#{$i}x { @include bp-md() { margin-left: $i * $step; margin-right: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:mx-#{$i}x, .lg\:mx-#{$i}x { @include bp-lg() { margin-left: $i * $step; margin-right: $i * $step; } } }
+
+@for $i from 1 through $max-step { %mt-#{$i}x, .mt-#{$i}x { margin-top: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:mt-#{$i}x, .sm\:mt-#{$i}x { @include bp-sm() { margin-top: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:mt-#{$i}x, .md\:mt-#{$i}x { @include bp-md() { margin-top: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:mt-#{$i}x, .lg\:mt-#{$i}x { @include bp-lg() { margin-top: $i * $step; } } }
+
+@for $i from 1 through $max-step { %mb-#{$i}x, .mb-#{$i}x { margin-bottom: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:mb-#{$i}x, .sm\:mb-#{$i}x { @include bp-sm() { margin-bottom: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:mb-#{$i}x, .md\:mb-#{$i}x { @include bp-md() { margin-bottom: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:mb-#{$i}x, .lg\:mb-#{$i}x { @include bp-lg() { margin-bottom: $i * $step; } } }
+
+@for $i from 1 through $max-step { %ml-#{$i}x, .ml-#{$i}x { margin-left: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:ml-#{$i}x, .sm\:ml-#{$i}x { @include bp-sm() { margin-left: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:ml-#{$i}x, .md\:ml-#{$i}x { @include bp-md() { margin-left: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:ml-#{$i}x, .lg\:ml-#{$i}x { @include bp-lg() { margin-left: $i * $step; } } }
+
+@for $i from 1 through $max-step { %mr-#{$i}x, .mr-#{$i}x { margin-right: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:mr-#{$i}x, .sm\:mr-#{$i}x { @include bp-sm() { margin-right: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:mr-#{$i}x, .md\:mr-#{$i}x { @include bp-md() { margin-right: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:mr-#{$i}x, .lg\:mr-#{$i}x { @include bp-lg() { margin-right: $i * $step; } } }
+
+%my-0, .my-0 { margin-top: 0; margin-bottom: 0; }
+%sm\:my-0, .sm\:my-0 { @include bp-sm() { margin-top: 0; margin-bottom: 0; } }
+%md\:my-0, .md\:my-0 { @include bp-md() { margin-top: 0; margin-bottom: 0; } }
+%lg\:my-0, .lg\:my-0 { @include bp-lg() { margin-top: 0; margin-bottom: 0; } }
+
+%mx-0, .mx-0 { margin-left: 0; margin-right: 0; }
+%sm\:mx-0, .sm\:mx-0 { @include bp-sm() { margin-left: 0; margin-right: 0; } }
+%md\:mx-0, .md\:mx-0 { @include bp-md() { margin-left: 0; margin-right: 0; } }
+%lg\:mx-0, .lg\:mx-0 { @include bp-lg() { margin-left: 0; margin-right: 0; } }
+
+%mt-0, .mt-0 { margin-top: 0; }
+%sm\:mt-0, .sm\:mt-0 { @include bp-sm() { margin-top: 0; } }
+%md\:mt-0, .md\:mt-0 { @include bp-md() { margin-top: 0; } }
+%lg\:mt-0, .lg\:mt-0 { @include bp-lg() { margin-top: 0; } }
+
+%mr-0, .mr-0 { margin-left: 0; }
+%sm\:mr-0, .sm\:mr-0 { @include bp-sm() { margin-left: 0; } }
+%md\:mr-0, .md\:mr-0 { @include bp-md() { margin-left: 0; } }
+%lg\:mr-0, .lg\:mr-0 { @include bp-lg() { margin-left: 0; } }
+
+%mb-0, .mb-0 { margin-bottom: 0; }
+%sm\:mb-0, .sm\:mb-0 { @include bp-sm() { margin-bottom: 0; } }
+%md\:mb-0, .md\:mb-0 { @include bp-md() { margin-bottom: 0; } }
+%lg\:mb-0, .lg\:mb-0 { @include bp-lg() { margin-bottom: 0; } }
+
+%ml-0, .ml-0 { margin-left: 0; }
+%sm\:ml-0, .sm\:ml-0 { @include bp-sm() { margin-left: 0; } }
+%md\:ml-0, .md\:ml-0 { @include bp-md() { margin-left: 0; } }
+%lg\:ml-0, .lg\:ml-0 { @include bp-lg() { margin-left: 0; } }
+
+
+// Padding
+.px-auto { padding-left: auto; padding-right: auto; }
+
+@for $i from 1 through $max-step { %p-#{$i}x, .p-#{$i}x { padding: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:p-#{$i}x, .sm\:p-#{$i}x { @include bp-sm() { padding: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:p-#{$i}x, .md\:p-#{$i}x { @include bp-md() { padding: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:p-#{$i}x, .lg\:p-#{$i}x { @include bp-lg() { padding: $i * $step; } } }
+
+@for $i from 1 through $max-step { %py-#{$i}x, .py-#{$i}x { padding-bottom: $i * $step; padding-top: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:py-#{$i}x, .sm\:py-#{$i}x { @include bp-sm() { padding-bottom: $i * $step; padding-top: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:py-#{$i}x, .md\:py-#{$i}x { @include bp-md() { padding-bottom: $i * $step; padding-top: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:py-#{$i}x, .lg\:py-#{$i}x { @include bp-lg() { padding-bottom: $i * $step; padding-top: $i * $step; } } }
+
+@for $i from 1 through $max-step { %px-#{$i}x, .px-#{$i}x { padding-left: $i * $step; padding-right: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:px-#{$i}x, .sm\:px-#{$i}x { @include bp-sm() { padding-left: $i * $step; padding-right: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:px-#{$i}x, .md\:px-#{$i}x { @include bp-md() { padding-left: $i * $step; padding-right: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:px-#{$i}x, .lg\:px-#{$i}x { @include bp-lg() { padding-left: $i * $step; padding-right: $i * $step; } } }
+
+@for $i from 1 through $max-step { %pt-#{$i}x, .pt-#{$i}x { padding-top: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:pt-#{$i}x, .sm\:pt-#{$i}x { @include bp-sm() { padding-top: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:pt-#{$i}x, .md\:pt-#{$i}x { @include bp-md() { padding-top: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:pt-#{$i}x, .lg\:pt-#{$i}x { @include bp-lg() { padding-top: $i * $step; } } }
+
+@for $i from 1 through $max-step { %pb-#{$i}x, .pb-#{$i}x { padding-bottom: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:pb-#{$i}x, .sm\:pb-#{$i}x { @include bp-sm() { padding-bottom: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:pb-#{$i}x, .md\:pb-#{$i}x { @include bp-md() { padding-bottom: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:pb-#{$i}x, .lg\:pb-#{$i}x { @include bp-lg() { padding-bottom: $i * $step; } } }
+
+@for $i from 1 through $max-step { %pl-#{$i}x, .pl-#{$i}x { padding-left: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:pl-#{$i}x, .sm\:pl-#{$i}x { @include bp-sm() { padding-left: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:pl-#{$i}x, .md\:pl-#{$i}x { @include bp-md() { padding-left: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:pl-#{$i}x, .lg\:pl-#{$i}x { @include bp-lg() { padding-left: $i * $step; } } }
+
+@for $i from 1 through $max-step { %pr-#{$i}x, .pr-#{$i}x { padding-right: $i * $step; } }
+@for $i from 1 through $max-step { %sm\:pr-#{$i}x, .sm\:pr-#{$i}x { @include bp-sm() { padding-right: $i * $step; } } }
+@for $i from 1 through $max-step { %md\:pr-#{$i}x, .md\:pr-#{$i}x { @include bp-md() { padding-right: $i * $step; } } }
+@for $i from 1 through $max-step { %lg\:pr-#{$i}x, .lg\:pr-#{$i}x { @include bp-lg() { padding-right: $i * $step; } } }
+
+%p-0, .p-0 {       padding: 0; }
+%pb-0, .pb-0 {     padding-bottom: 0; }
+%\!pb-0, .\!pb-0 { padding-bottom: 0 !important; }
+%sm\:p-0, .sm\:p-0   { @include bp-sm() { padding: 0; } }
+
+%px-0, .px-0 { padding-left: 0; padding-right: 0; }
+%sm\:px-0, .sm\:px-0 { @include bp-sm() { padding-left: 0; padding-right: 0; } }
+%md\:px-0, .md\:px-0 { @include bp-md() { padding-left: 0; padding-right: 0; } }
+%lg\:px-0, .lg\:px-0 { @include bp-lg() { padding-left: 0; padding-right: 0; } }
+
+%pt-0, .pt-0 { padding-top: 0; }
+%sm\:pt-0, .sm\:pt-0 { @include bp-sm() { padding-top: 0; } }
+%md\:pt-0, .md\:pt-0 { @include bp-md() { padding-top: 0; } }
+%lg\:pt-0, .lg\:pt-0 { @include bp-lg() { padding-top: 0; } }
+
+%sm\:pb-0, .sm\:pb-0 { @include bp-sm() { padding-bottom: 0; } }
+%md\:pb-0, .md\:pb-0 { @include bp-md() { padding-bottom: 0; } }
+%lg\:pb-0, .lg\:pb-0 { @include bp-lg() { padding-bottom: 0; } }
+
+%sm\:pl-0, .sm\:pl-0 { @include bp-sm() { padding-left: 0; } }
+%md\:pl-0, .md\:pl-0 { @include bp-md() { padding-left: 0; } }
+%lg\:pl-0, .lg\:pl-0 { @include bp-lg() { padding-left: 0; } }
+
+%sm\:pr-0, .sm\:pr-0 { @include bp-sm() { padding-right: 0; } }
+%md\:pr-0, .md\:pr-0 { @include bp-md() { padding-right: 0; } }
+%lg\:pr-0, .lg\:pr-0 { @include bp-lg() { padding-right: 0; } }

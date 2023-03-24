@@ -62,13 +62,6 @@
   @include font-size($fs-md);
 }
 
-.text-lead {
-  @include font-bold();
-}
-
-.text-max-width {
-  max-width: 720px;
-}
 
 /**
  * Typography - Generic elements

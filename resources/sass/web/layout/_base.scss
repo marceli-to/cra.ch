@@ -11,6 +11,7 @@ html {
 }
 
 body {
+  @extend %p-20x;
 	background-color: $color-white;
 	color: $color-black;
 	@include font-smoothing();

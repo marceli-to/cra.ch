@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div v-if="hasPreviewState">
+      <a
+        href="javascript:;"
+        class="feather-icon"
+        @click.prevent="togglePreviewState(image,$event)"
+        title="Vorschaubild?"
+      >
+        <star-icon size="18" color="#70AE6E" fill="#70AE6E" v-if="image.preview"></star-icon>
+        <star-icon size="18" v-else></star-icon>
+      </a>      
+    </div>
     <div v-if="hasToggle">
       <a
         href="javascript:;"
@@ -57,6 +68,7 @@ import {
   Trash2Icon,
   CropIcon,
   ImageIcon,
+  StarIcon
 } from 'vue-feather-icons';
 
 import ImageUtils from "@/modules/images/mixins/utils";
@@ -68,7 +80,8 @@ export default {
     EditIcon,
     Trash2Icon,
     CropIcon,
-    ImageIcon
+    ImageIcon,
+    StarIcon
   },
 
   props: {
@@ -84,6 +97,11 @@ export default {
     hasPreview: {
       type: Boolean,
       default: true
+    },
+
+    hasPreviewState: {
+      type: Boolean,
+      default: false
     },
 
     hasCrop: {
@@ -108,6 +126,10 @@ export default {
     
     toggle(image, $event) {
       this.$parent.toggle(image,$event);
+    },
+    
+    togglePreviewState(image, $event) {
+      this.$parent.togglePreviewState(image,$event);
     },
 
     destroy(image, $event) {

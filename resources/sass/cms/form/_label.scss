@@ -5,10 +5,10 @@
  */
  
 label {
-  color: $color-medium-grey;
+  @include responsive-prop('margin-bottom', $space-xs);
+  @include font-mono();
+  @include font-size($fs-xs);
   display: block;
-  @include font-size($fs-sm);
-  margin-bottom: 10px;
 
   &.form-control {
     align-items: center;

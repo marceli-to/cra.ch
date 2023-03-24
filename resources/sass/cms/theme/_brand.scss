@@ -10,7 +10,11 @@
 
   svg {
     display: block;
-    height: 50px;
+    height: 40px;
     width: auto;
+
+    @include bp-md() {
+      height: 50px;
+    }
   }
 }

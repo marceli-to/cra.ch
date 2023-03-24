@@ -22,7 +22,7 @@
     right: 0;
     padding: 0 6px;
     position: absolute;
-    top: 14px;
+    top: 0;
     width: 32px;
     z-index: 0;
 	}
@@ -30,10 +30,10 @@
 	select {
     background-color: transparent !important;
     display: block;
-    padding-bottom: 14px;
+    padding-bottom: 10px;
     padding-right: 50px;
     padding-left: 8px;
-    padding-top: 14px;
+    padding-top: 10px;
     width: 100%;
 
     &:hover {

@@ -4,12 +4,12 @@ import Dashboard from '@/views/pages/Index.vue';
 
 const routes = [
 
-  // Home
-  {
-    name: 'home',
-    path: '/administration/',
-    component: Dashboard,
-  },
+  // // Home
+  // {
+  //   name: 'home',
+  //   path: '/administration/',
+  //   component: Dashboard,
+  // },
 
   // Dashboard
   {

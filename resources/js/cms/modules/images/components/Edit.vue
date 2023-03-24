@@ -39,7 +39,9 @@
             <image-actions 
               :image="image" 
               :hasPreview="false"
+              :hasPreviewState="$props.hasPreviewState"
               :publish="image.publish" 
+              :preview="image.preview"
               :imagePreviewRoute="'cache'">
             </image-actions>
           </div>
@@ -62,17 +64,18 @@
       </div>
       <div class="upload-overlay-cropper__wrapper" v-if="!isLoading">
         <div :class="'is-' + overlayItem.orientation">
-          <div class="cropper-formats">
-            <div>
-              <a href="javascript:;" @click.prevent="changeRatio(2.8,4)" class="btn-cropper-format is-3-4">Hoch 3x4</a>
-            </div>
-            <div>
-              <a href="javascript:;" @click.prevent="changeRatio(4,2.8)" class="btn-cropper-format is-4-3">Quer 4x3</a>
-            </div>
-            <div>
-              <a href="javascript:;" @click.prevent="changeRatio(3,2)" class="btn-cropper-format is-4-3">Quer 3x2</a>
+
+          <div class="cropper-formats" v-if="$props.allowRatioSwitch">
+            <div v-for="(format, index) in $props.ratioFormats" :key="index">
+              <a 
+                href="javascript:;" 
+                @click.prevent="changeRatio(format.w, format.h)" 
+                :class="`btn-cropper-format is-${format.w}:${format.h}`">
+                {{ format.label }} {{ format.w }} x {{ format.h }}
+              </a>
             </div>
           </div>
+
           <div class="cropper-info">{{ cropW }} x {{ cropH }}px</div>
           <cropper
             :src="cropImage"
@@ -138,6 +141,7 @@
             <label>Beschreibung</label>
             <textarea v-model="overlayItem.description"></textarea>
           </div>
+
           <div class="form-buttons flex justify-between">
             <a
               href="javascript:;"
@@ -169,6 +173,7 @@ import ImageActions from "@/modules/images/components/Actions.vue";
 import ImageEdit from "@/modules/images/mixins/edit";
 import ImageCrop from "@/modules/images/mixins/crop";
 import ImageUtils from "@/modules/images/mixins/utils";
+import RadioButton from "@/components/ui/RadioButton.vue";
 
 export default {
   
@@ -177,7 +182,8 @@ export default {
     XIcon,
     DownloadIcon,
     Cropper,
-    draggable
+    draggable,
+    RadioButton
   },
 
   mixins: [ImageUtils, ImageEdit, ImageCrop],
@@ -207,6 +213,21 @@ export default {
     allowRatioSwitch: {
       type: Boolean,
       default: true,
+    },
+
+    hasPreview: {
+      type: Boolean,
+      default: false,
+    },
+
+    hasPreviewState: {
+      type: Boolean,
+      default: false,
+    },
+
+    ratioFormats: {
+      type: Array,
+      default: []
     }
   },
 
@@ -216,6 +237,7 @@ export default {
       // Data
       imageData: null,
       view: 'grid',
+
       ratio: {
         w: null,
         h: null
@@ -256,7 +278,6 @@ export default {
       this.hideCropper();
       this.showCropper(image, true)
     },
-
 
     update() {
       this.axios.put(`${this.routes.update}/${this.overlayItem.id}`, this.overlayItem).then((response) => {
