@@ -6,7 +6,7 @@
  
 label {
   @include responsive-prop('margin-bottom', $space-xs);
-  @include font-mono();
+  @include font-regular();
   @include font-size($fs-xs);
   display: block;
 

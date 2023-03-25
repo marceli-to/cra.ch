@@ -51,6 +51,32 @@
       </div>
     </div>
 
+    <div v-show="tabs.data_worklist.active">
+      <div class="form-row">
+        <label>Typ</label>
+        <input type="text" v-model="project.type">
+      </div>
+      <div class="form-row">
+        <label>Ort</label>
+        <input type="text" v-model="project.location">
+      </div>
+      <div class="form-row">
+        <label>Zeitraum</label>
+        <input type="text" v-model="project.periode">
+      </div>
+      <div :class="[this.errors.state_id ? 'has-error' : '', 'form-row']">
+        <label>Status *</label>
+        <div class="select-wrapper">
+          <select name="state_id" v-model="project.state_id">
+            <option v-for="state in states" :key="state.id" :value="state.id">
+              {{state.title}}
+            </option>
+          </select>
+        </div>
+        <label-required />
+      </div>
+    </div>
+
     <div v-show="tabs.images.active">
       <images 
         :allowRatioSwitch="true"
@@ -138,6 +164,7 @@ export default {
         text_services: null,
         text_info: null,
         category_ids: [],
+        state_id: 1,
         publish: 1,
         worklist: 1,
         images: [],
@@ -145,6 +172,7 @@ export default {
       },
 
       categories: [],
+      states: [],
 
       // Validation
       errors: {
@@ -158,6 +186,7 @@ export default {
         store: '/api/project',
         update: '/api/project',
         getCategories: '/api/categories',
+        getStates: '/api/states',
       },
 
       // States
@@ -186,7 +215,7 @@ export default {
     }
 
     if (this.$props.type == "create") {
-      this.fetchCategories();
+      this.fetchCategoriesAndStates();
     }
   },
 
@@ -198,16 +227,24 @@ export default {
       this.axios.get(`${this.routes.get}/${this.$route.params.id}`).then(response => {
         this.project = response.data.project;
         this.categories = response.data.categories;
+        this.states = response.data.states;
         this.isFetched = true;
         this.isLoading = false;
       });
     },
 
-    fetchCategories() {
-      this.axios.get(`${this.routes.getCategories}`).then(response => {
-        this.categories = response.data.data;
+    fetchCategoriesAndStates() {
+      this.isFetched = false;
+      this.isLoading = true;
+      this.axios.all([
+        this.axios.get(`${this.routes.getCategories}`),
+        this.axios.get(`${this.routes.getStates}`),
+      ]).then(this.axios.spread((...responses) => {
+        this.categories = responses[0].data.data;
+        this.states = responses[1].data.data;
         this.isFetched = true;
-      });
+        this.isLoading = false;
+      }));
     },
 
     submit() {

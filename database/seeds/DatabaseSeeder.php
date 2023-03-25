@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
     $this->call([
       \Database\Seeders\UserSeeder::class,
       \Database\Seeders\CategorySeeder::class,
+      \Database\Seeders\StateSeeder::class,
+      \Database\Seeders\ProjectSeeder::class,
+
       // \Database\Seeders\HomeSeeder::class,
       // \Database\Seeders\TeamMemberSeeder::class,
       // \Database\Seeders\JobImageSeeder::class,

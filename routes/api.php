@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -58,6 +59,15 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('category', 'store');
     Route::put('category/{category}', 'update');
     Route::delete('category/{category}', 'destroy');
+  });
+
+  // Project states
+  Route::controller(StateController::class)->group(function () {
+    Route::get('states', 'get');
+    // Route::get('category/{category}', 'find');
+    // Route::post('category', 'store');
+    // Route::put('category/{category}', 'update');
+    // Route::delete('category/{category}', 'destroy');
   });
 
   // Projects

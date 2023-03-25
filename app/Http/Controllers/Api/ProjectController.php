@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DataCollection;
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\State;
 use App\Models\File;
 use App\Models\Image;
 use App\Http\Requests\ProjectStoreRequest;
@@ -32,7 +33,8 @@ class ProjectController extends Controller
   {
     $project = Project::with('images', 'categories', 'grids.gridItems.image')->find($project->id);
     $categories = Category::orderBy('title', 'ASC')->get();
-    return response()->json(['project' => $project, 'categories' => $categories]);
+    $states = State::orderBy('title', 'ASC')->get();
+    return response()->json(['project' => $project, 'categories' => $categories, 'states' => $states]);
   }
 
   /**

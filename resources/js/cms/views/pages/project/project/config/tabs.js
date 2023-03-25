@@ -1,8 +1,14 @@
 export default {
   data: {
     key: 'data',
-    label: 'Text',
+    label: 'Projekt',
     active: true,
+    error: false
+  },
+  data_worklist: {
+    key: 'data_worklist',
+    label: 'Werkliste',
+    active: false,
     error: false
   },
   images: {

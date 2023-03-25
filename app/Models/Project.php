@@ -31,7 +31,11 @@ class Project extends Base
     'text',
     'text_services',
     'text_info',
-    'order'
+    'type',
+    'location',
+    'periode',
+    'order',
+    'state_id'
   ];
 
   /**
@@ -76,6 +80,11 @@ class Project extends Base
   public function images()
   {
     return $this->morphMany(Image::class, 'imageable')->orderBy('order');
+  }
+
+  public function state()
+  {
+    return $this->belongsTo(State::class);
   }
 
   public function grids()
