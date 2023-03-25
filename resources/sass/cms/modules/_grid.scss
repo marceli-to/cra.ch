@@ -5,12 +5,6 @@
  */
 
 .grid-layout {
-  @extend %mb-4x;
-  position: relative;
-
-  > div {
-    @extend %grid-cols-12;
-  }
 
   .btn-delete {
     @extend %mb-3x;
@@ -20,75 +14,208 @@
     }
   }
 
-  .grid-item {
-    border: 2px dashed $color-light-grey;
-    min-height: 400px;
-    padding: 5px;
-    position: relative;
-    width: 100%;
-
-    img {
-      display: block;
-      height: 100%;
-      object-fit: cover;
-      width: 100%;
-    }
-
-    .btn-delete {
-      right: $space-3x;
-      position: absolute;
-      top: $space-3x;
-      z-index: 200;
-    }
+  .btn-select,
+  .btn-delete-item {
+    position: absolute;
+    top: 15px;
+    right: 15px;
   }
+}
 
-  .grid-stack {
-    display: flex;
-    flex-direction: column;
+.grid-layout > div {
+  @extend %mb-4x;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+  position: relative;
+}
 
-    > div {
-      min-height: 190px;
+.grid-layout-1 > div {
+  grid-template-areas: 
+  "a a a a a a"
+  "a a a a a a";
+}
 
-      &:nth-child(1) {
-        margin-bottom: 10px;
-      }
-      &:nth-child(2) {
-        margin-top: 10px;
-      }
-    }
-  }
+.grid-layout-2-1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a b b";
+}
 
-  &.grid-layout--1,
-  &.grid-layout--1\:f,
-  &.grid-layout--1\:w {
-    .grid-item {
-      @extend %span-12;
-    }
-  }
+.grid-layout-1-1_1 > div {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a c c c";
+}
 
-  &.grid-layout--1\:1,
-  &.grid-layout--1\:1\:f,
-  &.grid-layout--1\:2,
-  &.grid-layout--2\:1 {
+// .grid-layout-1_1-1 > div {
+//   grid-template-areas:
+//     "a a a c c c"
+//     "b b b c c c";
+// }
 
-    .grid-item,
-    .grid-stack {
-      @extend %span-6;
-    }
-  }
+.grid-layout-1s-1s-1s > div {
+  grid-template-areas:
+    "a a b b c c"
+}
+
+.grid-layout-1-1-1 > div,
+.grid-layout-1w-1w-1w > div {
+  grid-template-areas:
+    "a a b b c c"
+    "a a b b c c";
+}
+
+.grid-layout-1w-1w > div {
+  grid-template-areas:
+    "a a a b b b";
+}
+
+.grid-layout-1-1 > div {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a b b b";
+}
+
+
+.grid-layout-1_1-2 > div {
+  grid-template-areas:
+    "a a c c c c"
+    "b b c c c c";
+}
+
+.grid-layout-1-1_1-1 > div {
+  grid-template-areas:
+    "a a b b d d"
+    "a a c c d d";
+}
+
+.grid-layout-1-1-1_1 > div {
+  grid-template-areas:
+    "a a b b c c"
+    "a a b b d d";
+}
+
+.grid-layout-1_1-1-1_1 > div {
+  grid-template-areas:
+    "a a c c d d"
+    "b b c c e e";
+}
+
+.grid-layout-1_1-1_1-1 > div {
+  grid-template-areas:
+    "a a c c e e"
+    "b b d d e e";
+}
+
+.grid-layout > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+
+.grid-layout .grid-area-a {
+  grid-area: a;
+}
+
+.grid-layout .grid-area-b {
+  grid-area: b;
+}
+
+.grid-layout .grid-area-c {
+  grid-area: c;
+}
+
+.grid-layout .grid-area-d {
+  grid-area: d;
+}
+
+.grid-layout .grid-area-e {
+  grid-area: e;
+}
+
+
+.grid-layout figure {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-layout img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+[class*="aspect-ratio-"],
+[class^="aspect-ratio-"] {
+  position: relative;
+}
+
+[class*="aspect-ratio-"] > div,
+[class^="aspect-ratio-"] > div {
+  width: 100%;
+  height: 100%;
+}
+
+.aspect-ratio-a > figure,
+.aspect-ratio-a > div {
+  aspect-ratio: 1.64;
+  background-color: #E91E63;
+}
+
+.aspect-ratio-b > figure,
+.aspect-ratio-b > div {
+  aspect-ratio: 0.73;
+  background-color: #9C27B0;
+}
+
+.aspect-ratio-c > figure,
+.aspect-ratio-c > div {
+  aspect-ratio: 1.5;
+  background-color: #2196F3;
+}
+
+.aspect-ratio-e > figure,
+.aspect-ratio-e > div {
+  aspect-ratio: 1.48;
+  background-color: #4CAF50;
+}
+
+.aspect-ratio-f > figure,
+.aspect-ratio-f > div {
+  aspect-ratio: 0.72;
+  background-color: #FF5722;
+}
+
+.aspect-ratio-g > figure,
+.aspect-ratio-g > div {
+  aspect-ratio: 1.5;
+  background-color: #795548;
 }
 
 .grid-layout-selector {
   @extend %mb-4x;
-  @extend %py-2x;
+  @extend %py-3x;
   border-bottom: 1px dashed $color-light-grey;
   border-top: 1px dashed $color-light-grey;
   display: flex;
-  justify-content: flex-end;
+  overflow-x: auto;
+  width: 100%;
 
   a {
-    @extend %ml-3x;
+    @extend %ml-4x;
     display: block;
+
+    &:first-child {
+      @extend %ml-0;
+    }
 
     &:hover {
       svg {

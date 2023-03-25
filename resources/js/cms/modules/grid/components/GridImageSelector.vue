@@ -6,7 +6,6 @@
         <a href="" class="btn-close" @click.prevent="$emit('close')">
           <x-icon size="24"></x-icon>
         </a>
-
         <template v-if="project">
           <h2>{{ project.title.de }}</h2>
           <div class="grid-image-selector__images">
@@ -19,7 +18,6 @@
             </figure>
           </div>        
         </template>
-
         <template v-if="projects.length">
           <h2>Projekt wählen</h2>
           <div class="select-wrapper mt-2x px-1x">

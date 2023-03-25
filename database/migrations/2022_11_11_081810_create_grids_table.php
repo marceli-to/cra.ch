@@ -15,7 +15,7 @@
   {
     Schema::create('grids', function (Blueprint $table) {
       $table->id();
-      $table->string('layout', 5);
+      $table->string('layout', 20);
       $table->tinyInteger('order')->default(-1);
       $table->nullableMorphs('gridable');
       $table->timestamps();

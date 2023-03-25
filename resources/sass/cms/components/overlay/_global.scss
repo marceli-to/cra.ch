@@ -30,7 +30,7 @@ html.has-overlay {
     opacity: 1;
     pointer-events: all;
     transition: opacity .16s ease-out;
-    z-index: 201;
+    z-index: 1001;
   }
 
   .overlay__inner {
