@@ -11,33 +11,32 @@
       <div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
           <label>Titel *</label>
-          <input type="text" v-model="project.title.de">
+          <input type="text" v-model="project.title">
           <label-required />
-        </div>
-        <div class="form-row">
-          <label>Subtitel</label>
-          <input type="text" v-model="project.subtitle.de">
-        </div>
-        <div class="form-row">
-          <label>Lead</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="project.abstract.de"
-          ></tinymce-editor>
         </div>
         <div class="form-row">
           <label>Text</label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
-            v-model="project.text.de"
+            v-model="project.text"
           ></tinymce-editor>
         </div>
-
         <div class="form-row">
-          <label>Text Werkliste</label>
-          <textarea v-model="project.text_worklist.de" />
+          <label>Leistungen</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="project.text_services"
+          ></tinymce-editor>
+        </div>
+        <div class="form-row">
+          <label>Information</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="project.text_info"
+          ></tinymce-editor>
         </div>
 
         <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
@@ -45,42 +44,9 @@
           <div v-for="(category, index) in categories" :key="index" class="flex mb-2x">
             <input type="checkbox" :id="`category-${category.id}`" :name="`category-${category.id}`" :value="category.id" v-model="project.category_ids">
             <label :for="`category-${category.id}`" class="ml-3x">
-              {{category.title.de}}
+              {{category.title}}
             </label>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div v-show="tabs.translation.active">
-      <div>
-        <div class="form-row">
-          <label>Titel (en)</label>
-          <input type="text" v-model="project.title.en">
-        </div>
-        <div class="form-row">
-          <label>Subtitel</label>
-          <input type="text" v-model="project.subtitle.en">
-        </div>
-        <div class="form-row">
-          <label>Lead</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="project.abstract.en"
-          ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Text</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="project.text.en"
-          ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Text Werkliste</label>
-          <textarea v-model="project.text_worklist.en" />
         </div>
       </div>
     </div>
@@ -167,26 +133,10 @@ export default {
       // Model
       project: {
         id: null,
-        title: {
-          de: null,
-          en: null,
-        },
-        subtitle: {
-          de: null,
-          en: null
-        },
-        abstract: {
-          de: null,
-          en: null
-        },
-        text: {
-          de: null,
-          en: null
-        },
-        text_worklist: {
-          de: '',
-          en: ''
-        },
+        title: null,
+        text: null,
+        text_services: null,
+        text_info: null,
         category_ids: [],
         publish: 1,
         worklist: 1,
@@ -236,7 +186,7 @@ export default {
     }
 
     if (this.$props.type == "create") {
-      this.fetchTopics();
+      this.fetchCategories();
     }
   },
 
@@ -253,7 +203,7 @@ export default {
       });
     },
 
-    fetchTopics() {
+    fetchCategories() {
       this.axios.get(`${this.routes.getCategories}`).then(response => {
         this.categories = response.data.data;
         this.isFetched = true;

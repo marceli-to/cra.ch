@@ -23,11 +23,13 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{d.title.de}} 
+          {{d.title}} 
           <div class="flex ml-4x">
+            <!--
             <chip v-for="category in d.categories" :key="category.id">
               {{ category.title.de }}
             </chip>
+            -->
           </div>
         </div>
         <list-actions 

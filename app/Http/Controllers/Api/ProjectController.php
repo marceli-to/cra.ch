@@ -31,7 +31,7 @@ class ProjectController extends Controller
   public function find(Project $project)
   {
     $project = Project::with('images', 'categories', 'grids.gridItems.image')->find($project->id);
-    $categories = Category::orderBy('title->de', 'ASC')->get();
+    $categories = Category::orderBy('title', 'ASC')->get();
     return response()->json(['project' => $project, 'categories' => $categories]);
   }
 
@@ -44,13 +44,10 @@ class ProjectController extends Controller
   public function store(ProjectStoreRequest $request)
   { 
     $project = Project::create([
-      'title' => [
-        'de' => $request->input('title.de'),
-        'en' => $request->input('title.en'),
-      ],
+      'title' =>$request->input('title'),
+      'slug' => \Str::slug($request->input('title')),
     ]);
     $project->categories()->attach($request->input('category_ids'));
-    $this->handleI18n($project, $request);
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
     $this->handleFlag($project, 'isWorklist', $request->input('worklist'));
     $this->handleImages($project, $request->input('images'));
@@ -67,11 +64,9 @@ class ProjectController extends Controller
   public function update(Project $project, ProjectStoreRequest $request)
   {
     $project = Project::findOrFail($project->id);
-    $project->setTranslation('title', 'de', $request->input('title.de'));
-    $project->setTranslation('title', 'en', $request->input('title.en'));
-    $project->categories()->sync($request->input('category_ids'));
+    $project->title = $request->input('title');
     $project->save();
-    $this->handleI18n($project, $request);
+    $project->categories()->sync($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
     $this->handleFlag($project, 'isWorklist', $request->input('worklist'));
     $this->handleImages($project, $request->input('images'));
@@ -169,25 +164,5 @@ class ProjectController extends Controller
     return $project->hasFlag($flag);
   }
 
-  /**
-   * Handle i18n of a project
-   *
-   * @param Project $project
-   * @param Request $request
-   * @return $project
-   */  
-  protected function handleI18n(Project $project, Request $request)
-  {
-    $project->setTranslation('subtitle', 'de', $request->input('subtitle.de'));
-    $project->setTranslation('subtitle', 'en', $request->input('subtitle.en'));
-    $project->setTranslation('abstract', 'de', $request->input('abstract.de'));
-    $project->setTranslation('abstract', 'en', $request->input('abstract.en'));
-    $project->setTranslation('text', 'de', $request->input('text.de'));
-    $project->setTranslation('text', 'en', $request->input('text.en'));
-    $project->setTranslation('text_worklist', 'de', $request->input('text_worklist.de'));
-    $project->setTranslation('text_worklist', 'en', $request->input('text_worklist.en'));
-    $project->save();
-    return $project;
-  }
 }
 

@@ -81,8 +81,8 @@
 .grid-layout-selector {
   @extend %mb-4x;
   @extend %py-2x;
-  border-bottom: 2px dashed $color-light-grey;
-  border-top: 2px dashed $color-light-grey;
+  border-bottom: 1px dashed $color-light-grey;
+  border-top: 1px dashed $color-light-grey;
   display: flex;
   justify-content: flex-end;
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -50,14 +51,26 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::get('file/state/{file}', [FileController::class, 'toggle']);
   Route::delete('file/{file}', [FileController::class, 'destroy']);
 
+  // Project categories
+  Route::controller(CategoryController::class)->group(function () {
+    Route::get('categories', 'get');
+    Route::get('category/{category}', 'find');
+    Route::post('category', 'store');
+    Route::put('category/{category}', 'update');
+    Route::delete('category/{category}', 'destroy');
+  });
+
   // Projects
-  Route::get('projects', [ProjectController::class, 'get']);
-  Route::get('project/{project}', [ProjectController::class, 'find']);
-  Route::post('project', [ProjectController::class, 'store']);
-  Route::put('project/{project}', [ProjectController::class, 'update']);
-  Route::post('projects/order', [ProjectController::class, 'order']);
-  Route::get('project/state/{project}', [ProjectController::class, 'toggle']);
-  Route::delete('project/{project}', [ProjectController::class, 'destroy']);
+  Route::controller(ProjectController::class)->group(function () {
+    Route::get('projects', 'get');
+    Route::get('project/{project}', 'find');
+    Route::post('project', 'store');
+    Route::post('projects/order', 'order');
+    Route::put('project/{project}', 'update');
+    Route::get('project/state/{project}', 'toggle');
+    Route::delete('project/{project}', 'destroy');  
+  });
+
 
   // Image grid
   Route::post('grid', [GridController::class, 'store']);

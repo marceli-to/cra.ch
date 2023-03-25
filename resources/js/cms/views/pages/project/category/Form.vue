@@ -9,12 +9,8 @@
     <div>
       <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
         <label>Titel *</label>
-        <input type="text" v-model="data.title.de">
+        <input type="text" v-model="data.title">
         <label-required />
-      </div>
-      <div class="form-row">
-        <label>Titel (en)</label>
-        <input type="text" v-model="data.title.en">
       </div>
     </div>
 
@@ -58,10 +54,7 @@ export default {
       // Model
       data: {
         id: null,
-        title: {
-          de: null,
-          en: null,
-        },
+        title: null,
       },
 
       // Validation
@@ -138,8 +131,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Thema bearbeiten" 
-        : "Thema hinzufügen";
+        ? "Kategorie bearbeiten" 
+        : "Kategorie hinzufügen";
     }
   }
 };

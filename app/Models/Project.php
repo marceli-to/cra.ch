@@ -41,7 +41,9 @@ class Project extends Base
    */
 
   protected $appends = [
-
+    'publish',
+    'worklist',
+    'category_ids'
   ];
 
   /*
@@ -81,6 +83,14 @@ class Project extends Base
     return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
   }
 
+  /**
+   * The categories that belong to this project.
+   */
+  
+  public function categories()
+  {
+    return $this->belongsToMany(Category::class);
+  }
 
   /**
    * Get the publish attribute
@@ -102,4 +112,13 @@ class Project extends Base
     return $this->hasFlag('isWorklist') ? 1 : 0;    
   }
 
+  /**
+   * Get array of ids from the m:n topic relationship
+   *
+   */
+
+   public function getCategoryIdsAttribute()
+   {
+     return $this->categories->pluck('id');
+   }
 }

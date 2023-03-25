@@ -16,7 +16,7 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{d.title.de}}
+          {{d.title}}
         </div>
         <list-actions 
           :id="d.id" 
