@@ -10,6 +10,15 @@
       </router-link>
     </div>
 
+    <div v-if="hasList">
+      <router-link
+        :to="{name: routes.list, params: { id: id }}"
+        class="feather-icon"
+      >
+        <menu-icon size="18"></menu-icon>
+      </router-link>
+    </div>
+
     <div v-if="hasDownload">
       <a
         :href="'/storage/uploads/' + record.file"
@@ -83,6 +92,7 @@ import {
   MailIcon,
   XCircleIcon,
   GridIcon,
+  MenuIcon,
 }
 from 'vue-feather-icons';
 
@@ -103,7 +113,8 @@ export default {
     ClipboardIcon,
     MailIcon,
     XCircleIcon,
-    GridIcon
+    GridIcon,
+    MenuIcon
   },
 
   props: {
@@ -144,6 +155,11 @@ export default {
     },
 
     hasGrid: {
+      type: Boolean,
+      default: false
+    },
+
+    hasList: {
       type: Boolean,
       default: false
     },

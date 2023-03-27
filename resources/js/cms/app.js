@@ -40,35 +40,28 @@ import store from '@/config/store';
 
 // Routes
 import baseRoutes from '@/config/routes';
-import projectRoutes from '@/views/pages/project/config/routes';
-import serviceRoutes from '@/views/pages/service/config/routes';
-import contactRoutes from '@/views/pages/contact/config/routes';
-import aboutRoutes from '@/views/pages/about/config/routes';
-import resumeRoutes from '@/views/pages/resume/config/routes';
-import diaryRoutes from '@/views/pages/diary/config/routes';
-
-import officeRoutes from '@/views/pages/office/config/routes';
-import discourseRoutes from '@/views/pages/discourse/config/routes';
 import homeRoutes from '@/views/pages/home/config/routes';
+import projectRoutes from '@/views/pages/project/config/routes';
+import diaryRoutes from '@/views/pages/diary/config/routes';
+import serviceRoutes from '@/views/pages/content/service/config/routes';
+import contactRoutes from '@/views/pages/content/contact/config/routes';
+import aboutRoutes from '@/views/pages/content/about/config/routes';
+import resumeRoutes from '@/views/pages/content/resume/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
-
 
 const router = new VueRouter(
   { 
     mode: 'history', 
     routes: [
       ...baseRoutes,
+      ...homeRoutes,
       ...projectRoutes,
       ...serviceRoutes,
       ...contactRoutes,
       ...aboutRoutes,
       ...resumeRoutes,
-      ...diaryRoutes,
-      
-      ...officeRoutes,
-      ...discourseRoutes,
+      ...diaryRoutes,      
       ...imageRoutes,
-      ...homeRoutes
     ]
   }
 );

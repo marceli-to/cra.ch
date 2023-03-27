@@ -1,6 +1,7 @@
 import ErrorForbidden from '@/views/errors/Forbidden.vue';
 import ErrorNotFound from '@/views/errors/NotFound.vue';
 import Dashboard from '@/views/pages/Index.vue';
+import DashboardContent from '@/views/pages/content/Index.vue';
 
 const routes = [
 
@@ -16,6 +17,12 @@ const routes = [
     name: 'dashboard',
     path: '/administration/',
     component: Dashboard,
+  },
+  // Dashboard Content
+  {
+    name: 'pages',
+    path: '/administration/content',
+    component: DashboardContent,
   },
 
   // Authorization

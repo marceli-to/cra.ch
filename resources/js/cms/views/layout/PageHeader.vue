@@ -58,6 +58,7 @@
           <span>Projekte</span>
         </router-link>
       </li>
+      <!--
       <li>
         <router-link :to="{name: 'services'}">
           <span>Leistungen</span>
@@ -73,9 +74,15 @@
           <span>Lebenslauf</span>
         </router-link>
       </li>
+      -->
       <li>
         <router-link :to="{name: 'diaries'}">
           <span>Tagebuch</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name: 'pages'}">
+          <span>Seiteninhalte</span>
         </router-link>
       </li>
     </ul>

@@ -7,10 +7,10 @@
 
 .listing {
   border-bottom: 2px solid $color-light;
-  @include responsive-prop('margin-bottom', $space-xs);
+  //@include responsive-prop('margin-bottom', $space-xs);
 
   &.is-grouped {
-    border-bottom: none;
+    border-bottom: none !important;
   }
 
   &.is-form {

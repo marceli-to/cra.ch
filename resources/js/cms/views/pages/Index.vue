@@ -20,39 +20,45 @@
       </div>
 
       <div class="card">
+        <router-link :to="{name: 'diaries'}">
+          <h2>Tagebuch</h2>
+          <p>Verwaltung des Tagebuchs</p>
+        </router-link>
+      </div>
+      
+      <div class="card">
+        <router-link :to="{name: 'pages'}">
+          <h2>Seiteninhalte</h2>
+          <p>Verwaltung von Leistungen, Über uns und Kontat</p>
+        </router-link>
+      </div>
+
+      <!--
+      <div class="card">
         <router-link :to="{name: 'services'}">
           <h2>Leistungen</h2>
           <p>Verwaltung von Leistungen</p>
         </router-link>
       </div>
-
       <div class="card">
         <router-link :to="{name: 'contacts'}">
           <h2>Kontakt</h2>
           <p>Verwaltung der Kontaktseite</p>
         </router-link>
       </div>
-
       <div class="card">
         <router-link :to="{name: 'about'}">
           <h2>Über uns</h2>
           <p>Verwaltung der "Über uns"-Seite</p>
         </router-link>
       </div>
-
       <div class="card">
         <router-link :to="{name: 'resume'}">
           <h2>Lebenslauf</h2>
           <p>Verwaltung des Lebenslaufs</p>
         </router-link>
       </div>
-
-      <div class="card">
-        <router-link :to="{name: 'diaries'}">
-          <h2>Tagebuch</h2>
-          <p>Verwaltung des Tagebuchs</p>
-        </router-link>
-      </div>
+      -->
     </div>
   </div>
 </template>
