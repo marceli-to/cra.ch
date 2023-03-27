@@ -39,7 +39,7 @@ class AboutStoreRequest extends FormRequest
     return [
       'description.required' => [
         'field' => 'description',
-        'error' => 'Beschreibung'
+        'error' => 'Beschreibung wird benötigt'
       ],
     ];
   }

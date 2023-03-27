@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AboutController;
 use App\Http\Controllers\Api\ResumeController;
+use App\Http\Controllers\Api\DiaryController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -87,7 +88,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('resume/{resume}', 'destroy');
   });
 
-
+  // Diary
+  Route::controller(DiaryController::class)->group(function () {
+    Route::get('diaries', 'get');
+    Route::get('diary/{diary}', 'find');
+    Route::post('diary', 'store');
+    Route::put('diary/{diary}', 'update');
+    Route::get('diary/state/{diary}', 'toggle');
+    Route::delete('diary/{diary}', 'destroy');  
+  });
+  
   // Contact
   Route::controller(ContactController::class)->group(function () {
     Route::get('contacts', 'get');

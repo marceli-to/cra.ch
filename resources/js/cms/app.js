@@ -45,6 +45,7 @@ import serviceRoutes from '@/views/pages/service/config/routes';
 import contactRoutes from '@/views/pages/contact/config/routes';
 import aboutRoutes from '@/views/pages/about/config/routes';
 import resumeRoutes from '@/views/pages/resume/config/routes';
+import diaryRoutes from '@/views/pages/diary/config/routes';
 
 import officeRoutes from '@/views/pages/office/config/routes';
 import discourseRoutes from '@/views/pages/discourse/config/routes';
@@ -62,6 +63,7 @@ const router = new VueRouter(
       ...contactRoutes,
       ...aboutRoutes,
       ...resumeRoutes,
+      ...diaryRoutes,
       
       ...officeRoutes,
       ...discourseRoutes,

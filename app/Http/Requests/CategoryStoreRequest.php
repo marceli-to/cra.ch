@@ -39,7 +39,7 @@ class CategoryStoreRequest extends FormRequest
     return [
       'title.required' => [
         'field' => 'title',
-        'error' => 'Titel'
+        'error' => 'Titel wird benötigt'
       ],
     ];
   }

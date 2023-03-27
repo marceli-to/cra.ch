@@ -49,12 +49,6 @@
     "a a a c c c";
 }
 
-// .grid-layout-1_1-1 > div {
-//   grid-template-areas:
-//     "a a a c c c"
-//     "b b b c c c";
-// }
-
 .grid-layout-1s-1s-1s > div {
   grid-template-areas:
     "a a b b c c"
@@ -104,6 +98,18 @@
 }
 
 .grid-layout-1_1-1_1-1 > div {
+  grid-template-areas:
+    "a a c c e e"
+    "b b d d e e";
+}
+
+.grid-layout-1-1_1-1_1 > div {
+  grid-template-areas:
+    "a a b b d d"
+    "a a c c e e";
+}
+
+.grid-layout-1t_1-1_1-1 > div {
   grid-template-areas:
     "a a c c e e"
     "b b d d e e";
@@ -167,25 +173,21 @@
 .aspect-ratio-a > figure,
 .aspect-ratio-a > div {
   aspect-ratio: 1.64;
-  background-color: #E91E63;
 }
 
 .aspect-ratio-b > figure,
 .aspect-ratio-b > div {
   aspect-ratio: 0.73;
-  background-color: #9C27B0;
 }
 
 .aspect-ratio-c > figure,
 .aspect-ratio-c > div {
   aspect-ratio: 1.5;
-  background-color: #2196F3;
 }
 
 .aspect-ratio-e > figure,
 .aspect-ratio-e > div {
   aspect-ratio: 1.48;
-  background-color: #4CAF50;
 }
 
 .aspect-ratio-f > figure,
@@ -196,7 +198,6 @@
 .aspect-ratio-g > figure,
 .aspect-ratio-g > div {
   aspect-ratio: 1.5;
-  background-color: #795548;
 }
 
 .grid-layout-selector {

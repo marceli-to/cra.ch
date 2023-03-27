@@ -3,39 +3,32 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h1>Lebenslauf</h1>
-      <router-link :to="{ name: 'resume-create'}" class="btn-add has-icon">
+      <h1>Tagebuch</h1>
+      <router-link :to="{ name: 'diary-create'}" class="btn-add has-icon">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
     </page-header>
 
-    <draggable 
-      :disabled="false"
-      v-model="data" 
-      @end="order(data)"
-      ghost-class="draggable-ghost"
-      draggable=".listing__item"
-      class="listing"
-      v-if="data.length">
-
+    <div class="listing" v-if="data.length">
       <div
-        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
+        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
         v-for="d in data"
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{ d.periode}} – {{ d.description }}
+          {{d.title}} 
         </div>
         <list-actions 
           :id="d.id" 
           :record="d"
-          :routes="{edit: 'resume-edit'}"
+          :routes="{edit: 'diary-edit', grid: 'diary-grid'}"
+          :hasGrid="true"
           @toggle="toggle($event)"
           @destroy="destroy($event)">
         </list-actions>
       </div>
-    </draggable>
+    </div>
     <div v-else>
       <p class="no-records">{{messages.emptyData}}</p>
     </div>
@@ -51,6 +44,7 @@ import ButtonBack from "@/components/ui/ButtonBack.vue";
 import Helpers from "@/mixins/Helpers";
 import ListActions from "@/components/ui/ListActions.vue";
 import Separator from "@/components/ui/Separator.vue";
+import Chip from "@/components/ui/Chip.vue";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import draggable from 'vuedraggable';
@@ -66,7 +60,8 @@ export default {
     ButtonBack,
     PageFooter,
     PageHeader,
-    draggable
+    draggable,
+    Chip
   },
 
   mixins: [Helpers],
@@ -78,11 +73,11 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/resumes',
-        store: '/api/resume',
-        delete: '/api/resume',
-        order: '/api/resume/order',
-        toggle: '/api/resume/state',
+        get: '/api/diaries',
+        store: '/api/diary',
+        delete: '/api/diary',
+        order: '/api/diarys/order',
+        toggle: '/api/diary/state',
       },
 
       // States
@@ -134,18 +129,18 @@ export default {
     },
 
     order() {
-      let resumes = this.data.map(function(resume, idx) {
-        resume.order = idx;
-        return resume;
+      let diarys = this.data.map(function(diary, idx) {
+        diary.order = idx;
+        return diary;
       });
 
       if (this.debounce) return;
       this.debounce = setTimeout(function() {
         this.debounce = false 
-        this.axios.post(`${this.routes.order}`, {resumes: resumes}).then((response) => {
+        this.axios.post(`${this.routes.order}`, {diarys: diarys}).then((response) => {
           this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
         });
-      }.bind(this, resumes), 500);
+      }.bind(this, diarys), 500);
     },
   }
 }

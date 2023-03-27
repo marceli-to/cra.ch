@@ -78,7 +78,7 @@ export default {
     return {
 
       // Data
-      data: null,
+      data: [],
 
       // Routes
       routes: {
@@ -108,9 +108,7 @@ export default {
       this.data = this.$props.images;
       this.isFetched = true;
     }
-    else {
-      this.fetch();
-    }
+    this.isFetched = true;
   },
 
   methods: {

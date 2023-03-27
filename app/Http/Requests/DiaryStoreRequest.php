@@ -2,7 +2,7 @@
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ServiceStoreRequest extends FormRequest
+class DiaryStoreRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class ServiceStoreRequest extends FormRequest
   public function rules()
   {
     return [
-      'column_one' => 'required_without_all:column_two',
-      'column_two' => 'required_without_all:column_one',
+      'title' => 'required',
+      'description' => 'required',
     ];
   }
 
@@ -38,13 +38,13 @@ class ServiceStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'column_one.required_without_all' => [
-        'field' => 'column_one',
-        'error' => 'Projekt- und Bauleitung wird benötigt'
+      'title.required' => [
+        'field' => 'title',
+        'error' => 'Title wird benötigt'
       ],
-      'column_one.required_without_all' => [
-        'field' => 'column_two',
-        'error' => 'Leistungen, Referenzen wird benötigt'
+      'description.required' => [
+        'field' => 'description',
+        'error' => 'Beschreibung wird benötigt'
       ],
     ];
   }

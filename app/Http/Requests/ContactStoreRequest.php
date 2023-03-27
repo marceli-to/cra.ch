@@ -39,7 +39,7 @@ class ContactStoreRequest extends FormRequest
     return [
       'address.required' => [
         'field' => 'address',
-        'error' => 'Adresse'
+        'error' => 'Adresse wird benötigt'
       ],
     ];
   }

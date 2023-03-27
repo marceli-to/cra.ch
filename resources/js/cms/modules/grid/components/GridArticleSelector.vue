@@ -7,7 +7,7 @@
           <x-icon size="24"></x-icon>
         </a>
         <template v-if="articles.length">
-          <h2>Diskurs-Artikel wählen</h2>
+          <h2>News-Artikel wählen</h2>
           <div class="select-wrapper mt-2x px-1x">
             <select v-model="selectedArticleId" @change="$emit('select', { discourse: selectedArticleId })">
               <option :value="null">Bitte wählen...</option>
@@ -46,13 +46,6 @@ export default {
     }
   },
 
-  props: {
-
-    projectId: {
-      type: Number,
-      default: null,
-    }
-  },
 
   mounted() {
     this.fetchArticles();

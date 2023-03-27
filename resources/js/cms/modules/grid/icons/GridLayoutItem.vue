@@ -92,6 +92,27 @@
         <rect x="1" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
       </svg>
     </div>
+    <div v-if="$props.layout == '1-1_1-1_1'">
+      <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="61" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="1" width="23" height="53" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="61" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="31" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="31" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+      </svg>
+    </div>
+    <div v-if="$props.layout == '1t_1-1_1-1'">
+      <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="31" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="61" y="1" width="23" height="53" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="31" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="5" y="8" width="15" height="2" fill="#666666"/>
+        <rect x="5" y="16" width="15" height="2" fill="#666666"/>
+        <rect x="5" y="12" width="15" height="2" fill="#666666"/>
+      </svg>
+    </div>
   </div>
   <template v-if="$props.items">
     <div class="ml-6x flex">

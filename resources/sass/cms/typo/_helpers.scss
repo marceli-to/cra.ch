@@ -36,6 +36,12 @@ small {
 	@include font-size($fs-xs);
 }
 
+.text-xxs {
+  @include font-size($fs-xxs);
+}
+.text-xs {
+  @include font-size($fs-xs);
+}
 .fs-md {
 	@include font-size($fs-md);
 }
