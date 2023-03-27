@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\AboutController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -61,6 +63,26 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('service/{service}', 'update');
     Route::get('service/state/{service}', 'toggle');
     Route::delete('service/{service}', 'destroy');
+  });
+
+  // About
+  Route::controller(AboutController::class)->group(function () {
+    Route::get('about', 'get');
+    Route::get('about/{about}', 'find');
+    Route::post('about', 'store');
+    Route::put('about/{about}', 'update');
+    Route::get('about/state/{about}', 'toggle');
+    Route::delete('about/{about}', 'destroy');
+  });
+
+  // Contact
+  Route::controller(ContactController::class)->group(function () {
+    Route::get('contacts', 'get');
+    Route::get('contact/{contact}', 'find');
+    Route::post('contact', 'store');
+    Route::put('contact/{contact}', 'update');
+    Route::get('contact/state/{contact}', 'toggle');
+    Route::delete('contact/{contact}', 'destroy');
   });
 
   // Project categories

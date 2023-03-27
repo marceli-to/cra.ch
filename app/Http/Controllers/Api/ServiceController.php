@@ -126,14 +126,14 @@ class ServiceController extends Controller
    * @return void
    */  
 
-   protected function handleImages(Service $service, $images = NULL)
-   {
-     foreach($images as $image)
-     {
-       $i = Image::findOrFail($image['id']);
-       $i->imageable_id = $service->id;
-       $i->imageable_type = Service::class;
-       $i->save();
-     }
-   }
+  protected function handleImages(Service $service, $images = NULL)
+  {
+    foreach($images as $image)
+    {
+      $i = Image::findOrFail($image['id']);
+      $i->imageable_id = $service->id;
+      $i->imageable_type = Service::class;
+      $i->save();
+    }
+  }
 }

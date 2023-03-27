@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\CategorySeeder::class,
       \Database\Seeders\StateSeeder::class,
       \Database\Seeders\ProjectSeeder::class,
-
+      \Database\Seeders\ContactSeeder::class,
+      \Database\Seeders\ServiceSeeder::class,
+      \Database\Seeders\AboutSeeder::class,
       // \Database\Seeders\HomeSeeder::class,
       // \Database\Seeders\TeamMemberSeeder::class,
       // \Database\Seeders\JobImageSeeder::class,
