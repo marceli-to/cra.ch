@@ -68,6 +68,11 @@
           <span>Über uns</span>
         </router-link>
       </li>
+      <li>
+        <router-link :to="{name: 'resume'}">
+          <span>Lebenslauf</span>
+        </router-link>
+      </li>
     </ul>
   </nav>
 </div>

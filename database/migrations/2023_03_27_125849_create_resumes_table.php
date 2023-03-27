@@ -15,7 +15,9 @@ return new class extends Migration
   {
     Schema::create('resumes', function (Blueprint $table) {
       $table->id();
-      $table->json('content');
+      $table->string('periode');
+      $table->text('description');
+      $table->tinyInteger('order')->default(-1);
       $table->timestamps();
     });
   }

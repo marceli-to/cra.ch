@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AboutController;
+use App\Http\Controllers\Api\ResumeController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -74,6 +75,18 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('about/state/{about}', 'toggle');
     Route::delete('about/{about}', 'destroy');
   });
+
+  // Resume
+  Route::controller(ResumeController::class)->group(function () {
+    Route::get('resumes', 'get');
+    Route::get('resume/{resume}', 'find');
+    Route::post('resume', 'store');
+    Route::post('resume/order', 'order');
+    Route::put('resume/{resume}', 'update');
+    Route::get('resume/state/{resume}', 'toggle');
+    Route::delete('resume/{resume}', 'destroy');
+  });
+
 
   // Contact
   Route::controller(ContactController::class)->group(function () {

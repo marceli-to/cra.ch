@@ -39,6 +39,14 @@
           <p>Verwaltung der "Über uns"-Seite</p>
         </router-link>
       </div>
+
+      <div class="card">
+        <router-link :to="{name: 'resume'}">
+          <h2>Lebenslauf</h2>
+          <p>Verwaltung des Lebenslaufs</p>
+        </router-link>
+      </div>
+
     </div>
   </div>
 </template>

@@ -9,41 +9,15 @@
     
     <div v-show="tabs.data.active">
       <div>
+        <div :class="[this.errors.periode ? 'has-error' : '', 'form-row']">
+          <label>Zeitraum</label>
+          <input type="text" v-model="data.periode">
+        </div>
         <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
           <label>Beschreibung</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="data.description"
-          ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Projektbezogene Mitarbeit</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="data.cooperation"
-          ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Mitgliedschaften</label>
-          <tinymce-editor
-            :api-key="tinyApiKey"
-            :init="tinyConfig"
-            v-model="data.membership"
-          ></tinymce-editor>
+          <textarea name="description" v-model="data.description"></textarea>
         </div>
       </div>
-    </div>
-
-    <div v-show="tabs.images.active">
-      <images 
-        :allowRatioSwitch="true"
-        :imageRatioW="3" 
-        :imageRatioH="4"
-        :ratioFormats="[{label: 'Hoch', w: 3, h: 4}]"
-        :images="data.images">
-      </images>
     </div>
 
     <div v-show="tabs.settings.active">
@@ -76,7 +50,7 @@ import ButtonBack from "@/components/ui/ButtonBack.vue";
 import ButtonSubmit from "@/components/ui/ButtonSubmit.vue";
 import LabelRequired from "@/components/ui/LabelRequired.vue";
 import Tabs from "@/components/ui/Tabs.vue";
-import tabsConfig from "@/views/pages/about/config/tabs.js";
+import tabsConfig from "@/views/pages/resume/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
@@ -121,9 +95,9 @@ export default {
 
       // Routes
       routes: {
-        find: '/api/about',
-        store: '/api/about',
-        update: '/api/about',
+        find: '/api/resume',
+        store: '/api/resume',
+        update: '/api/resume',
       },
 
       // States
@@ -158,7 +132,7 @@ export default {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
-        this.data = response.data.about;
+        this.data = response.data.resume;
         this.isFetched = true;
         this.isLoading = false;
       });
@@ -176,7 +150,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "about"});
+        this.$router.push({ name: "resume"});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -185,7 +159,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "about"});
+        this.$router.push({ name: "resume"});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
@@ -195,8 +169,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Über uns bearbeiten" 
-        : "Über uns hinzufügen";
+        ? "Lebenslauf bearbeiten" 
+        : "Lebenslauf hinzufügen";
     }
   }
 };
