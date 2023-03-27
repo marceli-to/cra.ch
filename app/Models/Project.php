@@ -10,16 +10,6 @@ class Project extends Base
   use SoftDeletes, HasFlags;
 
   /**
-   * The attributes that should be cast to native types.
-   *
-   * @var array
-   */
-  
-  protected $casts = [
-
-  ];
-
-  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -59,7 +49,7 @@ class Project extends Base
   */
 
   /**
-   * The images that belong to this discourse.
+   * The images that belong to this model.
    */
 
   public function image()

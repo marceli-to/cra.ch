@@ -2,7 +2,8 @@
   <div v-if="isFetched">
     <loading-indicator v-if="isLoading"></loading-indicator>
     <grid 
-      :grids="project.grids" 
+      :grids="project.grids"
+      :layouts="gridLayouts"
       :modelName="'Project'"
       :model="project"
       @sortedRows="fetch()"
@@ -18,6 +19,7 @@
 </template>
 <script>
 import Grid from "@/modules/grid/Index.vue";
+import GridLayouts from "@/modules/grid/config/project.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import ButtonBack from "@/components/ui/ButtonBack.vue";
 
@@ -33,6 +35,8 @@ export default {
     return {
 
       project: {},
+
+      gridLayouts: GridLayouts,
 
       // Routes
       routes: {

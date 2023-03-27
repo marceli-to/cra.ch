@@ -1,19 +1,13 @@
 <template>
   <div class="is-loaded">
     <page-header>
-      <h1>Projekte</h1>
+      <h1>Projekte & Kategorien</h1>
     </page-header>
     <div class="content content--wide cards">
       <div class="card">
         <router-link :to="{name: 'projects'}">
           <h2>Projekte</h2>
           <p>Verwaltung der Projekte</p>
-        </router-link>
-      </div>
-      <div class="card">
-        <router-link :to="{name: 'project-images'}">
-          <h2>Projektbilder</h2>
-          <p>Verwaltung der Übersichts-Bilder</p>
         </router-link>
       </div>
       <div class="card">

@@ -17,8 +17,8 @@
   .btn-select,
   .btn-delete-item {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
   }
 }
 
@@ -191,7 +191,6 @@
 .aspect-ratio-f > figure,
 .aspect-ratio-f > div {
   aspect-ratio: 0.72;
-  background-color: #FF5722;
 }
 
 .aspect-ratio-g > figure,
@@ -209,13 +208,15 @@
   overflow-x: auto;
   width: 100%;
 
-  a {
+  div {
     @extend %ml-4x;
-    display: block;
-
     &:first-child {
       @extend %ml-0;
     }
+  }
+
+  a {
+    display: block;
 
     &:hover {
       svg {

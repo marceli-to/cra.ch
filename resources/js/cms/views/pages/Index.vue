@@ -20,16 +20,9 @@
       </div>
 
       <div class="card">
-        <router-link :to="{name: 'office'}">
-          <h2>Büro</h2>
-          <p>Verwaltung von Team und offene Stellen</p>
-        </router-link>
-      </div>
-
-      <div class="card">
-        <router-link :to="{name: 'discourse'}">
-          <h2>Diskurs</h2>
-          <p>Verwaltung von Diskurs</p>
+        <router-link :to="{name: 'services'}">
+          <h2>Leistungen</h2>
+          <p>Verwaltung von Leistungen</p>
         </router-link>
       </div>
 

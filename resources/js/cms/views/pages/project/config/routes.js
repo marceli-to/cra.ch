@@ -3,7 +3,6 @@ import ProjectIndex from '@/views/pages/project/project/Index.vue';
 import ProjectCreate from '@/views/pages/project/project/partials/Create.vue';
 import ProjectEdit from '@/views/pages/project/project/partials/Edit.vue';
 import ProjectGrid from '@/views/pages/project/project/Grid.vue';
-import ProjectImages from '@/views/pages/project/images/Index.vue';
 import CategoryIndex from '@/views/pages/project/category/Index.vue';
 import CategoryCreate from '@/views/pages/project/category/partials/Create.vue';
 import CategoryEdit from '@/views/pages/project/category/partials/Edit.vue';
@@ -34,11 +33,6 @@ const routes = [
     name: 'project-grid',
     path: '/administration/project/project/grid/:id',
     component: ProjectGrid,
-  },
-  {
-    name: 'project-images',
-    path: '/administration/project/project-images',
-    component: ProjectImages,
   },
   {
     name: 'categories',

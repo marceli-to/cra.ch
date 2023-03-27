@@ -2,8 +2,12 @@
 <div v-if="isFetched">
 
   <page-header>
-    <h1 v-if="$props.modelName == 'Project'">{{ $props.model.title.de }}</h1>
-    <h1 v-else>Startseite</h1>
+    <h1 v-if="$props.modelName == 'Project'">
+      {{ $props.model.title }}
+    </h1>
+    <h1 v-else>
+      Startseite
+    </h1>
     <div>
       <a href="" class="btn-add has-icon mr-2x" @click.prevent="toggleGridSelector()">
         <plus-icon size="16"></plus-icon>
@@ -18,6 +22,7 @@
 
   <grid-layout-selector 
     :modelName="$props.modelName"
+    :layouts="$props.layouts"
     @select="addRow($event)" 
     v-if="hasGridSelector">
   </grid-layout-selector>
@@ -472,7 +477,12 @@ export default {
     modelName: {
       type: String,
       default: null
-    }
+    },
+
+    layouts: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   data() {

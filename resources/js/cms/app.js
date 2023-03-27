@@ -40,9 +40,12 @@ import store from '@/config/store';
 
 // Routes
 import baseRoutes from '@/config/routes';
+import projectRoutes from '@/views/pages/project/config/routes';
+import serviceRoutes from '@/views/pages/service/config/routes';
+
+
 import officeRoutes from '@/views/pages/office/config/routes';
 import discourseRoutes from '@/views/pages/discourse/config/routes';
-import projectRoutes from '@/views/pages/project/config/routes';
 import homeRoutes from '@/views/pages/home/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
 
@@ -52,9 +55,10 @@ const router = new VueRouter(
     mode: 'history', 
     routes: [
       ...baseRoutes,
+      ...projectRoutes,
+      ...serviceRoutes,
       ...officeRoutes,
       ...discourseRoutes,
-      ...projectRoutes,
       ...imageRoutes,
       ...homeRoutes
     ]

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\StateController;
+use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -52,6 +53,16 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::get('file/state/{file}', [FileController::class, 'toggle']);
   Route::delete('file/{file}', [FileController::class, 'destroy']);
 
+  // Service
+  Route::controller(ServiceController::class)->group(function () {
+    Route::get('services', 'get');
+    Route::get('service/{service}', 'find');
+    Route::post('service', 'store');
+    Route::put('service/{service}', 'update');
+    Route::get('service/state/{service}', 'toggle');
+    Route::delete('service/{service}', 'destroy');
+  });
+
   // Project categories
   Route::controller(CategoryController::class)->group(function () {
     Route::get('categories', 'get');
@@ -64,10 +75,6 @@ Route::middleware('auth:sanctum')->group(function() {
   // Project states
   Route::controller(StateController::class)->group(function () {
     Route::get('states', 'get');
-    // Route::get('category/{category}', 'find');
-    // Route::post('category', 'store');
-    // Route::put('category/{category}', 'update');
-    // Route::delete('category/{category}', 'destroy');
   });
 
   // Projects

@@ -93,7 +93,6 @@
       </svg>
     </div>
   </div>
-
   <template v-if="$props.items">
     <div class="ml-6x flex">
     <div v-for="item in $props.items" :key="item.id">

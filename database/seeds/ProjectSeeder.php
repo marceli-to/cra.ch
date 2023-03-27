@@ -128,14 +128,31 @@ class ProjectSeeder extends Seeder
         'state_id' => mt_rand(1,3),
       ]);
 
+      $project->flag('isPublish');
       // Set flags for every 3rd project
-      if($i % 3 == 0) $project->flag('isPublish');
-      if($i % 4 == 0) $project->flag('isWorklist');
+      if($i % 3 == 0) $project->flag('isWorklist');
 
       CategoryProject::create([
         'project_id' => $project->id,
         'category_id' => mt_rand(1,3)
       ]);
+
+      for($y = 1; $y <= 13; $y++)
+      {
+        $rand = mt_rand(1,13);
+        $random_string = \Str::random(10);
+        Image::create([
+          'uuid' => \Str::uuid(),
+          'name' => 'cra-' . $y .'.jpg',
+          'original_name' => 'cra-' . $y .'.jpg',
+          'extension' => 'jpg',
+          'size' => '145623'.$y,
+          'order' => $rand,
+          'publish' => 1,
+          'imageable_type' => Project::class,
+          'imageable_id' => $project->id,
+        ]);
+      }
     }
   }
 }
