@@ -18,5 +18,4 @@ class Resume extends Model
   protected $casts = [
     'content' => 'array',
   ];
-  
 }
