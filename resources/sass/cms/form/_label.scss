@@ -7,7 +7,7 @@
 label {
   @include responsive-prop('margin-bottom', $space-xs);
   @include font-regular();
-  @include font-size($fs-xs);
+  @include font-size($fs-md);
   display: block;
 
   &.form-control {

@@ -37,7 +37,6 @@
 <script>
 import { PlusIcon, Trash2Icon } from 'vue-feather-icons';
 import ImageUtils from "@/modules/images/mixins/utils";
-import { stringify } from 'querystring';
 
 export default {
 

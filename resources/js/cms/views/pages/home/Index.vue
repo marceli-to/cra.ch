@@ -1,64 +1,49 @@
 <template>
-  <div v-if="isFetched">
-    <loading-indicator v-if="isLoading"></loading-indicator>
-    <grid 
-      :grids="home.grids"
-      :model="home" 
-      :modelName="'Home'"
-      @sortedRows="fetch()"
-      @addedRowItem="fetch()"
-      @resetItem="fetch()"
-      @addedRow="fetch()"
-      @deletedRow="fetch()">
-    </grid>
+  <div class="is-loaded">
+    <page-header>
+      <h1>Startseite</h1>
+    </page-header>
+    <div class="content content--wide cards">
+      <div class="card">
+        <router-link :to="{name: 'home-grid'}">
+          <h2>Layout</h2>
+          <p>Verwaltung des Startseiten-Layouts</p>
+        </router-link>
+      </div>
+      <div class="card">
+        <router-link :to="{name: 'articles'}">
+          <h2>Artikel</h2>
+          <p>Verwaltung der Startseiten-Artikel</p>
+        </router-link>
+      </div>
+      <page-footer>
+        <button-back :route="'dashboard'">Zurück</button-back>
+      </page-footer>
+    </div>
   </div>
 </template>
 <script>
-import Grid from "@/modules/grid/Index.vue";
+
+// Mixins
+import Helpers from "@/mixins/Helpers";
+import ButtonBack from "@/components/ui/ButtonBack.vue";
+import PageHeader from "@/components/ui/PageHeader.vue";
+import PageFooter from "@/components/ui/PageFooter.vue";
+import Service from "@/views/pages/content/service/Index.vue";
+import About from "@/views/pages/content/about/Index.vue";
+import Contact from "@/views/pages/content/contact/Index.vue";
 
 export default {
 
   components: {
-    Grid
+    PageHeader,
+    PageFooter,
+    ButtonBack,
+    Service,
+    About,
+    Contact,
   },
 
-  data() {
-    return {
-
-      home: {},
-
-      // Routes
-      routes: {
-        get: '/api/home',
-      },
-
-      // States
-      isLoading: false,
-      isFetched: false,
-
-      // Messages
-      messages: {
-        emptyData: 'Es sind noch keine Daten vorhanden...',
-        confirm: 'Bitte löschen bestätigen!',
-        updated: 'Daten aktualisiert',
-      }
-    };
-  },
-
-  created() {
-    this.fetch();
-  },
-
-  methods: {
-    fetch() {
-      this.isLoading = true;
-      this.axios.get(`${this.routes.get}`).then(response => {
-        this.home = response.data.home;
-        this.isFetched = true;
-        this.isLoading = false;
-      });
-    },
-  }
-
-};
+  mixins: [Helpers],
+}
 </script>

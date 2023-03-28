@@ -1,9 +1,8 @@
 <?php
 namespace App\Models;
-use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class GridItem extends Base
+class GridItem extends Model
 {
   /**
    * The attributes that are mass assignable.
@@ -37,14 +36,6 @@ class GridItem extends Base
     return $this->belongsTo(Image::class);
   }
 
-  /**
-   * The discourse article that belongs to this image grid item.
-   */
-  
-  public function discourse()
-  {
-    return $this->belongsTo(Discourse::class);
-  }
 
   /**
    * The project that belongs to this image grid item.

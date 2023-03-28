@@ -4,7 +4,7 @@ use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class About extends Base
+class About extends Model
 {
   use HasFlags;
 

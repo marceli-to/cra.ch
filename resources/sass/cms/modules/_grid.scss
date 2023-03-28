@@ -5,7 +5,8 @@
  */
 
 .grid-layout {
-
+  @extend %mb-8x;
+  
   .btn-delete {
     @extend %mb-3x;
     background-color: $color-red;

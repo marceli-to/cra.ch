@@ -13,7 +13,7 @@ class HomeController extends Controller
    */
   public function find()
   {
-    $home = Home::with('grids.gridItems.image', 'grids.gridItems.discourse.publishedImage')->find(1);
+    $home = Home::with('grids.gridItems.image')->find(1);
     return response()->json(['home' => $home]);
   }
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AboutController;
 use App\Http\Controllers\Api\ResumeController;
 use App\Http\Controllers\Api\DiaryController;
+use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
@@ -56,6 +57,16 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::put('file/{file}', [FileController::class, 'update']);
   Route::get('file/state/{file}', [FileController::class, 'toggle']);
   Route::delete('file/{file}', [FileController::class, 'destroy']);
+
+  // Article
+  Route::controller(ArticleController::class)->group(function () {
+    Route::get('articles', 'get');
+    Route::get('article/{article}', 'find');
+    Route::post('article', 'store');
+    Route::put('article/{article}', 'update');
+    Route::get('article/state/{article}', 'toggle');
+    Route::delete('article/{article}', 'destroy');
+  });
 
   // Service
   Route::controller(ServiceController::class)->group(function () {

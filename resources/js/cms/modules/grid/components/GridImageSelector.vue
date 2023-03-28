@@ -113,7 +113,5 @@ export default {
       this.selectedProject = this.projects[index];
     },
   }
-
-
 }
 </script>

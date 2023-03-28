@@ -20,15 +20,8 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\AboutSeeder::class,
       \Database\Seeders\ResumeSeeder::class,
       \Database\Seeders\DiarySeeder::class,
+      \Database\Seeders\ArticleSeeder::class,
       // \Database\Seeders\HomeSeeder::class,
-      // \Database\Seeders\TeamMemberSeeder::class,
-      // \Database\Seeders\JobImageSeeder::class,
-      // \Database\Seeders\ProjectImageSeeder::class,
-      // \Database\Seeders\TeamImageSeeder::class,
-
-      // \Database\Seeders\JobSeeder::class,
-      // \Database\Seeders\ProjectSeeder::class,
-      // \Database\Seeders\DiscourseSeeder::class,
       // \Database\Seeders\GridSeeder::class,
     ]);
   }

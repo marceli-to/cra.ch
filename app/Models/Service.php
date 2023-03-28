@@ -1,10 +1,9 @@
 <?php
 namespace App\Models;
-use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class Service extends Base
+class Service extends Model
 {
   use HasFlags;
 

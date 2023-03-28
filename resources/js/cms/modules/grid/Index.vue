@@ -65,7 +65,7 @@
           <grid-item
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
-            :ratio="'aspect-ratio-a'"
+            :ratio="'aspect-ratio-e'"
             :hasArticles="hasArticles"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
@@ -74,7 +74,7 @@
           <grid-item
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
-            :ratio="'aspect-ratio-b'"
+            :ratio="'aspect-ratio-f'"
             :hasArticles="hasArticles"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
@@ -608,7 +608,8 @@ export default {
 
   mounted() {
     this.gridItems = this.$props.grids;
-    this.hasArticles = this.$props.modelName == 'Home' ? true : false;
+    //this.hasArticles = this.$props.modelName == 'Home' ? true : false;
+    this.hasArticles = false;
   },
 
   methods: {

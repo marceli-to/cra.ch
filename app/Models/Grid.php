@@ -1,9 +1,8 @@
 <?php
 namespace App\Models;
-use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Grid extends Base
+class Grid extends Model
 {
   /**
    * The attributes that are mass assignable.

@@ -1,10 +1,9 @@
 <?php
 namespace App\Models;
-use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class Diary extends Base
+class Diary extends Model
 {
   use HasFlags;
 

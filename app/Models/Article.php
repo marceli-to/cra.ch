@@ -3,21 +3,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class Contact extends Model
+class Article extends Model
 {
   use HasFlags;
-
+  
   /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
    
-	protected $fillable = [
-    'address',
-    'description',
-    'maps_uri',
-    'imprint'
+  protected $fillable = [
+    'date',
+    'title',
+    'text',
+    'link',
   ];
 
   /**
@@ -26,7 +26,7 @@ class Contact extends Model
    * @var array
    */
 
-  protected $appends = [
+   protected $appends = [
     'publish',
   ];
 
@@ -46,7 +46,7 @@ class Contact extends Model
   {
     return $this->morphMany(Image::class, 'imageable')->orderBy('order');
   }
-
+ 
   public function publishedImages()
   {
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
