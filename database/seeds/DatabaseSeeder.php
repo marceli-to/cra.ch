@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\ResumeSeeder::class,
       \Database\Seeders\DiarySeeder::class,
       \Database\Seeders\ArticleSeeder::class,
-      // \Database\Seeders\HomeSeeder::class,
+      \Database\Seeders\HomeSeeder::class,
       // \Database\Seeders\GridSeeder::class,
     ]);
   }

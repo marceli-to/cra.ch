@@ -13,6 +13,8 @@ class GridItem extends Model
   protected $fillable = [
     'position',
     'project_id',
+    'diary_id',
+    'article_id',
     'image_id',
     'grid_id'
   ];
@@ -45,5 +47,23 @@ class GridItem extends Model
   {
     return $this->belongsTo(Project::class);
   }
+
+  /**
+   * The diary that belongs to this image grid item.
+   */
+  
+   public function diary()
+   {
+      return $this->belongsTo(Diary::class);
+   }
+
+    /**
+   * The article that belongs to this image grid item.
+   */
+  
+   public function article()
+   {
+     return $this->belongsTo(Diary::class);
+   }
 
 }

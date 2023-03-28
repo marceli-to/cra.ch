@@ -20,6 +20,8 @@ class GridItemController extends Controller
     $gridItem = GridItem::find($request->input('id'));
     $gridItem->image_id = $request->input('image_id') ? $request->input('image_id') : NULL;
     $gridItem->project_id = $request->input('project_id') ? $request->input('project_id') : NULL;
+    $gridItem->diary_id = $request->input('diary_id') ? $request->input('diary_id') : NULL;
+    $gridItem->article_id = $request->input('article_id') ? $request->input('article_id') : NULL;
     $gridItem->position = $request->input('position');
     $gridItem->save();
     return response()->json($gridItem);
@@ -35,6 +37,7 @@ class GridItemController extends Controller
   {
     $gridItem->image_id = NULL;
     $gridItem->project_id = NULL;
+    $gridItem->diary_id = NULL;
     $gridItem->save();
     return response()->json('successfully deleted');
   }

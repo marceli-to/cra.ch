@@ -21,6 +21,10 @@
     top: 10px;
     right: 10px;
   }
+
+  .btn-select + .btn-select {
+    top: 60px;
+  }
 }
 
 .grid-layout > div {
@@ -250,24 +254,24 @@
 
   > div {
     @extend %page-block;
-    @extend %py-3x;
-    @extend %pb-3x;
+    @extend %p-3x;
+    @extend %py-4x;
+    @extend %pb-6x;
     background-color: $color-white;
     min-width: 480px;
     max-width: 720px !important;
-    padding-left: $space-2x !important;
-    padding-right: $space-2x !important;
     position: relative;
   }
 
   .grid-image-selector__images {
+    @extend %mt-5x;
     display: flex;
     flex-flow: wrap;
   }
 
   h2 {
-    @extend %mx-1x;
-    @extend %mb-2x;
+    @extend %mb-3x;
+    @include font-size($fs-md);
   }
 
   img {

@@ -21,15 +21,15 @@
           <plus-icon size="16"></plus-icon>
           <span>Bild hinzufügen</span>
         </a>
-      </div>
-      <div v-if="$props.hasArticles">
-        <a 
-          href="" 
-          class="btn-select has-icon" 
-          @click.prevent="$emit('showArticles', {id: $props.item.id, position: $props.item.position})">
-          <plus-icon size="16"></plus-icon>
-          <span>Artikel hinzufügen</span>
-        </a>
+        <template v-if="$props.hasArticles">
+          <a 
+            href="" 
+            class="btn-select has-icon" 
+            @click.prevent="$emit('showArticles', {id: $props.item.id, position: $props.item.position})">
+            <plus-icon size="16"></plus-icon>
+            <span>Artikel hinzufügen</span>
+          </a>
+        </template>
       </div>
     </template>
   </div>

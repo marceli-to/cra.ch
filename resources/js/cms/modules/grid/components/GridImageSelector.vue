@@ -7,7 +7,7 @@
           <x-icon size="24"></x-icon>
         </a>
         <template v-if="project">
-          <h2>{{ project.title.de }}</h2>
+          <h2>{{ project.title }}</h2>
           <div class="grid-image-selector__images">
             <figure v-for="image in project.images" :key="image.id">
               <img 
@@ -18,12 +18,25 @@
             </figure>
           </div>        
         </template>
+        <template v-if="diary">
+          <h2>{{ diary.title }}</h2>
+          <div class="grid-image-selector__images" v-if="diary.images.length > 0">
+            <figure v-for="image in diary.images" :key="image.id">
+              <img 
+                :src="getSource(image, 'cache')" 
+                height="300" 
+                width="300" v-if="image"
+                @click="$emit('select', {image: image.id})" />
+            </figure>
+          </div>   
+          <div v-else>Es sind keine Bilder für dieses Tagebuch vorhanden.</div>     
+        </template>
         <template v-if="projects.length">
           <h2>Projekt wählen</h2>
-          <div class="select-wrapper mt-2x px-1x">
+          <div class="select-wrapper mt-3x">
             <select v-model="selectedProjectId" @change="selectImages()">
               <option :value="null">Bitte wählen...</option>
-              <option v-for="p in projects" :key="p.id" :value="p.id">{{ p.title.de }}</option>
+              <option v-for="p in projects" :key="p.id" :value="p.id">{{ p.title }}</option>
             </select>
           </div>
           <div class="grid-image-selector__images mt-2x" v-if="selectedProjectId && selectedProject.images.length">
@@ -56,6 +69,7 @@ export default {
   data() {
     return {
       project: null,
+      diary: null,
       projects: [],
       selectedProjectId: null,
       selectedProject: [],
@@ -65,6 +79,7 @@ export default {
 
       routes: {
         getProject: '/api/project',
+        getDiary: '/api/diary',
         getProjects: '/api/projects',
       },
     }
@@ -72,15 +87,20 @@ export default {
 
   props: {
 
-    projectId: {
-      type: Number,
-      default: null,
+    model: {
+      type: Object,
+    },
+    modelName: {
+      type: String,
     }
   },
 
   mounted() {
-    if (this.$props.projectId) {
-      this.fetchProject(this.$props.projectId);
+    if (this.$props.modelName == 'Project') {
+      this.fetchProject(this.$props.model.id);
+    }
+    else if (this.$props.modelName == 'Diary') {
+      this.fetchDiary(this.$props.model.id);
     }
     else {
       this.fetchProjects();
@@ -89,10 +109,19 @@ export default {
 
   methods: {
 
-    fetchProject() {
+    fetchProject(id) {
       this.isLoading = true;
-      this.axios.get(`${this.routes.getProject}/${this.$props.projectId}`).then(response => {
+      this.axios.get(`${this.routes.getProject}/${id}`).then(response => {
         this.project = response.data.project;
+        this.isFetched = true;
+        this.isLoading = false;
+      });
+    },
+
+    fetchDiary(id) {
+      this.isLoading = true;
+      this.axios.get(`${this.routes.getDiary}/${id}`).then(response => {
+        this.diary = response.data.diary;
         this.isFetched = true;
         this.isLoading = false;
       });

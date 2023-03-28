@@ -7,11 +7,11 @@
           <x-icon size="24"></x-icon>
         </a>
         <template v-if="articles.length">
-          <h2>News-Artikel wählen</h2>
+          <h2>Artikel wählen</h2>
           <div class="select-wrapper mt-2x px-1x">
-            <select v-model="selectedArticleId" @change="$emit('select', { discourse: selectedArticleId })">
+            <select v-model="selectedArticleId" @change="$emit('select', { article: selectedArticleId })">
               <option :value="null">Bitte wählen...</option>
-              <option v-for="a in articles" :key="a.id" :value="a.id">{{ a.title.de }}</option>
+              <option v-for="a in articles" :key="a.id" :value="a.id">{{ a.title }}</option>
             </select>
           </div>
         </template>
@@ -41,7 +41,7 @@ export default {
       isLoading: false,
 
       routes: {
-        getArticles: '/api/discourses',
+        getArticles: '/api/articles',
       },
     }
   },

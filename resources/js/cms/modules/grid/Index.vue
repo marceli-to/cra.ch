@@ -25,7 +25,8 @@
   </grid-layout-selector>
 
   <grid-image-selector
-    :projectId="$props.model.id"
+    :model="$props.model"
+    :modelName="$props.modelName"
     @close="toggleImageSelector()"
     @select="addImage($event)"
     v-if="hasImageSelector">
@@ -608,8 +609,7 @@ export default {
 
   mounted() {
     this.gridItems = this.$props.grids;
-    //this.hasArticles = this.$props.modelName == 'Home' ? true : false;
-    this.hasArticles = false;
+    this.hasArticles = this.$props.modelName == 'Home' ? true : false;
   },
 
   methods: {
@@ -676,7 +676,7 @@ export default {
         id: this.currentItemId,
         position: this.currentPos,
         image_id: data.image,
-        project_id: data.project
+        project_id: data.project ? data.project : null,
       }
       this.isLoading = true;
       this.axios.post(this.routes.storeItem, item).then(response => {
@@ -691,7 +691,7 @@ export default {
       const item = {
         id: this.currentItemId,
         position: this.currentPos,
-        discourse_id: data.discourse,
+        article_id: data.article,
       }
       this.isLoading = true;
       this.axios.post(this.routes.storeItem, item).then(response => {
