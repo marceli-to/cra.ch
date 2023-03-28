@@ -16,19 +16,7 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          
-          <template v-if="d.date || d.title">
-            <template v-if="d.date">
-              {{ d.date }}
-              <separator v-if="d.title" />
-            </template>
-            <template v-if="d.title">
-              {{ d.title }}
-            </template>
-          </template>
-          <template v-else>
-            <div v-html="d.text"></div>
-          </template>
+          <span v-html="d.displayTitle"></span>
         </div>
         <list-actions 
           :id="d.id" 

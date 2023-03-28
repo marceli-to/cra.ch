@@ -12,6 +12,26 @@
         <span>Löschen</span>
       </a>
     </template>
+    <template v-else-if="$props.item.article">
+      <article>
+        <template v-if="$props.item.article.date">
+          <div>{{ $props.item.article.date }}</div>
+        </template>
+        <template v-if="$props.item.article.title">
+          <h2 class="mb-2x">{{ $props.item.article.title }}</h2>
+        </template>
+        <template v-if="$props.item.article.text">
+         <div v-html="$props.item.article.text"></div>
+        </template>
+      </article>
+      <a 
+        href="" 
+        class="btn-delete btn-delete-item has-icon"
+        @click.prevent="$emit('resetItem', $props.item.id)">
+        <trash-2-icon size="16"></trash-2-icon>
+        <span>Löschen</span>
+      </a>
+    </template>
     <template v-else>
       <div>
         <a 
@@ -27,7 +47,7 @@
             class="btn-select has-icon" 
             @click.prevent="$emit('showArticles', {id: $props.item.id, position: $props.item.position})">
             <plus-icon size="16"></plus-icon>
-            <span>Artikel hinzufügen</span>
+            <span>Text hinzufügen</span>
           </a>
         </template>
       </div>

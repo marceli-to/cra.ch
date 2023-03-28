@@ -15,8 +15,12 @@ class ArticleController extends Controller
    * 
    * @return \Illuminate\Http\Response
    */
-  public function get()
+  public function get($publish = FALSE)
   {
+    if ($publish)
+    {
+      return new DataCollection(Article::flagged('isPublish')->get());
+    }
     return new DataCollection(Article::get());
   }
 

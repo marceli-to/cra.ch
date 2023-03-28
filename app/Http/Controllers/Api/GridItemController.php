@@ -38,6 +38,7 @@ class GridItemController extends Controller
     $gridItem->image_id = NULL;
     $gridItem->project_id = NULL;
     $gridItem->diary_id = NULL;
+    $gridItem->article_id = NULL;
     $gridItem->save();
     return response()->json('successfully deleted');
   }

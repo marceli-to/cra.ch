@@ -28,6 +28,7 @@ class Article extends Model
 
    protected $appends = [
     'publish',
+    'displayTitle',
   ];
 
   /*
@@ -52,6 +53,11 @@ class Article extends Model
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
   }
 
+  public function grids()
+  {
+    return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
+  }
+
   /**
    * Get the publish attribute
    * 
@@ -61,5 +67,19 @@ class Article extends Model
   {
     return $this->hasFlag('isPublish') ? 1 : 0;    
   }
+
+  /**
+   * Get the displayTitle attribute
+   * 
+   */
+
+   public function getDisplayTitleAttribute()
+   {
+    if ($this->title)
+    {
+      return $this->date ? $this->date . ' &bull; ' . $this->title : $this->title;
+    } 
+    return substr(strip_tags($this->text), 0, 25) . '...';
+   }
 
 }

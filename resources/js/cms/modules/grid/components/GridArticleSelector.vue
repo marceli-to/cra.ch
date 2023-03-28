@@ -1,17 +1,17 @@
 <template>
   <div>
     <loading-indicator v-if="isLoading"></loading-indicator>
-    <div class="grid-image-selector" v-if="isFetched">
+    <div class="grid-asset-selector" v-if="isFetched">
       <div>
         <a href="" class="btn-close" @click.prevent="$emit('close')">
           <x-icon size="24"></x-icon>
         </a>
         <template v-if="articles.length">
           <h2>Artikel wählen</h2>
-          <div class="select-wrapper mt-2x px-1x">
+          <div class="select-wrapper mt-2x">
             <select v-model="selectedArticleId" @change="$emit('select', { article: selectedArticleId })">
               <option :value="null">Bitte wählen...</option>
-              <option v-for="a in articles" :key="a.id" :value="a.id">{{ a.title }}</option>
+              <option v-for="a in articles" :key="a.id" :value="a.id">{{ a.displayTitle }}</option>
             </select>
           </div>
         </template>
@@ -55,7 +55,7 @@ export default {
 
     fetchArticles() {
       this.isLoading = true;
-      this.axios.get(`${this.routes.getArticles}`).then(response => {
+      this.axios.get(`${this.routes.getArticles}/1`).then(response => {
         this.articles = response.data.data;
         this.isFetched = true;
         this.isLoading = false;

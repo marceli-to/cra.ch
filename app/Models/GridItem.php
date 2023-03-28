@@ -38,7 +38,6 @@ class GridItem extends Model
     return $this->belongsTo(Image::class);
   }
 
-
   /**
    * The project that belongs to this image grid item.
    */
@@ -52,18 +51,18 @@ class GridItem extends Model
    * The diary that belongs to this image grid item.
    */
   
-   public function diary()
-   {
-      return $this->belongsTo(Diary::class);
-   }
+  public function diary()
+  {
+    return $this->belongsTo(Diary::class);
+  }
 
-    /**
+  /**
    * The article that belongs to this image grid item.
    */
   
-   public function article()
-   {
-     return $this->belongsTo(Diary::class);
-   }
+  public function article()
+  {
+    return $this->belongsTo(Article::class);
+  }
 
 }

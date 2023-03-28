@@ -1,14 +1,14 @@
 <template>
   <div>
     <loading-indicator v-if="isLoading"></loading-indicator>
-    <div class="grid-image-selector" v-if="isFetched">
+    <div class="grid-asset-selector" v-if="isFetched">
       <div>
         <a href="" class="btn-close" @click.prevent="$emit('close')">
           <x-icon size="24"></x-icon>
         </a>
         <template v-if="project">
           <h2>{{ project.title }}</h2>
-          <div class="grid-image-selector__images">
+          <div class="grid-asset-selector__images">
             <figure v-for="image in project.images" :key="image.id">
               <img 
                 :src="getSource(image, 'cache')" 
@@ -20,7 +20,7 @@
         </template>
         <template v-if="diary">
           <h2>{{ diary.title }}</h2>
-          <div class="grid-image-selector__images" v-if="diary.images.length > 0">
+          <div class="grid-asset-selector__images" v-if="diary.images.length > 0">
             <figure v-for="image in diary.images" :key="image.id">
               <img 
                 :src="getSource(image, 'cache')" 
@@ -39,7 +39,7 @@
               <option v-for="p in projects" :key="p.id" :value="p.id">{{ p.title }}</option>
             </select>
           </div>
-          <div class="grid-image-selector__images mt-2x" v-if="selectedProjectId && selectedProject.images.length">
+          <div class="grid-asset-selector__images mt-2x" v-if="selectedProjectId && selectedProject.images.length">
             <figure v-for="image in selectedProject.images" :key="image.id">
               <img 
                 :src="getSource(image, 'cache')" 

@@ -171,36 +171,53 @@
 
 [class*="aspect-ratio-"] > div,
 [class^="aspect-ratio-"] > div {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
+[class*="aspect-ratio-"] > article,
+[class^="aspect-ratio-"] > article {
+  @extend %p-4x;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+
 .aspect-ratio-a > figure,
+.aspect-ratio-a > article,
 .aspect-ratio-a > div {
   aspect-ratio: 1.64;
 }
 
 .aspect-ratio-b > figure,
+.aspect-ratio-b > article,
 .aspect-ratio-b > div {
   aspect-ratio: 0.73;
 }
 
 .aspect-ratio-c > figure,
+.aspect-ratio-c > article,
 .aspect-ratio-c > div {
   aspect-ratio: 1.5;
 }
 
 .aspect-ratio-e > figure,
+.aspect-ratio-e > article,
 .aspect-ratio-e > div {
   aspect-ratio: 1.48;
 }
 
 .aspect-ratio-f > figure,
+.aspect-ratio-f > article,
 .aspect-ratio-f > div {
   aspect-ratio: 0.72;
 }
 
 .aspect-ratio-g > figure,
+.aspect-ratio-g > article,
 .aspect-ratio-g > div {
   aspect-ratio: 1.5;
 }
@@ -240,7 +257,7 @@
   }
 }
 
-.grid-image-selector {
+.grid-asset-selector {
   align-items: center;
   background-color: rgba(0, 0, 0, .6);
   display: flex;
@@ -258,12 +275,14 @@
     @extend %py-4x;
     @extend %pb-6x;
     background-color: $color-white;
+    box-shadow: $box-shadow-lg;
+    border-radius: 6px;
     min-width: 480px;
     max-width: 720px !important;
     position: relative;
   }
 
-  .grid-image-selector__images {
+  .grid-asset-selector__images {
     @extend %mt-5x;
     display: flex;
     flex-flow: wrap;

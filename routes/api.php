@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
   // Article
   Route::controller(ArticleController::class)->group(function () {
-    Route::get('articles', 'get');
+    Route::get('articles/{publish?}', 'get');
     Route::get('article/{article}', 'find');
     Route::post('article', 'store');
     Route::put('article/{article}', 'update');
