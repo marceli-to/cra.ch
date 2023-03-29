@@ -22,36 +22,9 @@ class ProjectController extends BaseController
    * @return \Illuminate\Http\Response
    */
 
-  public function index($category = NULL)
+  public function index()
   { 
-    // Get category
-    $category = $category ? Category::where('slug', 'like', '%"'.$category.'"%')->firstOrFail() : Category::with('projects')->has('projects')->first();
 
-    // Get projects
-    $projects = Project::with('images', 'previewImage', 'categories')->flagged('isPublish')->orderBy('order')->get();
-
-    $projectsByCategory = null;
-    if ($category)
-    {
-      $projectsByCategory = Project::query()->with('images', 'previewImage', 'categories')
-      ->whereHas('categories', function ($query) use ($category) {
-        $query->where('id', $category->id);
-      })->flagged('isPublish')->get();
-    }
-
-    // Get project image (overview)
-    $projectImage = ProjectImage::with('publishedImage')->find(1);
-
-    return view(
-      $this->viewPath . 'index', 
-      [
-        'projects' => $projects,
-        'projectsByCategory' => $projectsByCategory,
-        'projectActive' =>  $projectsByCategory, 
-        'projectActiveCategory' => $category,
-        'projectImage' => $projectImage
-      ]
-    );
   }
 
   /**
@@ -65,14 +38,7 @@ class ProjectController extends BaseController
 
   public function show($category = NULL, $slug = NULL, Project $project)
   {
-    $category = Category::where('slug', 'like', '%"'.$category.'"%')->firstOrFail();
-    $project = Project::with('grids')->findOrFail($project->id);
-    return view($this->viewPath . 'show', 
-      [
-        'category' => $category, 'project' => $project,
-        'browse'   => $this->getBrowse($project->id, $category->id),
-      ]
-    );
+
   }
 
   /**

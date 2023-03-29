@@ -5,7 +5,29 @@
  */
 
 header.site-header {
-  > div {
+  @extend %pt-11x;
+  @extend %sm\:pt-22x;
+  @extend %md\:pt-44x;
+  background-color: $color-white;
+  height: $header-height;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 
+  @include bp-sm() {
+    height: $header-height-sm;
+  }
+
+  @include bp-md() {
+    height: $header-height-md;
+  }
+  
+  > div {
+    @extend %inner-block;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
   }
 }

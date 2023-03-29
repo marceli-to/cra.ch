@@ -5,21 +5,12 @@
  *
  */
 
-%outer-block,
-.outer-block {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: $page-max-width-xxl;
-  padding-left: $space-8x;
-  padding-right: $space-8x;
-}
- 
 %inner-block,
 .inner-block {
-  @extend %outer-block;
-  @include bp-lg() {
-    padding-left: 50px;
-    padding-right: 82px;
-  }
+  @extend %mx-auto;
+  @extend %px-11x;
+  @extend %sm\:px-22x;
+  @extend %md\:px-44x;
+  max-width: $page-max-width;
+  width: 100%;
 }
-

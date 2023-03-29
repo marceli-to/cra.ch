@@ -5,5 +5,13 @@
  */
 
 main.site {
+  padding-top: $header-height;
 
+  @include bp-sm() {
+    padding-top: $header-height-sm;
+  }
+
+  @include bp-md() {
+    padding-top: $header-height-md;
+  }
 }

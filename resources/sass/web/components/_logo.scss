@@ -5,4 +5,19 @@
  */
 
 .logo {
+  display: block;
+  height: auto;
+  width: 195px;
+
+  @include bp-sm() {
+    width: 260px;
+  }
+  
+  @include bp-md() {
+    width: 365px;
+  }
+  
+  svg {
+    @extend %is-responsive;
+  }
 }

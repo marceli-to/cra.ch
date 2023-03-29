@@ -27,36 +27,31 @@ $url-svg:    '../img/svg/';
 /* Breakpoints
  * -------------------- */
 
-$bp-sm:   600px;
-$bp-md:   700px;
-$bp-lg:  1000px;
-$bp-xl:  1200px;
-$bp-xxl: 1600px;
+$bp-sm:   768px;
+$bp-md:  1024px;
+$bp-lg:  1280px;
+$bp-xl:  1440px;
 
 $breakpoints: (
   sm: $bp-sm,
   md: $bp-md,
   lg: $bp-lg,
-  xl: $bp-xxl,
+  xl: $bp-xl,
 );
 
 /* Site
  * -------------------- */
 
 // standard screen size
-$page-max-width:     1200px;
-$lightbox-max-width:  950px;
+$page-max-width:  1440px;
 
-// extra large screen size
-$page-max-width-xxl:     1440px;
-$lightbox-max-width-xxl:  1200px;
 
 /* Header
  * -------------------- */
 
-$header-height:     58px;
-$header-height-lg:  82px;
-$header-height-xxl: 89px;
+$header-height:    110px;
+$header-height-sm: 160px;
+$header-height-md: 240px;
 
 /* Grids
  * -------------------- */

@@ -6,17 +6,16 @@
   };
 
   const selectors = {
-    menu: '.js-menu',
-    btnMenu: '.js-menu-btn',
+    menu: '[data-menu]',
+    btnMenu: '[data-menu-btn]',
+    btnMenuItemParent: '.js-menu-item-parent',
   };
 
   const init = () => {
     const btnMenu = document.querySelector(selectors.btnMenu);
-    
     if (btnMenu) {
       btnMenu.addEventListener("click", toggle, false);
     }
-
   };
 
   const toggle = function(){

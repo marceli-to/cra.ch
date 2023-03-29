@@ -1,12 +1,13 @@
 <header class="site-header">
-  <a href="javascript:;" class="btn-menu js-menu-btn">
-    {{-- 
-      <x-icon type="burger" />
-      <x-icon type="cross" />
-    --}}
-  </a>
-  <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
-    <x-icons.logo />
-  </a>
-  @include('menu.global')
+  <div>
+    <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
+      <x-icons.logo />
+    </a>
+    <a href="javascript:;" class="btn-menu" data-menu-btn>
+      <x-icons.burger />
+      <x-icons.cross />
+    </a> 
+    @include('layout.partials.menu')
+ 
+  </div>
 </header>

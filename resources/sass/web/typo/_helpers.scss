@@ -50,16 +50,12 @@
   @include font-regular();
 }
 
-.text-xs {
-  @include font-size($fs-xs);
-}
-
 .text-sm {
   @include font-size($fs-sm);
 }
 
-.text-md {
-  @include font-size($fs-md);
+.text-base {
+  @include font-size($fs-base);
 }
 
 

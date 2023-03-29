@@ -8,6 +8,6 @@ class BaseController extends Controller
 {
   public function __construct()
   {
-
+    view()->share('menuProjects', Project::flagged('isPublish')->get());
   }
 }
