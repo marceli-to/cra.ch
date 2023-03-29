@@ -71,35 +71,43 @@
   }
 }
 
+.is-block {
+  display: block;
+}
+
 // Hide
-%hide,
-.hide {
+.is-hidden {
   display: none;
 }
 
-%md\:hide,
-.md\:hide {
+%hidden,
+.hidden {
+  display: none;
+}
+
+%md\:hidden,
+.md\:hidden {
   @include bp-md() {
     display: none;
   }
 }
 
-%lg\:hide,
-.lg\:hide {
+%lg\:hidden,
+.lg\:hidden {
   @include bp-lg() {
     display: none;
   }
 }
 
-%\!md\:hide,
-.\!md\:hide {
+%\!md\:hidden,
+.\!md\:hidden {
   @include bp-md() {
     display: none !important;
   }
 }
 
-%\!lg\:hide,
-.\!lg\:hide {
+%\!lg\:hidden,
+.\!lg\:hidden {
   @include bp-lg() {
     display: none !important;
   }

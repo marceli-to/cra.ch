@@ -49,13 +49,25 @@ nav.site {
     transition: color .12s ease-in;
   
     &.is-active,
+    &.is-current,
     &:hover {
       color: $color-blue;
     }
+
+    &.is-current {
+      + ul {
+        display: block;
+      }
+    }
+
   }
 
   ul ul {
     @extend %mb-32x;
+    display: none;
+    &.is-block {
+      display: block;
+    }
     
     li {
       @extend %ml-16x;
@@ -66,5 +78,7 @@ nav.site {
       @include font-size($fs-sub-menu);
     }
   }
+
+
 
 }
