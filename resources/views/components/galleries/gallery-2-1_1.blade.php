@@ -6,11 +6,11 @@
 </div>
 <div class="grid-area-b aspect-ratio-c">
   @if ($items[1] && $items[1]->isImage)
-    <x-image :maxSizes="[1024 => 800, 0 => 1200]" :image="$items[1]->image" width="1600" height="1080" />
+    <x-image :maxSizes="[1024 => 900, 0 => 1200]" :image="$items[1]->image" width="1600" height="1080" />
   @endif
 </div>
 <div class="grid-area-c aspect-ratio-c">
   @if ($items[2] && $items[2]->isImage)
-    <x-image :maxSizes="[1024 => 800, 0 => 1200]" :image="$items[2]->image" width="1600" height="1080" />
+    <x-image :maxSizes="[1024 => 900, 0 => 1200]" :image="$items[2]->image" width="1600" height="1080" />
   @endif
 </div>

@@ -48,6 +48,12 @@
     "a a a a b b";
 }
 
+.grid-gallery-1-2 > div {
+  grid-template-areas:
+    "a a b b b b"
+    "a a b b b b";
+}
+
 .grid-gallery-1-1_1 > div {
   grid-template-areas:
     "a a a b b b"
@@ -194,7 +200,7 @@
 .aspect-ratio-a > figure,
 .aspect-ratio-a > article,
 .aspect-ratio-a > div {
-  aspect-ratio: 1.64;
+  aspect-ratio: 1.48;
 }
 
 .aspect-ratio-b > figure,

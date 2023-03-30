@@ -27,7 +27,7 @@
       </a>
     </li>
     <li>
-      <a href="javascript:;" title="Über uns"  class="is-active is-current" data-menu-parent>
+      <a href="javascript:;" title="Über uns"  class="{{ request()->routeIs('page.about*') ? 'is-active is-current' : '' }}" data-menu-parent>
         Über uns
       </a>
       <ul>
@@ -36,11 +36,13 @@
             Team
           </a>
         </li>
-        <li>
-          <a href="" title="Referenzen">
-            Referenzen
-          </a>
-        </li>
+        @if ($hasDiary)
+          <li>
+            <a href="{{ route('page.about.diary') }}" class="{{ request()->routeIs('page.about.diary') ? 'is-active' : '' }}" title="Tagebuch">
+              Tagebuch
+            </a>
+          </li>
+        @endif
       </ul>
     </li>
     <li>

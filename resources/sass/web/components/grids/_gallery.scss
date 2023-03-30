@@ -27,6 +27,12 @@
     "a a a a b b";
 }
 
+.grid-gallery-1-2 {
+  grid-template-areas:
+    "a a b b b b"
+    "a a b b b b";
+}
+
 .grid-gallery-1-1_1 {
   grid-template-areas:
     "a a a b b b"
@@ -124,24 +130,17 @@
   grid-area: e;
 }
 
-[class*="grid-gallery-"] div,
-[class^="grid-gallery-"] div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #eee;
-}
 
 [class*="grid-gallery-"] picture,
 [class^="grid-gallery-"] picture {
-  margin: 0;
-  padding: 0;
+  display: block;
   width: 100%;
   height: 100%;
 }
 
 [class*="grid-gallery-"] img,
 [class^="grid-gallery-"] img {
+  display: block;
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -149,6 +148,9 @@
 
 [class*="aspect-ratio-"],
 [class^="aspect-ratio-"] {
+  @extend %mb-11x;
+  @extend %sm\:mb-16x;
+  @extend %md\:mb-0;
   position: relative;
 }
 
@@ -160,17 +162,17 @@
 
 [class*="aspect-ratio-"] > article,
 [class^="aspect-ratio-"] > article {
-  @extend %p-4x;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @extend %py-8x;
+  @extend %px-2x;
+  border-bottom: 1px solid $color-black;
+  border-top: 1px solid $color-black;
   height: 100%;
   width: 100%;
 }
 
 .aspect-ratio-a > picture,
 .aspect-ratio-a > article {
-  aspect-ratio: 1.64;
+  aspect-ratio: 1.48;
 }
 
 .aspect-ratio-b > picture,
@@ -198,4 +200,13 @@
 .aspect-ratio-g > picture,
 .aspect-ratio-g > article {
   aspect-ratio: 1.5;
+}
+
+// portrait ratios are 70% in width on small screens
+.aspect-ratio-b,
+.aspect-ratio-f {
+  max-width: 70%;
+  @include bp-md() {
+    max-width: none;
+  }
 }

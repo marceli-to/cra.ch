@@ -191,7 +191,7 @@
             @showArticles="showArticleSelector($event)">
           </grid-item>
           <grid-item
-            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-c'"
             :hasArticles="false"

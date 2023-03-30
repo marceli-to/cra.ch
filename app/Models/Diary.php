@@ -26,6 +26,7 @@ class Diary extends Model
 
   protected $appends = [
     'publish',
+    'article',
   ];
 
   /*
@@ -63,6 +64,24 @@ class Diary extends Model
   public function getPublishAttribute()
   {
     return $this->hasFlag('isPublish') ? 1 : 0;    
+  }
+
+  /**
+   * Get the article attribute
+   */
+
+  public function getArticleAttribute()
+  {
+    $article = '';
+    if ($this->title)
+    {
+      $article .= '<h1>' . $this->title . '</h1>';
+    }
+    if ($this->description)
+    {
+      $article .= $this->description;
+    }
+    return $article;
   }
 
 }

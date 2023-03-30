@@ -83,15 +83,15 @@ $max: 100;
 @for $i from $min through $max { %md\:p-#{$i}x, .md\:p-#{$i}x { @include bp-md() { padding: $i * $step; } } }
 @for $i from $min through $max { %lg\:p-#{$i}x, .lg\:p-#{$i}x { @include bp-lg() { padding: $i * $step; } } }
 
-@for $i from $min through $max { %py-#{$i}x, .py-#{$i}x { padding: $i * $step 0; } }
-@for $i from $min through $max { %sm\:py-#{$i}x, .sm\:py-#{$i}x { @include bp-sm() { padding: $i * $step 0; } } }
-@for $i from $min through $max { %md\:py-#{$i}x, .md\:py-#{$i}x { @include bp-md() { padding: $i * $step 0; } } }
-@for $i from $min through $max { %lg\:py-#{$i}x, .lg\:py-#{$i}x { @include bp-lg() { padding: $i * $step 0; } } }
+@for $i from $min through $max { %py-#{$i}x, .py-#{$i}x { padding-top: $i * $step; padding-bottom: $i * $step; } }
+@for $i from $min through $max { %sm\:py-#{$i}x, .sm\:py-#{$i}x { @include bp-sm() { padding-top: $i * $step; padding-bottom: $i * $step; } } }
+@for $i from $min through $max { %md\:py-#{$i}x, .md\:py-#{$i}x { @include bp-md() { padding-top: $i * $step; padding-bottom: $i * $step; } } }
+@for $i from $min through $max { %lg\:py-#{$i}x, .lg\:py-#{$i}x { @include bp-lg() { padding-top: $i * $step; padding-bottom: $i * $step; } } }
 
-@for $i from $min through $max { %px-#{$i}x, .px-#{$i}x { padding: 0 $i * $step; } }
-@for $i from $min through $max { %sm\:px-#{$i}x, .sm\:px-#{$i}x { @include bp-sm() { padding: 0 $i * $step; } } }
-@for $i from $min through $max { %md\:px-#{$i}x, .md\:px-#{$i}x { @include bp-md() { padding: 0 $i * $step; } } }
-@for $i from $min through $max { %lg\:px-#{$i}x, .lg\:px-#{$i}x { @include bp-lg() { padding: 0 $i * $step; } } }
+@for $i from $min through $max { %px-#{$i}x, .px-#{$i}x { padding-left: $i * $step; padding-right: $i * $step; } }
+@for $i from $min through $max { %sm\:px-#{$i}x, .sm\:px-#{$i}x { @include bp-sm() { padding-left: $i * $step; padding-right: $i * $step; } } }
+@for $i from $min through $max { %md\:px-#{$i}x, .md\:px-#{$i}x { @include bp-md() { padding-left: $i * $step; padding-right: $i * $step; } } }
+@for $i from $min through $max { %lg\:px-#{$i}x, .lg\:px-#{$i}x { @include bp-lg() { padding-left: $i * $step; padding-right: $i * $step; } } }
 
 @for $i from $min through $max { %pt-#{$i}x, .pt-#{$i}x { padding-top: $i * $step; } }
 @for $i from $min through $max { %sm\:pt-#{$i}x, .sm\:pt-#{$i}x { @include bp-sm() { padding-top: $i * $step; } } }
