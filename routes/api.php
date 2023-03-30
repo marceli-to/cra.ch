@@ -135,7 +135,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
   // Projects
   Route::controller(ProjectController::class)->group(function () {
-    Route::get('projects', 'get');
+    Route::get('projects/{publish?}', 'get');
     Route::get('project/{project}', 'find');
     Route::post('project', 'store');
     Route::post('projects/order', 'order');

@@ -106,7 +106,7 @@ class Article extends Model
 
     if ($this->link)
     {
-      $linkText = $this->linkText ? $this->linkText : "Weiter lesen";
+      $linkText = $this->linkText ? $this->linkText : "Mehr";
       $article .= '
         <div class="teaser__link">
           <a href="' . $this->link . '" target="_blank" title="' . $linkText . '">

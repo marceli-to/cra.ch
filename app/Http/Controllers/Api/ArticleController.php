@@ -19,9 +19,9 @@ class ArticleController extends Controller
   {
     if ($publish)
     {
-      return new DataCollection(Article::flagged('isPublish')->get());
+      return new DataCollection(Article::flagged('isPublish')->with('images')->get());
     }
-    return new DataCollection(Article::get());
+    return new DataCollection(Article::with('images')->get());
   }
 
   /**

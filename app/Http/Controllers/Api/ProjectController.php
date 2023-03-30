@@ -18,8 +18,12 @@ class ProjectController extends Controller
    * 
    * @return \Illuminate\Http\Response
    */
-  public function get()
+  public function get($publish = FALSE)
   {
+    if ($publish)
+    {
+      return new DataCollection(Project::flagged('isPublish')->with('images')->orderBy('title')->orderBy('order', 'ASC')->get());
+    }
     return new DataCollection(Project::with('images')->orderBy('title')->orderBy('order', 'ASC')->get());
   }
 

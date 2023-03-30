@@ -262,6 +262,13 @@
  * Media Queries
  */
 
+ @mixin bp-xs {
+	@media only screen and (max-width: $bp-xs) {
+		@content;
+	}
+}
+
+
 @mixin bp-sm {
 	@media only screen and (min-width: $bp-sm) {
 		@content;

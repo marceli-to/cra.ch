@@ -34,19 +34,47 @@
         <template v-if="projects.length">
           <h2>Projekt wählen</h2>
           <div class="select-wrapper mt-3x">
-            <select v-model="selectedProjectId" @change="selectImages()">
+            <select v-model="selectedProjectId" @change="selectProjectImages()">
               <option :value="null">Bitte wählen...</option>
               <option v-for="p in projects" :key="p.id" :value="p.id">{{ p.title }}</option>
             </select>
           </div>
-          <div class="grid-asset-selector__images mt-2x" v-if="selectedProjectId && selectedProject.images.length">
-            <figure v-for="image in selectedProject.images" :key="image.id">
-              <img 
-                :src="getSource(image, 'cache')" 
-                height="300" 
-                width="300" v-if="image"
-                @click="$emit('select', {image: image.id, project: selectedProject.id})" />
-            </figure>
+          <div class="grid-asset-selector__images mt-2x" v-if="selectedProjectId">
+            <template v-if="selectedProject.images.length">
+              <figure v-for="image in selectedProject.images" :key="image.id">
+                <img 
+                  :src="getSource(image, 'cache')" 
+                  height="300" 
+                  width="300" v-if="image"
+                  @click="$emit('select', {image: image.id, project: selectedProject.id})" />
+              </figure>
+            </template>
+            <template v-else>
+              Es sind keine Bilder für dieses Projekt vorhanden.
+            </template>
+          </div>        
+        </template>
+        <template v-if="articles.length">
+          <h2 class="mt-6x">Artikel wählen</h2>
+          <div class="select-wrapper mt-3x">
+            <select v-model="selectedArticleId" @change="selectedArticleImages()">
+              <option :value="null">Bitte wählen...</option>
+              <option v-for="a in articles" :key="a.id" :value="a.id" v-html="a.displayTitle"></option>
+            </select>
+          </div>
+          <div class="grid-asset-selector__images mt-2x" v-if="selectedArticleId">
+            <template v-if="selectedArticle.images.length">
+              <figure v-for="image in selectedArticle.images" :key="image.id">
+                <img 
+                  :src="getSource(image, 'cache')" 
+                  height="300" 
+                  width="300" v-if="image"
+                  @click="$emit('select', {image: image.id})" />
+              </figure>
+            </template>
+            <template v-else>
+              Es sind keine Bilder für diesen Artikel vorhanden.
+            </template>
           </div>        
         </template>
       </div>
@@ -71,8 +99,11 @@ export default {
       project: null,
       diary: null,
       projects: [],
+      articles: [],
       selectedProjectId: null,
+      selectedArticleId: null,
       selectedProject: [],
+      selectedArticle: [],
 
       isFetched: false,
       isLoading: false,
@@ -80,7 +111,8 @@ export default {
       routes: {
         getProject: '/api/project',
         getDiary: '/api/diary',
-        getProjects: '/api/projects',
+        getProjects: '/api/projects/1',
+        getArticles: '/api/articles/1',
       },
     }
   },
@@ -103,7 +135,7 @@ export default {
       this.fetchDiary(this.$props.model.id);
     }
     else {
-      this.fetchProjects();
+      this.fetchProjectsAndArticles();
     }
   },
 
@@ -127,20 +159,30 @@ export default {
       });
     },
 
-    fetchProjects() {
+    fetchProjectsAndArticles() {
       this.isLoading = true;
-      this.axios.get(`${this.routes.getProjects}`).then(response => {
-        this.projects = response.data.data;
+      this.axios.all([
+        this.axios.get(`${this.routes.getProjects}`),
+        this.axios.get(`${this.routes.getArticles}`),
+      ]).then(this.axios.spread((...responses) => {
+        this.projects = responses[0].data.data;
+        this.articles = responses[1].data.data;
         this.isFetched = true;
         this.isLoading = false;
-      });
+      }));
     },
 
-    selectImages() {
+    selectProjectImages() {
       if (this.selectedProjectId == null) return;
       const index = this.projects.findIndex(x => x.id == this.selectedProjectId);
       this.selectedProject = this.projects[index];
     },
+
+    selectedArticleImages() {
+      if (this.selectedArticleId == null) return;
+      const index = this.articles.findIndex(x => x.id == this.selectedArticleId);
+      this.selectedArticle = this.articles[index];
+    }
   }
 }
 </script>

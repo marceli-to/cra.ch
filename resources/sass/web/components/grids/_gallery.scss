@@ -168,6 +168,11 @@
   border-top: 1px solid $color-black;
   height: 100%;
   width: 100%;
+
+  // remove aspect ratio for articles on mobile screens
+  @include bp-xs() {
+    aspect-ratio: 0 !important; 
+  }
 }
 
 .aspect-ratio-a > picture,
