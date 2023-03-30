@@ -26,7 +26,7 @@ class Diary extends Model
 
   protected $appends = [
     'publish',
-    'article',
+    'articleContent',
   ];
 
   /*
@@ -70,9 +70,9 @@ class Diary extends Model
    * Get the article attribute
    */
 
-  public function getArticleAttribute()
+  public function getArticleContentAttribute()
   {
-    $article = '';
+    $article = '<article>';
     if ($this->title)
     {
       $article .= '<h1>' . $this->title . '</h1>';
@@ -81,6 +81,7 @@ class Diary extends Model
     {
       $article .= $this->description;
     }
+    $article .= '</article>';
     return $article;
   }
 

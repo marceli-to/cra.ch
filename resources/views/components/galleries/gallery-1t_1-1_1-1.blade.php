@@ -1,6 +1,6 @@
 @props(['items', 'article'])
 <div class="grid-area-a aspect-ratio-c">
-  <article>{!! $article !!}</article>
+  <x-article :article="$article" isDiary="true" />
 </div>
 <div class="grid-area-b aspect-ratio-c">
   @if ($items[0] && $items[0]->isImage)
@@ -19,6 +19,6 @@
 </div>
 <div class="grid-area-e aspect-ratio-b">
   @if ($items[3] && $items[3]->isImage)
-    <x-image :maxSizes="[1024 => 1600, 0 => 1200]" :image="$items[3]->image" width="1080" height="1600" />
+    <x-image :maxSizes="[0 => 1200]" :image="$items[3]->image" width="1080" height="1600" />
   @endif
 </div>

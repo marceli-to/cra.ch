@@ -205,7 +205,9 @@
 // portrait ratios are 70% in width on small screens
 .aspect-ratio-b,
 .aspect-ratio-f {
-  max-width: 70%;
+  @include bp-sm() {
+    max-width: 65%;
+  }
   @include bp-md() {
     max-width: none;
   }

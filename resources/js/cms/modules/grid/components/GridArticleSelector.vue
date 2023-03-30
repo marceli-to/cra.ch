@@ -11,7 +11,7 @@
           <div class="select-wrapper mt-2x">
             <select v-model="selectedArticleId" @change="$emit('select', { article: selectedArticleId })">
               <option :value="null">Bitte wählen...</option>
-              <option v-for="a in articles" :key="a.id" :value="a.id">{{ a.displayTitle }}</option>
+              <option v-for="a in articles" :key="a.id" :value="a.id" v-html="a.displayTitle"></option>
             </select>
           </div>
         </template>

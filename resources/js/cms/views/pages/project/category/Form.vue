@@ -8,7 +8,7 @@
     
     <div>
       <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-        <label>Titel *</label>
+        <label>Titel </label>
         <input type="text" v-model="data.title">
         <label-required />
       </div>

@@ -5,7 +5,7 @@
 @if ($grid)
   <section>
     @foreach($grid->grids as $g)
-      <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" :article="$grid->article ? $grid->article : null" />
+      <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" :article="$grid->articleContent ? $grid->articleContent : null" />
     @endforeach
   </section>
 @endif

@@ -8,12 +8,12 @@
 /*# sourceMappingURL=skin.min.css.map */
 
 .tox-tinymce {
-    border: 2px solid #eeeeee;
+    border: 2px solid #dddddd;
     border-radius: 2px;
 }
 
 .tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
-    border-right: 2px solid #eeeeee;
+    border-right: 2px solid #dddddd;
 }
 
 .tox .tox-edit-area {
@@ -25,11 +25,11 @@
 }
 
 .tox .tox-edit-area {
-    border-top: 2px solid #eee;
+    border-top: 2px solid #dddddd;
 }
 
 .tox .tox-dialog {
-    border: 2px solid #eeeeee;
+    border: 2px solid #dddddd;
     box-shadow: none !important;
 }
 
@@ -39,7 +39,7 @@
 .tox .tox-toolbar-textfield {
     background-color: transparent;
 	border-radius: 2px;
-	border: 2px solid #eeeeee;
+	border: 2px solid #dddddd;
     color: #222222;
 	padding: 10px;
 	position: relative;
@@ -140,7 +140,7 @@
 }
 
 .is-inline-edit + .tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
-    border-right: 1px dashed #eeeeee;
+    border-right: 1px dashed #dddddd;
 }
 
 .underline-static {

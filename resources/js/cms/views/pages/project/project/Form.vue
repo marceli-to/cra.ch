@@ -10,7 +10,7 @@
     <div v-show="tabs.data.active">
       <div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-          <label>Titel *</label>
+          <label>Titel </label>
           <input type="text" v-model="project.title">
           <label-required />
         </div>
@@ -40,7 +40,7 @@
         </div>
 
         <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
-          <label>Kategorie *</label>
+          <label>Kategorie </label>
           <div v-for="(category, index) in categories" :key="index" class="flex mb-2x">
             <input type="checkbox" :id="`category-${category.id}`" :name="`category-${category.id}`" :value="category.id" v-model="project.category_ids">
             <label :for="`category-${category.id}`" class="ml-3x">
@@ -65,7 +65,7 @@
         <input type="text" v-model="project.periode">
       </div>
       <div :class="[this.errors.state_id ? 'has-error' : '', 'form-row']">
-        <label>Status *</label>
+        <label>Status </label>
         <div class="select-wrapper">
           <select name="state_id" v-model="project.state_id">
             <option v-for="state in states" :key="state.id" :value="state.id">

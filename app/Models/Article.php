@@ -18,6 +18,7 @@ class Article extends Model
     'title',
     'text',
     'link',
+    'linkText'
   ];
 
   /**
@@ -29,6 +30,7 @@ class Article extends Model
    protected $appends = [
     'publish',
     'displayTitle',
+    'articleContent',
   ];
 
   /*
@@ -81,5 +83,41 @@ class Article extends Model
     } 
     return substr(strip_tags($this->text), 0, 25) . '...';
    }
+
+  /**
+   * Get the article content attribute
+   */
+
+  public function getArticleContentAttribute()
+  {
+    $article = '<article class="teaser">';
+    if ($this->date)
+    {
+      $article .= '<div class="teaser__date">' . $this->date . '</div>';
+    }     
+    if ($this->title)
+    {
+      $article .= '<h2>' . $this->title . '</h2>';
+    }
+    if ($this->text)
+    {
+      $article .= $this->text;
+    }
+
+    if ($this->link)
+    {
+      $linkText = $this->linkText ? $this->linkText : "Weiter lesen";
+      $article .= '
+        <div class="teaser__link">
+          <a href="' . $this->link . '" target="_blank" title="' . $linkText . '">
+            ' .  $linkText . '
+          </a>
+        </div>
+      ';
+    }  
+
+    $article .= '</article>';
+    return $article;
+  }
 
 }

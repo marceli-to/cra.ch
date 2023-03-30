@@ -24,10 +24,15 @@
             :init="tinyConfig"
             v-model="data.text"
           ></tinymce-editor>
+          <label-required />
         </div>
         <div class="form-row">
           <label>Link</label>
           <input type="text" v-model="data.link">
+        </div>
+        <div class="form-row">
+          <label>Linktext</label>
+          <input type="text" v-model="data.linkText">
         </div>
       </div>
     </div>
@@ -191,8 +196,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Kontakt bearbeiten" 
-        : "Kontakt hinzufügen";
+        ? "Artikel bearbeiten" 
+        : "Artikel hinzufügen";
     }
   }
 };

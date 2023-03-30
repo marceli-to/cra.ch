@@ -4,12 +4,12 @@
   <div v-if="isFetched" class="is-loaded">
     <form @submit.prevent="submit">
       <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-        <label>Titel *</label>
+        <label>Titel </label>
         <input type="text" v-model="link.title">
         <label-required />
       </div>
       <div :class="[this.errors.url ? 'has-error' : '', 'form-row']">
-        <label>Url *</label>
+        <label>Url </label>
         <input type="text" v-model="link.url">
         <label-required />
       </div>

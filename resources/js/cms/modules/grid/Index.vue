@@ -459,7 +459,7 @@
         </template>
         <template v-if="grid.layout == '1t_1-1_1-1'">
           <div class="grid-area-a aspect-ratio-c p-2x">
-            <figure class="text-xs" v-html="$props.model.description">
+            <figure class="text-xs" style="flex-direction: column; align-items: flex-start;" v-html="$props.model.articleContent">
             </figure> 
           </div>
           <grid-item

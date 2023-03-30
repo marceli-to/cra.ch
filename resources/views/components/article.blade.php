@@ -1,0 +1,2 @@
+@props(['article'])
+{!! $article !!}

@@ -49,6 +49,7 @@ class ArticleController extends Controller
       'title' => $request->input('title'),
       'text' => $request->input('text'),
       'link' => $request->input('link'),
+      'linkText' => $request->input('linkText'),
     ]);
     $this->handleFlag($article, 'isPublish', $request->input('publish'));
     $this->handleImages($article, $request->input('images'));
@@ -69,6 +70,7 @@ class ArticleController extends Controller
     $article->title = $request->input('title');
     $article->text = $request->input('text');
     $article->link = $request->input('link');
+    $article->linkText = $request->input('linkText');
     $article->save();
     $this->handleFlag($article, 'isPublish', $request->input('publish'));
     $this->handleImages($article, $request->input('images'));

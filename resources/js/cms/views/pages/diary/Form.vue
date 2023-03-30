@@ -10,17 +10,18 @@
     <div v-show="tabs.data.active">
       <div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-          <label>Titel *</label>
+          <label>Titel</label>
           <input type="text" v-model="diary.title">
           <label-required />
         </div>
-        <div class="form-row">
-          <label>Beschreibung</label>
+        <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
+          <label>Beschreibung </label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="diary.description"
           ></tinymce-editor>
+          <label-required />
         </div>
       </div>
     </div>
@@ -107,6 +108,7 @@ export default {
       // Validation
       errors: {
         title: false,
+        description: false,
       },
 
       // Routes

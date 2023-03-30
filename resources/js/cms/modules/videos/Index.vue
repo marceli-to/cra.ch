@@ -4,12 +4,12 @@
   <div v-if="isFetched" class="is-loaded">
     <form @submit.prevent="submit">
       <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-        <label>Titel *</label>
+        <label>Titel </label>
         <input type="text" v-model="video.title">
         <label-required />
       </div>
       <div :class="[this.errors.code ? 'has-error' : '', 'form-row']">
-        <label>Code *</label>
+        <label>Code </label>
         <textarea v-model="video.code"></textarea>
         <label-required />
       </div>
