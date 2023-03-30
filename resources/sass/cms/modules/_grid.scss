@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  */
 
-.grid-layout {
+.grid-gallery {
   @extend %mb-8x;
   
   .btn-delete {
@@ -27,7 +27,7 @@
   }
 }
 
-.grid-layout > div {
+.grid-gallery > div {
   @extend %mb-4x;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -36,119 +36,124 @@
   position: relative;
 }
 
-.grid-layout-1 > div {
+.grid-gallery-1 > div {
   grid-template-areas: 
   "a a a a a a"
   "a a a a a a";
 }
 
-.grid-layout-2-1 > div {
+.grid-gallery-2-1 > div {
   grid-template-areas:
     "a a a a b b"
     "a a a a b b";
 }
 
-.grid-layout-1-1_1 > div {
+.grid-gallery-1-1_1 > div {
   grid-template-areas:
     "a a a b b b"
     "a a a c c c";
 }
 
-.grid-layout-1s-1s-1s > div {
+.grid-gallery-1s-1s-1s > div {
   grid-template-areas:
     "a a b b c c"
 }
 
-.grid-layout-1-1-1 > div,
-.grid-layout-1w-1w-1w > div {
+.grid-gallery-1-1-1 > div,
+.grid-gallery-1w-1w-1w > div {
   grid-template-areas:
     "a a b b c c"
     "a a b b c c";
 }
 
-.grid-layout-1w-1w > div {
+.grid-gallery-1w-1w > div {
   grid-template-areas:
     "a a a b b b";
 }
 
-.grid-layout-1-1 > div {
+.grid-gallery-1-1 > div {
   grid-template-areas:
     "a a a b b b"
     "a a a b b b";
 }
 
 
-.grid-layout-1_1-2 > div {
+.grid-gallery-1_1-2 > div {
   grid-template-areas:
     "a a c c c c"
     "b b c c c c";
 }
 
-.grid-layout-1-1_1-1 > div {
+.grid-gallery-2-1_1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a c c";
+}
+
+.grid-gallery-1-1_1-1 > div {
   grid-template-areas:
     "a a b b d d"
     "a a c c d d";
 }
 
-.grid-layout-1-1-1_1 > div {
+.grid-gallery-1-1-1_1 > div {
   grid-template-areas:
     "a a b b c c"
     "a a b b d d";
 }
 
-.grid-layout-1_1-1-1_1 > div {
+.grid-gallery-1_1-1-1_1 > div {
   grid-template-areas:
     "a a c c d d"
     "b b c c e e";
 }
 
-.grid-layout-1_1-1_1-1 > div {
+.grid-gallery-1_1-1_1-1 > div {
   grid-template-areas:
     "a a c c e e"
     "b b d d e e";
 }
 
-.grid-layout-1-1_1-1_1 > div {
+.grid-gallery-1-1_1-1_1 > div {
   grid-template-areas:
     "a a b b d d"
     "a a c c e e";
 }
 
-.grid-layout-1t_1-1_1-1 > div {
+.grid-gallery-1t_1-1_1-1 > div {
   grid-template-areas:
     "a a c c e e"
     "b b d d e e";
 }
 
-.grid-layout > div > div {
+.grid-gallery > div > div {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #eee;
 }
 
-.grid-layout .grid-area-a {
+.grid-gallery .grid-area-a {
   grid-area: a;
 }
 
-.grid-layout .grid-area-b {
+.grid-gallery .grid-area-b {
   grid-area: b;
 }
 
-.grid-layout .grid-area-c {
+.grid-gallery .grid-area-c {
   grid-area: c;
 }
 
-.grid-layout .grid-area-d {
+.grid-gallery .grid-area-d {
   grid-area: d;
 }
 
-.grid-layout .grid-area-e {
+.grid-gallery .grid-area-e {
   grid-area: e;
 }
 
-
-.grid-layout figure {
+.grid-gallery figure {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -158,7 +163,7 @@
   align-items: center;
 }
 
-.grid-layout img {
+.grid-gallery img {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -222,7 +227,7 @@
   aspect-ratio: 1.5;
 }
 
-.grid-layout-selector {
+.grid-gallery-selector {
   @extend %mb-4x;
   @extend %py-3x;
   border-bottom: 1px dashed $color-light-grey;

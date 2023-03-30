@@ -12,6 +12,9 @@ html {
 
 body {
   @extend %inner-block;
+  @extend %pb-11x;
+  @extend %sm\:pb-22x;
+  @extend %md\:pb-44x;
 	background-color: $color-white;
 	color: $color-black;
 	@include font-smoothing();

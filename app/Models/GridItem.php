@@ -19,6 +19,17 @@ class GridItem extends Model
     'grid_id'
   ];
 
+  /**
+   * The accessors to append to the model's array form.
+   *
+   * @var array
+   */
+
+   protected $appends = [
+    'isArticle',
+    'isDiary',
+    'isImage',
+  ];
 
   /**
    * The grid that belongs to this image grid item.
@@ -34,6 +45,15 @@ class GridItem extends Model
    */
   
   public function image()
+  {
+    return $this->belongsTo(Image::class);
+  }
+
+  /**
+   * The published image that belongs to this image grid item.
+   */
+  
+  public function publishedImage()
   {
     return $this->belongsTo(Image::class);
   }
@@ -65,4 +85,42 @@ class GridItem extends Model
     return $this->belongsTo(Article::class);
   }
 
+  /**
+   * The published article that belongs to this image grid item.
+   */
+  
+   public function publishedArticle()
+   {
+     return $this->belongsTo(Article::class)->flagged('isPublish');
+   }
+
+  /**
+   * Get the isArticle attribute.
+   * @return bool
+   */
+
+  public function getIsArticleAttribute()
+  {
+    return $this->article_id ? true : false;
+  }
+
+  /**
+   * Get the isDiary attribute.
+   * @return bool
+   */
+
+  public function getIsDiaryAttribute()
+  {
+    return $this->diary_id ? true : false;
+  }
+
+  /**
+   * Get the isImage attribute.
+   * @return bool
+   */
+  
+  public function getIsImageAttribute()
+  {
+    return $this->image_id ? true : false;
+  }
 }

@@ -1,12 +1,11 @@
 @if ($maxSizes && $image)
-  <picture 
-    class="{{ $overlay ? 'is-overlay' : '' }} {{ !$visible ? 'is-hidden' : '' }} {{ $classes }}"
-    data-project="{{ $project ? $project : '' }}">
+  <picture class="{{ $classes }}">
     @foreach($maxSizes as $minWidth => $maxSize)
       @if ($minWidth > 0)
         <source media="(min-width: {{ $minWidth }}px)" data-srcset="/img/cache/{{ $image->name }}/{{ $maxSize}}/{{ $image->coords }}{{ $ratio ? '/' . $image->ratio : '' }}">
       @else
         <img 
+          src="/assets/img/placeholder.png"
           data-src="/img/cache/{{ $image->name }}/{{ $maxSize }}/{{ $image->coords }}{{ $ratio ? '/' . $image->ratio : '' }}"
           width="{{ $width }}" 
           height="{{ $height }}"

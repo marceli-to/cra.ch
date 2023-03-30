@@ -20,6 +20,10 @@ export default [
     items: '3',
   },
   {
+    layout: '2-1_1',
+    items: '3',
+  },
+  {
     layout: '1',
     items: '1',
   },

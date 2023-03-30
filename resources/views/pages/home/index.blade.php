@@ -1,6 +1,10 @@
 @extends('layout.web')
 @section('content')
-<section class="content">
-  <h1>Test</h1>
-</section>
+@if ($grid)
+  <section>
+    @foreach($grid->grids as $grid)
+      <x-galleries.gallery :layout="$grid->layout" :items="$grid->gridItems" />
+    @endforeach
+  </section>
+@endif
 @endsection

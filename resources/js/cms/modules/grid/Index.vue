@@ -17,12 +17,12 @@
     </div>
   </page-header>
 
-  <grid-layout-selector 
+  <grid-gallery-selector 
     :modelName="$props.modelName"
     :layouts="$props.layouts"
     @select="addRow($event)" 
     v-if="hasGridSelector">
-  </grid-layout-selector>
+  </grid-gallery-selector>
 
   <grid-image-selector
     :model="$props.model"
@@ -42,7 +42,7 @@
     <grid-row 
       :key="grid.id" 
       v-for="grid in $props.grids" 
-      :class="`grid-layout grid-layout-${grid.layout}`">
+      :class="`grid-gallery grid-gallery-${grid.layout}`">
       <a 
         href="javascript:;" 
         class="btn-delete has-icon"
@@ -56,7 +56,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-a'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -67,7 +67,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-e'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -76,7 +76,27 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-f'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>    
+        </template>
+        <template v-if="grid.layout == '1-2'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-f'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-e'"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -87,7 +107,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-f'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -96,7 +116,7 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-f'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -105,7 +125,7 @@
             :item="grid.grid_items[2] ? grid.grid_items[2] : null"
             :area="'grid-area-c'"
             :ratio="'aspect-ratio-f'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -116,7 +136,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-g'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -125,7 +145,7 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-g'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -134,7 +154,7 @@
             :item="grid.grid_items[2] ? grid.grid_items[2] : null"
             :area="'grid-area-c'"
             :ratio="'aspect-ratio-g'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -145,7 +165,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -154,7 +174,7 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -165,7 +185,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-c'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -174,7 +194,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-c'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -203,18 +223,18 @@
             :item="grid.grid_items[2] ? grid.grid_items[2] : null"
             :area="'grid-area-c'"
             :ratio="'aspect-ratio-e'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
           </grid-item>  
         </template>
-        <template v-if="grid.layout == '1-1_1'">
+        <template v-if="grid.layout == '2-1_1'">
           <grid-item
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
-            :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :ratio="'aspect-ratio-e'"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -238,12 +258,41 @@
             @showArticles="showArticleSelector($event)">
           </grid-item>  
         </template>
+        <template v-if="grid.layout == '1-1_1'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-b'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
         <template v-if="grid.layout == '1-1-1_1'">
           <grid-item
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -252,7 +301,7 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -281,7 +330,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -308,7 +357,7 @@
             :item="grid.grid_items[3] ? grid.grid_items[3] : null"
             :area="'grid-area-d'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -337,7 +386,7 @@
             :item="grid.grid_items[2] ? grid.grid_items[2] : null"
             :area="'grid-area-c'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -402,7 +451,7 @@
             :item="grid.grid_items[4] ? grid.grid_items[4] : null"
             :area="'grid-area-e'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -417,7 +466,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-b'"
             :ratio="'aspect-ratio-c'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -426,7 +475,7 @@
             :item="grid.grid_items[1] ? grid.grid_items[1] : null"
             :area="'grid-area-c'"
             :ratio="'aspect-ratio-c'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -435,7 +484,7 @@
             :item="grid.grid_items[2] ? grid.grid_items[2] : null"
             :area="'grid-area-d'"
             :ratio="'aspect-ratio-c'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -444,7 +493,7 @@
             :item="grid.grid_items[3] ? grid.grid_items[3] : null"
             :area="'grid-area-e'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -455,7 +504,7 @@
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
             :area="'grid-area-a'"
             :ratio="'aspect-ratio-b'"
-            :hasArticles="hasArticles"
+            :hasArticles="false"
             @resetItem="resetItem($event)"
             @showImages="showImageSelector($event)"
             @showArticles="showArticleSelector($event)">
@@ -510,7 +559,7 @@
       class="listing"
       v-if="gridItems.length">
       <div v-for="grid in gridItems" :key="grid.id" class="listing__item is-draggable">
-        <grid-layout-item :layout="grid.layout" :items="grid.grid_items" :isOrderView="true" />
+        <grid-gallery-icon :layout="grid.layout" :items="grid.grid_items" :isOrderView="true" />
       </div> 
     </draggable>
   </template>
@@ -519,29 +568,29 @@
 <script>
 import ErrorHandling from "@/mixins/ErrorHandling";
 import { PlusIcon, Trash2Icon, MoveIcon } from 'vue-feather-icons';
-import GridLayoutSelector from "@/modules/grid/components/GridLayoutSelector.vue";
+import GridGallerySelector from "@/modules/grid/components/GridGallerySelector.vue";
 import GridImageSelector from "@/modules/grid/components/GridImageSelector.vue";
 import GridArticleSelector from "@/modules/grid/components/GridArticleSelector.vue";
 import GridRow from "@/modules/grid/components/GridRow.vue";
 import GridItem from "@/modules/grid/components/GridItem.vue";
 import draggable from 'vuedraggable';
 import PageHeader from "@/components/ui/PageHeader.vue";
-import GridLayoutItem from "@/modules/grid/icons/GridLayoutItem.vue";
+import GridGalleryIcon from "@/modules/grid/icons/GridGalleryIcon.vue";
 
 export default {
 
   components: {
-    GridLayoutSelector,
+    GridGallerySelector,
     GridImageSelector,
     GridArticleSelector,
     GridRow,
     GridItem,
+    GridGalleryIcon,
     draggable,
     PageHeader,
     PlusIcon,
     Trash2Icon,
-    MoveIcon,
-    GridLayoutItem
+    MoveIcon
   },
 
   mixins: [ErrorHandling],

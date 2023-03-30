@@ -1,18 +1,18 @@
 <template>
-  <div class="grid-layout-selector">
+  <div class="grid-gallery-selector">
     <div v-for="layout, index in $props.layouts" :key="index">
       <a href="" @click.prevent="$emit('select', {layout: layout.layout, items: layout.items})">
-        <grid-layout-item :layout="layout.layout" />
+        <grid-gallery-icon :layout="layout.layout" />
       </a>
     </div>
   </div>
 </template>
 <script>
-import GridLayoutItem from "@/modules/grid/icons/GridLayoutItem.vue";
+import GridGalleryIcon from "@/modules/grid/icons/GridGalleryIcon.vue";
 
 export default {
   components: {
-    GridLayoutItem
+    GridGalleryIcon
   },
 
   props: {

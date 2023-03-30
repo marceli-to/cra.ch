@@ -21,14 +21,11 @@ class HomeController extends BaseController
 
   public function index()
   {
-    // $grid = Home::with(
-    //   'grids.gridItems.image', 
-    //   'grids.gridItems.project',
-    //   'grids.gridItems.discourse.publishedImage',
-    //   'grids.gridItems.discourse.topics'
-    // )->find(1);
-    // return view($this->viewPath . 'index', ['grid' => $grid]);
-    return view($this->viewPath . 'index');
+    $grid = Home::with(
+      'grids.gridItems.image', 
+      'grids.gridItems.article'
+    )->find(1);
+    return view($this->viewPath . 'index', ['grid' => $grid]);
   }
 
 }
