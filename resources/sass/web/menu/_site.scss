@@ -15,7 +15,7 @@ nav.site {
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
-  top: calc(#{$header-height} - 4px);
+  top: calc(#{$header-height} - 6px);
   width: 100%;
   z-index: -1;
 
@@ -68,7 +68,7 @@ nav.site {
   }
 
   ul ul {
-    @extend %mb-32x;
+    @extend %mb-29x;
     display: none;
     &.is-block {
       display: block;
@@ -79,7 +79,7 @@ nav.site {
     }
     
     a {
-      @extend %py-4x;
+      @extend %py-1x;
       @extend %md\:py-2x;
       @include font-size($fs-sub-menu);
     }
