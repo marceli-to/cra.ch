@@ -4,10 +4,9 @@
       <x-icons.logo />
     </a>
     <a href="javascript:;" class="btn-menu" data-menu-btn>
-      <x-icons.burger />
-      <x-icons.cross />
+      <x-icons.burger class="icon-menu-burger" />
+      <x-icons.cross class="icon-menu-cross" />
     </a> 
     @include('layout.partials.menu')
- 
-  </div>
+   </div>
 </header>

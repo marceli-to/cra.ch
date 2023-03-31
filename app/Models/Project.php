@@ -34,6 +34,7 @@ class Project extends Model
    */
 
   protected $appends = [
+    'abstract',
     'publish',
     'worklist',
     'category_ids'
@@ -115,8 +116,19 @@ class Project extends Model
    *
    */
 
-   public function getCategoryIdsAttribute()
-   {
-     return $this->categories->pluck('id');
-   }
+  public function getCategoryIdsAttribute()
+  {
+    return $this->categories->pluck('id');
+  }
+
+  /**
+   * Get the abstract attribute
+   * 
+   */
+
+  public function getAbstractAttribute()
+  {
+    // remove all html tags, shorten to 200 chars and remove line breaks
+    return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
+  }
 }

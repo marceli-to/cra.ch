@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 // Frontend - Home
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
+Route::get('/projekt/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
 Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page.about.diary');
 
 // Frontend - url based images

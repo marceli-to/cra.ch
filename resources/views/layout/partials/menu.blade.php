@@ -1,14 +1,14 @@
 <nav class="site" data-menu>
   <ul>
     <li>
-      <a href="javascript:;" title="Projekte" data-menu-parent>
+      <a href="javascript:;" title="Projekte" class="{{ request()->routeIs('page.project*') ? 'is-active is-current' : '' }}" data-menu-parent>
         Projekte
       </a>
         @if ($menuProjects->count() > 0)
           <ul>
             @foreach ($menuProjects as $project)
               <li>
-                <a href="" title="{{ $project->title }}">
+                <a href="{{ route('page.project.show', ['project' => $project]) }}" title="{{ $project->title }}">
                   {{ $project->title }}
                 </a>
               </li>
@@ -27,7 +27,7 @@
       </a>
     </li>
     <li>
-      <a href="javascript:;" title="Über uns"  class="{{ request()->routeIs('page.about*') ? 'is-active is-current' : '' }}" data-menu-parent>
+      <a href="javascript:;" title="Über uns" class="{{ request()->routeIs('page.about*') ? 'is-active is-current' : '' }}" data-menu-parent>
         Über uns
       </a>
       <ul>

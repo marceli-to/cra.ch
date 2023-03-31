@@ -36,6 +36,8 @@
 @import 'components/cards';
 @import 'components/collapsible';
 @import 'components/icons/global';
+@import 'components/icons/chevron';
+@import 'components/icons/cross';
 @import 'components/icons/dash';
 @import 'components/headings/global';
 @import 'components/headings/h1';
@@ -48,6 +50,7 @@
 @import 'components/hr';
 @import 'components/line';
 @import 'components/images';
+@import 'components/stacked';
 @import 'components/video';
 
 // Forms
@@ -73,4 +76,5 @@
 
 // Views
 @import 'views/auth';
+@import 'views/project';
 

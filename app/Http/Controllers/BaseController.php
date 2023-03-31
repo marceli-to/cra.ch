@@ -9,7 +9,7 @@ class BaseController extends Controller
 {
   public function __construct()
   {
-    view()->share('menuProjects', Project::flagged('isPublish')->get());
+    view()->share('menuProjects', Project::flagged('isPublish')->orderBy('title')->get());
     view()->share('hasDiary', Diary::flagged('isPublish')->first() ? true : false);
   }
 }

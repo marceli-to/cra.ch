@@ -49,10 +49,12 @@ class ProjectController extends Controller
    */
   public function store(ProjectStoreRequest $request)
   { 
-    $project = Project::create([
-      'title' =>$request->input('title'),
-      'slug' => \Str::slug($request->input('title')),
-    ]);
+    $project = Project::create(
+      array_merge(
+        $request->all(), 
+        ['slug' => \Str::slug($request->input('title'))]
+      )
+    );
     $project->categories()->attach($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
     $this->handleFlag($project, 'isWorklist', $request->input('worklist'));
@@ -69,8 +71,8 @@ class ProjectController extends Controller
    */
   public function update(Project $project, ProjectStoreRequest $request)
   {
-    $project = Project::findOrFail($project->id);
-    $project->title = $request->input('title');
+    $project->update($request->all());
+    $project->slug = \Str::slug($request->input('title'));
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));

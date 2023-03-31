@@ -9,104 +9,159 @@
 %flex, .flex {
   display: flex;
 }
-
-%sm\:flex, .sm\:flex {
-  @include bp-sm() { display: flex; }
-}
-
-%md\:flex, .md\:flex {
-  @include bp-md() { display: flex; }
-}
-
-%lg\:flex, .lg\:flex {
-  @include bp-lg() { display: flex; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:flex, 
+  .#{$bp}\:flex {
+    @media (min-width: $width) {
+      display: grid;
+    }
+  }
 }
 
 %items-start, .items-start {
   align-items: flex-start;
 }
-%sm\:items-start, .sm\:items-start {
-  @include bp-sm() { align-items: flex-start; }
-}
-%md\:items-start, .md\:items-start {
-  @include bp-md() { align-items: flex-start; }
-}
-%lg\:items-start, .lg\:items-start {
-  @include bp-sm() { align-items: flex-start; }
-}
-
-%sm\:items-end, .sm\:items-end {
-  @include bp-sm() { align-items: flex-start; }
-}
-%md\:items-end, .md\:items-end {
-  @include bp-md() { align-items: flex-start; }
-}
-%lg\:items-end, .lg\:items-end {
-  @include bp-lg() { align-items: flex-start; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:items-start, 
+  .#{$bp}\:items-start {
+    @media (min-width: $width) {
+      align-items: flex-start;
+    }
+  }
 }
 
-%sm\:items-center, .sm\:items-center {
-  @include bp-sm() { align-items: flex-start; }
+%items-end, .items-end {
+  align-items: flex-end;
 }
-%md\:items-center, .md\:items-center {
-  @include bp-md() { align-items: flex-start; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:items-end, 
+  .#{$bp}\:items-end {
+    @media (min-width: $width) {
+      align-items: flex-end;
+    }
+  }
 }
-%lg\:items-center, .lg\:items-center {
-  @include bp-sm() { align-items: flex-start; }
+
+%items-center, .items-center {
+  align-items: center;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:items-center, 
+  .#{$bp}\:items-center {
+    @media (min-width: $width) {
+      align-items: center;
+    }
+  }
 }
 
 %justify-start, .justify-start {
   justify-content: flex-start;
 }
-%sm\:justify-start, .sm\:justify-start {
-  @include bp-sm() { justify-content: flex-start; }
-}
-%md\:justify-start, .md\:justify-start {
-  @include bp-md() { justify-content: flex-start; }
-}
-%lg\:justify-start, .lg\:justify-start {
-  @include bp-sm() {justify-content: flex-start; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:justify-start, 
+  .#{$bp}\:justify-start {
+    @media (min-width: $width) {
+      justify-content: flex-start;
+    }
+  }
 }
 
 %justify-end, .justify-end {
   justify-content: flex-end;
 }
-%sm\:justify-end, .sm\:justify-end {
-  @include bp-sm() { justify-content: flex-end; }
-}
-%md\:justify-end, .md\:justify-end {
-  @include bp-md() { justify-content: flex-end; }
-}
-%lg\:justify-end, .lg\:justify-end {
-  @include bp-sm() {justify-content: flex-end; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:justify-end, 
+  .#{$bp}\:justify-end {
+    @media (min-width: $width) {
+      justify-content: flex-end;
+    }
+  }
 }
 
 %justify-center, .justify-center {
   justify-content: center;
 }
-%sm\:justify-center, .sm\:justify-center {
-  @include bp-sm() { justify-content: center; }
-}
-%md\:justify-center, .md\:justify-center {
-  @include bp-md() { justify-content: center; }
-}
-%lg\:justify-center, .lg\:justify-center {
-  @include bp-lg() {justify-content: center; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:justify-center, 
+  .#{$bp}\:justify-center {
+    @media (min-width: $width) {
+      justify-content: center;
+    }
+  }
 }
 
 %justify-between, .justify-between {
   justify-content: space-between;
 }
-%sm\:justify-between, .sm\:justify-between {
-  @include bp-sm() { justify-content: space-between; }
-}
-%md\:justify-between, .md\:justify-between {
-  @include bp-md() { justify-content: space-between; }
-}
-%lg\:justify-between, .lg\:justify-between {
-  @include bp-lg() {justify-content: space-between; }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:justify-between, 
+  .#{$bp}\:justify-between {
+    @media (min-width: $width) {
+      justify-content: space-between;
+    }
+  }
 }
 
-.direction-column {
+%justify-around, .justify-around {
+  justify-content: space-around;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:justify-around, 
+  .#{$bp}\:justify-around {
+    @media (min-width: $width) {
+      justify-content: space-around;
+    }
+  }
+}
+
+%direction-column, .direction-column {
   flex-direction: column;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:direction-column, 
+  .#{$bp}\:direction-column {
+    @media (min-width: $width) {
+      flex-direction: column;
+    }
+  }
+}
+
+%direction-row, .direction-row {
+  flex-direction: row;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:direction-row, 
+  .#{$bp}\:direction-row {
+    @media (min-width: $width) {
+      flex-direction: row;
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  %order-#{$i}, 
+  .order-#{$i} {
+    order: $i;
+  }
+}
+
+.order-none {
+  order: 0;
+}
+
+@each $bp, $width in $breakpoints {
+  @for $i from 1 through 12 {
+    %#{$bp}\:order-#{$i}, 
+    .#{$bp}\:order-#{$i} {
+      @media (min-width: $width) {
+        order: $i;
+      }
+    }
+    %#{$bp}\:order-none, 
+    .#{$bp}\:order-none {
+      @media (min-width: $width) {
+        order: 0;
+      }
+    }
+  }
 }
