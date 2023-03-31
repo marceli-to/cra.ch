@@ -2,8 +2,14 @@
   color: $color-black;
   display: flex;
   align-items: flex-start;
-  height: 37px;
-  width: 31px;
+  justify-content: center;
+  height: 31px;
+  width: 37px;
+
+  @include bp-sm() {
+    height: 31px;
+    width: 46px;
+  }
 
   .icon-menu-burger {
     display: block;
@@ -11,12 +17,7 @@
     width: 37px;
 
     @include bp-sm() {
-      height: 31;
-      width: 46px;
-    }
-
-    @include bp-md() {
-      height: 31;
+      height: 31px;
       width: 46px;
     }
   }

@@ -23,7 +23,7 @@ class ProjectController extends BaseController
   public function show(Project $project)
   {
     $project = Project::with('grids.gridItems.image')->find($project->id);
-    return view($this->viewPath . 'show', ['project' => $project]);
+    return view($this->viewPath . 'show', ['project' => $project, 'browse' => $this->getBrowse($project->id)]);
   }
 
   /**
@@ -34,12 +34,9 @@ class ProjectController extends BaseController
    * @return Array $items
    */
 
-  protected function getBrowse($projectId = NULL, $categoryId = NULL)
+  protected function getBrowse($projectId = NULL)
   {
-    $projects = Project::query()->with('images', 'categories')
-    ->whereHas('categories', function ($query) use ($categoryId) {
-      $query->where('id', $categoryId);
-    })->orderBy('order')->get();
+    $projects = Project::flagged('isPublish')->orderBy('title')->get();
     
     $keys     = [];
     $items    = [];

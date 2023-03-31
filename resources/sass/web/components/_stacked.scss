@@ -1,4 +1,18 @@
 .stacked-item {
-  @extend %border-t;
-  @extend %pt-11x;
+  @extend %pb-28x;
+  @extend %md\:pb-35x;
+
+  &.stacked-item--border {
+    @extend %border-t;
+    @extend %pt-11x;
+    @extend %sm\:pt-14x;
+  }
+
+  &.stacked-item--indent {
+    > div {
+      @extend %pl-2x;
+      @extend %sm\:pl-6x;
+      @extend %md\:pl-0;
+    }
+  }
 }

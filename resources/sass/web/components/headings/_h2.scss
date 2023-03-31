@@ -5,5 +5,6 @@
  */
 
 h2 {
-
+  @extend %mb-2x;
+  @extend %md\:mb-3x;
 }

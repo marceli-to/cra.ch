@@ -10,6 +10,7 @@
 
   const selectors = {
     menu: '[data-menu]',
+    browse: '[data-browse]',
     btnMenu: '[data-menu-btn]',
     btnMenuItemParent: '[data-menu-parent]',
   };
@@ -38,7 +39,11 @@
     const menu = document.querySelector(selectors.menu);
     menu.classList.toggle(classes.visible);
 
-    // if the menu is not visible, hide all items
+    const browse = document.querySelector(selectors.browse);
+    if (browse) {
+      browse.classList.toggle(classes.hidden);
+    }
+
     if (!menu.classList.contains(classes.visible)) {
       hideAllItems();
     }

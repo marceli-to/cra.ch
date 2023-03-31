@@ -42,7 +42,7 @@ nav.site {
   &.is-visible {
     opacity: 1;
     pointer-events: all;
-    z-index: 100;
+    z-index: 300;
   }
 
   ul a {
@@ -80,6 +80,7 @@ nav.site {
     
     a {
       @extend %py-4x;
+      @extend %md\:py-2x;
       @include font-size($fs-sub-menu);
     }
   }

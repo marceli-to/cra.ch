@@ -3,28 +3,54 @@
 @section('seo_description', $project->abstract)
 @section('content')
 @if ($project)
-  <div class="flex direction-column md:grid md:grid-cols-6 grid-gap project">
+  <div class="flex direction-column md:grid md:grid-cols-6 md:grid-gap project">
     <div class="order-2 md:order-1 md:span-4">
     @foreach($project->grids as $g)
       <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" />
     @endforeach
     </div>
-    <div class="order-1 md:order-2 md:span-2 md:pl-25x project-info">
-      <article class="stacked-item">
-        <header>
-          <a href="javascript:;" title="Projektbeschreibung anzeigen" class="flex justify-between" data-btn-project-info>
-            <h1>{{ $project->title }}</h1>
-            <x-icons.chevron-down class="icon-chevron-down" />
-            <x-icons.cross class="icon-cross" />
-          </a>
-        </header>
+    <div class="order-1 md:order-2 md:span-2 md:pl-25x project-content">
+      <nav class="project-browse" data-browse>
+        <div>
+          <span data-browse-preview></span>
+          @if ($browse['prev'])
+            <a href="{{ route('page.project.show', ['project' => $browse['prev']]) }}" title="{{ $browse['prev']->title }}" data-browse-btn>
+              <x-icons.chevron-prev-small />
+            </a>
+          @endif
+          @if ($browse['next'])
+            <a href="{{ route('page.project.show', ['project' => $browse['next']]) }}" title="{{ $browse['next']->title }}" data-browse-btn>
+              <x-icons.chevron-next-small />
+            </a>
+          @endif
+        </div>
+      </nav>
+      <article class="stacked-item stacked-item--border stacked-item--indent pb-0 md:pb-0">
+        <div>
+          <header>
+            <a href="javascript:;" title="Projektbeschreibung anzeigen" class="flex justify-between" data-btn-project-info>
+              <h1>{{ $project->title }}</h1>
+              <x-icons.chevron-down class="icon-chevron-down" />
+              <x-icons.cross class="icon-cross" />
+            </a>
+          </header>
+        </div>
         <section data-project-info>
-          <div class="pb-30x">{!! $project->text !!}</div>
-          <div class="stacked-item pb-30x">
-            {!! $project->text_services !!}
+          <div class="stacked-item">
+            <div>
+              {!! $project->text !!}
+            </div>
           </div>
-          <div class="stacked-item pb-30x">
-            {!! $project->text_info !!}
+          <div class="stacked-item stacked-item--border stacked-item--indent">
+            <div>
+              <h2>Leistungen</h2>
+              {!! $project->text_services !!}
+            </div>
+          </div>
+          <div class="stacked-item stacked-item--border stacked-item--indent">
+            <div>
+              {!! $project->text_info !!}
+            </div>
           </div>
         </section>
       </article>

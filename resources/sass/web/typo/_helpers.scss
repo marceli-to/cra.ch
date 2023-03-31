@@ -69,7 +69,7 @@ strong, b {
 }
 
 p {
-  @extend %mb-10x;
+  @extend %mb-16x;
 	&:last-child {
 		margin-bottom: 0 !important;
 	}

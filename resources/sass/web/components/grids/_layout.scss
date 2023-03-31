@@ -61,6 +61,14 @@
 .grid-gap {
   grid-gap: 16px;
 }
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:grid-gap, 
+  .#{$bp}\:grid-gap {
+    @media (min-width: $width) {
+      grid-gap: 16px;
+    }
+  }
+}
 
 %grid-column-gap,
 .grid-column-gap {

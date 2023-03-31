@@ -108,9 +108,16 @@
 }
 
 // Border
-%border-t, .bborder-t {
+%border-t, 
+.border-t {
   border-top: 1px solid $color-black;
 }
-%border-b, .border-b {
-  border-top: 1px solid $color-black;
+%border-b, 
+.border-b {
+  border-bottom: 1px solid $color-black;
+}
+
+%border-none,
+.border-none {
+  border: none;
 }

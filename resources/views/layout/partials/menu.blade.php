@@ -1,20 +1,26 @@
 <nav class="site" data-menu>
   <ul>
     <li>
-      <a href="javascript:;" title="Projekte" class="{{ request()->routeIs('page.project*') ? 'is-active is-current' : '' }}" data-menu-parent>
+      <a 
+        href="javascript:;" 
+        title="Projekte" class="{{ request()->routeIs('page.project*') ? 'is-active is-current' : '' }}" 
+        data-menu-parent>
         Projekte
       </a>
-        @if ($menuProjects->count() > 0)
-          <ul>
-            @foreach ($menuProjects as $project)
-              <li>
-                <a href="{{ route('page.project.show', ['project' => $project]) }}" title="{{ $project->title }}">
-                  {{ $project->title }}
-                </a>
-              </li>
-            @endforeach
-          </ul>
-        @endif
+      @if ($menuProjects->count() > 0)
+        <ul>
+          @foreach ($menuProjects as $menuProject)
+            <li>
+              <a 
+                href="{{ route('page.project.show', ['project' => $menuProject]) }}" 
+                title="{{ $menuProject->title }}"
+                class="{{ isset($project) && $project->id == $menuProject->id ? 'is-active' : '' }}">
+                {{ $menuProject->title }}
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      @endif
     </li>
     <li>
       <a href="" title="Leistungen">
