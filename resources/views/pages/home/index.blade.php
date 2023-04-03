@@ -3,7 +3,7 @@
 @if ($grid)
   <section>
     @foreach($grid->grids as $grid)
-      <x-galleries.gallery :layout="$grid->layout" :items="$grid->gridItems" />
+      <x-galleries.gallery :layout="$grid->layout" :items="$grid->gridItems" :view="'home'" />
     @endforeach
   </section>
 @endif

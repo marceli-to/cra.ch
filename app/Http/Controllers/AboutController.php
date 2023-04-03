@@ -24,5 +24,4 @@ class AboutController extends BaseController
     $grid = Diary::with('grids.gridItems.image')->flagged('isPublish')->first();
     return view($this->viewPath . 'diary', ['grid' => $grid]);
   }
-
 }

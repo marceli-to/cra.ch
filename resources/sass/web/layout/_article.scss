@@ -24,3 +24,29 @@ article {
     }
   }
 }
+
+article.teaser {
+  h2 {
+    @extend %mb-16x;
+  }
+
+  .teaser__link {
+    @include font-size($fs-sm);
+
+    a {
+      @include background-default();
+      background-image: url($url-icons + "arrow-up-right.svg");
+      background-size: 9px auto;
+      background-position: top 3px left;
+      color: $color-black;
+      padding-left: 16px;
+      text-decoration: none;
+
+      @include bp-sm() {
+        background-size: 11px auto;
+        background-position: top 4px left;
+        padding-left: 18px;
+      }
+    }
+  }
+}

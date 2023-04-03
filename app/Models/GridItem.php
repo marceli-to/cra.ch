@@ -29,6 +29,8 @@ class GridItem extends Model
     'isArticle',
     'isDiary',
     'isImage',
+    'isProject',
+    'caption',
   ];
 
   /**
@@ -101,7 +103,7 @@ class GridItem extends Model
 
   public function getIsArticleAttribute()
   {
-    return $this->article_id ? true : false;
+    return $this->article_id && !$this->image_id ? true : false;
   }
 
   /**
@@ -122,5 +124,29 @@ class GridItem extends Model
   public function getIsImageAttribute()
   {
     return $this->image_id ? true : false;
+  }
+
+  /**
+   * Get the isProject attribute.
+   * @return bool
+   */
+
+  public function getIsProjectAttribute()
+  {
+    return $this->project_id ? true : false;
+  }
+
+  /**
+   * Get the caption attribute.
+   * @return string
+   */
+
+  public function getCaptionAttribute()
+  {
+    if ($this->isProject)
+    {
+      return $this->project->title;
+    }
+    return $this->image && $this->image->caption ? $this->image->caption : null;
   }
 }

@@ -1,16 +1,37 @@
-@props(['items'])
+@props(['items', 'view'])
 <div class="grid-area-a aspect-ratio-b">
   @if ($items[0] && $items[0]->isImage)
-    <x-image :maxSizes="[1024 => 1600, 0 => 1200]" :image="$items[0]->image" width="1600" height="1080" />
+  <x-galleries.gallery-link :item="$items[0]" :view="$view">
+    <x-image 
+      :maxSizes="[1024 => 1600, 0 => 1200]" 
+      :image="$items[0]->image" 
+      width="1600" 
+      height="1080"
+      :caption="$caption" />
+  </x-galleries.gallery-link>
   @endif
 </div>
 <div class="grid-area-b aspect-ratio-c">
   @if ($items[1] && $items[1]->isImage)
-    <x-image :maxSizes="[1024 => 1200, 0 => 1600]" :image="$items[1]->image" width="1600" height="1080" />
+    <x-galleries.gallery-link :item="$items[1]" :view="$view">
+      <x-image 
+        :maxSizes="[1024 => 1200, 0 => 1600]" 
+        :image="$items[1]->image" 
+        width="1600" 
+        height="1080"
+        :caption="$caption" />
+    </x-galleries.gallery-link>
   @endif
 </div>
 <div class="grid-area-c aspect-ratio-c">
   @if ($items[2] && $items[2]->isImage)
-    <x-image :maxSizes="[1024 => 1200, 0 => 1600]" :image="$items[2]->image" width="1600" height="1080" />
+    <x-galleries.gallery-link :item="$items[2]" :view="$view">
+      <x-image 
+        :maxSizes="[1024 => 1200, 0 => 1600]" 
+        :image="$items[2]->image" 
+        width="1600" 
+        height="1080"
+        :caption="$caption" />
+    </x-galleries.gallery-link>
   @endif
 </div>

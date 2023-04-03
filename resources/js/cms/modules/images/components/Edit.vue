@@ -134,14 +134,9 @@
           </figure>
         <div>
           <div class="form-row">
-            <label>Legende</label>
-            <input type="text" v-model="overlayItem.caption" />
-          </div>
-          <div class="form-row">
             <label>Beschreibung</label>
-            <textarea v-model="overlayItem.description"></textarea>
+            <textarea v-model="overlayItem.caption"></textarea>
           </div>
-
           <div class="form-buttons flex justify-between">
             <a
               href="javascript:;"

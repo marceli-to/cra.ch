@@ -5,23 +5,14 @@
   };
 
   const selectors = {
-    // menu items
-    menuItems: '.js-menu li a',
-
-    // generic items
-    globalItems: '[data-touch]',
+    touchItems: '[data-touch]',
   };
 
   const init = () => {
-    const menuItems = document.querySelectorAll(selectors.menuItems);
-    const menuItemsArray = [].slice.call(menuItems);
+    const touchItems = document.querySelectorAll(selectors.globalItems);
+    const touchItemsArray = [].slice.call(touchItems);
 
-    const globalItems = document.querySelectorAll(selectors.globalItems);
-    const globalItemsArray = [].slice.call(globalItems);
-
-    const itemsArray = [...menuItemsArray, ...globalItemsArray];
-
-    itemsArray.forEach(function (item) {
+    touchItemsArray.forEach(function (item) {
       item.addEventListener("touchstart", function() {
         this.classList.add(classes.touched);
       }, false);

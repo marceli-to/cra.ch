@@ -11,7 +11,8 @@
 
   + [class*="grid-gallery-"], 
     [class^="grid-gallery-"] {
-      @extend %mt-16x;
+      @extend %mt-8x;
+      @extend %sm\:mt-16x;
   }
 }
 
@@ -136,6 +137,30 @@
   display: block;
   width: 100%;
   height: 100%;
+  position: relative;
+
+  figcaption {
+    align-items: center;
+    background-color: rgba($color-blue, 0.8);
+    color: $color-black;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    transition: opacity 0.12s ease;
+  }
+
+  &:hover {
+    figcaption {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
 }
 
 [class*="grid-gallery-"] img,
@@ -152,6 +177,10 @@
   @extend %sm\:mb-16x;
   @extend %md\:mb-0;
   position: relative;
+
+  &:last-of-type {
+    margin-bottom: 0 !important;
+  }
 }
 
 [class*="aspect-ratio-"] > div,
@@ -176,33 +205,40 @@
 }
 
 .aspect-ratio-a > picture,
+.aspect-ratio-a > a > picture,
 .aspect-ratio-a > article {
   aspect-ratio: 1.48;
 }
 
 .aspect-ratio-b > picture,
+.aspect-ratio-b > a > picture,
 .aspect-ratio-b > article {
   aspect-ratio: 0.73;
 }
 
 .aspect-ratio-c > picture,
+.aspect-ratio-c > a > picture,
 .aspect-ratio-c > article,
 .aspect-ratio-d > picture,
+.aspect-ratio-d > a > picture,
 .aspect-ratio-d > article {
   aspect-ratio: 1.5;
 }
 
 .aspect-ratio-e > picture,
+.aspect-ratio-e > a > picture,
 .aspect-ratio-e > article {
   aspect-ratio: 1.48;
 }
 
 .aspect-ratio-f > picture,
+.aspect-ratio-f > a > picture,
 .aspect-ratio-f > article {
   aspect-ratio: 0.72;
 }
 
 .aspect-ratio-g > picture,
+.aspect-ratio-g > a > picture,
 .aspect-ratio-g > article {
   aspect-ratio: 1.5;
 }

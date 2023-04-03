@@ -6,7 +6,7 @@
   <div class="flex direction-column md:grid md:grid-cols-6 md:grid-gap project">
     <div class="order-2 md:order-1 md:span-4">
     @foreach($project->grids as $g)
-      <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" />
+      <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" :view="'project'" />
     @endforeach
     </div>
     <div class="order-1 md:order-2 md:span-2 md:pl-25x project-content">
@@ -36,7 +36,7 @@
           </header>
         </div>
         <section data-project-info>
-          <div class="stacked-item">
+          <div class="stacked-item stacked-item--indent">
             <div>
               {!! $project->text !!}
             </div>

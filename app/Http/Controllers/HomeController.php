@@ -23,6 +23,7 @@ class HomeController extends BaseController
   {
     $grid = Home::with(
       'grids.gridItems.image', 
+      'grids.gridItems.project', 
       'grids.gridItems.article'
     )->find(1);
     return view($this->viewPath . 'index', ['grid' => $grid]);
