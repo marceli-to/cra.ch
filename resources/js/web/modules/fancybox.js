@@ -55,7 +55,7 @@ var FancyBox = (function() {
 
       caption: function(instance, item ) {
         var caption = $(this).data('caption') || '';
-        return '<div><span data-fancybox-index></span>/<span data-fancybox-count></span></div><div>' + ( caption.length ? caption : '' ) + '</div>';
+        return '<div><div>' + ( caption.length ? caption : '' ) + '</div><span data-fancybox-index></span>/<span data-fancybox-count></span></div>';
       }
     });
   };

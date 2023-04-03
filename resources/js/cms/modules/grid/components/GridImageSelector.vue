@@ -69,7 +69,7 @@
                   :src="getSource(image, 'cache')" 
                   height="300" 
                   width="300" v-if="image"
-                  @click="$emit('select', {image: image.id})" />
+                  @click="$emit('select', {image: image.id, article: selectedArticle.id})" />
               </figure>
             </template>
             <template v-else>

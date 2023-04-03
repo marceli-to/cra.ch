@@ -43,6 +43,10 @@ a[data-fancybox] {
   top: calc(50% - 20px);
   width: 21px;
   z-index: 99998;
+
+  &.is-inactive {
+    opacity: 0.2;
+  }
 }
 
 .btn-fancybox-next {
@@ -70,7 +74,7 @@ a[data-fancybox] {
   display: flex;
   justify-content: center;
   left: 0;
-  padding: 5px 0 0 30px;
+  padding: 15px 0 0 0;
   pointer-events: none;
   position: absolute;
   right: 0;

@@ -721,11 +721,13 @@ export default {
     },
 
     addImage(data) {
+      console.log(data);
       const item = {
         id: this.currentItemId,
         position: this.currentPos,
         image_id: data.image,
         project_id: data.project ? data.project : null,
+        article_id: data.article ? data.article : null,
       }
       this.isLoading = true;
       this.axios.post(this.routes.storeItem, item).then(response => {

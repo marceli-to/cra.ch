@@ -154,13 +154,12 @@
     z-index: -1;
     transition: opacity 0.12s ease;
   }
+}
 
-  &:hover {
-    figcaption {
-      opacity: 1;
-      z-index: 1;
-    }
-  }
+[class*="grid-gallery-"] a:hover picture figcaption,
+[class^="grid-gallery-"] a:hover picture figcaption {
+  opacity: 1;
+  z-index: 1;
 }
 
 [class*="grid-gallery-"] img,
