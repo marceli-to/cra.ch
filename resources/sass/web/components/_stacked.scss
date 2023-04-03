@@ -12,7 +12,7 @@
     > div {
       @extend %pl-2x;
       @extend %sm\:pl-6x;
-      @extend %md\:pl-0;
+      //@extend %md\:pl-0;
     }
   }
 }

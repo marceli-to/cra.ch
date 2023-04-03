@@ -23,7 +23,7 @@
       @endif
     </li>
     <li>
-      <a href="" title="Leistungen">
+      <a href="{{ route('page.service') }}" class="{{ request()->routeIs('page.service') ? 'is-active' : '' }}" title="Leistungen">
         Leistungen
       </a>
     </li>

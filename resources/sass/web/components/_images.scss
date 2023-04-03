@@ -13,3 +13,9 @@
   max-width: 100%;
   width: 100%;
 }
+
+.is-responsive {
+  img {
+    @extend %is-responsive;
+  }
+}
