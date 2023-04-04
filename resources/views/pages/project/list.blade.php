@@ -4,5 +4,6 @@
 @section('content')
 @if ($projects)
   <x-project.worklist-sm :projects="$projects" />
+  <x-project.worklist-lg :projects="$projects" />
 @endif
 @endsection

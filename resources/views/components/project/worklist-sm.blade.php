@@ -1,6 +1,6 @@
 @props(['projects'])
 @foreach ($projects as $category)
-  <div class="stacked-item {{ $loop->first ? 'stacked-item--border' : '' }} worklist md:hidden">
+  <div class="stacked-item {{ $loop->first ? 'stacked-item--border' : '' }} worklist-item is-mobile">
     @if ($projects->count() > 0)
       <h2>{{ $category->title }}</h2>
     @endif
