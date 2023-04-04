@@ -9,11 +9,15 @@
 .link-external {
   @include background-default();
   background-image: url($url-icons + "arrow-up-right.svg");
+  color: $color-black;
+  text-decoration: none;
+}
+
+%link-external--sm,
+.link-external--sm {
   background-size: 9px auto;
   background-position: top 4px left;
-  color: $color-black;
   padding-left: 16px;
-  text-decoration: none;
 
   @include bp-sm() {
     background-size: 10px auto;
@@ -24,8 +28,11 @@
 
 %link-external--md,
 .link-external--md {
-  @include bp-sm() {
-    background-size: 10px auto;
+  background-size: 10px auto;
+  background-position: top 6px left;
+  padding-left: 18px;
+
+  @include bp-md() {
     background-position: top 8px left;
     padding-left: 20px;
   }

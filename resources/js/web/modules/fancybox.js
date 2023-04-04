@@ -2,11 +2,10 @@ var FancyBox = (function() {
 
   var selectors = {
     body: 'body',
-    gallery: '[data-fancybox^="gallery"]',
+    gallery: '[data-fancybox="gallery"]',
   };
 
   var _initialize = function() {
-
     $(selectors.gallery).fancybox({
       buttons: [
         "close"

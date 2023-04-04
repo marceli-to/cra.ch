@@ -9,13 +9,13 @@ nav.site {
   @extend %sm\:px-22x;
   @extend %md\:px-44x;
   background-color: $color-white;
-  height: calc(100% - #{$header-height} - #{$space-11x});
+  height: calc(100% - (#{$header-height} - #{$space-6x}));
   left: 0;
   opacity: 0;
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
-  top: calc(#{$header-height} - 6px);
+  top: calc(#{$header-height} - #{$space-6x});
   width: 100%;
   z-index: -1;
 

@@ -1,0 +1,19 @@
+.worklist {
+  
+  article.stacked-item {
+    @extend %pb-11x;
+
+    > a {
+      @extend %link-external;
+      @extend %link-external--md;
+      transition: color .12s ease-in;
+      &:hover {
+        color: $color-blue;
+      }
+    }
+  }
+
+  h2 {
+    @extend %mb-8x;
+  }
+}

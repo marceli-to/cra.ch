@@ -38,6 +38,7 @@ article.teaser {
 
     a {
       @extend %link-external;
+      @extend %link-external--sm;
     }
   }
 }

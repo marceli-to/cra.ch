@@ -35,7 +35,7 @@ class ProjectController extends BaseController
 
   public function list()
   {
-    $projects = Category::with('projects')->get();
+    $projects = Category::with('projects.state')->get();
     return view($this->viewPath . 'list', ['projects' => $projects]);
   }
 

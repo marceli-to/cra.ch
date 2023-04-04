@@ -27,11 +27,21 @@ a[data-fancybox] {
   background-image: url($url-icons + 'cross.svg');
   background-size: cover;
   height: 30px;
-  right: 30px;
+  right: 11px;
   position: absolute;
-  top: 30px;
+  top: 11px;
   width: 30px;
   z-index: 1;
+
+  @include bp-md() {
+    right: 22px;
+    top: 22px;
+  }
+
+  @include bp-lg() {
+    right: 44px;
+    top: 44px;
+  }
 }
 
 .btn-fancybox-prev,
@@ -52,19 +62,40 @@ a[data-fancybox] {
 .btn-fancybox-next {
   background-image: url($url-icons + 'chevron-next.svg');
   background-position: center right;
-  right: 30px;
+  right: 11px;
+
+  @include bp-md() {
+    right: 22px;
+  }
+
+  @include bp-lg() {
+    right: 44px;
+  }
 }
 
 .btn-fancybox-prev {
   background-image: url($url-icons + 'chevron-prev.svg');
   background-position: center left;
-  left: 30px;
+  left: 11px;
+
+  @include bp-md() {
+    left: 22px;
+  }
+
+  @include bp-lg() {
+    left: 44px;
+  }
 }
 
 .fancybox-slide--image{
   padding: 60px;
+
   @include bp-sm() {
-    padding: 120px;
+    padding: 80px;
+  }
+
+  @include bp-md() {
+    padding: 120px 120px 90px 120px;
   }
 }
 
