@@ -22,7 +22,7 @@ class CreateImagesTable extends Migration
           $table->float('size', 24, 0)->default(0);
           $table->string('caption')->nullable();
           $table->text('description')->nullable();
-          $table->string('orientation', 5)->nullable();
+          $table->string('orientation', 25)->nullable();
           $table->double('coords_w', 16, 12)->nullable();
           $table->double('coords_h', 16, 12)->nullable();
           $table->double('coords_x', 16, 12)->nullable();

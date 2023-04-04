@@ -57,7 +57,7 @@ class ProjectController extends Controller
     );
     $project->categories()->attach($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
-    $this->handleFlag($project, 'isWorklist', $request->input('worklist'));
+    $this->handleFlag($project, 'hasDetailPage', $request->input('has_detail_page'));
     $this->handleImages($project, $request->input('images'));
     return response()->json(['projectId' => $project->id]);
   }
@@ -76,7 +76,7 @@ class ProjectController extends Controller
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
-    $this->handleFlag($project, 'isWorklist', $request->input('worklist'));
+    $this->handleFlag($project, 'hasDetailPage', $request->input('has_detail_page'));
     $this->handleImages($project, $request->input('images'));
     return response()->json('successfully updated');
   }

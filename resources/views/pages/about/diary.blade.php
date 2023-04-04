@@ -1,10 +1,10 @@
 @extends('layout.web')
-@section('seo_title', __('Tagebuch'))
+@section('seo_title', 'Tagebuch • Über uns')
 @section('seo_description', '')
 @section('content')
-@if ($grid)
+@if ($diary)
   <section>
-    @foreach($grid->grids as $g)
+    @foreach($diary->grids as $g)
       <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" :article="$grid->articleContent ? $grid->articleContent : null" :view="'diary'" />
     @endforeach
   </section>

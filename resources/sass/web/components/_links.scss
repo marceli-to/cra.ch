@@ -1,0 +1,32 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/anchors
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+%link-external,
+.link-external {
+  @include background-default();
+  background-image: url($url-icons + "arrow-up-right.svg");
+  background-size: 9px auto;
+  background-position: top 4px left;
+  color: $color-black;
+  padding-left: 16px;
+  text-decoration: none;
+
+  @include bp-sm() {
+    background-size: 10px auto;
+    background-position: top 5px left;
+    padding-left: 18px;
+  }
+}
+
+%link-external--md,
+.link-external--md {
+  @include bp-sm() {
+    background-size: 10px auto;
+    background-position: top 8px left;
+    padding-left: 20px;
+  }
+}

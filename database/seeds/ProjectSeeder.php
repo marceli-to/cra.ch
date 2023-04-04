@@ -121,7 +121,7 @@ class ProjectSeeder extends Seeder
         'slug' => \Str::slug($title),
         'text' => $faker->paragraph(5),
         'text_services' => $services[mt_rand(0,3)],
-        'text_info' => '<h2>Adresse<h2><p>Möttelistrasse 46, Winterthur</p><h2>Instandsetzung</h2><p>2020 – 2022</p><h2>Mitarbeit</h2><p>Daniel Gautschi, Stéphanie Müller, Nadine Janesch</p><h2>Fachplaner</h2><p>Planforum GmbH, Oberli Bauingenieure AG, BWS Bauphysik AG</p>',
+        'text_info' => '<h2>Adresse</h2><p>Möttelistrasse 46, Winterthur</p><h2>Instandsetzung</h2><p>2020 – 2022</p><h2>Mitarbeit</h2><p>Daniel Gautschi, Stéphanie Müller, Nadine Janesch</p><h2>Fachplaner</h2><p>Planforum GmbH, Oberli Bauingenieure AG, BWS Bauphysik AG</p>',
         'type' => $types[mt_rand(0,5)],
         'location' => $locations[mt_rand(0,15)],
         'periode' => $periodes[mt_rand(0,13)],
@@ -130,7 +130,7 @@ class ProjectSeeder extends Seeder
 
       $project->flag('isPublish');
       // Set flags for every 3rd project
-      if($i % 3 == 0) $project->flag('isWorklist');
+      if($i % 3 == 0) $project->flag('hasDetailPage');
 
       CategoryProject::create([
         'project_id' => $project->id,

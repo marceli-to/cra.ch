@@ -36,7 +36,7 @@ class Project extends Model
   protected $appends = [
     'abstract',
     'publish',
-    'worklist',
+    'has_detail_page',
     'category_ids'
   ];
 
@@ -101,14 +101,15 @@ class Project extends Model
     return $this->hasFlag('isPublish') ? 1 : 0;    
   }
 
-    /**
-   * Get the publish attribute
+
+  /**
+   * Get the has_detail_page attribute
    * 
    */
 
-  public function getWorklistAttribute()
+  public function getHasDetailPageAttribute()
   {
-    return $this->hasFlag('isWorklist') ? 1 : 0;    
+    return $this->hasFlag('hasDetailPage') ? 1 : 0;    
   }
 
   /**

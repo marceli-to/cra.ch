@@ -28,7 +28,7 @@
       </a>
     </li>
     <li>
-      <a href="" title="Werkliste">
+      <a href="{{ route('page.worklist') }}" class="{{ request()->routeIs('page.worklist') ? 'is-active' : '' }}" title="Werkliste">
         Werkliste
       </a>
     </li>
@@ -38,13 +38,13 @@
       </a>
       <ul>
         <li>
-          <a href="" title="Team">
+          <a href="{{ route('page.about.team') }}" class="{{ request()->routeIs('page.about.team') ? 'is-active' : '' }}" title="Über uns • Team">
             Team
           </a>
         </li>
         @if ($hasDiary)
           <li>
-            <a href="{{ route('page.about.diary') }}" class="{{ request()->routeIs('page.about.diary') ? 'is-active' : '' }}" title="Tagebuch">
+            <a href="{{ route('page.about.diary') }}" class="{{ request()->routeIs('page.about.diary') ? 'is-active' : '' }}" title="Über uns • Tagebuch">
               Tagebuch
             </a>
           </li>
@@ -52,7 +52,7 @@
       </ul>
     </li>
     <li>
-      <a href="" title="Kontakt">
+      <a href="{{ route('page.contact') }}" class="{{ request()->routeIs('page.contact') ? 'is-active' : '' }}" title="Kontakt">
         Kontakt
       </a>
     </li>

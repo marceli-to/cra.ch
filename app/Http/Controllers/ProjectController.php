@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use App\Models\Project;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProjectController extends BaseController
@@ -24,6 +25,18 @@ class ProjectController extends BaseController
   {
     $project = Project::with('grids.gridItems.image')->find($project->id);
     return view($this->viewPath . 'show', ['project' => $project, 'browse' => $this->getBrowse($project->id)]);
+  }
+
+  /**
+   * Show a list of projects
+   *
+   * @return \Illuminate\Http\Response
+   */
+
+  public function list()
+  {
+    $projects = Category::with('projects')->get();
+    return view($this->viewPath . 'list', ['projects' => $projects]);
   }
 
   /**

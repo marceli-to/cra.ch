@@ -29,7 +29,7 @@
       <div class="md:span-2">
         @foreach($service->publishedImages as $image)
           <x-image 
-            classes="is-responsive mb-8x md:mb-16x"
+            classes="is-responsive is-{{ $image->orientation }} mb-8x md:mb-16x"
             :maxSizes="[0 => 1200]" 
             :image="$image" 
             width="1200" 

@@ -100,10 +100,10 @@
         </div>
         <div class="form-row">
           <radio-button 
-            :label="'In Werkliste anzeigen?'"
-            v-bind:worklist.sync="project.worklist"
-            :model="project.worklist"
-            :name="'worklist'">
+            :label="'Detailseite?'"
+            v-bind:has_detail_page.sync="project.has_detail_page"
+            :model="project.has_detail_page"
+            :name="'has_detail_page'">
           </radio-button>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default {
         category_ids: [],
         state_id: 1,
         publish: 1,
-        worklist: 1,
+        has_detail_page: 0,
         images: [],
         files: [],
       },

@@ -77,7 +77,7 @@ class Media
     if (in_array(strtolower($filetype), $this->image_types))
     {
       $img = \Image::make($this->upload_path . DIRECTORY_SEPARATOR . $filename);
-      $orientation = $img->width() >= $img->height() ? 'l' : 'p';
+      $orientation = $img->width() > $img->height() ? 'landscape' : 'portrait';
       $ratio = $img->width() . 'x' . $img->height();
     }
 
