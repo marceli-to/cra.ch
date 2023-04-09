@@ -43,3 +43,26 @@
     padding-left: 20px;
   }
 }
+
+%link-more,
+%link-less,
+.link-more,
+.link-less {
+  align-items: center;
+  display: none;
+  line-height: 1;
+
+  @include bp-md() {
+    display: flex;
+  }
+
+  svg {
+    @extend %mt-3x;
+    display: block;
+  }
+
+  span {
+    display: block;
+    margin-left: $space-8x;
+  }
+}

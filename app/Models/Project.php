@@ -35,6 +35,7 @@ class Project extends Model
 
   protected $appends = [
     'abstract',
+    'preview',
     'publish',
     'has_detail_page',
     'category_ids'
@@ -101,7 +102,6 @@ class Project extends Model
     return $this->hasFlag('isPublish') ? 1 : 0;    
   }
 
-
   /**
    * Get the has_detail_page attribute
    * 
@@ -130,6 +130,16 @@ class Project extends Model
   public function getAbstractAttribute()
   {
     // remove all html tags, shorten to 200 chars and remove line breaks
+    return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
+  }
+
+  /**
+   * Get the preview attribute
+   * 
+   */
+
+  public function getPreviewAttribute()
+  {
     return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
   }
 }

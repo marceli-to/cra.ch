@@ -37,8 +37,10 @@
         </div>
         <section data-project-info>
           <div class="stacked-item stacked-item--indent">
-            <div>
-              {!! $project->text !!}
+            <div class="project-content__text">
+              <x-truncated-text preview="{!! Str::words($project->text, 20, '...') !!}">
+                {!! $project->text !!}
+              </x-truncated-text>
             </div>
           </div>
           <div class="stacked-item stacked-item--border stacked-item--indent">
