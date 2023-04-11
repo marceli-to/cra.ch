@@ -10,11 +10,6 @@ header.site-header {
   @extend %md\:pt-44x;
   background-color: $color-white;
   height: $header-height;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
 
   @include bp-sm() {
     height: $header-height-sm;
@@ -25,7 +20,6 @@ header.site-header {
   }
   
   > div {
-    @extend %inner-block;
     display: flex;
     justify-content: space-between;
     position: relative;

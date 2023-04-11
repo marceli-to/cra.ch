@@ -6,31 +6,29 @@
 
 nav.site {
   @extend %px-11x;
+  @extend %py-11x;
   @extend %sm\:px-22x;
   @extend %md\:px-44x;
   background-color: $color-white;
-  height: calc(100% - (#{$header-height} - #{$space-6x}));
+  height: 100%;
   left: 0;
   opacity: 0;
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
-  top: calc(#{$header-height} - #{$space-6x});
+  top: 0;
   width: 100%;
   z-index: -1;
 
   @include bp-sm() {
-    height: calc(100% - 80px);
     left: auto;
     right: 0;
-    top: 80px;
+    padding-top: 80px;
     max-width: 350px;
   }
 
   @include bp-md() {
-    height: calc(100% - 120px);
-    right: 0;
-    top: 120px;
+    padding-top: 120px;
     max-width: calc(33% + 24px);
   }
   
@@ -43,6 +41,23 @@ nav.site {
     opacity: 1;
     pointer-events: all;
     z-index: 300;
+  }
+
+  .logo {
+    left: $space-11x;
+    position: fixed;
+    top: $space-11x;
+
+    @include bp-sm() {
+      display: none;
+    }
+  }
+
+  > div {
+    margin-top: calc(#{$header-height} - #{$space-17x});
+    @include bp-sm() {
+      margin-top: 0;
+    }
   }
 
   ul a {
@@ -84,7 +99,4 @@ nav.site {
       @include font-size($fs-sub-menu);
     }
   }
-
-
-
 }
