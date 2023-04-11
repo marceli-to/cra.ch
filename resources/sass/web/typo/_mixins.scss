@@ -23,8 +23,24 @@
  * 
  */
 
-@mixin font-regular() {
+@mixin font-demi() {
+  font-family: 'MaisonNeueDemi', Helvetica, Arial, sans-serif;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  font-weight: normal;
+}
+
+@mixin font-book() {
   font-family: 'MaisonNeueBook', Helvetica, Arial, sans-serif;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  font-weight: normal;
+}
+
+@mixin font-medium() {
+  font-family: 'MaisonNeueMedium', Helvetica, Arial, sans-serif;
   font-display: auto;
   font-style: normal;
   font-stretch: normal;
@@ -39,13 +55,7 @@
   font-weight: normal;
 }
 
-@mixin font-bold() {
-  font-family: 'MaisonNeueDemi', Helvetica, Arial, sans-serif;
-  font-display: auto;
-  font-style: normal;
-  font-stretch: normal;
-  font-weight: normal;
-}
+
 
 %word-break,
 .word-break {

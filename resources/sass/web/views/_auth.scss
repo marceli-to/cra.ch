@@ -45,7 +45,7 @@ body.auth {
     }
 
     h1 {
-      @include font-bold();
+      @include font-demi();
       @include font-size($fs-base);
       @extend %mb-40x;
     }

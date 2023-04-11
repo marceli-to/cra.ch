@@ -12,7 +12,7 @@
   border: none;
   color: $color-white;
   @include font-size($fs-btn);
-  @include font-bold();
+  @include font-demi();
   letter-spacing: 0.06em;
   padding: 16px 24px;
   width: auto;

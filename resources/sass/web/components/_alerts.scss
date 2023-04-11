@@ -24,7 +24,7 @@
   }
 
   ul {
-    @include font-regular();
+    @include font-book();
     margin-bottom: 0;
   }
 }
@@ -32,7 +32,7 @@
 .alert-warning {
   border: 2px solid $color-black;
   color: $color-black;
-  @include font-regular();
+  @include font-book();
 
   a {
     color: $color-black;

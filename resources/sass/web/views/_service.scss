@@ -1,0 +1,9 @@
+.service {
+  h1, h2 {
+    @include font-medium();
+  }
+
+  p, li {
+    @include font-light();
+  }
+}

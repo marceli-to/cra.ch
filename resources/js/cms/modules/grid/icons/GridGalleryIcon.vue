@@ -123,16 +123,15 @@
   </div>
   <template v-if="$props.items">
     <div class="ml-6x flex">
-    <div v-for="item in $props.items" :key="item.id">
-      <img 
-        :src="getSource(item.image, 'cache')" 
-        height="300" 
-        width="300"
-        style="height: 50px; width: auto; display: block; margin: 0 4px"
-        v-if="item.image">        
+      <div v-for="item in $props.items" :key="item.id">
+        <img 
+          :src="getSource(item.image, 'cache')" 
+          height="300" 
+          width="300"
+          style="height: 50px; width: auto; display: block; margin: 0 4px"
+          v-if="item.image">        
+      </div>
     </div>
-  </div>
-
   </template>
 </div>
 </template>

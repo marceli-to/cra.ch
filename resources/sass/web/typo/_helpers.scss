@@ -43,11 +43,11 @@
 .nobr { white-space: nowrap; }
 
 .text-bold {
-  @include font-bold();
+  @include font-medium();
 }
 
 .text-regular {
-  @include font-regular();
+  @include font-book();
 }
 
 .text-sm {
@@ -65,7 +65,7 @@
  */
 
 strong, b {
-	@include font-bold();
+	@include font-demi();
 }
 
 p {
@@ -76,5 +76,5 @@ p {
 }
 
 i, em {
-	@include font-regular();
+	@include font-book();
 }

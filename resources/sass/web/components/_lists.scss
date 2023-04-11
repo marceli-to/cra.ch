@@ -17,7 +17,7 @@ ul.list {
     position: relative;
     
     &:before {
-      @include font-regular();
+      @include font-book();
       content: '\2014';
       position: absolute;
       margin-left: -25px;
