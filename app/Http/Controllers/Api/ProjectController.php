@@ -22,9 +22,9 @@ class ProjectController extends Controller
   {
     if ($publish)
     {
-      return new DataCollection(Project::flagged('isPublish')->with('images')->orderBy('title')->orderBy('order', 'ASC')->get());
+      return new DataCollection(Project::flagged('isPublish')->with('images')->orderBy('order')->orderBy('order', 'ASC')->get());
     }
-    return new DataCollection(Project::with('images')->orderBy('title')->orderBy('order', 'ASC')->get());
+    return new DataCollection(Project::with('images')->orderBy('order', 'ASC')->get());
   }
 
   /**

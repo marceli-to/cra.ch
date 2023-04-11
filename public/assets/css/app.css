@@ -33634,7 +33634,7 @@ h1 {
 [class*=grid-gallery-] picture figcaption,
 [class^=grid-gallery-] picture figcaption {
   align-items: center;
-  background-color: rgba(0, 105, 134, 0.8);
+  background-color: rgba(0, 105, 134, 0.4);
   color: #000000;
   display: flex;
   height: 100%;
@@ -34519,13 +34519,13 @@ nav.site {
     height: calc(100% - 120px);
     right: 0;
     top: 120px;
-    max-width: calc(33% + 12px);
+    max-width: calc(33% + 24px);
   }
 }
 @media only screen and (min-width: 1440px) {
   nav.site {
     right: calc((100% - 1440px)/2);
-    max-width: calc(1440px / 100 * 33 + 12px);
+    max-width: calc(1440px / 100 * 33 + 24px);
   }
 }
 nav.site.is-visible {

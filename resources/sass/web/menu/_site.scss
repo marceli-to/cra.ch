@@ -31,12 +31,12 @@ nav.site {
     height: calc(100% - 120px);
     right: 0;
     top: 120px;
-    max-width: calc(33% + 12px);
+    max-width: calc(33% + 24px);
   }
   
   @include bp-xl() {
     right: calc((100% - 1440px)/2);
-    max-width: calc(1440px / 100 * 33 + 12px);
+    max-width: calc(1440px / 100 * 33 + 24px);
   }
 
   &.is-visible {
