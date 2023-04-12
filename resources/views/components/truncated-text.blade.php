@@ -5,7 +5,7 @@
   <x-icons.chevron-down class="icon-chevron-down" />
   <span>mehr</span>
 </a>
-<div class="js-hidden md:hidden">
+<div class="js-hidden is-hidden">
   {{ $slot }}
   <a href="javascript:;" class="link-less" title="weniger" data-less>
     <x-icons.chevron-up class="icon-chevron-up" />

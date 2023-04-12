@@ -9,10 +9,6 @@
       header {
         height: $space-39x;
 
-        @include bp-sm() {
-          height: $space-47x;
-        }
-
         a {
           color: $color-black;
           text-decoration: none;

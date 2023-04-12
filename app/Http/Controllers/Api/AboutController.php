@@ -20,6 +20,26 @@ class AboutController extends Controller
   }
 
   /**
+   * Get the about images
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getImages()
+  {
+    $about = About::with('images')->get();
+    $images = [];
+    foreach ($about as $a)
+    {
+      foreach ($a->images as $image)
+      {
+        $images[] = $image;
+      }
+    }
+    return response()->json(['data' => $images]);
+  }
+
+
+  /**
    * Display the specified resource.
    *
    * @param  About $about

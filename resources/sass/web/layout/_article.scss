@@ -20,6 +20,10 @@ article {
     list-style-type: none;
     margin: 0 0 $space-16x 0;
     padding: 0;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
   }
 
   li {

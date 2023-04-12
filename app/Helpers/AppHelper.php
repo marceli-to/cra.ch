@@ -35,4 +35,9 @@ class AppHelper
     return number_format(round($amount * 20) / 20, 2, '.', '');
   }
 
+  public static function gridItemCaption($item)
+  {
+    dd($item);
+  }
+
 }

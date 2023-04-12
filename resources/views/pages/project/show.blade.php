@@ -38,9 +38,13 @@
         <section data-project-info>
           <div class="stacked-item stacked-item--indent">
             <div class="project-content__text">
-              <x-truncated-text preview="{!! Str::words($project->text, 75, '') !!}">
+              @if (Str::wordCount($project->text) > 25)
+                <x-truncated-text preview="{!! Str::words($project->text, 25, '') !!}">
+                  {!! $project->text !!}
+                </x-truncated-text>
+              @else
                 {!! $project->text !!}
-              </x-truncated-text>
+              @endif
             </div>
           </div>
           <div class="stacked-item stacked-item--border stacked-item--indent">

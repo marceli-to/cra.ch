@@ -24,14 +24,14 @@ var Truncate = (function() {
 
     $(selectors.btnMore).on('click', function(e) {
       $(this).hide();
-      $(this).prev('div').addClass('md:hidden');
-      $(this).next('div').removeClass('md:hidden');
+      $(this).prev('div').addClass('is-hidden');
+      $(this).next('div').removeClass('is-hidden');
     });
 
     $(selectors.btnLess).on('click', function(e) {
-      $(this).parent('div').addClass('md:hidden');
+      $(this).parent('div').addClass('is-hidden');
       $(this).parent('div').prev('a').show();
-      $(this).parent('div').prev('a').prev('div').removeClass('md:hidden');
+      $(this).parent('div').prev('a').prev('div').removeClass('is-hidden');
     });
   };
 

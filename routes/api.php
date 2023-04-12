@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function() {
   // Service
   Route::controller(ServiceController::class)->group(function () {
     Route::get('services', 'get');
+    Route::get('service/images', 'getImages');
     Route::get('service/{service}', 'find');
     Route::post('service', 'store');
     Route::put('service/{service}', 'update');
@@ -81,6 +82,7 @@ Route::middleware('auth:sanctum')->group(function() {
   // About
   Route::controller(AboutController::class)->group(function () {
     Route::get('about', 'get');
+    Route::get('about/images', 'getImages');
     Route::get('about/{about}', 'find');
     Route::post('about', 'store');
     Route::put('about/{about}', 'update');

@@ -22,6 +22,7 @@ class GridItemController extends Controller
     $gridItem->project_id = $request->input('project_id') ? $request->input('project_id') : NULL;
     $gridItem->diary_id = $request->input('diary_id') ? $request->input('diary_id') : NULL;
     $gridItem->article_id = $request->input('article_id') ? $request->input('article_id') : NULL;
+    $gridItem->page = $request->input('page') ? $request->input('page') : NULL;
     $gridItem->position = $request->input('position');
     $gridItem->save();
     return response()->json($gridItem);
@@ -39,6 +40,7 @@ class GridItemController extends Controller
     $gridItem->project_id = NULL;
     $gridItem->diary_id = NULL;
     $gridItem->article_id = NULL;
+    $gridItem->page = NULL;
     $gridItem->save();
     return response()->json('successfully deleted');
   }

@@ -18,6 +18,7 @@ export default {
       { title: 'Unterstrichen', inline: 'span', classes : 'underline-static' },
       { title: 'Überschrift 1', block : 'h1'},
       { title: 'Überschrift 2', block : 'h2'},
+      { title: 'Trennung verhindern', inline : 'span', classes : 'no-word-break'},
     ],
   }],
 

@@ -67,6 +67,12 @@
 	hyphens: auto;
 }
 
+%no-word-break,
+.no-word-break {
+  word-break: normal;
+  hyphens: none;
+}
+
 /**
  * Define the font size
  * -----------------------------------------------------------------------------

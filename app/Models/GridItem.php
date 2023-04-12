@@ -16,7 +16,8 @@ class GridItem extends Model
     'diary_id',
     'article_id',
     'image_id',
-    'grid_id'
+    'grid_id',
+    'page'
   ];
 
   /**
@@ -27,6 +28,7 @@ class GridItem extends Model
 
    protected $appends = [
     'isArticle',
+    'isPage',
     'isDiary',
     'isImage',
     'isProject',
@@ -145,6 +147,16 @@ class GridItem extends Model
   public function getIsArticleImageAttribute()
   {
     return $this->article_id && $this->image_id ? true : false;
+  }
+
+  /**
+   * Get the isPage attribute.
+   * @return bool
+   */
+
+  public function getIsPageAttribute()
+  {
+    return $this->page && $this->image_id ? true : false;
   }
   
   /**

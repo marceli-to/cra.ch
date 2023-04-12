@@ -23,12 +23,12 @@ nav.site {
   @include bp-sm() {
     left: auto;
     right: 0;
-    padding-top: 80px;
+    padding-top: 18px;
     max-width: 350px;
   }
 
   @include bp-md() {
-    padding-top: 120px;
+    padding-top: 40px;
     max-width: calc(33% + 24px);
   }
   
@@ -62,7 +62,7 @@ nav.site {
 
   ul a {
     @extend %py-2x;
-    @extend %md\:py-1x;
+    @extend %md\:py-0;
     color: $color-black;
     display: block;
     @include font-size($fs-menu);
@@ -95,7 +95,6 @@ nav.site {
     
     a {
       @extend %py-1x;
-      @extend %md\:py-2x;
       @include font-size($fs-sub-menu);
     }
   }

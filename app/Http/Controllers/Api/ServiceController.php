@@ -20,6 +20,25 @@ class ServiceController extends Controller
   }
 
   /**
+   * Get the service images
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getImages()
+  {
+    $services = Service::with('images')->get();
+    $images = [];
+    foreach ($services as $service)
+    {
+      foreach ($service->images as $image)
+      {
+        $images[] = $image;
+      }
+    }
+    return response()->json(['data' => $images]);
+  }
+
+  /**
    * Display the specified resource.
    *
    * @param  Service $service

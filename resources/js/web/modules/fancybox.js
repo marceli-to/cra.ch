@@ -31,11 +31,11 @@ var FancyBox = (function() {
             '<div class="fancybox-toolbar">{{buttons}}</div>' +
             '<div class="fancybox-navigation">{{arrows}}</div>' +
             '<div class="fancybox-stage"></div>' +
+            '<div class="fancybox-caption"><div class=""fancybox-caption__body"></div></div>' +
           '</div>' +
         '</div>',
       
       afterLoad: function(fb, item){
-        item.$content.remove('.fb-caption').append('<div class="fb-caption">' + item.opts.caption + '</div>');
         item.$content.find('[data-fancybox-index]').html(item.index+1);
         item.$content.find('[data-fancybox-count]').html(fb.group.length);
       },

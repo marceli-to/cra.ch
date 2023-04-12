@@ -1,7 +1,7 @@
 <template>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h1>Seiteninhalte</h1>
+      <h1>Weitere Seiten</h1>
     </page-header>
     <div class="content content--wide">
       <about />

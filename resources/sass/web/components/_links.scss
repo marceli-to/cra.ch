@@ -34,12 +34,13 @@
 
 %link-external--md,
 .link-external--md {
-  background-size: 10px auto;
-  background-position: top 6px left;
+  background-size: 11px auto;
+  background-position: top 4px left;
   padding-left: 18px;
 
-  @include bp-md() {
-    background-position: top 8px left;
+  @include bp-sm() {
+    background-size: 12px auto;
+    background-position: top 5px left;
     padding-left: 20px;
   }
 }
@@ -49,12 +50,8 @@
 .link-more,
 .link-less {
   align-items: center;
-  display: none;
+  display: flex;
   line-height: 1;
-
-  @include bp-md() {
-    display: flex;
-  }
 
   svg {
     @extend %mt-3x;

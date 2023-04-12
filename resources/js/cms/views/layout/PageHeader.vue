@@ -82,7 +82,7 @@
       </li>
       <li>
         <router-link :to="{name: 'pages'}">
-          <span>Seiteninhalte</span>
+          <span>Weitere Seiten</span>
         </router-link>
       </li>
     </ul>

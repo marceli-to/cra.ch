@@ -91,27 +91,46 @@ a[data-fancybox] {
   padding: 60px;
 
   @include bp-sm() {
-    padding: 80px;
+    padding: 70px;
   }
 
   @include bp-md() {
-    padding: 120px 120px 90px 120px;
+    padding: 90px 90px 0 90px;
   }
 }
 
-.fb-caption {
+// .fb-caption {
+//   background: $color-white;
+//   bottom: -40px;
+//   display: flex;
+//   justify-content: center;
+//   left: 0;
+//   padding: 15px 0 0 0;
+//   pointer-events: none;
+//   position: fixed;
+//   right: 0;
+//   text-align: center;
+//   transition: opacity 200ms;
+//   z-index: 99996;
+// }
+
+/* Caption */
+.fancybox-caption {
   background: $color-white;
-  bottom: -5px;
-  display: flex;
-  justify-content: center;
+  bottom: 0;
+  color: $color-black;
+  @include font-book();
+	@include font-size($fs-base);
   left: 0;
-  padding: 15px 0 0 0;
+  padding: 22px;
+  position: fixed;
   pointer-events: none;
-  position: absolute;
   right: 0;
   text-align: center;
-  transition: opacity 200ms;
+  opacity: 1 !important;
   z-index: 99996;
 
+  @include bp-md() {
+    padding: 22px;
+  }
 }
-
