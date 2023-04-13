@@ -74,6 +74,14 @@
                 {{ format.label }} {{ format.w }} x {{ format.h }}
               </a>
             </div>
+            <div>
+            <a 
+                href="javascript:;" 
+                @click.prevent="changeRatio(null, null)" 
+                :class="`btn-cropper-format`">
+                Frei
+              </a>
+            </div>
           </div>
 
           <div class="cropper-info">{{ cropW }} x {{ cropH }}px</div>

@@ -137,22 +137,22 @@ class ProjectSeeder extends Seeder
         'category_id' => mt_rand(1,3)
       ]);
 
-      for($y = 1; $y <= 13; $y++)
-      {
-        $rand = mt_rand(1,13);
-        $random_string = \Str::random(10);
-        Image::create([
-          'uuid' => \Str::uuid(),
-          'name' => 'cra-' . $y .'.jpg',
-          'original_name' => 'cra-' . $y .'.jpg',
-          'extension' => 'jpg',
-          'size' => '145623'.$y,
-          'order' => $rand,
-          'publish' => 1,
-          'imageable_type' => Project::class,
-          'imageable_id' => $project->id,
-        ]);
-      }
+      // for($y = 1; $y <= 13; $y++)
+      // {
+      //   $rand = mt_rand(1,13);
+      //   $random_string = \Str::random(10);
+      //   Image::create([
+      //     'uuid' => \Str::uuid(),
+      //     'name' => 'cra-' . $y .'.jpg',
+      //     'original_name' => 'cra-' . $y .'.jpg',
+      //     'extension' => 'jpg',
+      //     'size' => '145623'.$y,
+      //     'order' => $rand,
+      //     'publish' => 1,
+      //     'imageable_type' => Project::class,
+      //     'imageable_id' => $project->id,
+      //   ]);
+      // }
     }
   }
 }

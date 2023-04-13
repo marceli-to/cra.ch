@@ -131,16 +131,6 @@ class ImageController extends Controller
     $image->coords_h = round($request->input('coords_h'), 12);
     $image->coords_x = round($request->input('coords_x'), 12);
     $image->coords_y = round($request->input('coords_y'), 12);
-
-    if ($image->coords_w > $image->coords_h)
-    {
-      $image->orientation = 'l';
-    }
-    else
-    {
-      $image->orientation = 'p';
-    } 
-
     $image->save();
     $this->removeCachedImage($image);
     return response()->json('successfully updated');

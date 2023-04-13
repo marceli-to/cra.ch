@@ -61,34 +61,34 @@ class Cache implements FilterInterface
     }
     else
     {
-      if ($this->ratio)
-      {
-        $ratio = explode('x', $this->ratio);
+      // if ($this->ratio)
+      // {
+      //   $ratio = explode('x', $this->ratio);
 
-        if ($ratio[0] > $ratio[1])
-        {
-          $x = $this->maxSize;
-          $y = $this->maxSize / $ratio[0] * $ratio[1];
-        }
-        else
-        {
-          $y = $this->maxSize;
-          $x = $this->maxSize / $ratio[1] * $ratio[0];
-        }
+      //   if ($ratio[0] > $ratio[1])
+      //   {
+      //     $x = $this->maxSize;
+      //     $y = $this->maxSize / $ratio[0] * $ratio[1];
+      //   }
+      //   else
+      //   {
+      //     $y = $this->maxSize;
+      //     $x = $this->maxSize / $ratio[1] * $ratio[0];
+      //   }
 
-        // Landscape
-        if ($this->orientation == 'landscape')
-        {
-          return $image->fit(floor($x), floor($y), function ($constraint) {
-            $constraint->upsize();
-          });
-        }
+      //   // Landscape
+      //   if ($this->orientation == 'landscape')
+      //   {
+      //     return $image->fit(floor($x), floor($y), function ($constraint) {
+      //       $constraint->upsize();
+      //     });
+      //   }
 
-        // Portrait (switch x and y)
-        return $image->fit(floor($y), floor($x), function ($constraint) {
-          $constraint->upsize();
-        });
-      }
+      //   // Portrait (switch x and y)
+      //   return $image->fit(floor($y), floor($x), function ($constraint) {
+      //     $constraint->upsize();
+      //   });
+      // }
 
       return $image->resize($this->maxSize, $this->maxSize, function ($constraint) {
         $constraint->aspectRatio();

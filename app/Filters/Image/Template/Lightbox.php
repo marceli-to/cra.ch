@@ -3,24 +3,18 @@ namespace App\Filters\Image\Template;
 use Intervention\Image\Image;
 use Intervention\Image\Filters\FilterInterface;
 
-class Large implements FilterInterface
+class Lightbox implements FilterInterface
 {
   /**
    * Maximum width for large landscape images
    */    
-  protected $max_width = 1600;    
+  protected $max_width = 2000;    
 
   /**
    * Maximum height for large portrait images
    */    
-  protected $max_height = 900;
-  
-  protected $maxSize;
+  protected $max_height = 1500;
 
-  public function __construct($maxSize = NULL, $coords = FALSE, $ratio = NULL)
-  {
-    $this->maxSize = $maxSize ? $maxSize : 1500;
-  }
 
   public function applyFilter(Image $image)
   {

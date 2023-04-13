@@ -29,8 +29,7 @@ Route::get('/ueber-uns/team', [AboutController::class, 'team'])->name('page.abou
 Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page.about.diary');
 
 // Frontend - url based images
-Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
-
+Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}', [ImageController::class, 'getResponse']);
 
 /*
 |--------------------------------------------------------------------------

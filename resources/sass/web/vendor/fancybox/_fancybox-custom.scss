@@ -88,31 +88,30 @@ a[data-fancybox] {
 }
 
 .fancybox-slide--image{
-  padding: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
 
   @include bp-sm() {
-    padding: 70px;
+    padding-left: 90px;
+    padding-right: 90px;
   }
 
-  @include bp-md() {
-    padding: 90px 90px 0 90px;
+  @include bp-xl() {
+    padding-left: 120px;
+    padding-right: 120px;
   }
 }
 
-// .fb-caption {
-//   background: $color-white;
-//   bottom: -40px;
-//   display: flex;
-//   justify-content: center;
-//   left: 0;
-//   padding: 15px 0 0 0;
-//   pointer-events: none;
-//   position: fixed;
-//   right: 0;
-//   text-align: center;
-//   transition: opacity 200ms;
-//   z-index: 99996;
-// }
+.fancybox-image {
+
+  @include bp-md() {
+    padding: 60px;
+  }
+
+  @include bp-xl() {
+    padding: 100px;
+  }
+}
 
 /* Caption */
 .fancybox-caption {
