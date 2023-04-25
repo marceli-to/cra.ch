@@ -4,6 +4,10 @@ export default [
     items: '3',
   },
   {
+    layout: '1_1-1',
+    items: '3',
+  },
+  {
     layout: '2-1',
     items: '2',
   },

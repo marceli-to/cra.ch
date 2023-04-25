@@ -65,6 +65,13 @@
         <rect x="1" y="1" width="38" height="53" fill="white" stroke="black" stroke-width="2"/>
       </svg>
     </div>
+    <div v-if="$props.layout == '1_1-1'">
+      <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="38" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="31" width="38" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="46" y="1" width="38" height="53" fill="white" stroke="black" stroke-width="2"/>
+      </svg>
+    </div>
     <div v-if="$props.layout == '1-1-1_1'">
       <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="1" y="1" width="23" height="53" fill="white" stroke="black" stroke-width="2"/>
@@ -73,6 +80,16 @@
         <rect x="61" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
       </svg>
     </div>
+
+    <div v-if="$props.layout == '1_1-1-1'">
+      <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="31" y="1" width="23" height="53" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="61" y="1" width="23" height="53" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+        <rect x="1" y="31" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>
+      </svg>
+    </div>
+
     <div v-if="$props.layout == '1-1_1-1'">
       <svg width="85" height="55" viewBox="0 0 85 55" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="31" y="1" width="23" height="23" fill="white" stroke="black" stroke-width="2"/>

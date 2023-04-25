@@ -40,8 +40,16 @@
     <x-galleries.gallery-1-1_1 :items="$items" :view="$view" />
   @endif
 
+  @if ($layout == '1_1-1')
+    <x-galleries.gallery-1_1-1 :items="$items" :view="$view" />
+  @endif
+
   @if ($layout == '1-1-1_1')
     <x-galleries.gallery-1-1-1_1 :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1_1-1-1')
+    <x-galleries.gallery-1_1-1-1 :items="$items" :view="$view" />
   @endif
 
   @if ($layout == '1-1_1-1')
