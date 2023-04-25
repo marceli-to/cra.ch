@@ -12,6 +12,10 @@ export default [
     items: '2',
   },
   {
+    layout: '1-2',
+    items: '2',
+  },
+  {
     layout: '1w-1w-1w',
     items: '3',
   },
@@ -21,6 +25,10 @@ export default [
   },
   {
     layout: '1_1-2',
+    items: '3',
+  },
+  {
+    layout: '2-1_1',
     items: '3',
   },
   {

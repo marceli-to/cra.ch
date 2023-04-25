@@ -15,6 +15,7 @@
       </article>
       <article class="stacked-item stacked-item--border stacked-item--indent">
         <div>
+
           @if ($contact->description)
             {!! $contact->description !!}
           @endif
@@ -25,10 +26,20 @@
               </a>
             </p>
           @endif
+
+          @if ($contact->imprint)
+            <a href="javascript:;" class="flex justify-start" data-btn-imprint>
+              Impressum
+              <x-icons.chevron-down class="icon-chevron-down mt-4x ml-4x" />
+            </a>
+            <div class="is-hidden pt-11x sm:pt-12x" data-imprint>
+              {!! $contact->imprint !!}
+            </div>
+          @endif
+
         </div>
       </article>
     </div>
-
     
     @if ($contact->publishedImages)
       <div class="md:span-4">
