@@ -71,6 +71,7 @@ body.auth {
     .form-helper {
       @extend %ml-10x;
       color: $color-black;
+      @include font-size($fs-sm);
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
