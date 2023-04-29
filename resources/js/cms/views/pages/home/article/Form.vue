@@ -37,16 +37,6 @@
       </div>
     </div>
 
-    <div v-show="tabs.images.active">
-      <images 
-        :allowRatioSwitch="true"
-        :imageRatioW="3" 
-        :imageRatioH="4"
-        :ratioFormats="[{label: 'Hoch', w: 3, h: 4}, {label: 'Quer', w: 16, h: 10}]"
-        :images="data.images">
-      </images>
-    </div>
-
     <div v-show="tabs.settings.active">
       <div>
         <div class="form-row">
@@ -80,7 +70,6 @@ import Tabs from "@/components/ui/Tabs.vue";
 import tabsConfig from "@/views/pages/home/article/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
-import Images from "@/modules/images/Index.vue";
 
 export default {
   components: {
@@ -92,7 +81,6 @@ export default {
     Tabs,
     PageFooter,
     PageHeader,
-    Images,
     TinymceEditor
   },
 

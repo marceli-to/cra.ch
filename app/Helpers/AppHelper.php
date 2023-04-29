@@ -35,9 +35,25 @@ class AppHelper
     return number_format(round($amount * 20) / 20, 2, '.', '');
   }
 
-  public static function gridItemCaption($item)
+  public static function caption($item, $view = NULL)
   {
-    dd($item);
+    // get config item from 'pages.php'
+    $pages = config('pages');
+
+    if ($view == 'home')
+    {
+      if ($item->isProject)
+      {
+        return $item->project->title;
+      }
+
+      if ($item->isPage)
+      {
+        return $pages[$item->page];
+      }
+    }
+
+    return $item->image->caption ? $item->image->caption : NULL;
   }
 
 }

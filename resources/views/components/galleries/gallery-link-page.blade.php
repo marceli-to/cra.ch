@@ -1,4 +1,4 @@
-@props(['page'])
-<a href="{{ route('page.' . $page) }}">
+@props(['page', 'caption'])
+<a href="{{ route('page.' . $page) }}" title="{{ $caption }}">
   {{ $slot }}
 </a>

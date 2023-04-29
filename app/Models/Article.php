@@ -41,20 +41,6 @@ class Article extends Model
   |
   */
 
-  /**
-   * The images that belong to this model.
-   */
-
-  public function images()
-  {
-    return $this->morphMany(Image::class, 'imageable')->orderBy('order');
-  }
- 
-  public function publishedImages()
-  {
-    return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
-  }
-
   public function grids()
   {
     return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
@@ -94,11 +80,13 @@ class Article extends Model
     if ($this->date)
     {
       $article .= '<div class="teaser__date">' . $this->date . '</div>';
-    }     
+    } 
+
     if ($this->title)
     {
       $article .= '<h2>' . $this->title . '</h2>';
     }
+
     if ($this->text)
     {
       $article .= $this->text;

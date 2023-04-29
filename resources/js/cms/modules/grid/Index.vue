@@ -287,7 +287,6 @@
             @showArticles="showArticleSelector($event)">
           </grid-item>  
         </template>
-
         <template v-if="grid.layout == '1_1-1'">
           <grid-item
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
@@ -317,7 +316,6 @@
             @showArticles="showArticleSelector($event)">
           </grid-item>  
         </template>
-
         <template v-if="grid.layout == '1-1-1_1'">
           <grid-item
             :item="grid.grid_items[0] ? grid.grid_items[0] : null"
@@ -795,7 +793,6 @@ export default {
         position: this.currentPos,
         image_id: data.image,
         project_id: data.project ? data.project : null,
-        article_id: data.article ? data.article : null,
         page: data.page ? data.page : null,
       }
       this.isLoading = true;

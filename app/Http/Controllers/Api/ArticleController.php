@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataCollection;
 use App\Models\Article;
-use App\Models\Image;
 use App\Http\Requests\ArticleStoreRequest;
 use Illuminate\Http\Request;
 
@@ -19,9 +18,9 @@ class ArticleController extends Controller
   {
     if ($publish)
     {
-      return new DataCollection(Article::flagged('isPublish')->with('images')->get());
+      return new DataCollection(Article::flagged('isPublish')->get());
     }
-    return new DataCollection(Article::with('images')->get());
+    return new DataCollection(Article::get());
   }
 
   /**
@@ -32,7 +31,7 @@ class ArticleController extends Controller
    */
   public function find(Article $article)
   {
-    $article = Article::with('images')->find($article->id);
+    $article = Article::find($article->id);
     return response()->json(['article' => $article]);
   }
 
@@ -52,7 +51,6 @@ class ArticleController extends Controller
       'linkText' => $request->input('linkText'),
     ]);
     $this->handleFlag($article, 'isPublish', $request->input('publish'));
-    $this->handleImages($article, $request->input('images'));
     return response()->json(['articleId' => $article->id]);
   }
 
@@ -73,7 +71,6 @@ class ArticleController extends Controller
     $article->linkText = $request->input('linkText');
     $article->save();
     $this->handleFlag($article, 'isPublish', $request->input('publish'));
-    $this->handleImages($article, $request->input('images'));
     return response()->json('successfully updated');
   }
 
@@ -109,26 +106,6 @@ class ArticleController extends Controller
     return response()->json('successfully deleted');
   }
 
-
-  /**
-   * Handle associated images
-   *
-   * @param Article $article
-   * @param Array $images
-   * @return void
-   */  
-
-  protected function handleImages(Article $article, $images = NULL)
-  {
-    foreach($images as $image)
-    {
-      $i = Image::findOrFail($image['id']);
-      $i->imageable_id = $article->id;
-      $i->imageable_type = Article::class;
-      $i->save();
-    }
-  }
-
   /**
    * Handle flags of a article
    *
@@ -149,6 +126,5 @@ class ArticleController extends Controller
     }
     return $article->hasFlag($flag);
   }
-
 }
 

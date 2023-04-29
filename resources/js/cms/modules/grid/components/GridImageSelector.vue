@@ -36,7 +36,6 @@
           <div>
             <h2 class="mb-4x">Bildtyp wählen:</h2>
             <a href="javascript:;" class="btn-secondary mr-2x" @click="setType('projects')" v-if="projects.length">Projekt</a>
-            <a href="javascript:;" class="btn-secondary mr-2x" @click="setType('articles')" v-if="articles.length">Artikel</a>
             <a href="javascript:;" class="btn-secondary mr-2x" @click="setType('diary')" v-if="diary.images.length">Tagebuch</a>
             <a href="javascript:;" class="btn-secondary" @click="setType('content')" v-if="serviceImages.length || aboutImages.length">Inhalte</a>
           </div>

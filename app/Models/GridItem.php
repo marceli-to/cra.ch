@@ -32,7 +32,6 @@ class GridItem extends Model
     'isDiary',
     'isImage',
     'isProject',
-    'isArticleImage',
     'caption',
   ];
 
@@ -138,17 +137,7 @@ class GridItem extends Model
   {
     return $this->project_id ? true : false;
   }
-
-  /**
-   * Get the isArticleImage attribute.
-   * @return bool
-   */
-
-  public function getIsArticleImageAttribute()
-  {
-    return $this->article_id && $this->image_id ? true : false;
-  }
-
+  
   /**
    * Get the isPage attribute.
    * @return bool
