@@ -44,7 +44,7 @@ class AppHelper
     {
       if ($item->isProject)
       {
-        return $item->project->title;
+        return $item->project?->title;
       }
 
       if ($item->isPage)
