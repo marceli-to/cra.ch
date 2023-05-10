@@ -157,7 +157,7 @@ class GridItem extends Model
   {
     if ($this->isProject)
     {
-      return $this->project->title;
+      return $this->project?->title;
     }
     return $this->image && $this->image->caption ? $this->image->caption : null;
   }
