@@ -49,6 +49,7 @@
 %link-less,
 .link-more,
 .link-less {
+  @extend %mt-3x;
   align-items: center;
   display: flex;
   line-height: 1;

@@ -4,7 +4,6 @@
 @section('content')
 @if ($contact)
   <div class="md:grid md:grid-cols-6 md:grid-gap contact">
-
     <div class="md:span-2">
       <article class="stacked-item stacked-item--border stacked-item--indent">
         <div>
@@ -40,7 +39,6 @@
         </div>
       </article>
     </div>
-    
     <div class="md:span-4 md:grid md:grid-cols-6 grid-gallery-2-1_1">
        <div class="grid-area-a aspect-ratio-e">
         <a href="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" data-fancybox="gallery">
@@ -64,23 +62,6 @@
         </a>
       </div>  
     </div>
-
-    <!--
-    @if ($contact->publishedImages)
-      <div class="md:span-4">
-        @foreach($contact->publishedImages as $image)
-          <x-image 
-            classes="is-responsive is-{{ $image->orientation }} mb-8x md:mb-16x"
-            :maxSizes="[0 => 1200]" 
-            :image="$image" 
-            width="1200" 
-            height="800"
-            :caption="$image->caption" />
-        @endforeach
-      </div>
-    @endif
-    -->
-
   </div>
 @endif
 @endsection
