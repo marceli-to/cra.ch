@@ -34,7 +34,6 @@ Vue.component('LoadingIndicator', LoadingIndicator);
 import Separator from "@/components/ui/Separator";
 Vue.component('Separator', Separator);
 
-
 // Store
 import store from '@/config/store';
 
@@ -43,12 +42,11 @@ import baseRoutes from '@/config/routes';
 import homeRoutes from '@/views/pages/home/config/routes';
 import projectRoutes from '@/views/pages/project/config/routes';
 import diaryRoutes from '@/views/pages/diary/config/routes';
-import serviceRoutes from '@/views/pages/content/service/config/routes';
-import contactRoutes from '@/views/pages/content/contact/config/routes';
-import aboutRoutes from '@/views/pages/content/about/config/routes';
-import resumeRoutes from '@/views/pages/content/resume/config/routes';
+import serviceRoutes from '@/views/pages/service/config/routes';
+import contactRoutes from '@/views/pages/contact/config/routes';
+import aboutRoutes from '@/views/pages/about/config/routes';
+import resumeRoutes from '@/views/pages/resume/config/routes';
 import articleRoutes from '@/views/pages/home/article/config/routes';
-
 import imageRoutes from '@/modules/images/config/routes';
 
 const router = new VueRouter(

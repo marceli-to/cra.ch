@@ -29,9 +29,9 @@ import Helpers from "@/mixins/Helpers";
 import ButtonBack from "@/components/ui/ButtonBack.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import PageFooter from "@/components/ui/PageFooter.vue";
-import Service from "@/views/pages/content/service/Index.vue";
-import About from "@/views/pages/content/about/Index.vue";
-import Contact from "@/views/pages/content/contact/Index.vue";
+import Service from "@/views/pages/service/Index.vue";
+import About from "@/views/pages/about/Index.vue";
+import Contact from "@/views/pages/contact/Index.vue";
 
 export default {
 
