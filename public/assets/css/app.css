@@ -6072,13 +6072,12 @@ input[type=checkbox], .mt-1x {
 }
 
 .link-more svg,
-.link-less svg,
-.link-more,
-.link-less, .mt-3x {
+.link-less svg, .mt-3x {
   margin-top: 3px;
 }
 
-.mt-4x {
+.link-more,
+.link-less, .mt-4x {
   margin-top: 4px;
 }
 
