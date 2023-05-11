@@ -2,7 +2,7 @@
 @foreach ($projects as $category)
   <div class="stacked-item {{ $loop->first ? 'stacked-item--border' : '' }} worklist-item is-mobile">
     @if ($projects->count() > 0)
-      <h2>{{ $category->title }}</h2>
+      <h2>{{ str_replace("<br />", ", ", nl2br($category->title)) }}</h2>
     @endif
     @foreach ($category->projects as $project)
       <article class="stacked-item stacked-item--border">
