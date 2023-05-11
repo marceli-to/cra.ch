@@ -3,7 +3,7 @@
   <div class="stacked-item stacked-item--border worklist-item is-desktop">
     <div class="worklist-item__category">
       @if ($projects->count() > 0)
-        <h2>{{ $category->title }}</h2>
+        <h2>{!! nl2br($category->title) !!}</h2>
       @endif
     </div>
     <div class="worklist-item__info">

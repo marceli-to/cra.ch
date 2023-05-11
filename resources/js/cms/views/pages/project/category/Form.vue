@@ -9,7 +9,7 @@
     <div>
       <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
         <label>Titel </label>
-        <input type="text" v-model="data.title">
+        <textarea type="text" v-model="data.title"></textarea>
         <label-required />
       </div>
     </div>
