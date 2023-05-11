@@ -24,7 +24,7 @@ class AboutController extends BaseController
    public function team()
    {
      $about = About::first();
-     $resume = Resume::get();
+     $resume = Resume::orderBy('order')->get();
      return view($this->viewPath . 'team', ['about' => $about, 'resume' => $resume]);
    }
 
