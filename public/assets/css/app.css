@@ -6103,8 +6103,7 @@ input[type=checkbox], .mt-1x {
   margin-top: 9px;
 }
 
-.link-more,
-.link-less, .mt-10x {
+.mt-10x {
   margin-top: 10px;
 }
 
@@ -6112,7 +6111,8 @@ input[type=checkbox], .mt-1x {
   margin-top: 11px;
 }
 
-.mt-12x {
+.link-more,
+.link-less, .mt-12x {
   margin-top: 12px;
 }
 
