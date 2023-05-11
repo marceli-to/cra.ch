@@ -54,7 +54,7 @@ class AppHelper
       }
     }
 
-    return $item->image->caption ? $item->image->caption : NULL;
+    return $item->image?->caption ? $item->image->caption : NULL;
   }
 
 }
