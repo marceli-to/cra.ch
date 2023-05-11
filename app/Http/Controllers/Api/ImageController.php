@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 use App\Models\Image;
-use App\Models\HeroImage;
+use App\Models\GridItem;
 use App\Services\Media;
 use App\Http\Resources\DataCollection;
 use Illuminate\Support\Facades\Storage;
@@ -145,9 +145,16 @@ class ImageController extends Controller
   
   public function destroy($image)
   {
+    // Delete from grid items
+    $gridItems = GridItem::where('image_id', '=', $image)->get();
+    foreach($gridItems as $gridItem)
+    {
+      $gridItem->delete();
+    }
+    
     // Delete from database
     $record = Image::where('name', '=', $image)->first();
-    
+   
     if ($record)
     {
       $record->delete();
