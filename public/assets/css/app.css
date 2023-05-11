@@ -6092,8 +6092,7 @@ input[type=checkbox], .mt-1x {
   margin-top: 7px;
 }
 
-.link-more,
-.link-less, [class*=grid-gallery-] + [class*=grid-gallery-],
+[class*=grid-gallery-] + [class*=grid-gallery-],
 [class*=grid-gallery-] [class^=grid-gallery-],
 [class^=grid-gallery-] + [class*=grid-gallery-],
 [class^=grid-gallery-] [class^=grid-gallery-], .mt-8x {
@@ -6104,7 +6103,8 @@ input[type=checkbox], .mt-1x {
   margin-top: 9px;
 }
 
-.mt-10x {
+.link-more,
+.link-less, .mt-10x {
   margin-top: 10px;
 }
 
