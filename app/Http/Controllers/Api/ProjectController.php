@@ -152,7 +152,6 @@ class ProjectController extends Controller
     return response()->json('successfully deleted');
   }
 
-
   /**
    * Handle associated images
    *
