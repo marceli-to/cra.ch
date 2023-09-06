@@ -22,6 +22,8 @@
                     class="{{ isset($project) && $project->id == $menuProject->id ? 'is-active' : '' }}">
                     {{ $menuProject->title }}
                   </a>
+                @else
+                  <span>{{ $menuProject->title }}</span>
                 @endif
               </li>
             @endforeach
