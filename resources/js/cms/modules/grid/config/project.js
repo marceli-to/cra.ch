@@ -43,5 +43,45 @@ export default [
     layout: '1-1-1',
     items: '3',
   },
+  {
+    layout: '1sq-1sq',
+    items: '2',
+  },
+  {
+    layout: '1sq-1sq-1sq',
+    items: '3',
+  },
+  {
+    layout: '1sq-1',
+    items: '2',
+  },
+  {
+    layout: '1-1sq',
+    items: '2',
+  },
+  {
+    layout: '1sq-1sq_1sq',
+    items: '3',
+  },
+  {
+    layout: '1sq_1sq-1sq',
+    items: '3',
+  },
+  {
+    layout: '1sq-1_1_1',
+    items: '4',
+  },
+  {
+    layout: '1_1_1-1sq',
+    items: '4',
+  },
+  {
+    layout: '1sq-1_1',
+    items: '3',
+  },
+  {
+    layout: '1_1-1sq',
+    items: '3',
+  }
            
 ];

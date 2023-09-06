@@ -613,6 +613,287 @@
             @showArticles="showArticleSelector($event)">
           </grid-item>     
         </template>
+        <template v-if="grid.layout == '1sq-1sq-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>     
+        </template>
+        <template v-if="grid.layout == '1sq-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1sq-1'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-b'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-b'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1sq-1sq_1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1sq_1sq-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1sq-1_1_1'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="hasArticles"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[3] ? grid.grid_items[3] : null"
+            :area="'grid-area-d'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="hasArticles"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>    
+        </template>
+        <template v-if="grid.layout == '1_1_1-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="hasArticles"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[3] ? grid.grid_items[3] : null"
+            :area="'grid-area-d'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="hasArticles"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>    
+        </template>
+        <template v-if="grid.layout == '1sq-1_1'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-f'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
+        <template v-if="grid.layout == '1_1-1sq'">
+          <grid-item
+            :item="grid.grid_items[0] ? grid.grid_items[0] : null"
+            :area="'grid-area-a'"
+            :ratio="'aspect-ratio-f'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>
+          <grid-item
+            :item="grid.grid_items[1] ? grid.grid_items[1] : null"
+            :area="'grid-area-b'"
+            :ratio="'aspect-ratio-c'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item> 
+          <grid-item
+            :item="grid.grid_items[2] ? grid.grid_items[2] : null"
+            :area="'grid-area-c'"
+            :ratio="'aspect-ratio-h'"
+            :hasArticles="false"
+            @resetItem="resetItem($event)"
+            @showImages="showImageSelector($event)"
+            @showArticles="showArticleSelector($event)">
+          </grid-item>  
+        </template>
       </div>
     </grid-row>
   </template>

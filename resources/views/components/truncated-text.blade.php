@@ -1,7 +1,7 @@
-@if ($preview) 
+@if (isset($preview)) 
   <div>{!! $preview !!}</div>
 @endif
-<a href="javascript:;" class="link-more" title="mehr" data-more>
+<a href="javascript:;" {{ $attributes->merge(['class' => 'link-more']) }} title="mehr" data-more>
   <x-icons.chevron-down class="icon-chevron-down" />
   <span>mehr</span>
 </a>

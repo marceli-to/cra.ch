@@ -10,9 +10,9 @@
             <div class="md:pr-16x">{!! $about->description !!}</div>
           </article>
         @endif
-        @if ($about->cooperation)
+        @if ($about->membership)
           <article class="stacked-item stacked-item--border stacked-item--indent">
-            <div class="md:pr-16x">{!! $about->cooperation !!}</div>
+            <div class="md:pr-16x">{!! $about->membership !!}</div>
           </article>
         @endif
       </div>
@@ -22,17 +22,26 @@
         <article class="stacked-item stacked-item--border stacked-item--indent">
           <div class="md:pr-16x">
             <h2>Cristina Rutz<br>Architektin ETSAM SIA</h2>
-            <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
-              @foreach($resume as $r)
-                <div class="span-2">{{ $r->periode }}</div>
-                <div class="span-4">{{ $r->description }}</div>
-              @endforeach
-            </div>
+            <x-truncated-text class="mt-0">
+              <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
+                @foreach($resume as $r)
+                  <div class="span-2">{{ $r->periode }}</div>
+                  <div class="span-4">{{ $r->description }}</div>
+                @endforeach
+              </div>
+            </x-truncated-text>
           </div>
         </article>
-        @if ($about->membership)
+
+        <article class="stacked-item stacked-item--border stacked-item--indent">
+          <div class="md:pr-16x">
+            <strong>Miriam Muster</strong><br>Architektin ETH
+          </div>
+        </article>
+
+        @if ($about->cooperation)
           <article class="stacked-item stacked-item--border stacked-item--indent">
-            <div class="md:pr-16x">{!! $about->membership !!}</div>
+            <div class="md:pr-16x">{!! $about->cooperation !!}</div>
           </article>
         @endif
       </div>

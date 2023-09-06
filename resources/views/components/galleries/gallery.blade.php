@@ -71,4 +71,45 @@
   @if ($layout == '1t_1-1_1-1')
     <x-galleries.gallery-1t_1-1_1-1 :items="$items" :view="$view" :article="$article" />
   @endif
+
+  @if ($layout == '1sq-1sq')
+    <x-galleries.gallery-1sq-1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq-1')
+    <x-galleries.gallery-1sq-1 :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1-1sq')
+    <x-galleries.gallery-1-1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq-1sq-1sq')
+    <x-galleries.gallery-1sq-1sq-1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq-1sq_1sq')
+    <x-galleries.gallery-1sq-1sq_1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq_1sq-1sq')
+    <x-galleries.gallery-1sq_1sq-1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq-1_1_1')
+    <x-galleries.gallery-1sq-1_1_1 :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1_1_1-1sq')
+    <x-galleries.gallery-1_1_1-1sq :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1sq-1_1')
+    <x-galleries.gallery-1sq-1_1 :items="$items" :view="$view" />
+  @endif
+
+  @if ($layout == '1_1-1sq')
+    <x-galleries.gallery-1_1-1sq :items="$items" :view="$view" />
+  @endif
+
 </div>

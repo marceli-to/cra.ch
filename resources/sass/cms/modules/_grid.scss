@@ -58,6 +58,18 @@
     "a a b b b b";
 }
 
+.grid-gallery-1sq-1sq_1sq > div {
+  grid-template-areas:
+  "a a a a b b"
+  "a a a a c c";
+}
+
+.grid-gallery-1sq_1sq-1sq > div {
+  grid-template-areas:
+  "a a c c c c"
+  "b b c c c c";
+}
+
 .grid-gallery-1-1_1 > div {
   grid-template-areas:
     "a a a b b b"
@@ -76,7 +88,8 @@
 }
 
 .grid-gallery-1-1-1 > div,
-.grid-gallery-1w-1w-1w > div {
+.grid-gallery-1w-1w-1w > div,
+.grid-gallery-1sq-1sq-1sq > div {
   grid-template-areas:
     "a a b b c c"
     "a a b b c c";
@@ -87,12 +100,24 @@
     "a a a b b b";
 }
 
+.grid-gallery-1sq-1sq > div,
 .grid-gallery-1-1 > div {
   grid-template-areas:
     "a a a b b b"
     "a a a b b b";
 }
 
+.grid-gallery-1sq-1 > div {
+  grid-template-areas:
+    "a a a b b b"
+    "c c c b b b";
+}
+
+.grid-gallery-1-1sq > div {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a c c c";
+}
 
 .grid-gallery-1_1-2 > div {
   grid-template-areas:
@@ -146,6 +171,34 @@
   grid-template-areas:
     "a a c c e e"
     "b b d d e e";
+}
+
+.grid-gallery-1sq-1_1_1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a c c"
+    "a a a a d d";
+}
+
+.grid-gallery-1_1_1-1sq > div {
+  grid-template-areas:
+    "a a d d d d"
+    "b b d d d d"
+    "c c d d d d";
+}
+
+.grid-gallery-1sq-1_1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a b b"
+    "a a a a c c";
+}
+
+.grid-gallery-1_1-1sq > div {
+  grid-template-areas:
+    "a a c c c c"
+    "a a c c c c"
+    "b b c c c c";
 }
 
 .grid-gallery > div > div {
@@ -249,19 +302,27 @@
   aspect-ratio: 1.5;
 }
 
+.aspect-ratio-h > figure,
+.aspect-ratio-h > article,
+.aspect-ratio-h > div {
+  aspect-ratio: 1;
+}
+
 .grid-gallery-selector {
   @extend %mb-4x;
   @extend %py-3x;
   border-bottom: 1px dashed $color-light-grey;
   border-top: 1px dashed $color-light-grey;
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap;
   width: 100%;
 
-  div {
-    @extend %ml-4x;
-    &:first-child {
-      @extend %ml-0;
+  .items > div {
+    @extend %mr-4x;
+    @extend %mt-2x;
+    @extend %mb-2x;
+    &:last-child {
+      @extend %mr-0;
     }
   }
 

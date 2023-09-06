@@ -34,6 +34,18 @@
     "a a b b b b";
 }
 
+.grid-gallery-1sq-1sq_1sq {
+  grid-template-areas:
+  "a a a a b b"
+  "a a a a c c";
+}
+
+.grid-gallery-1sq_1sq-1sq {
+  grid-template-areas:
+  "a a c c c c"
+  "b b c c c c";
+}
+
 .grid-gallery-1-1_1 {
   grid-template-areas:
     "a a a b b b"
@@ -52,7 +64,8 @@
 }
 
 .grid-gallery-1-1-1,
-.grid-gallery-1w-1w-1w {
+.grid-gallery-1w-1w-1w,
+.grid-gallery-1sq-1sq-1sq {
   grid-template-areas:
     "a a b b c c"
     "a a b b c c";
@@ -63,10 +76,51 @@
     "a a a b b b";
 }
 
+.grid-gallery-1sq-1sq,
 .grid-gallery-1-1 {
   grid-template-areas:
     "a a a b b b"
     "a a a b b b";
+}
+
+.grid-gallery-1sq-1 {
+  grid-template-areas:
+    "a a a b b b"
+    "c c c b b b";
+}
+
+.grid-gallery-1-1sq {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a c c c";
+}
+
+.grid-gallery-1sq-1_1_1 {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a c c"
+    "a a a a d d";
+}
+
+.grid-gallery-1_1_1-1sq {
+  grid-template-areas:
+    "a a d d d d"
+    "b b d d d d"
+    "c c d d d d";
+}
+
+.grid-gallery-1sq-1_1 {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a b b"
+    "a a a a c c";
+}
+
+.grid-gallery-1_1-1sq {
+  grid-template-areas:
+    "a a c c c c"
+    "a a c c c c"
+    "b b c c c c";
 }
 
 .grid-gallery-1_1-2 {
@@ -252,6 +306,12 @@
 .aspect-ratio-g > a > picture,
 .aspect-ratio-g > article {
   aspect-ratio: 1.5;
+}
+
+.aspect-ratio-h > picture,
+.aspect-ratio-h > a > picture,
+.aspect-ratio-h > article {
+  aspect-ratio: 1;
 }
 
 // portrait ratios are 70% in width on small screens
