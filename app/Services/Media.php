@@ -102,6 +102,25 @@ class Media
   }
 
   /**
+   * Duplicate a file under a new name
+   * 
+   * @param String $filename
+   */
+
+  public function duplicate($name = NULL)
+  {
+    // replace the existing unique id at the beginning of the $name with a new one
+    $new_name = uniqid() . '_' . substr($name, strpos($name, '_') + 1);
+
+    Storage::copy(
+      'public/uploads' . DIRECTORY_SEPARATOR . $name, 
+      'public/uploads' . DIRECTORY_SEPARATOR . $new_name
+    );
+
+    return $new_name;
+  }
+
+  /**
    * Removes a bunch of files from storage
    * 
    * @param Array $files

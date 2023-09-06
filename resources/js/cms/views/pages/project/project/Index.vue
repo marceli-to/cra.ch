@@ -37,6 +37,8 @@
           :record="d"
           :routes="{edit: 'project-edit', grid: 'project-grid'}"
           :hasGrid="true"
+          :hasCopy="true"
+          @copy="copy($event)"
           @toggle="toggle($event)"
           @destroy="destroy($event)">
         </list-actions>
@@ -89,6 +91,7 @@ export default {
         get: '/api/projects',
         store: '/api/project',
         delete: '/api/project',
+        copy: '/api/project/copy',
         order: '/api/projects/order',
         toggle: '/api/project/state',
       },
@@ -102,6 +105,7 @@ export default {
         emptyData: 'Es sind noch keine Daten vorhanden...',
         confirm: 'Bitte löschen bestätigen!',
         updated: 'Daten aktualisiert',
+        copied: 'Projekt dupliziert'
       }
     };
   },
@@ -127,6 +131,15 @@ export default {
         const index = this.data.findIndex(x => x.id === id);
         this.data[index].publish = response.data;
         this.$notify({ type: "success", text: this.messages.updated });
+        this.isLoading = false;
+      });
+    },
+
+    copy(id) {
+      this.isLoading = true;
+      this.axios.get(`${this.routes.copy}/${id}`).then(response => {
+        this.fetch();
+        this.$notify({ type: "success", text: this.messages.copied });
         this.isLoading = false;
       });
     },

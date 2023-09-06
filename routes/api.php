@@ -143,6 +143,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('projects/order', 'order');
     Route::put('project/{project}', 'update');
     Route::get('project/state/{project}', 'toggle');
+    Route::get('project/copy/{project}', 'copy');
     Route::delete('project/{project}', 'destroy');  
   });
 

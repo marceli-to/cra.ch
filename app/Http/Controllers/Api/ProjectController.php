@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\State;
 use App\Models\File;
 use App\Models\Image;
+use App\Services\Media;
 use App\Http\Requests\ProjectStoreRequest;
 use Illuminate\Http\Request;
 
@@ -82,6 +83,26 @@ class ProjectController extends Controller
   }
 
   /**
+   * Copy an existing project
+   * @param Project $project
+   * @return \Illuminate\Http\Response
+   */
+  
+  public function copy(Project $project)
+  { 
+    $project = Project::with('images', 'categories')->find($project->id);
+    $newProject = $project->replicate();
+    $newProject->title = $project->title . ' Kopie';
+    $newProject->slug = $this->getUniqueSlug($newProject->title);
+    $newProject->save();
+    $newProject->categories()->attach($project->categories->pluck('id'));
+    $this->copyImages($newProject);
+    $this->handleFlag($newProject, 'isPublish', 0);
+    $this->handleFlag($newProject, 'hasDetailPage', $project->hasFlag('hasDetailPage') ? 1 : 0);
+    return response()->json('successfully copied');
+  }
+
+  /**
    * Toggle the status a given project
    *
    * @param  Project $project
@@ -152,6 +173,27 @@ class ProjectController extends Controller
   }
 
   /**
+   * Copy all images from one project to another
+   * 
+   * @param Project $project
+   */
+
+  protected function copyImages(Project $project)
+  {
+    foreach($project->images as $image)
+    {
+      $name = (new Media())->duplicate($image->name);
+
+      // Duplicate the image with the new name
+      $newImage = $image->replicate();
+      $newImage->name = $name;
+      $newImage->imageable_id = $project->id;
+      $newImage->imageable_type = Project::class;
+      $newImage->save();
+    }
+  }
+
+  /**
    * Handle flags of a project
    *
    * @param Project $project
@@ -175,10 +217,10 @@ class ProjectController extends Controller
   private function getUniqueSlug($title)
   {
     $slug = \Str::slug($title);
-    $project = Project::where('slug', $slug)->first();
+    $project = Project::withTrashed()->where('slug', $slug)->first();
     if ($project)
     {
-      $slug = $slug . '-' . Project::count();
+      $slug = $slug . '-' . Project::withTrashed()->count();
     }
     return $slug;
   }
