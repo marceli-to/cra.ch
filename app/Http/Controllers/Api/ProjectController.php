@@ -52,7 +52,7 @@ class ProjectController extends Controller
     $project = Project::create(
       array_merge(
         $request->all(), 
-        ['slug' => \Str::slug($request->input('title'))]
+        ['slug' => $this->getUniqueSlug($request->input('title'))]
       )
     );
     $project->categories()->attach($request->input('category_ids'));
@@ -72,7 +72,7 @@ class ProjectController extends Controller
   public function update(Project $project, ProjectStoreRequest $request)
   {
     $project->update($request->all());
-    $project->slug = \Str::slug($request->input('title'));
+    $project->slug = \Str::slug($request->input('title')) != $project->slug ? $this->getUniqueSlug($request->input('title')) : $project->slug;
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
     $this->handleFlag($project, 'isPublish', $request->input('publish'));
@@ -170,6 +170,17 @@ class ProjectController extends Controller
       $project->unflag($flag);
     }
     return $project->hasFlag($flag);
+  }
+
+  private function getUniqueSlug($title)
+  {
+    $slug = \Str::slug($title);
+    $project = Project::where('slug', $slug)->first();
+    if ($project)
+    {
+      $slug = $slug . '-' . Project::count();
+    }
+    return $slug;
   }
 
 }
