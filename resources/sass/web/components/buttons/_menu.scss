@@ -4,27 +4,27 @@
   align-items: flex-start;
   justify-content: center;
   height: 31px;
-  position: fixed;
-  right: $space-11x;
-  top: $space-11x;
+  // position: fixed;
+  // right: $space-11x;
+  // top: $space-11x;
   width: 37px;
   z-index: 500;
 
   @include bp-sm() {
     height: 31px;
-    right: $space-22x;
-    top: $space-22x;
+    // right: $space-22x;
+    // top: $space-22x;
     width: 46px;
   }
 
-  @include bp-md() {
-    right: $space-44x;
-    top: $space-44x;
-  }
+  // @include bp-md() {
+  //   right: $space-44x;
+  //   top: $space-44x;
+  // }
 
-  @include bp-xl() {
-    right: calc((100% - 1440px)/2 + 44px);
-  }
+  // @include bp-xl() {
+  //   right: calc((100% - 1440px)/2 + 44px);
+  // }
 
   .icon-menu-burger {
     display: block;

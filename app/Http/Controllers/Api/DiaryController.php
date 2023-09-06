@@ -41,7 +41,6 @@ class DiaryController extends Controller
   public function store(DiaryStoreRequest $request)
   { 
     $diary = Diary::create([
-      'title' =>$request->input('title'),
       'description' => $request->input('description'),
     ]);
     $this->handleFlag($diary, 'isPublish', $request->input('publish'));
@@ -59,7 +58,6 @@ class DiaryController extends Controller
   public function update(Diary $diary, DiaryStoreRequest $request)
   {
     $diary = Diary::findOrFail($diary->id);
-    $diary->title = $request->input('title');
     $diary->description = $request->input('description');
     $diary->save();
     $this->handleFlag($diary, 'isPublish', $request->input('publish'));

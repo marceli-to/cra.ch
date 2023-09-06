@@ -65,7 +65,6 @@ export default {
       this.isLoading = true;
       this.axios.get(`${this.routes.get}/${this.$route.params.id}`).then(response => {
         this.diary = response.data.diary;
-        console.log(this.diary);
         this.isFetched = true;
         this.isLoading = false;
       });

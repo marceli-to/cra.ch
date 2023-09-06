@@ -17,7 +17,8 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{d.title}} 
+          <!-- show d.description but remove all html-tags and limit string to 100 characters -->
+          <div v-html="d.description.replace(/(<([^>]+)>)/gi, '').substring(0, 100)"></div>
         </div>
         <list-actions 
           :id="d.id" 

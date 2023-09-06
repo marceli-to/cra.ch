@@ -10,7 +10,10 @@ header.site-header {
   @extend %md\:pt-44x;
   background-color: $color-white;
   height: $header-height;
-
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
   @include bp-sm() {
     height: $header-height-sm;
   }

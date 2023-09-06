@@ -7,7 +7,7 @@
       @endif
     </div>
     <div class="worklist-item__info">
-      @foreach ($category->projects as $project)
+      @foreach ($category->projects->sortByDesc('periode') as $project)
         <article class="stacked-item {{ $loop->first ? '' : 'stacked-item--border' }}">
           <div class="grid grid-cols-12 grid-gap">
             <div class="span-5">

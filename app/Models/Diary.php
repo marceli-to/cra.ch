@@ -14,7 +14,6 @@ class Diary extends Model
    */
    
 	protected $fillable = [
-    'title',
     'description',
   ];
 
@@ -73,10 +72,6 @@ class Diary extends Model
   public function getArticleContentAttribute()
   {
     $article = '<article>';
-    if ($this->title)
-    {
-      $article .= '<h1>' . $this->title . '</h1>';
-    }
     if ($this->description)
     {
       $article .= $this->description;
