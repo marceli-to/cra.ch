@@ -39,28 +39,30 @@
         </div>
       </article>
     </div>
-    <div class="md:span-4 md:grid md:grid-cols-6 grid-gallery-2-1_1">
-       <div class="grid-area-a aspect-ratio-e">
-        <a href="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" data-fancybox="gallery">
-          <picture>
-            <img src="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" class="is-responsive">
-          </picture>
-        </a>
+    <div class="md:span-4 ">
+      <div class="md:grid md:grid-cols-6 grid-gallery-2-1_1">
+        <div class="grid-area-a aspect-ratio-e">
+          <a href="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" data-fancybox="gallery">
+            <picture>
+              <img src="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" class="is-responsive">
+            </picture>
+          </a>
+        </div>
+        <div class="grid-area-b aspect-ratio-c">
+          <a href="/assets/media/cristina-ruth-buero.jpg" data-fancybox="gallery">
+            <picture>
+              <img src="/assets/media/cristina-ruth-buero.jpg" class="is-responsive">
+            </picture>
+          </a>
+        </div>
+        <div class="grid-area-c aspect-ratio-c">
+          <a href="/assets/media/cristina-ruth-situationsplan.jpg" data-fancybox="gallery">
+            <picture>
+              <img src="/assets/media/cristina-ruth-situationsplan.jpg" class="is-responsive">
+            </picture>
+          </a>
+        </div>  
       </div>
-      <div class="grid-area-b aspect-ratio-c">
-        <a href="/assets/media/cristina-ruth-buero.jpg" data-fancybox="gallery">
-          <picture>
-            <img src="/assets/media/cristina-ruth-buero.jpg" class="is-responsive">
-          </picture>
-        </a>
-      </div>
-      <div class="grid-area-c aspect-ratio-c">
-        <a href="/assets/media/cristina-ruth-situationsplan.jpg" data-fancybox="gallery">
-          <picture>
-            <img src="/assets/media/cristina-ruth-situationsplan.jpg" class="is-responsive">
-          </picture>
-        </a>
-      </div>  
     </div>
   </div>
 @endif
