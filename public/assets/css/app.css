@@ -33764,6 +33764,7 @@ h1 {
   aspect-ratio: 1.5;
 }
 
+.aspect-ratio-e,
 .aspect-ratio-e > picture,
 .aspect-ratio-e > a > picture,
 .aspect-ratio-e > article {
