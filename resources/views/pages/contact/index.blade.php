@@ -42,7 +42,7 @@
     @if ($contact->publishedImages->count() > 0)
       <div class="md:span-4">
         <div class="md:grid md:grid-cols-6 grid-gallery-2-1_1">
-            @if ($contact->publishedImages[0])
+            @if (isset($contact->publishedImages[0]))
               <div class="grid-area-a aspect-ratio-e">
                 <x-galleries.gallery-link-image :image="$contact->publishedImages[0]" :caption="''">
                   <x-image 
@@ -54,7 +54,7 @@
                 </x-galleries.gallery-link-image>
               </div>
             @endif
-            @if ($contact->publishedImages[1])
+            @if (isset($contact->publishedImages[1]))
               <div class="grid-area-b aspect-ratio-c">
                 <x-galleries.gallery-link-image :image="$contact->publishedImages[1]" :caption="''">
                   <x-image 
