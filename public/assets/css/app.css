@@ -34853,12 +34853,6 @@ body.auth section input[type=password]:-moz-placeholder {
   line-height: 1;
 }
 
-@media only screen and (min-width: 768px) {
-  .contact [data-imprint] {
-    position: absolute;
-  }
-}
-
 .project .project-content {
   position: relative;
 }
