@@ -11,6 +11,7 @@ return [
 
   'about.diary' => 'Tagebuch',
   'about.team' => 'Team',
-  'service' => 'Leistungen'
+  'service' => 'Leistungen',
+  'contact' => 'Kontakt',
 ]
 ?>

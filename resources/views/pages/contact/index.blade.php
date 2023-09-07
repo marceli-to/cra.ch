@@ -39,31 +39,48 @@
         </div>
       </article>
     </div>
-    <div class="md:span-4 ">
-      <div class="md:grid md:grid-cols-6 grid-gallery-2-1_1">
-        <div class="grid-area-a aspect-ratio-e">
-          <a href="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" data-fancybox="gallery">
-            <picture>
-              <img src="/assets/media/cristina-ruth-situationsplan-winterthur.jpg" class="is-responsive">
-            </picture>
-          </a>
+    @if ($contact->publishedImages->count() > 0)
+      <div class="md:span-4">
+        <div class="md:grid md:grid-cols-6 grid-gallery-2-1_1">
+            @if ($contact->publishedImages[0])
+              <div class="grid-area-a aspect-ratio-e">
+                <x-galleries.gallery-link-image :image="$contact->publishedImages[0]" :caption="''">
+                  <x-image 
+                  :maxSizes="[1024 => 900, 0 => 1200]" 
+                  :image="$contact->publishedImages[0]" 
+                  width="1600" 
+                  height="1080"
+                  :caption="''" />
+                </x-galleries.gallery-link-image>
+              </div>
+            @endif
+            @if ($contact->publishedImages[1])
+              <div class="grid-area-b aspect-ratio-c">
+                <x-galleries.gallery-link-image :image="$contact->publishedImages[1]" :caption="''">
+                  <x-image 
+                  :maxSizes="[1024 => 900, 0 => 1200]" 
+                  :image="$contact->publishedImages[1]" 
+                  width="1600" 
+                  height="1080"
+                  :caption="''" />
+                </x-galleries.gallery-link-image>
+              </div>
+            @endif
+            @if ($contact->publishedImages[2])
+              <div class="grid-area-c aspect-ratio-c">
+                <x-galleries.gallery-link-image :image="$contact->publishedImages[2]" :caption="''">
+                  <x-image 
+                  :maxSizes="[1024 => 900, 0 => 1200]" 
+                  :image="$contact->publishedImages[2]" 
+                  width="1600" 
+                  height="1080"
+                  :caption="''" />
+                </x-galleries.gallery-link-image>
+              </div>
+            @endif
         </div>
-        <div class="grid-area-b aspect-ratio-c">
-          <a href="/assets/media/cristina-ruth-buero.jpg" data-fancybox="gallery">
-            <picture>
-              <img src="/assets/media/cristina-ruth-buero.jpg" class="is-responsive">
-            </picture>
-          </a>
-        </div>
-        <div class="grid-area-c aspect-ratio-c">
-          <a href="/assets/media/cristina-ruth-situationsplan.jpg" data-fancybox="gallery">
-            <picture>
-              <img src="/assets/media/cristina-ruth-situationsplan.jpg" class="is-responsive">
-            </picture>
-          </a>
-        </div>  
       </div>
-    </div>
+    @endif
   </div>
 @endif
 @endsection

@@ -114,6 +114,7 @@ Route::middleware('auth:sanctum')->group(function() {
   // Contact
   Route::controller(ContactController::class)->group(function () {
     Route::get('contacts', 'get');
+    Route::get('contact/images', 'getImages');
     Route::get('contact/{contact}', 'find');
     Route::post('contact', 'store');
     Route::put('contact/{contact}', 'update');

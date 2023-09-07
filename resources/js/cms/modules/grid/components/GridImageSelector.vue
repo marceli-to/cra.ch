@@ -85,7 +85,7 @@
               </template>
             </div>        
           </template>
-          <template v-if="(serviceImages.length || aboutImages.length) && imageType == 'content'">
+          <template v-if="(serviceImages.length || aboutImages.length || contactImages.length) && imageType == 'content'">
             <h2 class="mt-6x mb-2x">Leistungen</h2>
             <div class="grid-asset-selector__images" style="margin-top:0;margin-left: -4px;">
               <template v-if="serviceImages.length">
@@ -109,10 +109,19 @@
                     @click="$emit('select', {image: image.id, page: 'about.team'})" />
                 </figure>
               </template>
-              <template v-else>
-                Es sind keine Bilder für diesen Artikel vorhanden.
+            </div>
+            <h2 class="mt-4x mb-2x">Kontakt</h2>
+            <div class="grid-asset-selector__images" style="margin-top:0;margin-left: -4px;">
+              <template v-if="contactImages.length">
+                <figure v-for="image in contactImages" :key="image.id">
+                  <img 
+                    :src="getSource(image, 'cache')" 
+                    height="300" 
+                    width="300" v-if="image"
+                    @click="$emit('select', {image: image.id, page: 'contact'})" />
+                </figure>
               </template>
-            </div>        
+            </div>                
           </template>
           <template v-if="diary.images.length && imageType == 'diary'">
             <h2 class="mt-6x mb-2x">Tagebuch</h2>
@@ -152,6 +161,7 @@ export default {
       articles: [],
       serviceImages: [],
       aboutImages: [],
+      contactImages: [],
       selectedProjectId: null,
       selectedArticleId: null,
       selectedProject: [],
@@ -172,6 +182,7 @@ export default {
         getArticles: '/api/articles/1',
         getServiceImages: '/api/service/images',
         getAboutImages: '/api/about/images',
+        getContactImages: '/api/contact/images'
       },
     }
   },
@@ -227,13 +238,15 @@ export default {
         this.axios.get(`${this.routes.getArticles}`),
         this.axios.get(`${this.routes.getServiceImages}`),
         this.axios.get(`${this.routes.getAboutImages}`),
-        this.axios.get(`${this.routes.getDiary}/1`)
+        this.axios.get(`${this.routes.getDiary}/1`),
+        this.axios.get(`${this.routes.getContactImages}`),
       ]).then(this.axios.spread((...responses) => {
         this.projects = responses[0].data.data;
         this.articles = responses[1].data.data;
         this.serviceImages = responses[2].data.data;
         this.aboutImages = responses[3].data.data;
         this.diary = responses[4].data.diary;
+        this.contactImages = responses[5].data.data;
         this.isContent = true;
         this.isFetched = true;
         this.isLoading = false;
