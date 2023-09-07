@@ -31,7 +31,7 @@
               Impressum
               <x-icons.chevron-down class="icon-chevron-down mt-4x ml-4x" />
             </a>
-            <div class="is-hidden pt-11x sm:pt-12x pb-20x" data-imprint>
+            <div class="is-hidden pt-11x sm:pt-12x sm:pb-20x" data-imprint>
               {!! $contact->imprint !!}
             </div>
           @endif
