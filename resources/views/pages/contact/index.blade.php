@@ -66,7 +66,7 @@
                 </x-galleries.gallery-link-image>
               </div>
             @endif
-            @if ($contact->publishedImages[2])
+            @if (isset($contact->publishedImages[2]))
               <div class="grid-area-c aspect-ratio-c">
                 <x-galleries.gallery-link-image :image="$contact->publishedImages[2]" :caption="''">
                   <x-image 
