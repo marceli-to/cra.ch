@@ -33678,6 +33678,8 @@ h1 {
 [class*=grid-gallery-] picture,
 [class^=grid-gallery-] picture {
   display: block;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 [class*=grid-gallery-] picture figcaption,
