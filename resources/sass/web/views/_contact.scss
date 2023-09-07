@@ -1,5 +1,7 @@
 .contact {
   [data-imprint] {
-    position: absolute;
+    @include bp-sm() {
+      position: absolute;
+    }
   }
 }
