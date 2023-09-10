@@ -49,7 +49,7 @@ class ProjectController extends BaseController
 
   protected function getBrowse($projectId = NULL)
   {
-    $projects = Project::flagged('isPublish')->orderBy('order')->get();
+    $projects = Project::flagged('isPublish')->flagged('hasDetailPage')->orderBy('order')->get();
     
     $keys  = [];
     $items = [];
