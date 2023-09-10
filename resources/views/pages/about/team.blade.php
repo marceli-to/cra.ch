@@ -33,12 +33,14 @@
           </div>
         </article>
 
-        <article class="stacked-item stacked-item--border stacked-item--indent">
-          <div class="md:pr-16x">
-            {!! $about->employees !!}
-          </div>
-        </article>
-
+        @if ($about->employees)
+          <article class="stacked-item stacked-item--border stacked-item--indent">
+            <div class="md:pr-16x">
+              {!! $about->employees !!}
+            </div>
+          </article>
+        @endif
+        
         @if ($about->cooperation)
           <article class="stacked-item stacked-item--border stacked-item--indent">
             <div class="md:pr-16x">{!! $about->cooperation !!}</div>
