@@ -18,6 +18,14 @@
           ></tinymce-editor>
         </div>
         <div class="form-row">
+          <label>Mitarbeiter</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.employees"
+          ></tinymce-editor>
+        </div>
+        <div class="form-row">
           <label>Projektbezogene Mitarbeit</label>
           <tinymce-editor
             :api-key="tinyApiKey"
@@ -108,6 +116,7 @@ export default {
       data: {
         id: null,
         description: null,
+        employees: null,
         cooperation: null,
         membership: null,
         publish: 1,

@@ -19,6 +19,7 @@ class About extends Model
 	protected $fillable = [
     'description',
     'cooperation',
+    'employees',
     'membership',
   ];
 

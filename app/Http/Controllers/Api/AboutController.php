@@ -60,6 +60,7 @@ class AboutController extends Controller
   {
     $about = About::create([
       'description' => $request->input('description'),
+      'employees' => $request->input('employees'),
       'cooperation' => $request->input('cooperation'),
       'membership' => $request->input('membership'),
     ]);
@@ -79,6 +80,7 @@ class AboutController extends Controller
   {
     $about = About::findOrFail($about->id);
     $about->description = $request->input('description');
+    $about->employees = $request->input('employees');
     $about->cooperation = $request->input('cooperation');
     $about->membership = $request->input('membership');
     $about->save();

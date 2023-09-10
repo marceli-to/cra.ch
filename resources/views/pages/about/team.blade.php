@@ -35,7 +35,7 @@
 
         <article class="stacked-item stacked-item--border stacked-item--indent">
           <div class="md:pr-16x">
-            <strong>Miriam Muster</strong><br>Architektin ETH
+            {!! $about->employees !!}
           </div>
         </article>
 
