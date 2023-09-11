@@ -104,13 +104,13 @@ a[data-fancybox] {
 
 .fancybox-image {
 
-  @include bp-md() {
-    padding: 60px;
-  }
+  // @include bp-md() {
+  //   padding: 60px;
+  // }
 
-  @include bp-xl() {
-    padding: 100px;
-  }
+  // @include bp-xl() {
+  //   padding: 100px;
+  // }
 }
 
 /* Caption */
