@@ -41,9 +41,9 @@
     </div>
     @if ($contact->publishedImages->count() > 0)
       <div class="md:span-4">
-        <div class="md:grid md:grid-cols-6 grid-gallery-2-1_1">
+        <div class="md:grid md:grid-cols-6 grid-gallery-1-1_1">
             @if (isset($contact->publishedImages[0]))
-              <div class="grid-area-a aspect-ratio-e">
+              <div class="grid-area-a aspect-ratio-b">
                 <x-galleries.gallery-link-image :image="$contact->publishedImages[0]" :caption="''">
                   <x-image 
                   :maxSizes="[1024 => 900, 0 => 1200]" 
