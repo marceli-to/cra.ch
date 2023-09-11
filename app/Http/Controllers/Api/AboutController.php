@@ -59,6 +59,7 @@ class AboutController extends Controller
   public function store(AboutStoreRequest $request)
   {
     $about = About::create([
+      'title' => $request->input('title'),
       'description' => $request->input('description'),
       'employees' => $request->input('employees'),
       'cooperation' => $request->input('cooperation'),
@@ -79,6 +80,7 @@ class AboutController extends Controller
   public function update(AboutStoreRequest $request, About $about)
   {
     $about = About::findOrFail($about->id);
+    $about->title = $request->input('title');
     $about->description = $request->input('description');
     $about->employees = $request->input('employees');
     $about->cooperation = $request->input('cooperation');

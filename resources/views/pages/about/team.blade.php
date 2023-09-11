@@ -21,7 +21,7 @@
       <div class="order-3 md:order-2 md:span-2">
         <article class="stacked-item stacked-item--border stacked-item--indent">
           <div class="md:pr-16x">
-            <h2>Cristina Rutz<br>Architektin ETSAM SIA</h2>
+            <h2 class="about__title">{!! $about->title !!}</h2>
             <x-truncated-text class="mt-0">
               <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
                 @foreach($resume as $r)

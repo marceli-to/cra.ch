@@ -24,6 +24,7 @@ class AboutStoreRequest extends FormRequest
   public function rules()
   {
     return [
+      'title' => 'required',
       'description' => 'required',
     ];
   }
@@ -37,6 +38,10 @@ class AboutStoreRequest extends FormRequest
   public function messages()
   {
     return [
+      'title.required' => [
+        'field' => 'title',
+        'error' => 'Titel wird benötigt'
+      ],
       'description.required' => [
         'field' => 'description',
         'error' => 'Beschreibung wird benötigt'

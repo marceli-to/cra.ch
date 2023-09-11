@@ -8,3 +8,7 @@ h2 {
   @extend %mb-2x;
   @extend %md\:mb-3x;
 }
+
+h2.about__title {
+  @include font-book();
+}
