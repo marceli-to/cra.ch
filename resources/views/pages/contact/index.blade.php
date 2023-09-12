@@ -1,6 +1,7 @@
 @extends('layout.web')
 @section('seo_title', 'Kontakt')
-@section('seo_description', '')
+@section('seo_description', 'Unser Architekturbüro liegt am Lagerplatz im lebendigen Sulzerareal Stadtmitte, angrenzend an die Lokstadt, in Fussdistanz zum Hauptbahnhof Winterthur. Von unseren Räumlichkeiten aus im 1. Stock des Gebäudes 190 blicken wir direkt auf die beeindruckende, historische Halle 53.')
+@section('og_image', asset('assets/img/og/cristina-rutz-architekten-og-kontakt.jpg'))
 @section('content')
 @if ($contact)
   <div class="md:grid md:grid-cols-6 md:grid-gap contact">
