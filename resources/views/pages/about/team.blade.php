@@ -1,7 +1,7 @@
 @extends('layout.web')
 @section('seo_title', 'Team • Über uns')
 @section('seo_description', 'Seit 2012 bin ich als Architektin selbständig tätig. Mit meiner langjährigen Erfahrung als Leiterin komplexer Projekte umfassen meine heutigen Aufgaben die Planung und Realisierung von Neu- und Umbauten, Machbarkeitsstudien unter Berücksichtigung baurechtlicher und ortsbezogener Rahmenbedingungen sowie die Vorstandsarbeit im Forum Architektur Winterthur.')
-@section('og_image', asset('assets/img/cristina-rutz-architekten-og-about.jpg'))
+@section('og_image', asset('assets/img/og/cristina-rutz-architekten-og-about.jpg'))
 @section('content')
   <div class="flex direction-column md:grid md:grid-cols-6 md:grid-gap about">
     @if ($about->description || $about->column_two)
