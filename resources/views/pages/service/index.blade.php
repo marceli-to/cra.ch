@@ -1,6 +1,7 @@
 @extends('layout.web')
 @section('seo_title', 'Leistungen')
-@section('seo_description', '')
+@section('seo_description', 'Wir entwickeln, gestalten und begleiten Ihre Projekte und Illusionen. Ob Zimmer, Haus, Aussenraum, Brücke, Dorf oder Stadt: Wir erhalten und frischen auf, wir bauen um und realisieren neu.')
+@section('og_image', asset('assets/img/og/cristina-rutz-architekten-og-leistungen.jpg'))
 @section('content')
 @if ($service)
   <div class="md:grid md:grid-cols-6 md:grid-gap service">
