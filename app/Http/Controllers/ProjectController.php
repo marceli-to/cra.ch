@@ -94,6 +94,6 @@ class ProjectController extends BaseController
 
   protected function getOpenGraphImage(Project $project)
   {
-    return $project->publishedImage->inRandomOrder()->limit(1)->first();
+    return $project->publishedImage->first();
   }
 }
