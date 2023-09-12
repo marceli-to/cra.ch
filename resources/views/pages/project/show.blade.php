@@ -1,7 +1,9 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
 @section('seo_description', $project->abstract)
-@section('og_image', env('APP_URL') . '/img/cache/'. $og_image->name .'/1500/' .$og_image->coords)
+@if (isset($og_image->name))
+  @section('og_image', env('APP_URL') . '/img/cache/'. $og_image->name .'/1500/' .$og_image->coords)
+@endif
 @section('content')
 @if ($project)
   <div class="flex direction-column md:grid md:grid-cols-6 md:grid-gap project">
