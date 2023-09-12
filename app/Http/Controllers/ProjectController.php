@@ -24,7 +24,14 @@ class ProjectController extends BaseController
   public function show(Project $project)
   {
     $project = Project::with('grids.gridItems.image')->find($project->id);
-    return view($this->viewPath . 'show', ['project' => $project, 'browse' => $this->getBrowse($project->id)]);
+    return view(
+      $this->viewPath . 'show',
+      [
+        'project' => $project, 
+        'browse' => $this->getBrowse($project->id),
+        'og_image' => $this->getOpenGraphImage($project),
+      ]
+    );
   }
 
   /**
@@ -83,5 +90,10 @@ class ProjectController extends BaseController
       'next' => Project::find($nextId),
     ];
     return $items;
+  }
+
+  protected function getOpenGraphImage(Project $project)
+  {
+    return $project->publishedImage->inRandomOrder()->limit(1)->first();
   }
 }
