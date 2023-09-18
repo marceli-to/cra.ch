@@ -8,6 +8,7 @@
   const selectors = {
     btnToggleInfo: '[data-btn-project-info]',
     wrapperInfo: '[data-project-info]',
+    browseNav: '[data-browse]',
     browseBtn: '[data-browse-btn]',
     browsePreview: '[data-browse-preview]',
   };
@@ -35,6 +36,19 @@
         hidePreview(btn);
       }, false);
     });
+
+    // On scroll up, hide browse nav
+    let prevScrollpos = window.pageYOffset;
+    const browseNav = document.querySelector(selectors.browseNav);
+    window.onscroll = function() {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        browseNav.style.top = '0';
+      } else {
+        browseNav.style.top = '-100px';
+      }
+      prevScrollpos = currentScrollPos;
+    };
   };
 
   const toggleInfo = function(btn){
