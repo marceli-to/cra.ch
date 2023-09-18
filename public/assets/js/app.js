@@ -11072,13 +11072,10 @@ __webpack_require__.r(__webpack_exports__);
     var browseNav = document.querySelector(selectors.browseNav);
     window.onscroll = function () {
       var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        // if currentScrollPos is equal to header height, show browse nav
-        var header = document.querySelector('header');
-        var headerHeight = header.offsetHeight;
-        if (currentScrollPos >= headerHeight) {
-          browseNav.style.display = 'block';
-        }
+
+      // if we are at the top of the page, show browse nav
+      if (currentScrollPos === 0) {
+        browseNav.style.display = 'block';
       } else {
         browseNav.style.display = 'none';
       }

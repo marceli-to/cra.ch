@@ -42,14 +42,10 @@
     const browseNav = document.querySelector(selectors.browseNav);
     window.onscroll = function() {
       const currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
 
-        // if currentScrollPos is equal to header height, show browse nav
-        const header = document.querySelector('header');
-        const headerHeight = header.offsetHeight;
-        if (currentScrollPos >= headerHeight) {
-          browseNav.style.display = 'block';
-        }
+      // if we are at the top of the page, show browse nav
+      if (currentScrollPos === 0) {
+        browseNav.style.display = 'block';
       } else {
         browseNav.style.display = 'none';
       }
