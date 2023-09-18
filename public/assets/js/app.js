@@ -11073,7 +11073,12 @@ __webpack_require__.r(__webpack_exports__);
     window.onscroll = function () {
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-        browseNav.style.display = 'block';
+        // if currentScrollPos is equal to header height, show browse nav
+        var header = document.querySelector('header');
+        var headerHeight = header.offsetHeight;
+        if (currentScrollPos >= headerHeight) {
+          browseNav.style.display = 'block';
+        }
       } else {
         browseNav.style.display = 'none';
       }

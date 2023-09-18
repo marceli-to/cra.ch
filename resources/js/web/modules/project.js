@@ -43,7 +43,13 @@
     window.onscroll = function() {
       const currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-        browseNav.style.display = 'block';
+
+        // if currentScrollPos is equal to header height, show browse nav
+        const header = document.querySelector('header');
+        const headerHeight = header.offsetHeight;
+        if (currentScrollPos >= headerHeight) {
+          browseNav.style.display = 'block';
+        }
       } else {
         browseNav.style.display = 'none';
       }
