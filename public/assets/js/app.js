@@ -11034,7 +11034,8 @@ __webpack_require__.r(__webpack_exports__);
 (function () {
   var classes = {
     active: 'is-active',
-    visible: 'is-visible'
+    visible: 'is-visible',
+    hidden: 'is-hidden'
   };
   var selectors = {
     btnToggleInfo: '[data-btn-project-info]',
@@ -11072,12 +11073,13 @@ __webpack_require__.r(__webpack_exports__);
     var browseNav = document.querySelector(selectors.browseNav);
     window.onscroll = function () {
       var currentScrollPos = window.pageYOffset;
-
-      // if we are at the top of the page, show browse nav
       if (currentScrollPos === 0) {
-        browseNav.style.display = 'block';
+        // window size must be at least 768px
+        if (window.innerWidth >= 768) {
+          browseNav.classList.remove(classes.hidden);
+        }
       } else {
-        browseNav.style.display = 'none';
+        browseNav.classList.add(classes.hidden);
       }
       prevScrollpos = currentScrollPos;
     };

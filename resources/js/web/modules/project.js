@@ -3,6 +3,7 @@
   const classes = {
     active: 'is-active',
     visible: 'is-visible',
+    hidden: 'is-hidden'
   };
 
   const selectors = {
@@ -42,12 +43,13 @@
     const browseNav = document.querySelector(selectors.browseNav);
     window.onscroll = function() {
       const currentScrollPos = window.pageYOffset;
-
-      // if we are at the top of the page, show browse nav
       if (currentScrollPos === 0) {
-        browseNav.style.display = 'block';
+        // window size must be at least 768px
+        if (window.innerWidth >= 768) {
+          browseNav.classList.remove(classes.hidden);
+        }
       } else {
-        browseNav.style.display = 'none';
+        browseNav.classList.add(classes.hidden);
       }
       prevScrollpos = currentScrollPos;
     };
