@@ -43,9 +43,9 @@
     window.onscroll = function() {
       const currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-        browseNav.style.display = 'none';
-      } else {
         browseNav.style.display = 'block';
+      } else {
+        browseNav.style.display = 'none';
       }
       prevScrollpos = currentScrollPos;
     };
