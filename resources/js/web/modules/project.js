@@ -37,22 +37,6 @@
         hidePreview(btn);
       }, false);
     });
-
-    // On scroll up, hide browse nav
-    // let prevScrollpos = window.pageYOffset;
-    // const browseNav = document.querySelector(selectors.browseNav);
-    // window.onscroll = function() {
-    //   const currentScrollPos = window.pageYOffset;
-    //   if (currentScrollPos === 0) {
-    //     // window size must be at least 768px
-    //     if (window.innerWidth >= 768) {
-    //       browseNav.classList.remove(classes.hidden);
-    //     }
-    //   } else {
-    //     browseNav.classList.add(classes.hidden);
-    //   }
-    //   prevScrollpos = currentScrollPos;
-    // };
   };
 
   const toggleInfo = function(btn){

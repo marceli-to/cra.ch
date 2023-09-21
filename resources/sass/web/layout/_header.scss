@@ -16,10 +16,17 @@ header.site-header {
   
   @include bp-sm() {
     height: $header-height-sm;
+
+    &.site-header--project {
+      height: $header-height-project-sm;
+    }
   }
 
   @include bp-md() {
     height: $header-height-md;
+    &.site-header--project {
+      height: $header-height-project-md;
+    }
   }
   
   > div {

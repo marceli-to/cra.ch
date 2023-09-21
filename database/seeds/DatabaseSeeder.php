@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\ProjectSeeder::class,
       \Database\Seeders\ContactSeeder::class,
       \Database\Seeders\ServiceSeeder::class,
-      \Database\Seeders\AboutSeeder::class,
+      //\Database\Seeders\AboutSeeder::class,
       \Database\Seeders\ResumeSeeder::class,
       \Database\Seeders\DiarySeeder::class,
       \Database\Seeders\ArticleSeeder::class,

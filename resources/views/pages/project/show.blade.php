@@ -7,7 +7,7 @@
 @section('content')
 @if ($project)
   <div class="flex direction-column md:grid md:grid-cols-6 md:grid-gap project">
-    <div class="order-2 md:order-1 md:span-4">
+    <div class="order-2 md:order-1 md:span-4 md:mt-34x">
     @foreach($project->grids as $g)
       <x-galleries.gallery :layout="$g->layout" :items="$g->gridItems" :view="'project'" />
     @endforeach

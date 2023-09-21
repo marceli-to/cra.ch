@@ -56,6 +56,7 @@
 
     nav.project-browse {
       display: none;
+      @extend %mb-13x;
 
       &.is-hidden {
         display: none;
@@ -69,9 +70,9 @@
 
       @include bp-sm() {
         display: block;
-        position: absolute;
-        left: 4px;
-        top: -34px;
+        // position: absolute;
+        // left: 4px;
+        // top: -34px;
         width: 50px;
         z-index: 200;
 
@@ -104,11 +105,12 @@
       }
 
       @include bp-md() {
-        left: auto;
-        right: 0;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
 
         > div {
-          
+          width: 50px;
           > span {
             left: auto;
             right: 70px;

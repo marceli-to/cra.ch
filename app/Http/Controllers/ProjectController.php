@@ -94,6 +94,7 @@ class ProjectController extends BaseController
 
   protected function getOpenGraphImage(Project $project)
   {
-    return $project->grids->random()->gridItems->first()->image;
+    //$image = $project->grids->random()->gridItems->first()->image;
+    return null;
   }
 }

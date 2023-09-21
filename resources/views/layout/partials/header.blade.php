@@ -1,4 +1,4 @@
-<header class="site-header">
+<header class="site-header {{ Route::is('page.project.show') ? 'site-header--project' : '' }}">
   <div>
     <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
       <x-icons.logo />
