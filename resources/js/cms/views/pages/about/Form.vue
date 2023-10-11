@@ -34,7 +34,7 @@
           ></tinymce-editor>
         </div>
         <div class="form-row">
-          <label>Ehemalige Mitarbeiter</label>
+          <label>Ehemalige Mitarbeitende</label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
