@@ -34,7 +34,15 @@
           ></tinymce-editor>
         </div>
         <div class="form-row">
-          <label>Projektbezogene Mitarbeit</label>
+          <label>Ehemalige Mitarbeiter</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.former_employees"
+          ></tinymce-editor>
+        </div>
+        <div class="form-row">
+          <label>Projektbezogene Mitarbeitende</label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
@@ -126,6 +134,7 @@ export default {
         title: null,
         description: null,
         employees: null,
+        former_employees: null,
         cooperation: null,
         membership: null,
         publish: 1,

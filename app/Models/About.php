@@ -21,6 +21,7 @@ class About extends Model
     'description',
     'cooperation',
     'employees',
+    'former_employees',
     'membership',
   ];
 

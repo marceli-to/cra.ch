@@ -62,6 +62,7 @@ class AboutController extends Controller
       'title' => $request->input('title'),
       'description' => $request->input('description'),
       'employees' => $request->input('employees'),
+      'former_employees' => $request->input('former_employees'),
       'cooperation' => $request->input('cooperation'),
       'membership' => $request->input('membership'),
     ]);
@@ -83,6 +84,7 @@ class AboutController extends Controller
     $about->title = $request->input('title');
     $about->description = $request->input('description');
     $about->employees = $request->input('employees');
+    $about->former_employees = $request->input('former_employees');
     $about->cooperation = $request->input('cooperation');
     $about->membership = $request->input('membership');
     $about->save();

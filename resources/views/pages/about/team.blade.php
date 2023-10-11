@@ -66,6 +66,14 @@
       </article>
     @endif
 
+    @if ($about->former_employees)
+      <article class="stacked-item stacked-item--border stacked-item--indent">
+        <div class="md:pr-16x">
+          {!! $about->former_employees !!}
+        </div>
+      </article>
+    @endif
+
     @if ($about->membership)
       <article class="stacked-item stacked-item--border stacked-item--indent">
         <div class="md:pr-16x">{!! $about->membership !!}</div>
@@ -116,10 +124,18 @@
         </div>
       </article>
     @endif
-    
+
     @if ($about->cooperation)
       <article class="stacked-item stacked-item--border stacked-item--indent">
         <div class="md:pr-16x">{!! $about->cooperation !!}</div>
+      </article>
+    @endif
+
+    @if ($about->former_employees)
+      <article class="stacked-item stacked-item--border stacked-item--indent">
+        <div class="md:pr-16x">
+          {!! $about->former_employees !!}
+        </div>
       </article>
     @endif
   </div>
