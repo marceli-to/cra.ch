@@ -48,7 +48,7 @@
       </article>
     @endif
 
-    @if(isset($about->publishedImages[1]))
+    @if($about->publishedImages && isset($about->publishedImages[1]))
       <div class="mb-20x">
         <x-image 
           classes="is-responsive is-{{ $about->publishedImages[1]->orientation }} mb-8x md:mb-16x"
