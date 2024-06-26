@@ -12,7 +12,6 @@
         <div :class="[this.errors.column_one ? 'has-error' : '', 'form-row']">
           <label>Projekt- und Bauleitung</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.column_one"
           ></tinymce-editor>
@@ -20,7 +19,6 @@
         <div :class="[this.errors.column_one ? 'has-error' : '', 'form-row']">
           <label>Leistungen / Referenzen</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.column_two"
           ></tinymce-editor>

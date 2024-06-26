@@ -17,7 +17,6 @@
         <div class="form-row">
           <label>Text</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="project.text"
           ></tinymce-editor>
@@ -25,7 +24,6 @@
         <div class="form-row">
           <label>Leistungen</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="project.text_services"
           ></tinymce-editor>
@@ -33,7 +31,6 @@
         <div class="form-row">
           <label>Information</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="project.text_info"
           ></tinymce-editor>

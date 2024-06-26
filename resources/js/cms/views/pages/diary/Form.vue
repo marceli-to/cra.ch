@@ -12,7 +12,6 @@
         <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
           <label>Beschreibung </label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="diary.description"
           ></tinymce-editor>

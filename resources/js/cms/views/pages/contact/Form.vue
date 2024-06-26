@@ -12,7 +12,6 @@
         <div :class="[this.errors.address ? 'has-error' : '', 'form-row']">
           <label>Adresse</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.address"
           ></tinymce-editor>
@@ -20,7 +19,6 @@
         <div class="form-row">
           <label>Beschreibung</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.description"
           ></tinymce-editor>
@@ -32,7 +30,6 @@
         <div class="form-row">
           <label>Impressum</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.imprint"
           ></tinymce-editor>

@@ -20,7 +20,6 @@
         <div :class="[this.errors.text ? 'has-error' : '', 'form-row']">
           <label>Text</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.text"
           ></tinymce-editor>

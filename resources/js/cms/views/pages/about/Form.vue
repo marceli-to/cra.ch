@@ -12,7 +12,6 @@
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
           <label>Titel</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.title"
           ></tinymce-editor>
@@ -20,7 +19,6 @@
         <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
           <label>Beschreibung</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.description"
           ></tinymce-editor>
@@ -28,7 +26,6 @@
         <div class="form-row">
           <label>Mitarbeiter</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.employees"
           ></tinymce-editor>
@@ -36,7 +33,6 @@
         <div class="form-row">
           <label>Ehemalige Mitarbeitende</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.former_employees"
           ></tinymce-editor>
@@ -44,7 +40,6 @@
         <div class="form-row">
           <label>Projektbezogene Mitarbeitende</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.cooperation"
           ></tinymce-editor>
@@ -52,7 +47,6 @@
         <div class="form-row">
           <label>Mitgliedschaften</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.membership"
           ></tinymce-editor>

@@ -14,6 +14,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="format-detection" content="telephone=no">
 <link href="{{ mix('assets/css/cms/app.css') }}" rel="stylesheet">
+<script src="{{ asset('assets/js/cms/tinymce/tinymce.min.js') }}" defer></script>
 </head>
 <body>
 <div id="app">
