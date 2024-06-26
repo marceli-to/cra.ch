@@ -8,7 +8,7 @@ export default {
   // external_plugins: {
   //   link: '/assets/js/cms/tinymce/plugins/link/plugin.min.js',
   // },
-  plugins: ['lists', 'code', 'link', 'paste'],
+  plugins: ['lists', 'code', 'link'],
   toolbar: 'undo redo | bold | bullist | link | superscript | removeformat | styles | code',
   paste_as_text: true,
   height: "320px",
