@@ -37,6 +37,10 @@
             </div>
           @endif
 
+          <a href="/storage/cra_datenschutzerklaerung.pdf" target="_blank">
+            Datenschutzerklärung
+          </a>
+
         </div>
       </article>
     </div>
