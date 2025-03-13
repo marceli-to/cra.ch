@@ -3,7 +3,8 @@ namespace App\Http\Controllers;
 use Intervention\Image\ImageCacheController;
 use Intervention\Image\ImageManager;
 use Illuminate\Http\Request;
-use Config;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 
 class ImageController extends ImageCacheController
 {

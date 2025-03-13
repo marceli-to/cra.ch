@@ -1,12 +1,14 @@
 <?php
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use App\Http\Controllers\ContactController;
 
 // Auth routes
 Auth::routes(['verify' => true, 'register' => false]);
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Frontend - Home
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
@@ -43,5 +45,3 @@ Route::middleware('auth:sanctum', 'verified')->group(function() {
     return view('layout.authenticated');
   })->where('any', '.*')->middleware('role:admin')->name('authenticated');
 });
-
-
