@@ -2,7 +2,7 @@
   <picture class="{{ $classes }}">
     @foreach($maxSizes as $minWidth => $maxSize)
       @if ($minWidth > 0)
-        <source media="(min-width: {{ $minWidth }}px)" data-srcset="/img/cache/{{ $image->name }}/{{ $maxSize}}/{{ $image->coords }}">
+        <source media="(min-width: {{ $minWidth }}px)" data-srcset="/img/cache/{{ $image->name }}/{{ $maxSize }}/{{ $image->coords }}">
       @else
         <img 
           src="/assets/img/placeholder.png"
@@ -22,4 +22,3 @@
     </figcaption>
   </picture>
 @endif
-

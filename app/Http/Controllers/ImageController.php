@@ -1,67 +1,34 @@
 <?php
 namespace App\Http\Controllers;
-use Intervention\Image\ImageCacheController;
-use Intervention\Image\ImageManager;
+use App\Facades\ImageCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 
-class ImageController extends ImageCacheController
+class ImageController extends Controller
 {
-  protected $maxSize;
-  protected $coords;
-  protected $ratio;
-  
   /**
-   * Get HTTP response of either original image file or
-   * template applied file.
+   * Get HTTP response of image with template applied.
    *
    * @param  string $template
    * @param  string $filename
+   * @param  int|null $maxSize
+   * @param  string|null $coords
    * @return Illuminate\Http\Response
    */
-
-  public function getResponse($template, $filename, $maxSize = NULL, $coords = NULL, $ratio = FALSE)
+  public function getResponse($template, $filename, $maxSize = null, $coords = null)
   {
-    $this->maxSize  = $maxSize;
-    $this->coords   = $coords;
-    $this->ratio    = $ratio;
-
-    switch (strtolower($template)) {
-      case 'original':
-        return $this->getOriginal($filename);
-
-      case 'download':
-        return $this->getDownload($filename);
-
-      default:
-        return $this->getImage($template, $filename);
-    }
-  }
-
-  /**
-   * Returns corresponding template object from given template name
-   *
-   * @param  string $template
-   * @return mixed
-   */
-  protected function getTemplate($template)
-  {
-    $template = config("imagecache.templates.{$template}");
-
-    switch (true) {
-    // closure template found
-    case is_callable($template):
-      return $template;
-
-    // filter template found
-    case class_exists($template):
-      return new $template($this->maxSize, $this->coords, $this->ratio);
-
-    default:
-      // template not found
+    $path = ImageCache::getCachedImage($template, $filename, $maxSize, $coords);
+    
+    if (!$path || !file_exists($path)) {
       abort(404);
-      break;
     }
+    
+    $mime = mime_content_type($path);
+    $content = file_get_contents($path);
+    
+    return response($content)
+      ->header('Content-Type', $mime)
+      ->header('Cache-Control', 'public, max-age=31536000');
   }
 }

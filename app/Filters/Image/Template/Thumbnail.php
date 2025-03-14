@@ -1,14 +1,14 @@
 <?php
 namespace App\Filters\Image\Template;
-use Intervention\Image\Image;
-use Intervention\Image\Filters\FilterInterface;
+use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Interfaces\ModifierInterface;
 
-class Thumbnail implements FilterInterface
+class Thumbnail implements ModifierInterface
 {
   protected $size = 300;
   
-  public function applyFilter(Image $image)
+  public function apply(ImageInterface $image): ImageInterface
   {
-    return $image->fit($this->size);
+    return $image->cover($this->size, $this->size);
   }
 }

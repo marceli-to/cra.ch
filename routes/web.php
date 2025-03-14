@@ -30,7 +30,7 @@ Route::get('/projekt/{project:slug}', [ProjectController::class, 'show'])->name(
 Route::get('/ueber-uns/team', [AboutController::class, 'team'])->name('page.about.team');
 Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page.about.diary');
 
-// Frontend - url based images
+// Frontend - image routes
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}', [ImageController::class, 'getResponse']);
 
 /*
