@@ -17,7 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.3",
-        "marceli-to/image-cache": "^1.4.0",
+        "marceli-to/image-cache": "^1.4.3",
         "nesbot/carbon": "^2.66",
         "opcodesio/log-viewer": "^3.0",
         "spatie/laravel-model-flags": "^1.0",

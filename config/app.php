@@ -210,7 +210,7 @@ return [
     'aliases' => [
         // Laravel 10 uses Facades\Facade aliases by default
         // Keep these for backward compatibility
-        'Image' => Intervention\Image\Laravel\Facades\Image::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'AppHelper' => App\Helpers\AppHelper::class,
         'DateHelper' => App\Helpers\DateHelper::class,
         'Route' => Illuminate\Support\Facades\Route::class,

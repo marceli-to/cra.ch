@@ -3,7 +3,8 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class Media
 { 
@@ -76,7 +77,9 @@ class Media
 
     if (in_array(strtolower($filetype), $this->image_types))
     {
-      $img = \Image::make($this->upload_path . DIRECTORY_SEPARATOR . $filename);
+      // Create a new ImageManager instance with the GD driver
+      $manager = new ImageManager(new Driver());
+      $img = $manager->read($this->upload_path . DIRECTORY_SEPARATOR . $filename);
       $orientation = $img->width() > $img->height() ? 'landscape' : 'portrait';
       $ratio = $img->width() . 'x' . $img->height();
     }
@@ -170,7 +173,7 @@ class Media
 
   protected function sanitize($filename, $force_lowercase = true, $anal = true)
   {
-    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;", "â€”", "â€“", ",", "<", ">", "/", "?");
+    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;", "â€—", "â€“", ",", "<", ">", "/", "?");
     $clean = trim(str_replace($strip, "", strip_tags($filename)));
     $clean = preg_replace('/\s+/', "-", $clean);
     $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9._\-]/", "", $clean) : $clean ;
