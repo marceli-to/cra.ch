@@ -2,7 +2,7 @@
 @section('seo_title', $project->title)
 @section('seo_description', $project->abstract)
 @if (isset($og_image->name))
-  @section('og_image', env('APP_URL') . '/img/cache/'. $og_image->name .'/1500/' .$og_image->coords)
+  @section('og_image', env('APP_URL') . '/img/crop/'. $og_image->name .'/1500/' .$og_image->coords)
 @endif
 @section('content')
 @if ($project)

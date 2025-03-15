@@ -6,7 +6,7 @@ use App\Services\Media;
 use App\Http\Resources\DataCollection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
-use App\Facades\ImageCache;
+use MarceliTo\ImageCache\Facades\ImageCache;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -205,6 +205,6 @@ class ImageController extends Controller
    */
   private function removeCachedImage(Image $image)
   {
-    ImageCache::clearCache();
+    ImageCache::clearImageCache($image->name);
   }
 }

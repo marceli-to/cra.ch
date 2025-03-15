@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e63f9b9ca8b6b27c2705bd5288ce59d4",
+    "content-hash": "983a25893a03b885b159e6647f43b724",
     "packages": [
         {
             "name": "brick/math",
@@ -2821,6 +2821,63 @@
                 }
             ],
             "time": "2024-12-08T08:18:47+00:00"
+        },
+        {
+            "name": "marceli-to/image-cache",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marceli-to/image-cache.git",
+                "reference": "5242f5bb4555f1e6a0007318559bca0aac6f0078"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marceli-to/image-cache/zipball/5242f5bb4555f1e6a0007318559bca0aac6f0078",
+                "reference": "5242f5bb4555f1e6a0007318559bca0aac6f0078",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "intervention/image": "^3.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "ImageCache": "MarceliTo\\ImageCache\\Facades\\ImageCache"
+                    },
+                    "providers": [
+                        "MarceliTo\\ImageCache\\ImageCacheServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MarceliTo\\ImageCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "marceli.to",
+                    "email": "your-email@example.com"
+                }
+            ],
+            "description": "A simple image caching package for Intervention Image v3",
+            "support": {
+                "issues": "https://github.com/marceli-to/image-cache/issues",
+                "source": "https://github.com/marceli-to/image-cache/tree/v1.4.0"
+            },
+            "time": "2025-03-15T21:41:12+00:00"
         },
         {
             "name": "monolog/monolog",

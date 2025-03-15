@@ -2,7 +2,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProjectController;
@@ -29,9 +28,6 @@ Route::get('/werkliste', [ProjectController::class, 'list'])->name('page.worklis
 Route::get('/projekt/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
 Route::get('/ueber-uns/team', [AboutController::class, 'team'])->name('page.about.team');
 Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page.about.diary');
-
-// Frontend - image routes
-Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}', [ImageController::class, 'getResponse']);
 
 /*
 |--------------------------------------------------------------------------

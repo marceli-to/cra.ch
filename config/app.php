@@ -180,7 +180,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\Laravel\ServiceProvider::class,
-        App\Providers\ImageCacheServiceProvider::class,
         
         /*
          * Package Service Providers...
@@ -212,7 +211,6 @@ return [
         // Laravel 10 uses Facades\Facade aliases by default
         // Keep these for backward compatibility
         'Image' => Intervention\Image\Laravel\Facades\Image::class,
-        'ImageCache' => App\Facades\ImageCache::class,
         'AppHelper' => App\Helpers\AppHelper::class,
         'DateHelper' => App\Helpers\DateHelper::class,
         'Route' => Illuminate\Support\Facades\Route::class,

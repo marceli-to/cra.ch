@@ -11,7 +11,7 @@
           <div class="grid-asset-selector__images">
             <figure v-for="image in project.images" :key="image.id">
               <img 
-                :src="getSource(image, 'cache')" 
+                :src="getSource(image, 'crop')" 
                 height="300" 
                 width="300" v-if="image"
                 @click="$emit('select', {image: image.id, project: project.id})" />
@@ -23,7 +23,7 @@
           <div class="grid-asset-selector__images" v-if="diary.images.length > 0">
             <figure v-for="image in diary.images" :key="image.id">
               <img 
-                :src="getSource(image, 'cache')" 
+                :src="getSource(image, 'crop')" 
                 height="300" 
                 width="300" v-if="image"
                 @click="$emit('select', {image: image.id})" />
@@ -51,7 +51,7 @@
               <template v-if="selectedProject.images.length">
                 <figure v-for="image in selectedProject.images" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, project: selectedProject.id})" />
@@ -74,7 +74,7 @@
               <template v-if="selectedArticle.images.length">
                 <figure v-for="image in selectedArticle.images" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, article: selectedArticle.id})" />
@@ -91,7 +91,7 @@
               <template v-if="serviceImages.length">
                 <figure v-for="image in serviceImages" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, page: 'service'})" />
@@ -103,7 +103,7 @@
               <template v-if="aboutImages.length">
                 <figure v-for="image in aboutImages" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, page: 'about.team'})" />
@@ -115,7 +115,7 @@
               <template v-if="contactImages.length">
                 <figure v-for="image in contactImages" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, page: 'contact'})" />
@@ -128,7 +128,7 @@
             <div class="grid-asset-selector__images" style="margin-top:0;margin-left: -4px;">
             <figure v-for="image in diary.images" :key="image.id">
               <img 
-                :src="getSource(image, 'cache')" 
+                :src="getSource(image, 'crop')" 
                 height="300" 
                 width="300" v-if="image"
                 @click="$emit('select', {image: image.id, page: 'about.diary'})" />

@@ -210,7 +210,7 @@
     <div class="ml-6x flex">
       <div v-for="item in $props.items" :key="item.id">
         <img 
-          :src="getSource(item.image, 'cache')" 
+          :src="getSource(item.image, 'crop')" 
           height="300" 
           width="300"
           style="height: 50px; width: auto; display: block; margin: 0 4px"
