@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87afe1729ed5c5082733aa4fc16981ce",
+    "content-hash": "ca24f6aca9b9107f11990de395286aa9",
     "packages": [
         {
             "name": "brick/math",
@@ -2878,6 +2878,63 @@
                 "source": "https://github.com/marceli-to/image-cache/tree/v1.4.3"
             },
             "time": "2025-03-15T22:15:50+00:00"
+        },
+        {
+            "name": "marceli-to/wiretap",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marceli-to/wiretap-package.git",
+                "reference": "9cb8b9c69eb0177c4badde35828618f73c33b766"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marceli-to/wiretap-package/zipball/9cb8b9c69eb0177c4badde35828618f73c33b766",
+                "reference": "9cb8b9c69eb0177c4badde35828618f73c33b766",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/http": "^9.0|^10.0|^11.0",
+                "illuminate/support": "^9.0|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Wiretap": "MarceliTo\\Wiretap\\Facades\\Wiretap"
+                    },
+                    "providers": [
+                        "MarceliTo\\Wiretap\\Providers\\WiretapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MarceliTo\\Wiretap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Stadelmann",
+                    "email": "m@marceli.to"
+                }
+            ],
+            "description": "A simplified logging package for Laravel with webhook capabilities",
+            "support": {
+                "issues": "https://github.com/marceli-to/wiretap-package/issues",
+                "source": "https://github.com/marceli-to/wiretap-package/tree/v1.4.0"
+            },
+            "time": "2025-09-18T21:54:19+00:00"
         },
         {
             "name": "monolog/monolog",

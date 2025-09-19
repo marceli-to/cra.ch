@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use MarceliTo\Wiretap\Facades\Wiretap;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,7 +37,13 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
-        parent::report($exception);
+      Wiretap::exception($exception, [
+        'url' => request()->fullUrl(),
+        'method' => request()->method(),
+        'user_id' => auth()->id(),
+        'ip' => request()->ip()
+      ]);
+      parent::report($exception);
     }
 
     /**
