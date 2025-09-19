@@ -41,7 +41,3 @@ Route::middleware('auth:sanctum', 'verified')->group(function() {
     return view('layout.authenticated');
   })->where('any', '.*')->middleware('role:admin')->name('authenticated');
 });
-
-Route::get('/wiretap', function () {
-	throw new \Exception('Test exception');
-});
