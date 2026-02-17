@@ -39,12 +39,12 @@
   @endif
 </div>
 <div class="grid-area-d aspect-ratio-c">
-  @if ($items[2] && $items[2]->isImage)
-    @php $caption = \AppHelper::caption($items[2], $view); @endphp
-    <x-galleries.gallery-link :item="$items[2]" :view="$view" :caption="$caption">
+  @if ($items[3] && $items[3]->isImage)
+    @php $caption = \AppHelper::caption($items[3], $view); @endphp
+    <x-galleries.gallery-link :item="$items[3]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 1600, 0 => 1200]" 
-        :image="$items[2]->image" 
+        :image="$items[3]->image" 
         width="1600" 
         height="1080"
         :caption="$caption" />
