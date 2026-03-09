@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Resume;
+use App\Models\TeamMember;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\ResumeStoreRequest;
 use Illuminate\Http\Request;
@@ -16,6 +17,11 @@ class ResumeController extends Controller
   public function get()
   {
     return new DataCollection(Resume::orderBy('order')->get());
+  }
+
+  public function getByTeamMember(TeamMember $teamMember)
+  {
+    return new DataCollection($teamMember->resumes);
   }
 
   /**
@@ -38,6 +44,7 @@ class ResumeController extends Controller
   public function store(ResumeStoreRequest $request)
   {
     $resume = Resume::create([
+      'team_member_id' => $request->input('team_member_id'),
       'periode' => $request->input('periode'),
       'description' => $request->input('description'),
     ]);

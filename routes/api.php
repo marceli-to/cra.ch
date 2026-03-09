@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AboutController;
+use App\Http\Controllers\Api\TeamMemberController;
 use App\Http\Controllers\Api\ResumeController;
 use App\Http\Controllers\Api\DiaryController;
 use App\Http\Controllers\Api\ArticleController;
@@ -90,8 +91,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('about/{about}', 'destroy');
   });
 
+  // Team Members
+  Route::controller(TeamMemberController::class)->group(function () {
+    Route::get('team-members', 'get');
+    Route::get('team-member/{teamMember}', 'find');
+    Route::put('team-member/{teamMember}', 'update');
+    Route::get('team-member/state/{teamMember}', 'toggle');
+  });
+
   // Resume
   Route::controller(ResumeController::class)->group(function () {
+    Route::get('resumes/{teamMember}', 'getByTeamMember');
     Route::get('resumes', 'get');
     Route::get('resume/{resume}', 'find');
     Route::post('resume', 'store');
