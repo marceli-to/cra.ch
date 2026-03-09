@@ -1,6 +1,6 @@
 <template>
   <div>
-    <data-form></data-form>
+    <data-form type="edit"></data-form>
   </div>
 </template>
 <script>
