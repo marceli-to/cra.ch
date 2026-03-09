@@ -15,6 +15,7 @@ class Resume extends Model
    */
    
   protected $fillable = [
+    'team_member_id',
     'periode',
     'description'
   ];
@@ -36,6 +37,11 @@ class Resume extends Model
 
   public function getPublishAttribute()
   {
-    return $this->hasFlag('isPublish') ? 1 : 0;    
-  } 
+    return $this->hasFlag('isPublish') ? 1 : 0;
+  }
+
+  public function teamMember()
+  {
+    return $this->belongsTo(TeamMember::class);
+  }
 }

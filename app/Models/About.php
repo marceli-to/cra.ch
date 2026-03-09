@@ -17,10 +17,8 @@ class About extends Model
    */
    
 	protected $fillable = [
-    'title',
     'description',
     'cooperation',
-    'employees',
     'former_employees',
     'membership',
   ];
