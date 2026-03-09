@@ -95,6 +95,7 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::controller(TeamMemberController::class)->group(function () {
     Route::get('team-members', 'get');
     Route::get('team-member/{teamMember}', 'find');
+    Route::post('team-member', 'store');
     Route::put('team-member/{teamMember}', 'update');
     Route::get('team-member/state/{teamMember}', 'toggle');
   });

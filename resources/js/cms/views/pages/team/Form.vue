@@ -3,12 +3,16 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <form @submit.prevent="submit" v-if="isFetched">
     <header class="content-header">
-      <h1>Team-Mitglied bearbeiten</h1>
+      <h1>{{title}}</h1>
     </header>
     <tabs :tabs="tabs" :errors="errors"></tabs>
 
     <div v-show="tabs.data.active">
       <div>
+        <div v-if="$props.type == 'create'" :class="[this.errors.slug ? 'has-error' : '', 'form-row']">
+          <label>Slug</label>
+          <input type="text" v-model="data.slug">
+        </div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
           <label>Beschreibung</label>
           <tinymce-editor
@@ -62,33 +66,41 @@ export default {
 
   mixins: [ErrorHandling],
 
+  props: {
+    type: String
+  },
+
   data() {
     return {
 
       // Model
       data: {
         id: null,
+        slug: null,
         title: null,
         publish: 1,
       },
 
       // Validation
       errors: {
+        slug: false,
         title: false,
       },
 
       // Routes
       routes: {
         find: '/api/team-member',
+        store: '/api/team-member',
         update: '/api/team-member',
       },
 
       // States
       isLoading: false,
-      isFetched: false,
+      isFetched: true,
 
       // Messages
       messages: {
+        stored: 'Daten erfasst!',
         updated: 'Daten aktualisiert!',
       },
 
@@ -102,12 +114,15 @@ export default {
   },
 
   created() {
-    this.fetch();
+    if (this.$props.type == "edit") {
+      this.fetch();
+    }
   },
 
   methods: {
 
     fetch() {
+      this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
         this.data = response.data.teamMember;
@@ -117,6 +132,24 @@ export default {
     },
 
     submit() {
+      if (this.$props.type == "edit") {
+        this.update();
+      }
+      if (this.$props.type == "create") {
+        this.store();
+      }
+    },
+
+    store() {
+      this.isLoading = true;
+      this.axios.post(this.routes.store, this.data).then(response => {
+        this.$router.push({ name: "team"});
+        this.$notify({ type: "success", text: this.messages.stored });
+        this.isLoading = false;
+      });
+    },
+
+    update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
         this.$router.push({ name: "team"});
@@ -124,6 +157,14 @@ export default {
         this.isLoading = false;
       });
     },
+  },
+
+  computed: {
+    title() {
+      return this.$props.type == "edit"
+        ? "Team-Mitglied bearbeiten"
+        : "Team-Mitglied hinzufügen";
+    }
   },
 };
 </script>

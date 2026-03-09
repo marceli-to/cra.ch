@@ -13,6 +13,16 @@ class TeamMemberController extends Controller
     return new DataCollection(TeamMember::orderBy('id')->get());
   }
 
+  public function store(TeamMemberStoreRequest $request)
+  {
+    $teamMember = TeamMember::create([
+      'slug' => $request->input('slug'),
+      'title' => $request->input('title'),
+    ]);
+    $this->handleFlag($teamMember, 'isPublish', $request->input('publish'));
+    return response()->json($teamMember);
+  }
+
   public function find(TeamMember $teamMember)
   {
     return response()->json(['teamMember' => TeamMember::find($teamMember->id)]);
