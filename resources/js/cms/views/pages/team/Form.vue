@@ -10,7 +10,7 @@
     <div v-show="tabs.data.active">
       <div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-          <label>Titel</label>
+          <label>Beschreibung</label>
           <tinymce-editor
             :init="tinyConfig"
             v-model="data.title"
