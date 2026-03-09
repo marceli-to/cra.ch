@@ -12,7 +12,7 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          <span v-html="d.title"></span>
+          {{ d.slug }}
         </div>
         <list-actions
           :id="d.id"
