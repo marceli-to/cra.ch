@@ -16,7 +16,7 @@ class CategoryController extends Controller
    */
   public function get()
   {
-    return new DataCollection(Category::orderBy('title', 'ASC')->get());
+    return new DataCollection(Category::orderBy('order')->get());
   }
 
   /**
@@ -72,6 +72,18 @@ class CategoryController extends Controller
   {
     $category->delete();
     return response()->json('successfully deleted');
+  }
+
+  public function order(Request $request)
+  {
+    $categories = $request->get('categories');
+    foreach($categories as $cat)
+    {
+      $c = Category::find($cat['id']);
+      $c->order = $cat['order'];
+      $c->save();
+    }
+    return response()->json('successfully updated');
   }
 
 }

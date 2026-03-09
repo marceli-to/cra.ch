@@ -138,6 +138,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('categories', 'get');
     Route::get('category/{category}', 'find');
     Route::post('category', 'store');
+    Route::post('categories/order', 'order');
     Route::put('category/{category}', 'update');
     Route::delete('category/{category}', 'destroy');
   });

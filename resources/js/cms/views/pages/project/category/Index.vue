@@ -9,24 +9,31 @@
         <span>Hinzufügen</span>
       </router-link>
     </page-header>
-    <div v-if="data.length">
+    <draggable
+      :disabled="false"
+      v-model="data"
+      @end="order(data)"
+      ghost-class="draggable-ghost"
+      draggable=".listing__item"
+      class="listing"
+      v-if="data.length">
       <div
-        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
+        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
         v-for="d in data"
         :key="d.id"
         >
         <div class="listing__item-body">
           {{d.title}}
         </div>
-        <list-actions 
-          :id="d.id" 
+        <list-actions
+          :id="d.id"
           :record="d"
           :hasToggle="false"
           :routes="{edit: 'category-edit'}"
           @destroy="destroy($event)">
         </list-actions>
       </div>
-    </div>
+    </draggable>
     <div v-else>
       <p class="no-records">{{messages.emptyData}}</p>
     </div>
@@ -44,6 +51,7 @@ import ListActions from "@/components/ui/ListActions.vue";
 import Separator from "@/components/ui/Separator.vue";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
+import draggable from 'vuedraggable';
 
 export default {
 
@@ -56,6 +64,7 @@ export default {
     ButtonBack,
     PageFooter,
     PageHeader,
+    draggable,
   },
 
   mixins: [Helpers],
@@ -70,6 +79,7 @@ export default {
         get: '/api/categories',
         store: '/api/category',
         delete: '/api/category',
+        order: '/api/categories/order',
       },
 
       // States
@@ -108,6 +118,21 @@ export default {
           this.isLoading = false;
         });
       }
+    },
+
+    order() {
+      let categories = this.data.map(function(category, idx) {
+        category.order = idx;
+        return category;
+      });
+
+      if (this.debounce) return;
+      this.debounce = setTimeout(function() {
+        this.debounce = false;
+        this.axios.post(`${this.routes.order}`, {categories: categories}).then((response) => {
+          this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
+        });
+      }.bind(this, categories), 500);
     },
   }
 }
