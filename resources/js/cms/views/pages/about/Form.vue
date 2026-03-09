@@ -9,25 +9,11 @@
     
     <div v-show="tabs.data.active">
       <div>
-        <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-          <label>Titel</label>
-          <tinymce-editor
-            :init="tinyConfig"
-            v-model="data.title"
-          ></tinymce-editor>
-        </div>
         <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
           <label>Beschreibung</label>
           <tinymce-editor
             :init="tinyConfig"
             v-model="data.description"
-          ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Mitarbeiter</label>
-          <tinymce-editor
-            :init="tinyConfig"
-            v-model="data.employees"
           ></tinymce-editor>
         </div>
         <div class="form-row">
@@ -125,9 +111,7 @@ export default {
       // Model
       data: {
         id: null,
-        title: null,
         description: null,
-        employees: null,
         former_employees: null,
         cooperation: null,
         membership: null,

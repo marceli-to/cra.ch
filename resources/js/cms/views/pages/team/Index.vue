@@ -3,11 +3,7 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h2>Über uns</h2>
-      <router-link :to="{ name: 'about-create'}" class="btn-add has-icon">
-        <plus-icon size="16"></plus-icon>
-        <span>Hinzufügen</span>
-      </router-link>
+      <h2>Team</h2>
     </page-header>
     <div class="listing is-grouped" v-if="data.length">
       <div
@@ -16,14 +12,15 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          Über uns
+          <span v-html="d.title"></span>
         </div>
         <list-actions
           :id="d.id"
           :record="d"
-          :routes="{edit: 'about-edit'}"
-          @toggle="toggle($event)"
-          @destroy="destroy($event)">
+          :routes="{edit: 'team-edit', list: 'team-resume'}"
+          :hasList="true"
+          :hasDestroy="false"
+          @toggle="toggle($event)">
         </list-actions>
       </div>
     </div>
@@ -67,10 +64,8 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/about',
-        store: '/api/about',
-        delete: '/api/about',
-        toggle: '/api/about/state',
+        get: '/api/team-members',
+        toggle: '/api/team-member/state',
       },
 
       // States
@@ -80,7 +75,6 @@ export default {
       // Messages
       messages: {
         emptyData: 'Es sind noch keine Daten vorhanden...',
-        confirm: 'Bitte löschen bestätigen!',
         updated: 'Daten aktualisiert',
       }
     };
@@ -109,16 +103,6 @@ export default {
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
-    },
-
-    destroy(id) {
-      if (confirm(this.messages.confirm)) {
-        this.isLoading = true;
-        this.axios.delete(`${this.routes.delete}/${id}`).then(response => {
-          this.fetch();
-          this.isLoading = false;
-        });
-      }
     },
   }
 }
