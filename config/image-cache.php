@@ -40,6 +40,9 @@ return [
 	// Middleware for the image routes
 	'middleware' => ['web'],
 	
+	// Maximum allowed size for crop images
+	'max_size' => 2600,
+
 	// Crop filter type: 'maxSize' or 'dimensions' (maxWidth and maxHeight)
 	'crop_filter_type' => 'maxSize',
 ];
