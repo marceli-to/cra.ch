@@ -12,7 +12,7 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{ d.slug }}
+          {{ names[d.slug] || d.slug }}
         </div>
         <list-actions
           :id="d.id"
@@ -61,6 +61,12 @@ export default {
     return {
 
       data: [],
+
+      // Names
+      names: {
+        'cristina': 'Cristina Rutz',
+        'ines': 'Inés Izquierdo',
+      },
 
       // Routes
       routes: {
