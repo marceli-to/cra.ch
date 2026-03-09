@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Diary;
 use App\Models\About;
 use App\Models\Resume;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class AboutController extends BaseController
@@ -24,8 +25,8 @@ class AboutController extends BaseController
    public function team()
    {
      $about = About::first();
-     $resume = Resume::orderBy('order')->get();
-     return view($this->viewPath . 'team', ['about' => $about, 'resume' => $resume]);
+     $teamMembers = TeamMember::with('resumes')->flagged('isPublish')->orderBy('id')->get();
+     return view($this->viewPath . 'team', ['about' => $about, 'teamMembers' => $teamMembers]);
    }
 
   /**

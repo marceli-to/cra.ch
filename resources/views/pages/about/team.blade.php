@@ -12,40 +12,34 @@
       </article>
     @endif
 
-    <article class="stacked-item stacked-item--border stacked-item--indent">
-      <div class="md:pr-16x">
-        <h2 class="about__title">{!! $about->title !!}</h2>
-        @if ($resume)
-          <x-truncated-text class="mt-0">
-            <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
-              @foreach($resume as $r)
-                <div class="span-2">{{ $r->periode }}</div>
-                <div class="span-4">{{ $r->description }}</div>
-              @endforeach
-            </div>
-          </x-truncated-text>
-        @endif
-      </div>
-    </article>
+    @foreach($teamMembers as $member)
+      <article class="stacked-item stacked-item--border stacked-item--indent">
+        <div class="md:pr-16x">
+          <h2 class="about__title">{!! $member->title !!}</h2>
+          @if ($member->resumes->count())
+            <x-truncated-text class="mt-0">
+              <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
+                @foreach($member->resumes as $r)
+                  <div class="span-2">{{ $r->periode }}</div>
+                  <div class="span-4">{{ $r->description }}</div>
+                @endforeach
+              </div>
+            </x-truncated-text>
+          @endif
+        </div>
+      </article>
+    @endforeach
 
     @if(isset($about->publishedImages[0]))
       <div class="mb-20x">
-        <x-image 
+        <x-image
           classes="is-responsive is-{{ $about->publishedImages[0]->orientation }} mb-8x md:mb-16x"
-          :maxSizes="[0 => 1200]" 
-          :image="$about->publishedImages[0]" 
-          width="1200" 
+          :maxSizes="[0 => 1200]"
+          :image="$about->publishedImages[0]"
+          width="1200"
           height="800"
           :caption="$about->publishedImages[0]->caption" />
       </div>
-    @endif
-
-    @if ($about->employees)
-      <article class="stacked-item stacked-item--border stacked-item--indent">
-        <div class="md:pr-16x">
-          {!! $about->employees !!}
-        </div>
-      </article>
     @endif
 
     @if($about->publishedImages && isset($about->publishedImages[1]))
@@ -101,29 +95,23 @@
   @endif
 
   <div class="order-3 md:order-2 md:span-2">
-    <article class="stacked-item stacked-item--border stacked-item--indent">
-      <div class="md:pr-16x">
-        <h2 class="about__title">{!! $about->title !!}</h2>
-        @if ($resume)
-          <x-truncated-text class="mt-0">
-            <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
-              @foreach($resume as $r)
-                <div class="span-2">{{ $r->periode }}</div>
-                <div class="span-4">{{ $r->description }}</div>
-              @endforeach
-            </div>
-          </x-truncated-text>
-        @endif
-      </div>
-    </article>
-
-    @if ($about->employees)
+    @foreach($teamMembers as $member)
       <article class="stacked-item stacked-item--border stacked-item--indent">
         <div class="md:pr-16x">
-          {!! $about->employees !!}
+          <h2 class="about__title">{!! $member->title !!}</h2>
+          @if ($member->resumes->count())
+            <x-truncated-text class="mt-0">
+              <div class="grid grid-cols-6 grid-gap grid-row-gap mt-16x">
+                @foreach($member->resumes as $r)
+                  <div class="span-2">{{ $r->periode }}</div>
+                  <div class="span-4">{{ $r->description }}</div>
+                @endforeach
+              </div>
+            </x-truncated-text>
+          @endif
         </div>
       </article>
-    @endif
+    @endforeach
 
     @if ($about->cooperation)
       <article class="stacked-item stacked-item--border stacked-item--indent">
