@@ -4,7 +4,7 @@
   <div v-if="isFetched" class="is-loaded">
     <page-header>
       <h1>Lebenslauf</h1>
-      <router-link :to="{ name: 'resume-create'}" class="btn-add has-icon">
+      <router-link :to="{ name: 'resume-create', params: { teamMemberId: $route.params.id }}" class="btn-add has-icon">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
@@ -41,7 +41,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'about'">Zurück</button-back>
+      <button-back :route="'team'">Zurück</button-back>
     </page-footer>
   </div>
 </div>
@@ -79,7 +79,7 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/resumes',
+        get: '',
         store: '/api/resume',
         delete: '/api/resume',
         order: '/api/resume/order',
@@ -100,6 +100,7 @@ export default {
   },
 
   created() {
+    this.routes.get = `/api/resumes/${this.$route.params.id}`;
     this.fetch();
   },
 

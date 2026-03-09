@@ -4,13 +4,13 @@ import ResumeEdit from '@/views/pages/resume/partials/Edit.vue';
 
 const routes = [
   {
-    name: 'resume',
-    path: '/administration/resume/index',
+    name: 'team-resume',
+    path: '/administration/resume/index/:id',
     component: ResumeIndex,
   },
   {
     name: 'resume-create',
-    path: '/administration/resume/create',
+    path: '/administration/resume/create/:teamMemberId',
     component: ResumeCreate,
   },
   {

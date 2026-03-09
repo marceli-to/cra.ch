@@ -34,7 +34,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'dashboard'">Zurück</button-back>
+      <button-back :route="'team'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
   </form>
@@ -81,11 +81,10 @@ export default {
       // Model
       data: {
         id: null,
+        team_member_id: null,
+        periode: null,
         description: null,
-        cooperation: null,
-        membership: null,
         publish: 1,
-        images: [],
       },
 
       // Validation
@@ -124,6 +123,9 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+    if (this.$props.type == "create" && this.$route.params.teamMemberId) {
+      this.data.team_member_id = parseInt(this.$route.params.teamMemberId);
+    }
   },
 
   methods: {
@@ -150,7 +152,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "resume"});
+        this.$router.push({ name: "team-resume", params: { id: this.data.team_member_id }});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -159,7 +161,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "resume"});
+        this.$router.push({ name: "team-resume", params: { id: this.data.team_member_id }});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });

@@ -41,6 +41,13 @@
       </div>
 
       <div class="card">
+        <router-link :to="{name: 'team'}">
+          <h2>Team</h2>
+          <p>Verwaltung der Team-Mitglieder</p>
+        </router-link>
+      </div>
+
+      <div class="card">
         <router-link :to="{name: 'contacts'}">
           <h2>Kontakt</h2>
           <p>Verwaltung der Kontaktseite</p>
