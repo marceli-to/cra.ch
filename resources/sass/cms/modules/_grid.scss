@@ -385,6 +385,11 @@
     min-height: 0;
     overflow-y: auto;
   }
+
+  // Room for the images' hover outline, and before the scrollbar
+  > div {
+    padding: 0 16px 3px 3px;
+  }
 }
 
 .grid-picker__sources {
