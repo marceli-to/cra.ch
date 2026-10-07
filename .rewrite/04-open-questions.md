@@ -34,7 +34,7 @@ php -r 'echo PHP_VERSION, PHP_EOL;
 The pipeline probes formats at runtime (luvo/oxid `ImageSupport`), so the
 driver answer does not gate anything.
 
-## 3. Login: keep `laravel/ui`? — ANSWERED 2026-10-07: replace
+## 3. Login: keep `laravel/ui`? — ANSWERED 2026-10-07: replace (done, `06` step 4)
 
 `laravel/ui` 4.6 supports Laravel 13, so keeping it works. oxid replaced it
 with its own login. **Replace** `laravel/ui` with an own login, as in oxid — fewer moving parts, same

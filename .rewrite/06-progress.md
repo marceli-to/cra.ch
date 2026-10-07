@@ -35,7 +35,11 @@ Laravel ≤ 11). See "Step 2" below.
 2026-10-07: `02` step 3 done — slim skeleton, config trimmed to what
 differs from Laravel 13's defaults. See "Step 3" below.
 
-Next: `02` step 4 (own login instead of `laravel/ui`).
+2026-10-07: `02` step 4 done — own `AuthController` instead of
+`laravel/ui`. See "Step 4" below.
+
+Next: images (`05` target: `<x-image>`, AVIF/WebP, stored dimensions), then
+the frontend (`03`, `07`).
 
 ## Backend
 
@@ -135,6 +139,29 @@ whether the server needs it).
 - Note: CSRF is skipped under PHPUnit, so the exemption is only checked
   over HTTP. bcrypt rounds go 10 → 12; existing passwords keep working and
   are rehashed on next login.
+
+### Step 4: own login (2026-10-07)
+
+- `App\Http\Controllers\AuthController`: login (5 failed attempts per
+  e-mail + IP → one-minute lockout, as `ThrottlesLogins`), logout (POST,
+  and GET because the admin header links to `/logout`), forgot password
+  (`throttle:6,1`), reset (min. 8 characters, confirmed; logs in and goes
+  to `/administration` — laravel/ui went to `/`). Same URLs, route names
+  and Blade views as before.
+- Removed: `laravel/ui`, `Auth\*` controllers, the old `LoginController`,
+  email verification (routes, view, `MustVerifyEmail` on `User`, the
+  `verified` middleware on the admin route — all 3 users are verified) and
+  password confirmation (unused).
+- `phpunit.xml`: `CACHE_DRIVER` → `CACHE_STORE` (tests were using the file
+  cache, so the login throttle leaked between tests).
+- Tests: `AuthTest` (12) → 40 total. Over HTTP with prod data and a
+  temporary admin user (removed): wrong password message, login → admin →
+  logout, forgot password → mail (to the log) → link → reset → admin →
+  login with the new password.
+- Unchanged from before, worth a look later: the reset mail is Laravel's
+  English default ("Reset your password"); a `lang/de.json` would
+  translate it. GET `/logout` can be triggered cross-site; the Vue 3 admin
+  should POST instead.
 
 ### Found on the way: gallery with an empty first slot (live bug)
 
