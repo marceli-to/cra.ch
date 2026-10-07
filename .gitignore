@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 INSTALL.TXT
 /INSTALL.TXT
+# Production snapshot (personal data, 1.3 GB)
+/.rewrite/data
