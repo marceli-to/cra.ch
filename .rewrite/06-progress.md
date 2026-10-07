@@ -4,9 +4,8 @@
 
 **Backend, images and public site: done. Admin: not started.**
 
-- Branch `rework/laravel-13-vue-3`, local only (**not pushed**, no
-  upstream), on top of `e22f376` (= `origin/master` =
-  production). `master` stays untouched until go-live (user's decision);
+- Branch `rework/laravel-13-vue-3`, pushed to `origin` (tracking,
+  2026-10-07), on top of `e22f376` (= `origin/master` = production). `master` stays untouched until go-live (user's decision);
   nothing from the branch is to be cherry-picked there.
 - Laravel 13.35 on the slim skeleton, PHP `^8.3` (platform 8.3.0),
   `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
@@ -19,11 +18,26 @@
   committed; `npm run dev` for the dev server). JS is vanilla ES modules
   (13.8 KB), own lightbox instead of fancyBox, no jQuery.
 - Admin is still **Vue 2 + Laravel Mix** (`npm run admin:build` after
-  admin changes, built files committed). Note: a fresh `admin:build`
-  now differs slightly from the committed bundle (dependency versions moved
-  with the Vite install); fine to commit with the next admin change.
+  admin changes, built files committed; the committed bundle matches a
+  fresh build). Its error handling works since `dfb794b` (one axios
+  instance).
 
-### Next: the frontend
+### Next: the admin (start here in a new session)
+
+The only big step left before go-live. Inputs for it:
+
+- "Backend structure" → "Not done now": what the API port should change
+  (JSON resources, REST-ier routes instead of GETs that write, upload
+  CSRF, dead admin modules, `.then()` without `.catch()`).
+- Keep the request format the forms rely on, or replace it together:
+  422 `errors: {field: [{field, error}]}` (`AdminRequest`).
+- Check every step with `php artisan test` (111 tests, `tests/Feature/Api`
+  covers every write endpoint) and, for unchanged responses,
+  `.rewrite/tools/snapshot.php` before/after.
+- For the admin in a browser: PHP server with
+  `SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8765` (see Gotchas); scratch DB
+  `cristinarutz_qa` (copy of `cristinarutz_prod`, QA admin
+  `qa@example.invalid` / `qa-pass-123`) for anything that writes.
 
 Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
 
@@ -35,7 +49,7 @@ Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
    TinyMCE 7 (8 forms; run oxid's `tiptap-roundtrip.mjs` over the stored
    HTML first), cropper v2. Grid builder (`modules/grid/Index.vue`,
    1,150 LOC) last. Uploader must send the CSRF token, then drop the
-   `validateCsrfTokens(except:)` for the two upload routes in
+   `validateCsrfTokens(except:)` for the image upload route in
    `bootstrap/app.php`. Login could move into the SPA as in oxid (JSON
    `AuthController` there), or stay Blade.
 3. Admin UI refresh (`08`, decided yes) while porting.
@@ -54,6 +68,9 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
     `images:resize` run (34 originals scaled, coords scaled) and the
     width/height migration; matches `storage/app/public/uploads`
   - `cristinarutz_snapshot` — untouched production dump (for comparisons)
+  - `cristinarutz_qa` — scratch copy of `cristinarutz_prod` (2026-10-07,
+    after the action-class work) with a QA admin; free to write to
+
 - `storage/app/public/` holds the production files (resized as above);
   `storage/app/originals/` the untouched copies of the 34 resized files;
   `storage/app/.glide-cache/` warm.
