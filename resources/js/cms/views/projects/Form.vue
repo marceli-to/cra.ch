@@ -26,9 +26,11 @@
         </div>
         <div class="form-row">
           <label>Kategorie</label>
-          <div v-for="category in categories" :key="category.id" class="flex mb-2x">
-            <input type="checkbox" :id="`category-${category.id}`" :value="category.id" v-model="record.category_ids">
-            <label :for="`category-${category.id}`" class="ml-3x">{{ category.title }}</label>
+          <div class="checkbox-list">
+            <label v-for="category in categories" :key="category.id" class="checkbox">
+              <input type="checkbox" :value="category.id" v-model="record.category_ids">
+              <span>{{ category.title }}</span>
+            </label>
           </div>
         </div>
       </div>

@@ -35,3 +35,19 @@ input[type="checkbox"]:checked + .form-control {
   border: $border-width solid $color-primary;
   color: $color-white;
 }
+
+
+// Checkboxes stacked closely, the whole row clickable
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label.checkbox {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 0;
+}

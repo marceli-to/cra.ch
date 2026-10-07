@@ -1,0 +1,1 @@
+import{J as e,_ as t,k as n}from"./app-X4unXQqW.js";var r={class:`is-required`},i={__name:`LabelRequired`,props:{text:{type:String,default:`Pflichtfeld`}},setup(i){return(a,o)=>(n(),t(`div`,r,e(i.text),1))}};export{i as t};
