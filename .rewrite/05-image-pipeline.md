@@ -86,6 +86,45 @@ Details and verification in `06-progress.md` ("Step 2"). Still to do from
 the target below: `<x-image>` with real sizes + AVIF/WebP, stored
 dimensions, signed URLs and the redirect of the old shapes, `images:warm`.
 
+## Done 2026-10-07: signed URLs, AVIF/WebP, stored dimensions
+
+- `/img/{file}?w=&h=&fit=max[&crop=][&fm=]&s=` signed with `APP_KEY`
+  (`Glide::url()`, `Image::url($size, $format)`), cached a year
+  (`immutable`). Unsigned or altered parameters are a 404, so nobody can
+  fill the cache with arbitrary sizes or crops any more.
+- `<x-image>` keeps its API (`:maxSizes` breakpoint → longer side) and its
+  art direction; per breakpoint it now offers `image/avif` and
+  `image/webp` `<source>`s (whatever the server's driver can write,
+  `ImageSupport::modernFormats()`) before the JPEG/PNG. Same sizes as
+  before, same lazy loading (`data-srcset` / `data-src`).
+- Gallery links (fancyBox) get the 2000 px WebP; OG image uses the signed URL.
+- `images.width` / `images.height` (migration, backfilled): size after
+  EXIF rotation. `Image::crop()` cuts crops at the image edges as
+  image-cache did (one live image needs it: an EXIF-rotated photo with a
+  landscape crop). `ratio` is not reliable for that (unrotated for the 5
+  rotated photos). Kept current on save and by `images:resize`.
+- `/img/crop/...` → 301 (max-age 3600) to the signed URL, built from the
+  record's crop; only the sizes in use (900, 1000, 1200, 1500, 1600, 2000,
+  2400, 2600). Keeps the admin previews and any old shared links working.
+- Broken renditions (undecodable, as oxid saw with Imagick AVIF in PHP
+  workers) are deleted and re-rendered; after two failures the JPEG/PNG is
+  served for 5 minutes and a warning logged.
+- `php artisan images:warm [--dry-run]` crawls the public pages and renders
+  every signed URL they emit (oxid's command).
+- Bytes, same images and sizes (3 projects, 80 renditions): JPEG/PNG
+  9.4 MB → WebP 5.9 MB (62 %) → AVIF 5.8 MB (60 %).
+- Checked in a browser against the live site: same layout and the same
+  rendered sizes; Chrome picks AVIF.
+- Against production (`.rewrite/tools/glide-compare-signed.php`): the
+  1,047 identified production crops through the signed path — 1,047 same
+  dimensions, 0 errors, RMSE max 0.02.
+- `images:warm` on the prod copy: 20 pages, 1,282 image URLs, all 200;
+  3 min 16 s cold, 1 s warm.
+
+Not done (oxid did it, not needed here): `srcset` with width descriptors.
+The site art-directs by breakpoint with hand-picked sizes; changing that is
+a design change.
+
 ## Target
 
 - Port oxid's image controller / `IsImage` / `<x-image>`:

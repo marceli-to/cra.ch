@@ -97,6 +97,8 @@ class ResizeImages extends Command
             }
             $image->size = $size;
             $image->ratio = "{$newWidth}x{$newHeight}";
+            $image->width = $newWidth;
+            $image->height = $newHeight;
             $image->timestamps = false;
             $image->save();
           }

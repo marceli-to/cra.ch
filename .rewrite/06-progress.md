@@ -38,8 +38,16 @@ differs from Laravel 13's defaults. See "Step 3" below.
 2026-10-07: `02` step 4 done — own `AuthController` instead of
 `laravel/ui`. See "Step 4" below.
 
-Next: images (`05` target: `<x-image>`, AVIF/WebP, stored dimensions), then
-the frontend (`03`, `07`).
+2026-10-07: images done — signed URLs, AVIF/WebP, stored dimensions,
+`images:warm` (`05`, "Done 2026-10-07: signed URLs…").
+
+Found on the way (content, not changed): the "Leistungen" text (services
+id 1) links to `/projekt/bebauung-buckerwies` and
+`/projekt/wohnhaus-bergblumestrasse`, both 404 on the live site too (the
+projects are `wohnbebauung-buckerwies` and `wohnhaus-bergblumenstrasse`).
+Unpublished projects (4) are reachable by URL; oxid hides them (`c195334`).
+
+Next: the frontend (`03`, `07`).
 
 ## Backend
 
@@ -193,6 +201,11 @@ the admin, or remove the row.
   `SANCTUM_STATEFUL_DOMAINS` with the production host(s), `APP_URL` the
   exact origin. Remove `CACHE_DRIVER`, `MAIL_DRIVER`, `BROADCAST_DRIVER`,
   `PUSHER_*`, `MIX_*`. (Local `.env` already done, 2026-10-07.)
+- Migration `2026_10_07_120000_add_dimensions_to_images_table` (width/height,
+  backfilled from the files — run it after `images:resize`, or run
+  `images:resize` first; both keep the columns right). Then
+  `php artisan images:warm` (~3–4 minutes on this machine; AVIF is slow
+  to encode). Delete `storage/app/public/cache/` (image-cache).
 - The image work (`images:resize`, stricter uploads) ships with the rework,
   not separately: `master` stays as it is until go-live (decided
   2026-10-07). On the server, after `composer install` and before
