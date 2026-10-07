@@ -45,7 +45,9 @@ Found on the way (content, not changed): the "Leistungen" text (services
 id 1) links to `/projekt/bebauung-buckerwies` and
 `/projekt/wohnhaus-bergblumestrasse`, both 404 on the live site too (the
 projects are `wohnbebauung-buckerwies` and `wohnhaus-bergblumenstrasse`).
-Unpublished projects (4) are reachable by URL; oxid hides them (`c195334`).
+Unpublished projects were reachable by URL — fixed 2026-10-07: 404 for
+visitors, logged-in admins can still open them (as oxid `c195334`). Prod
+copy: 4 unpublished → 404, 17 published → 200, none linked from the site.
 
 Next: the frontend (`03`, `07`).
 

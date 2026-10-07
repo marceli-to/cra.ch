@@ -23,6 +23,9 @@ class ProjectController extends BaseController
 
   public function show(Project $project)
   {
+    // Unpublished projects only for logged-in admins (to preview them)
+    abort_unless($project->hasFlag('isPublish') || auth()->user()?->isAdmin(), 404);
+
     $project = Project::with('grids.gridItems.image')->find($project->id);
     return view(
       $this->viewPath . 'show',
