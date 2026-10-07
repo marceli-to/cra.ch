@@ -36,3 +36,10 @@ Next: `02` step 1 (dead code).
 ## Tests
 
 ## Deploy notes
+
+- The image work (`images:resize`, stricter uploads) ships with the rework,
+  not separately: `master` stays as it is until go-live (decided
+  2026-10-07). On the server, after `composer install` and before
+  `images:warm`: `php artisan images:resize --dry-run`, then
+  `php artisan images:resize`. Check `upload_max_filesize`/`post_max_size`
+  ≥ 30M and Imagick first (`05`).
