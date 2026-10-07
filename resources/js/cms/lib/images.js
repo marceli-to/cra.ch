@@ -2,6 +2,7 @@
  * Url of an uploaded image for the admin:
  *
  * 'thumbnail'  300 × 300, cropped to fill
+ * 'small'      the whole image within 400 × 400
  * 'original'   the upload (the cropper's source)
  * 'crop'       the stored crop (redirects to the signed URL). The redirect
  *              is cached, so the coords go into the URL: a re-crop gets a

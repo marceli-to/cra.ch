@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  *   /img/{file}?...&s=...                       signed, built by Image::url()
  *   /img/original/{file}                        admin
  *   /img/thumbnail/{file}                       admin, 300 × 300
+ *   /img/small/{file}                           admin, whole image within 400 × 400
  *   /img/crop/{file}/{maxSize?}/{coords?}/...   image-cache's URL, 301 to the signed one
  */
 class ImageController extends Controller
@@ -61,6 +62,16 @@ class ImageController extends Controller
     $this->source($filename);
 
     return $this->respond($filename, ['w' => 300, 'h' => 300, 'fit' => 'crop'], 3600);
+  }
+
+  /**
+   * The whole image within 400 × 400 (the grid's image picker)
+   */
+  public function small(string $filename): Response
+  {
+    $this->source($filename);
+
+    return $this->respond($filename, ['w' => 400, 'h' => 400, 'fit' => 'max'], 3600);
   }
 
   /**

@@ -159,6 +159,7 @@ class ImageRenditionTest extends TestCase
         $name = $this->upload(800, 600);
 
         $this->assertSame([300, 300], $this->dimensions($this->get("/img/thumbnail/{$name}")));
+        $this->assertSame([400, 300], $this->dimensions($this->get("/img/small/{$name}")));
         $this->get("/img/original/{$name}")->assertOk()->assertHeader('Content-Type', 'image/jpeg');
         $this->get('/img/original/.gitignore')->assertNotFound();
         $this->get('/img/original/..%2F..%2F.env')->assertNotFound();

@@ -6,7 +6,7 @@
         <img
           v-for="image in owner.model.images"
           :key="image.id"
-          :src="imageUrl(image, 'thumbnail')"
+          :src="imageUrl(image, 'small')"
           height="300"
           width="300"
           loading="lazy"
@@ -25,26 +25,25 @@
                 href="javascript:;"
                 :class="{ 'is-active': source === current }"
                 @click="current = source"
-              >
-                <span>{{ source.label }}</span>
-                <span class="grid-picker__count">{{ source.images.length }}</span>
-              </a>
+              >{{ source.label }}</a>
             </li>
           </ul>
         </section>
       </nav>
-      <div class="grid-picker__images" v-if="current?.images.length">
-        <img
-          v-for="image in current.images"
+      <div v-if="current">
+        <h3 class="grid-picker__title">{{ current.label }}</h3>
+        <div class="grid-picker__images">
+          <img
+            v-for="image in current.images"
           :key="image.id"
-          :src="imageUrl(image, 'thumbnail')"
+          :src="imageUrl(image, 'small')"
           height="300"
           width="300"
           loading="lazy"
-          @click="emit('select', { image_id: image.id, ...current.selection })"
-        >
+            @click="emit('select', { image_id: image.id, ...current.selection })"
+          >
+        </div>
       </div>
-      <p class="grid-picker__empty" v-else>Keine Bilder vorhanden.</p>
     </div>
   </div>
 </template>

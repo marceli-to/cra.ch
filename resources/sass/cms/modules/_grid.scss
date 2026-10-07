@@ -400,35 +400,32 @@
   }
 
   a {
-    align-items: baseline;
     border-radius: 2px;
-    color: $color-dark;
-    display: flex;
+    color: $color-dark-grey;
+    display: block;
     font-size: 14px;
-    gap: 12px;
-    justify-content: space-between;
     line-height: 1.3;
-    padding: 6px 8px;
     margin-left: -8px;
+    padding: 6px 8px;
     text-decoration: none;
+    transition: background-color .1s ease-out, color .1s ease-out;
 
     &:hover {
-      background-color: $color-light;
+      color: $color-dark;
     }
 
     &.is-active {
       background-color: $color-light;
-      text-decoration: underline;
-      text-underline-offset: 4px;
+      color: $color-dark;
     }
   }
 }
 
-.grid-picker__count {
-  color: $color-medium-grey;
-  flex: none;
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
+.grid-picker__title {
+  @include font-regular();
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 6px 0 16px;
 }
 
 .grid-picker__images {
@@ -437,12 +434,15 @@
   gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
 
+  // Whole image (plans, sections) on a light square
   img {
     aspect-ratio: 1;
+    background-color: $color-light;
     cursor: pointer;
     display: block;
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 6px;
     outline: $border-width solid transparent;
     outline-offset: 2px;
     transition: outline-color .1s ease-out;

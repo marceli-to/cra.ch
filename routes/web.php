@@ -40,6 +40,7 @@ Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page
 // Images
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);
 Route::get('/img/thumbnail/{filename}', [ImageController::class, 'thumbnail']);
+Route::get('/img/small/{filename}', [ImageController::class, 'small']);
 Route::get('/img/crop/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'legacyCrop']);
 Route::get('/img/{filename}', [ImageController::class, 'show']);
 
