@@ -3,8 +3,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\ImageResizer;
 
 class Media
 { 
@@ -70,19 +69,22 @@ class Media
     $name = $this->sanitize(trim($file->getClientOriginalName()), $this->force_lowercase);
     $filename = uniqid()  . '_' . $name;
     $file->move($this->upload_path, $filename);
-    $filetype = File::extension($this->upload_path . $filename);
-    $filesize = File::size($this->upload_path . DIRECTORY_SEPARATOR . $filename);
+    $path = $this->upload_path . DIRECTORY_SEPARATOR . $filename;
+    $filetype = File::extension($path);
     $orientation = null;
     $ratio = null;
 
     if (in_array(strtolower($filetype), $this->image_types))
     {
-      // Create a new ImageManager instance with the GD driver
-      $manager = new ImageManager(new Driver());
-      $img = $manager->read($this->upload_path . DIRECTORY_SEPARATOR . $filename);
-      $orientation = $img->width() > $img->height() ? 'landscape' : 'portrait';
-      $ratio = $img->width() . 'x' . $img->height();
+      // Scale down oversized originals, then read the final size
+      $resizer = app(ImageResizer::class);
+      $resizer->resize($path, config('images.max_edge'));
+      [$width, $height] = $resizer->dimensions($path);
+      $orientation = $width > $height ? 'landscape' : 'portrait';
+      $ratio = $width . 'x' . $height;
     }
+
+    $filesize = File::size($path);
 
     return [
       'name' => $filename, 

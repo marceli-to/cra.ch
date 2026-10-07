@@ -4,10 +4,10 @@
   <div v-if="isFetched" class="is-loaded">
     <div class="form-row">
       <image-upload
-        :restrictions="'jpg, png | max. 16 MB'"
+        :restrictions="'jpg, png | max. 30 MB, 60 Megapixel'"
         :maxFiles="99"
-        :maxFilesize="32"
-        :acceptedFiles="'.png,.jpg'"
+        :maxFilesize="30"
+        :acceptedFiles="'.png,.jpg,.jpeg'"
       ></image-upload>
     </div>
     <div class="form-row">

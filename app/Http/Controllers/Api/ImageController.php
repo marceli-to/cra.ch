@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use MarceliTo\ImageCache\Facades\ImageCache;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -174,11 +175,11 @@ class ImageController extends Controller
   /**
    * Upload an image
    * 
-   * @param  Request $request
+   * @param  ImageUploadRequest $request
    * @return \Illuminate\Http\Response
    */
 
-  public function upload(Request $request)
+  public function upload(ImageUploadRequest $request)
   { 
     $media = (new Media(['force_lowercase' => false]))->store($request);
     return response()->json($media);

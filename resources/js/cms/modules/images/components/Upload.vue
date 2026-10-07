@@ -30,7 +30,7 @@ export default {
     return {
       dropzoneConfig: dropzoneConfig,
       messages: {
-        uploadError: 'Invalid format or file to big!'
+        uploadError: 'Ungültiges Format oder Datei zu gross.'
       }
     };
   },
@@ -44,8 +44,13 @@ export default {
   methods: {
 
     complete(image) {
-      if (image.status == "error" && image.accepted == false) {
-        this.$notify({ type: "error", text: this.messages.uploadError });
+      if (image.status == "error") {
+        let message = this.messages.uploadError;
+        try {
+          message = JSON.parse(image.xhr.response).error || message;
+        } 
+        catch (e) {}
+        this.$notify({ type: "error", text: message, duration: 8000 });
       } 
       else {
         let response = JSON.parse(image.xhr.response);

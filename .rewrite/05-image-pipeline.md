@@ -41,6 +41,39 @@ renditions came from a bigger limit. **Before relying on Glide:**
    unbounded image, and warm the renditions with `images:warm` from the CLI
    (higher memory limit) rather than on first page view.
 
+## Done 2026-10-07: cap originals, stricter uploads
+
+On the current Laravel 11 code, so it can go live before the rework.
+
+- `config/images.php`: `max_edge` 6000 (env `IMAGES_MAX_EDGE`), uploads
+  jpg/jpeg/png, max 30 MB, max 60 MP.
+- `App\Services\ImageResizer`: dimensions from the header (EXIF rotation
+  applied, no decoding), in-place scale-down via a temp file. Imagick when
+  loaded (keeps ICC/EXIF, resets orientation, outside PHP's memory_limit),
+  GD otherwise.
+- **`php artisan images:resize [--max=] [--file=*] [--dry-run]`**: scales
+  originals above `max_edge`, copies the untouched file to
+  `storage/app/originals/` once (a second run never overwrites it), scales
+  `coords_*` of every record with that name (incl. soft-deleted) and
+  updates `ratio`/`size`, deletes the file's image-cache renditions.
+  Safe to rerun; run it again right before go-live.
+- Uploads: `ImageUploadRequest` (bail; extension **and** content must be
+  jpg/png; size; megapixels read from the header before anything decodes
+  it), German messages, 422 with `error` for Dropzone. `Media::store`
+  scales down on upload, then records ratio/orientation of the stored file.
+- Admin uploader: shows the server's message; previously a rejected upload
+  was passed on to `store()` as if it were an image.
+- Tests: `ImageUploadTest` (7), `ResizeImagesTest` (3).
+
+On the production snapshot: 34 of 448 originals over 6000 px, 233 MB →
+see `06-progress.md`. Crop of the 15894 px section before/after: identical
+(RMSE 0.014). Fully grey images are written as greyscale JPEGs by
+ImageMagick (saturation 0, profiles kept) — harmless.
+
+Production before running it: `php -m | grep imagick` (else GD with
+`--memory`), and PHP `upload_max_filesize`/`post_max_size` ≥ 30M for the
+new upload limit.
+
 ## Target
 
 - Port oxid's image controller / `IsImage` / `<x-image>`:
