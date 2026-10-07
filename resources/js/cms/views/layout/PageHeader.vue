@@ -38,10 +38,13 @@
     <header class="user-header">
       <span>
         <strong>{{user}}</strong><br>
-        <a href="/logout" class="feather-icon feather-icon--prepend">
+        <a href="javascript:;" @click="logout()" class="feather-icon feather-icon--prepend">
           <log-out-icon size="14"></log-out-icon>
           <span>Logout</span>
         </a>
+        <form method="POST" action="/logout" ref="logout" hidden>
+          <input type="hidden" name="_token" :value="csrfToken">
+        </form>
       </span>
       <a href="javascript:;" @click="toggleMenu()" class="feather-icon ">
         <arrow-right-icon size="24"></arrow-right-icon>
@@ -100,13 +103,19 @@ export default {
 
 	data() {
 		return {
-			menuVisible: false
+			menuVisible: false,
+			csrfToken: document.head.querySelector('meta[name="csrf-token"]').content,
 		}
   },
   
 	methods: {
 		toggleMenu() {
 			this.menuVisible = this.menuVisible ? false : true;
+		},
+
+		// POST, so another site can't log you out with a link
+		logout() {
+			this.$refs.logout.submit();
 		}
   },
 

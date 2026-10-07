@@ -86,15 +86,29 @@ class AuthTest extends TestCase
         $this->get('/administration')->assertForbidden();
     }
 
-    public function testLogoutByGetAndPost()
+    public function testLogoutOnlyByPost()
     {
         $user = $this->admin();
 
-        $this->actingAs($user)->get('/logout')->assertRedirect('/');
-        $this->assertGuest();
+        $this->actingAs($user)->get('/logout')->assertStatus(405);
+        $this->assertAuthenticatedAs($user);
 
         $this->actingAs($user)->post('/logout')->assertRedirect('/');
         $this->assertGuest();
+    }
+
+    public function testResetMailIsGerman()
+    {
+        $user = $this->admin();
+        $mail = (new \Illuminate\Auth\Notifications\ResetPassword('abc'))->toMail($user);
+        $html = (string) $mail->render();
+
+        $this->assertSame('Passwort zurücksetzen', $mail->subject);
+        $this->assertSame('Passwort zurücksetzen', $mail->actionText);
+        $this->assertStringContainsString('Dieser Link ist 60 Minuten gültig.', $html);
+        $this->assertStringContainsString('Freundliche Grüsse', $html);
+        $this->assertStringContainsString('Falls der Button «Passwort zurücksetzen» nicht funktioniert', $html);
+        $this->assertStringNotContainsString('Reset', $html);
     }
 
     public function testForgotPasswordSendsTheResetMail()

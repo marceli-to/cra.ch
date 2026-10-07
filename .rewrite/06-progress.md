@@ -143,8 +143,7 @@ whether the server needs it).
 ### Step 4: own login (2026-10-07)
 
 - `App\Http\Controllers\AuthController`: login (5 failed attempts per
-  e-mail + IP → one-minute lockout, as `ThrottlesLogins`), logout (POST,
-  and GET because the admin header links to `/logout`), forgot password
+  e-mail + IP → one-minute lockout, as `ThrottlesLogins`), logout, forgot password
   (`throttle:6,1`), reset (min. 8 characters, confirmed; logs in and goes
   to `/administration` — laravel/ui went to `/`). Same URLs, route names
   and Blade views as before.
@@ -158,10 +157,11 @@ whether the server needs it).
   temporary admin user (removed): wrong password message, login → admin →
   logout, forgot password → mail (to the log) → link → reset → admin →
   login with the new password.
-- Unchanged from before, worth a look later: the reset mail is Laravel's
-  English default ("Reset your password"); a `lang/de.json` would
-  translate it. GET `/logout` can be triggered cross-site; the Vue 3 admin
-  should POST instead.
+- Follow-up (2026-10-07): the reset mail is German
+  (`resources/lang/de.json`: subject, lines, button, greeting, footer).
+  Logout is POST only: the admin header submits a hidden form with the CSRF
+  token; GET `/logout` is a 405. Clicked through in a browser: login → menu
+  → Logout → home, admin redirects to login.
 
 ### Found on the way: gallery with an empty first slot (live bug)
 

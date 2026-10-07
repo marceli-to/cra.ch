@@ -26,8 +26,7 @@ Route::middleware('guest')->group(function () {
   Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
-// The admin header links to GET /logout
-Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Frontend - Home
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
