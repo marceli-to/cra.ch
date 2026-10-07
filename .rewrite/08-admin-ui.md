@@ -1,5 +1,8 @@
 # Admin UI refresh (decided 2026-10-07, `04` #5)
 
+> **Done 2026-10-07** with the port, see `06-progress.md` → "Admin"
+> (without the font-weight change and the shared card).
+
 As oxid `4dfc989`, `5f77c53`, `8c0b175`, `d787c01`, `adfd57a`, `2457ad4`:
 
 - Phosphor (light) icons — **needed anyway**, `vue-feather-icons` is Vue 2

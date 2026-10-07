@@ -3,7 +3,7 @@
 Survey done **2026-10-07** against commit `e6c0bae` (branch `master`, clean tree).
 Written so the next session can skip re-deriving all of this.
 
-**Status (2026-10-07): backend and images done, frontend not started.**
+**Status (2026-10-07): backend, images, public site and admin done; review and deploy left.**
 Start at `06-progress.md` → "Where things stand".
 
 Modelled on the rework of **oxid.ch** (`.rewrite/` on branch

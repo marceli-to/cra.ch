@@ -2,7 +2,8 @@
 
 ## Where things stand (handover, 2026-10-07)
 
-**Backend, images and public site: done. Admin: not started.**
+**Backend, images, public site and admin: done.** Left before go-live:
+review in the browser by the user, the open items below, deploy.
 
 - Branch `rework/laravel-13-vue-3`, pushed to `origin` (tracking,
   2026-10-07), on top of `e22f376` (= `origin/master` = production). `master` stays untouched until go-live (user's decision);
@@ -12,47 +13,20 @@
   login (`AuthController`), 111 PHPUnit tests (`php artisan test`).
 - Backend on **action classes** (`app/Actions/<Module>/…Action`,
   `execute()`), thin controllers, request classes for every write; see
-  "Backend structure". The API's responses are unchanged for the Vue 2
-  admin.
-- Public site: built with **Vite 8** (`npm run build` → `public/build`,
-  committed; `npm run dev` for the dev server). JS is vanilla ES modules
-  (13.8 KB), own lightbox instead of fancyBox, no jQuery.
-- Admin is still **Vue 2 + Laravel Mix** (`npm run admin:build` after
-  admin changes, built files committed; the committed bundle matches a
-  fresh build). Its error handling works since `dfb794b` (one axios
-  instance).
+  "Backend structure".
+- **One Vite build for site and admin** (`npm run build` → `public/build`,
+  committed; `npm run dev` for the dev server). Public JS is vanilla ES
+  modules (13.8 KB), own lightbox. Admin is **Vue 3** (`<script setup>`),
+  see "Admin". `npm audit` clean.
 
-### Next: the admin (start here in a new session)
+### Next
 
-The only big step left before go-live. Inputs for it:
+1. The user reviews the admin (QA login on the scratch DB, see below).
+2. Open items (not code), below.
+3. Deploy (see "Deploy notes").
 
-- "Backend structure" → "Not done now": what the API port should change
-  (JSON resources, REST-ier routes instead of GETs that write, upload
-  CSRF, dead admin modules, `.then()` without `.catch()`).
-- Keep the request format the forms rely on, or replace it together:
-  422 `errors: {field: [{field, error}]}` (`AdminRequest`).
-- Check every step with `php artisan test` (111 tests, `tests/Feature/Api`
-  covers every write endpoint) and, for unchanged responses,
-  `.rewrite/tools/snapshot.php` before/after.
-- For the admin in a browser: PHP server with
-  `SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8765` (see Gotchas); scratch DB
-  `cristinarutz_qa` (copy of `cristinarutz_prod`, QA admin
-  `qa@example.invalid` / `qa-pass-123`) for anything that writes.
-
-Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
-
-1. ~~Public site: Vite, then JS without jQuery~~ (done 2026-10-07, see
-   "Public site JS").
-2. Admin to Vite + Vue 3 in one go (`03`): `<script setup>`, composables
-   for the 35 mixins, oxid's uploader / notifications / SortableJS /
-   Phosphor icons, vue-router 4, `lib/http.js`, Tiptap 3 instead of
-   TinyMCE 7 (8 forms; run oxid's `tiptap-roundtrip.mjs` over the stored
-   HTML first), cropper v2. Grid builder (`modules/grid/Index.vue`,
-   1,150 LOC) last. Uploader must send the CSRF token, then drop the
-   `validateCsrfTokens(except:)` for the image upload route in
-   `bootstrap/app.php`. Login could move into the SPA as in oxid (JSON
-   `AuthController` there), or stay Blade.
-3. Admin UI refresh (`08`, decided yes) while porting.
+Possible follow-ups, not needed for go-live (see "Admin" → "Not done"):
+JSON resources and REST-ier routes for the API, Sass `@import` → `@use`.
 
 Copy building blocks from oxid
 (`github.com/jamon-marcel/oxid.ch`, branch `rework/laravel-13-vue-3`;
@@ -181,6 +155,10 @@ structure").
 was broken because the old DB referenced replaced files). Fresh 11:04 dump
 identical to the 08:16 one. `npm run build` and `npm run admin:build`
 rerun: output unchanged from the committed build.
+
+2026-10-07: admin on Vue 3 + Vite, with the UI refresh (see "Admin").
+Validation errors in Laravel's default format; upload CSRF exemption gone;
+login background. 111 tests.
 
 ## Backend
 
@@ -424,8 +402,82 @@ See `05-image-pipeline.md` ("Done 2026-10-07" sections).
 
 ## Admin
 
-Not started (Vue 2). Changes so far on the Vue 2 admin: uploader shows the
-server's error message; logout posts a form. Rebuilt with Mix.
+### Vue 3 + Vite (2026-10-07)
+
+Ported in one go (Vue 2.7 + Mix → Vue 3.5 + Vite 8, `resources/js/cms`),
+building blocks from oxid, look kept from cristinarutz's own admin Sass
+(`resources/sass/cms`, its markup classes) with the refresh of `08`.
+
+- **Structure**: `app.js`, `App.vue`, `router.js` (vue-router 4, lazy
+  routes, forms get `type` as a prop), `lib/` (`http.js`: one axios
+  instance, XSRF cookie, error → notification, 401/419 → `/login`;
+  `notify.js`, `images.js`, `utils.js`), `composables/` (`useListing`,
+  `useResourceForm`, `useOrder`, `useImages`), `components/ui/`
+  (oxid's `Lightbox`, `Uploader`, `Tabs`, `Toggle`, `SortableList`,
+  `Notifications`, Tiptap `editor/`; own `ContentHeader`, `ContentFooter`,
+  `ListActions`, `AddButton`), `components/images/ImageManager.vue`,
+  `components/grid/` (grid builder), `views/<module>/{Index,Form}.vue`.
+  33 mixins, Vuex, vue-axios(-interceptors), vue-notification,
+  vue-feather-icons, vue2-dropzone, vuedraggable, TinyMCE (self-hosted) and
+  all their files are gone.
+- **Grid builder**: the 1,150-line template (one block per layout) is a
+  table now (`components/grid/layouts.js`: area + aspect ratio + "can hold
+  an article" per slot, layouts per owner); `Grid.vue` + `GridItem.vue`,
+  pickers in a `Lightbox` (`ImagePicker`, `ArticlePicker`), the layout
+  sketches (`LayoutIcon.vue`) unchanged.
+- **Editor**: Tiptap 3 with TinyMCE's toolbar (undo/redo, Überschrift 1/2,
+  bold, bullet list, superscript, "Trennung verhindern" =
+  `span.no-word-break`, link dialog, remove formatting). Dropped: the
+  source view and "Unterstrichen" (`span.underline-static`, no CSS on the
+  site, unused in content). `.rewrite/tools/tiptap-roundtrip.mjs` over all
+  84 stored values (`.rewrite/data/richtext.json`): 3 differ, all
+  cosmetic (bold/no-word-break spans nested the other way round, a pasted
+  `font-family: Gotham` span dropped); text, links, breaks unchanged.
+  A form saved without touching an editor sends its HTML unchanged.
+- **Images**: oxid's uploader (one by one, progress, the API's reason on
+  rejection) **sends the CSRF token**; the `validateCsrfTokens(except:)`
+  for `api/image/upload` is gone. Edit (caption) and cropper (formats per
+  form, "Frei") in a `Lightbox`; vue-advanced-cropper 2. Grid and preview
+  images use `/img/crop/{name}/1500?c={coords}` — the coords in the query
+  so the cached 301 changes with a re-crop.
+- **API**: unchanged URLs and response shapes (forms unwrap `{contact: …}`
+  via `key`). Validation errors are **Laravel's default** now
+  (`errors: {field: [message]}`), for the admin requests and the upload
+  (the Dropzone `error` key is gone); tests adjusted.
+- **Dead code not ported**: modules `files`, `links`, `videos`,
+  `galleries`; the dashboard and the two overview pages (Startseite,
+  Projekte & Kategorien); `Chip`, `Pill`, `Separator`, `RadioButton`;
+  the diary list's call to the non-existent `/api/diarys/order`; the
+  unused "Vorschaubild" star (`hasPreviewState` was never set). Dead Sass
+  partials (cards, chip, pills, collapsible, widgets, pagination, overlays,
+  dropzone, datepicker, sidebar, `btn-danger`) and the fonts' `.eot`/`.svg`.
+- **Refresh (`08`)**: Phosphor icons (light); 1px lines
+  (`$border-width`); menu with sections (Startseite: Layout/Artikel,
+  Projekte: Projekte/Kategorien, Tagebuch, Leistungen, Über uns:
+  Text/Team, Kontakt) — Team was missing from the old menu — with the
+  current page underlined and a close button; yes/no as toggles; list
+  rows labelled with their text instead of "Kontakt"/"Leistungen";
+  `/administration` lands on the project list; login with a random
+  landscape image of a published project as background
+  (`AuthController::splash()`). Login stays a Blade page.
+  Not applied from `08`: regular weight for buttons/labels/tabs (the
+  admin's own type was kept) and oxid's one card for images and files
+  (there are no files here; images keep the upload tiles).
+- Verified in Chromium on `cristinarutz_qa`: every page renders without
+  console errors (19 routes); project edit/save (new image attached, texts
+  unchanged in the DB), validation (field + tab + notice), upload with
+  CSRF, crop saved, list toggle, resume create (back to the member's
+  list), grid: image picker (project; home: projects, diary, pages),
+  article picker, reset slot, add/delete row, sort view; logout; login
+  background. Not tested by hand: drag ordering (SortableList as in oxid),
+  Firefox/Safari.
+
+Not done (not needed for go-live):
+
+- JSON resources / REST-ier routes (toggles and project copy are GETs that
+  write; `image/state/{id}`, `resumes/{teamMember}` vs `resume/{id}`).
+- Sass still on `@import` (deprecation warnings silenced).
+- Grid rows added get `order = -1`, so they appear first (as before).
 
 ## Public site JS
 
@@ -486,8 +538,8 @@ server's error message; logout posts a form. Rebuilt with Mix.
   against fancyBox 3 at 1440 and 390 px (same caption and button
   positions, image sizes as above); all interactions in Chromium and
   WebKit, no console errors. Not tested: Firefox, real devices.
-- `npm audit` still lists advisories, all in the Mix/webpack toolchain of
-  the Vue 2 admin; they go with the admin port.
+- `npm audit` listed advisories in the Mix/webpack toolchain of the
+  Vue 2 admin; gone with the admin port (now clean).
 
 ## Tests
 
@@ -501,7 +553,8 @@ admin GET on prod data, for before/after diffs), `qa/` (Playwright).
 ## Deploy notes
 
 Order on the server (SSH + `git pull`, as oxid; built assets committed —
-`public/build` for the site, `public/assets/{css,js}/cms` for the admin):
+`public/build` for site and admin; the old `public/assets/js/cms` and
+`public/assets/css/cms/app.css` are deleted by the pull):
 
 1. Snapshot the production DB and `storage/`.
 2. Prepare `.env` (below), check Imagick and the PHP upload limits.
@@ -511,7 +564,7 @@ Order on the server (SSH + `git pull`, as oxid; built assets committed —
 6. `php artisan optimize:clear && php artisan optimize`
 7. `php artisan images:warm` (a few minutes; AVIF is slow to encode)
 8. Delete `storage/app/public/cache/` (image-cache's old renditions, 249 MB)
-9. Check: login, admin, a project page, an image upload.
+9. Check: login, admin, a project page, an image upload, a crop.
 
 Details:
 

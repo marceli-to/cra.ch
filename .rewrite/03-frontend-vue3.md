@@ -1,5 +1,9 @@
 # Admin: Vue 2 → Vue 3, Mix → Vite
 
+> **Done 2026-10-07**, see `06-progress.md` → "Admin". Deviations: the
+> admin keeps its own Sass and markup (oxid's JS building blocks only);
+> login stays Blade; the API was not reshaped.
+
 ## Target shape (as in oxid/luvo today)
 
 `<script setup>` throughout, composables instead of the 33 mixins,
