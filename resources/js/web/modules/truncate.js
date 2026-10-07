@@ -1,53 +1,32 @@
-var Truncate = (function() {
-	
-	// selectors
-	var selectors = {
-    html:      'html',
-    body:      'body',
-    btnMore:   '[data-more]',
-    btnLess:   '[data-less]',
-  };
+// <x-truncated-text>: preview, "mehr" link, then the full text with a
+// "weniger" link at its end
+const selectors = {
+  btnMore: '[data-more]',
+  btnLess: '[data-less]',
+};
 
-  var classes = {
-    active: 'is-active',
-    visible: 'is-visible',
-    touched: 'is-touched',
-  };
+const hidden = 'is-hidden';
 
-  // Init
-  var _initialize = function() {
-    _bind();
-  };
+const isDiv = (el) => el?.tagName === 'DIV';
 
-  // Bind events
-  var _bind = function() {
-
-    $(selectors.btnMore).on('click', function(e) {
-      $(this).hide();
-      $(this).prev('div').addClass('is-hidden');
-      $(this).next('div').removeClass('is-hidden');
+export function init() {
+  document.querySelectorAll(selectors.btnMore).forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.style.display = 'none';
+      if (isDiv(btn.previousElementSibling)) btn.previousElementSibling.classList.add(hidden);
+      if (isDiv(btn.nextElementSibling)) btn.nextElementSibling.classList.remove(hidden);
     });
+  });
 
-    $(selectors.btnLess).on('click', function(e) {
-      $(this).parent('div').addClass('is-hidden');
-      $(this).parent('div').prev('a').show();
-      $(this).parent('div').prev('a').prev('div').removeClass('is-hidden');
+  document.querySelectorAll(selectors.btnLess).forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const full = btn.parentElement;
+      if (!isDiv(full)) return;
+      full.classList.add(hidden);
+      const more = full.previousElementSibling;
+      if (more?.tagName !== 'A') return;
+      more.style.display = '';
+      if (isDiv(more.previousElementSibling)) more.previousElementSibling.classList.remove(hidden);
     });
-  };
-
-
-  /* --------------------------------------------------------------
-    * RETURN PUBLIC METHODS
-    * ------------------------------------------------------------ */
-
-  return {
-    init:  _initialize,
-  };
-	
-})();
-
-// Initialize
-$(function() {
-  Truncate.init();
-});
-
+  });
+}

@@ -1,0 +1,157 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/lightbox
+ * -----------------------------------------------------------------------------
+ *
+ * Gallery overlay, see js/web/modules/lightbox.js
+ */
+
+html.has-lightbox {
+  overflow: hidden;
+}
+
+a[data-lightbox] {
+  &:after {
+    display: none !important;
+  }
+}
+
+.lightbox {
+  background-color: $color-white;
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  opacity: 0;
+  position: fixed;
+  touch-action: pan-y pinch-zoom;
+  transition: opacity .366s ease;
+  z-index: 99992;
+
+  &.is-open {
+    opacity: 1;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Image area plus the arrows, above the caption
+.lightbox__main {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+// Images are never scaled up, as with fancyBox
+.lightbox__stage {
+  inset: 44px 60px 0 60px;
+  position: absolute;
+
+  @include bp-sm() {
+    left: 90px;
+    right: 90px;
+  }
+
+  @include bp-xl() {
+    left: 120px;
+    right: 120px;
+  }
+
+  img {
+    inset: 0;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity .6s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+
+    &.is-current {
+      opacity: 1;
+    }
+  }
+}
+
+.lightbox__caption {
+  color: $color-black;
+  @include font-book();
+  @include font-size($fs-base);
+  padding: 22px;
+  text-align: center;
+}
+
+.lightbox__close,
+.lightbox__prev,
+.lightbox__next {
+  @include background-default();
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.lightbox__close {
+  background-image: url($url-icons + 'cross.svg');
+  background-size: cover;
+  height: 30px;
+  right: 11px;
+  top: 11px;
+  width: 30px;
+
+  @include bp-md() {
+    right: 22px;
+    top: 22px;
+  }
+
+  @include bp-lg() {
+    right: 44px;
+    top: 44px;
+  }
+}
+
+.lightbox__prev,
+.lightbox__next {
+  height: 39px;
+  // Centred on the stage, which starts 44px down
+  top: calc(50% + 22px - 20px);
+  width: 21px;
+
+  &.is-inactive {
+    cursor: default;
+    opacity: 0.2;
+  }
+}
+
+.lightbox__next {
+  background-image: url($url-icons + 'chevron-next.svg');
+  background-position: center right;
+  right: 11px;
+
+  @include bp-md() {
+    right: 22px;
+  }
+
+  @include bp-lg() {
+    right: 44px;
+  }
+}
+
+.lightbox__prev {
+  background-image: url($url-icons + 'chevron-prev.svg');
+  background-position: center left;
+  left: 11px;
+
+  @include bp-md() {
+    left: 22px;
+  }
+
+  @include bp-lg() {
+    left: 44px;
+  }
+}

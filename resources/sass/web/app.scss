@@ -44,6 +44,7 @@
 @import 'components/headings/h3';
 @import 'components/grids/layout';
 @import 'components/grids/gallery';
+@import 'components/lightbox';
 @import 'components/links';
 @import 'components/lists';
 @import 'components/logo';
@@ -80,9 +81,4 @@
 @import 'views/project';
 @import 'views/service';
 @import 'views/worklist';
-
-// Vendor
-// @import 'vendor/fancybox';
-@import 'vendor/fancybox/fancybox';
-@import 'vendor/fancybox/fancybox-custom';
 

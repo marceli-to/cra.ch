@@ -1,5 +1,10 @@
 # Public site JS: jQuery → vanilla ES modules
 
+*Done 2026-10-07; details and verification in `06-progress.md`, "Public
+site JS". Instead of `@fancyapps/ui` v5: an own lightbox with fancyBox 3's
+look (no licence question). Lazy loading stays vanilla-lazyload (npm), as
+`<x-image>` emits `data-srcset`.*
+
 Separate from the rework, as in oxid (`08-frontend-js.md` there): shares only
 the Vite migration and can be done before, after, or not at all.
 

@@ -10,6 +10,7 @@ const base = 'http://127.0.0.1:8765';
   for (const w of [1440, 390]) {
     const ctx = await b.newContext({ viewport: { width: w, height: 900 } });
     const p = await ctx.newPage();
+    if (process.env.REF) { await p.route("**/build/assets/app-*.css", r => r.fulfill({ path: process.env.REF + "/app.css", contentType: "text/css" })); await p.route("**/build/assets/app-*.js", r => r.fulfill({ path: process.env.REF + "/app.js", contentType: "text/javascript" })); }
     const errs = [];
     p.on('pageerror', e => errs.push(e.message));
     p.on('console', m => m.type() === 'error' && errs.push(m.text()));
@@ -17,9 +18,9 @@ const base = 'http://127.0.0.1:8765';
     for (const path of pages) {
       await p.goto(base + path, { waitUntil: 'networkidle' });
       // scroll through so lazy images load
-      await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } window.scrollTo(0, 0); });
+      await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 400) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 250)); } window.scrollTo(0, 0); });
       await p.waitForLoadState('networkidle');
-      await p.waitForTimeout(300);
+      await p.waitForTimeout(2000);
       await p.screenshot({ path: `${out}/${w}${path.replace(/\//g, '_') || '_'}.png`, fullPage: true });
     }
     console.log(w, 'errors:', errs.length ? errs : 'none');

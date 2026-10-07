@@ -1,62 +1,40 @@
-(function () {
+const classes = {
+  active: 'is-active',
+  visible: 'is-visible',
+};
 
-  const classes = {
-    active: 'is-active',
-    visible: 'is-visible',
-    hidden: 'is-hidden'
-  };
+const selectors = {
+  btnToggleInfo: '[data-btn-project-info]',
+  wrapperInfo: '[data-project-info]',
+  browseBtn: '[data-browse-btn]',
+  browsePreview: '[data-browse-preview]',
+};
 
-  const selectors = {
-    btnToggleInfo: '[data-btn-project-info]',
-    wrapperInfo: '[data-project-info]',
-    browseNav: '[data-browse]',
-    browseBtn: '[data-browse-btn]',
-    browsePreview: '[data-browse-preview]',
-  };
+const toggleInfo = (btn) => {
+  btn.classList.toggle(classes.active);
+  document.querySelector(selectors.wrapperInfo).classList.toggle(classes.visible);
+};
 
-  const init = () => {
-    // Get all buttons
-    const btnToggleInfo = document.querySelectorAll(selectors.btnToggleInfo);
+// Hovering the previous/next links shows the project's title
+const showPreview = (btn) => {
+  const preview = document.querySelector(selectors.browsePreview);
+  preview.classList.add(classes.visible);
+  preview.textContent = btn.title;
+};
 
-    // Add event listener to all buttons to toggle info
-    btnToggleInfo.forEach((btn) => {
-      btn.addEventListener('click', function() {
-        toggleInfo(btn);
-      }, false);
-    });
+const hidePreview = () => {
+  const preview = document.querySelector(selectors.browsePreview);
+  preview.classList.remove(classes.visible);
+  preview.textContent = '';
+};
 
-    // Get all browse buttons
-    const browseBtn = document.querySelectorAll(selectors.browseBtn);
+export function init() {
+  document.querySelectorAll(selectors.btnToggleInfo).forEach((btn) => {
+    btn.addEventListener('click', () => toggleInfo(btn));
+  });
 
-    // Add event listener (mouse over, mouse out) to all browse buttons
-    browseBtn.forEach((btn) => {
-      btn.addEventListener('mouseover', function() {
-        showPreview(btn);
-      }, false);
-      btn.addEventListener('mouseout', function() {
-        hidePreview(btn);
-      }, false);
-    });
-  };
-
-  const toggleInfo = function(btn){
-    btn.classList.toggle(classes.active);
-    const wrapperInfo = document.querySelector(selectors.wrapperInfo);
-    wrapperInfo.classList.toggle(classes.visible);
-  };
-
-  const showPreview = function(btn){
-    const preview = document.querySelector(selectors.browsePreview);
-    preview.classList.add(classes.visible);
-    preview.innerHTML = btn.title;
-  };
-
-  const hidePreview = function(btn){
-    const preview = document.querySelector(selectors.browsePreview);
-    preview.classList.remove(classes.visible);
-    preview.innerHTML = '';
-  };
-
-  init();
-  
-})();
+  document.querySelectorAll(selectors.browseBtn).forEach((btn) => {
+    btn.addEventListener('mouseover', () => showPreview(btn));
+    btn.addEventListener('mouseout', hidePreview);
+  });
+}

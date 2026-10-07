@@ -1,8 +1,6 @@
-import LazyLoad from '../vendor/lazyload';
-(function () {
+import LazyLoad from 'vanilla-lazyload';
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const lazyLoadInstance = new LazyLoad();
-  });
-
-})();
+// <x-image> renders `img.lazy` with data-src and <source data-srcset>
+export function init() {
+  new LazyLoad();
+}

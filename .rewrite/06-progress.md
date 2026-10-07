@@ -2,7 +2,7 @@
 
 ## Where things stand (handover, 2026-10-07)
 
-**Backend and images: done. Frontend: public site on Vite, rest not started.**
+**Backend, images and public site: done. Admin: not started.**
 
 - Branch `rework/laravel-13-vue-3`, local only (**not pushed**, no
   upstream), on top of `e22f376` (= `origin/master` =
@@ -12,8 +12,8 @@
   `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
   login (`AuthController`), 48 PHPUnit tests (`php artisan test`).
 - Public site: built with **Vite 8** (`npm run build` → `public/build`,
-  committed; `npm run dev` for the dev server). Its JS is still jQuery +
-  vendored fancyBox 3 / lazyload / vhcheck, unchanged.
+  committed; `npm run dev` for the dev server). JS is vanilla ES modules
+  (13.8 KB), own lightbox instead of fancyBox, no jQuery.
 - Admin is still **Vue 2 + Laravel Mix** (`npm run admin:build` after
   admin changes, built files committed). Note: a fresh `admin:build`
   now differs slightly from the committed bundle (dependency versions moved
@@ -23,15 +23,8 @@
 
 Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
 
-1. ~~Vite for the public site~~ (done 2026-10-07, see "Public site JS").
-   Next there: jQuery out (only `fancybox.js`, `truncate.js` use it),
-   fancyBox v3 → `@fancyapps/ui` v5 (or oxid's lightbox). Note the footer
-   *also* loads `@fancyapps/ui` 5.0 from jsDelivr, unused (no
-   `Fancybox.bind`); its Sass (`vendor/fancybox/_fancybox.scss`) is v5's,
-   `_fancybox-custom.scss` styles v3's markup. Drop the vendored `vhcheck`
-   (its `--vh-offset` is used nowhere). Keep `data-srcset` lazy loading
-   working (`<x-image>` emits it; vanilla-lazyload in
-   `resources/js/web/vendor`). QA scripts: see "Public site JS".
+1. ~~Public site: Vite, then JS without jQuery~~ (done 2026-10-07, see
+   "Public site JS").
 2. Admin to Vite + Vue 3 in one go (`03`): `<script setup>`, composables
    for the 35 mixins, oxid's uploader / notifications / SortableJS /
    Phosphor icons, vue-router 4, `lib/http.js`, Tiptap 3 instead of
@@ -139,6 +132,8 @@ copy: 4 unpublished → 404, 17 published → 200, none linked from the site.
 Next: the frontend (`03`, `07`).
 
 2026-10-07: public site built with Vite (see "Public site JS").
+
+2026-10-07: public JS without jQuery, own lightbox (see "Public site JS").
 
 ## Backend
 
@@ -308,6 +303,41 @@ server's error message; logout posts a form. Rebuilt with Mix.
   loading, menu, mehr/weniger, project info, lightbox (open, next,
   caption, Esc) and imprint behave the same; no console errors.
 - Bundles: JS 170 KB (gzip 57), CSS 229 KB (gzip 34), as before.
+
+### Without jQuery (2026-10-07)
+
+- Modules are ES modules with `export function init()`; `app.js` imports
+  and calls them (as oxid). jQuery, `bootstrap.js` and the jQuery global
+  are gone; `truncate.js` is vanilla, same DOM steps as before.
+- **Own lightbox** (`modules/lightbox.js`, `components/_lightbox.scss`)
+  instead of fancyBox 3 — no GPL/commercial licence question, no CDN
+  script. Same look: white overlay, the site's cross/chevron icons at the
+  same positions, caption bar with the caption and "N/M", arrows greyed
+  out at the ends (no loop), fade in (366 ms) and crossfade (600 ms),
+  images never upscaled, side margins 60/90/120 px. Same behaviour: one
+  group per page in document order, Esc/arrow keys, swipe, a click beside
+  the image closes. Links: `data-lightbox` (was `data-fancybox="gallery"`).
+  Differences: images stop above the caption bar (fancyBox let tall
+  images run under it, up to 50 px hidden) and the arrows are centred on
+  the image area; the page is scroll-locked while open; buttons are
+  `<button>`s with German labels, focus stays in the dialog and returns
+  to the thumbnail; no mouse-wheel navigation (fancyBox's default) and no
+  drag-follow while swiping.
+- Removed: vendored fancyBox 3 (JS + Sass, and the unused v5 Sass), the
+  unused `@fancyapps/ui` 5 from jsDelivr in the footer, `vhcheck` (its
+  `--vh-offset` was used nowhere), `touch.js` (queried an undefined
+  selector, so it never did anything; no `data-touch` in the markup),
+  `modernizr.js` (none of its classes are used). Vendored lazyload →
+  `vanilla-lazyload` 19 from npm.
+- Bundles: JS 170 → **13.8 KB** (gzip 57 → 4.9), CSS 229 → 217 KB.
+- Verified (`.rewrite/tools/qa/`): computed styles identical to the
+  previous build on 9 pages; screenshots of 13 pages at 1440/390 px
+  pixel-identical; lazy loading loads the same images; lightbox measured
+  against fancyBox 3 at 1440 and 390 px (same caption and button
+  positions, image sizes as above); all interactions in Chromium and
+  WebKit, no console errors. Not tested: Firefox, real devices.
+- `npm audit` still lists advisories, all in the Mix/webpack toolchain of
+  the Vue 2 admin; they go with the admin port.
 
 ## Tests
 
