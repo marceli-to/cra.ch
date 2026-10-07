@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 class ImageController extends Controller
 {
   /**
+   * Models that have images (morphMany/morphOne 'imageable')
+   */
+  private const IMAGEABLE_TYPES = ['About', 'Article', 'Contact', 'Diary', 'Home', 'Project', 'Service'];
+
+  /**
    * Get a list of images
    * 
    * @return \Illuminate\Http\Response
@@ -43,13 +48,25 @@ class ImageController extends Controller
    */
   public function store(Request $request)
   {
+    $request->validate([
+      // A file that was uploaded before, not a path
+      'name' => ['required', 'string', 'regex:/^[^.\/\\\\][^\/\\\\]*$/', function ($attribute, $name, $fail) {
+        if (!Storage::exists('public/uploads/' . $name))
+        {
+          $fail('Die Bilddatei existiert nicht.');
+        }
+      }],
+      'imageable_type' => ['nullable', 'in:' . implode(',', self::IMAGEABLE_TYPES)],
+      'imageable_id' => ['nullable', 'integer', 'required_with:imageable_type'],
+    ]);
+
     $data = $request->all();
 
     // Generate UUID
     $data['uuid'] = \Str::uuid();
 
     // Add imagable id & type
-    $data['imageable_id']   = $request->input('imageable_id') ? $request->input('imageable_id') : NULL;
+    $data['imageable_id']   = $request->input('imageable_type') ? $request->input('imageable_id') : NULL;
     $data['imageable_type'] = $request->input('imageable_type') ? "App\Models\\" . $request->input('imageable_type') : NULL;
 
     // Create image

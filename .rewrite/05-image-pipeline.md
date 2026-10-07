@@ -63,7 +63,12 @@ On the current Laravel 11 code, so it can go live before the rework.
   scales down on upload, then records ratio/orientation of the stored file.
 - Admin uploader: shows the server's message; previously a rejected upload
   was passed on to `store()` as if it were an image.
-- Tests: `ImageUploadTest` (7), `ResizeImagesTest` (3).
+- `ImageController::store` validates: `name` must be a plain file name
+  that exists in `uploads/`; `imageable_type` only About, Article, Contact,
+  Diary, Home, Project, Service (was any string prefixed with
+  `App\Models\`), `imageable_id` an integer. The admin sends neither type
+  nor id today — the owning controller attaches images on save.
+- Tests: `ImageUploadTest` (7), `ResizeImagesTest` (3), `ImageStoreTest` (4).
 
 On the production snapshot: 34 of 448 originals over 6000 px, 233 MB →
 see `06-progress.md`. Crop of the 15894 px section before/after: identical
