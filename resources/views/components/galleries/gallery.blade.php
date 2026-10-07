@@ -1,4 +1,9 @@
 @props(['layout', 'items', 'article' => null, 'view'])
+@php
+  // One entry per slot (0–4), null where a slot is empty: the layouts
+  // address items by slot, not by how many there are
+  $items = collect(range(0, 4))->mapWithKeys(fn ($slot) => [$slot => $items->firstWhere('position', $slot)]);
+@endphp
 <div {{ $attributes->merge(['class' => 'md:grid md:grid-cols-6 grid-gallery-' . $layout]) }}>
   @if ($layout == '1')
     <x-galleries.gallery-1 :items="$items" :view="$view" />
