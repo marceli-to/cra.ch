@@ -1,11 +1,10 @@
-require('./bootstrap');
-require('./vendor/fancybox.js');
-require('./modules/menu.js');
-require('./modules/lazy.js');
-require('./modules/vhcheck.js');
-require('./modules/touch.js');
-require('./modules/fancybox.js');
-require('./modules/project.js');
-require('./modules/truncate.js');
-require('./modules/imprint.js');
-
+import './bootstrap';
+import './vendor/fancybox.js';
+import './modules/menu.js';
+import './modules/lazy.js';
+import './modules/vhcheck.js';
+import './modules/touch.js';
+import './modules/fancybox.js';
+import './modules/project.js';
+import './modules/truncate.js';
+import './modules/imprint.js';

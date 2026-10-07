@@ -2,7 +2,7 @@
 
 ## Where things stand (handover, 2026-10-07)
 
-**Backend and images: done. Frontend: not started.**
+**Backend and images: done. Frontend: public site on Vite, rest not started.**
 
 - Branch `rework/laravel-13-vue-3`, local only (**not pushed**, no
   upstream), on top of `e22f376` (= `origin/master` =
@@ -11,20 +11,27 @@
 - Laravel 13.35 on the slim skeleton, PHP `^8.3` (platform 8.3.0),
   `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
   login (`AuthController`), 48 PHPUnit tests (`php artisan test`).
-- Admin is still **Vue 2 + Laravel Mix** (bundle rebuilt with
-  `npm run production` after admin changes, built files committed). The
-  public site JS is still jQuery + Mix.
+- Public site: built with **Vite 8** (`npm run build` → `public/build`,
+  committed; `npm run dev` for the dev server). Its JS is still jQuery +
+  vendored fancyBox 3 / lazyload / vhcheck, unchanged.
+- Admin is still **Vue 2 + Laravel Mix** (`npm run admin:build` after
+  admin changes, built files committed). Note: a fresh `admin:build`
+  now differs slightly from the committed bundle (dependency versions moved
+  with the Vite install); fine to commit with the next admin change.
 
 ### Next: the frontend
 
 Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
 
-1. Vite for the public site (`07`): oxid's `vite.config.js` with this
-   site's entries (`resources/{sass,js}/web/app.*`), replace `mix()` in
-   the layouts; then jQuery out (only `fancybox.js`, `truncate.js` use it),
-   fancyBox v3 → `@fancyapps/ui` v5 (or oxid's lightbox), drop the vendored
-   `vhcheck` (`scrollTo`/`debounce` are already gone). Keep `data-srcset` lazy loading working
-   (`<x-image>` emits it; vanilla-lazyload in `resources/js/web/vendor`).
+1. ~~Vite for the public site~~ (done 2026-10-07, see "Public site JS").
+   Next there: jQuery out (only `fancybox.js`, `truncate.js` use it),
+   fancyBox v3 → `@fancyapps/ui` v5 (or oxid's lightbox). Note the footer
+   *also* loads `@fancyapps/ui` 5.0 from jsDelivr, unused (no
+   `Fancybox.bind`); its Sass (`vendor/fancybox/_fancybox.scss`) is v5's,
+   `_fancybox-custom.scss` styles v3's markup. Drop the vendored `vhcheck`
+   (its `--vh-offset` is used nowhere). Keep `data-srcset` lazy loading
+   working (`<x-image>` emits it; vanilla-lazyload in
+   `resources/js/web/vendor`). QA scripts: see "Public site JS".
 2. Admin to Vite + Vue 3 in one go (`03`): `<script setup>`, composables
    for the 35 mixins, oxid's uploader / notifications / SortableJS /
    Phosphor icons, vue-router 4, `lib/http.js`, Tiptap 3 instead of
@@ -130,6 +137,8 @@ visitors, logged-in admins can still open them (as oxid `c195334`). Prod
 copy: 4 unpublished → 404, 17 published → 200, none linked from the site.
 
 Next: the frontend (`03`, `07`).
+
+2026-10-07: public site built with Vite (see "Public site JS").
 
 ## Backend
 
@@ -275,7 +284,30 @@ server's error message; logout posts a form. Rebuilt with Mix.
 
 ## Public site JS
 
-Not started.
+### Vite (2026-10-07)
+
+- `vite.config.js` as oxid's (Vite 8.3, laravel-vite-plugin 3.2), entries
+  `resources/sass/web/app.scss` and `resources/js/web/app.js`; the
+  layouts use `@vite`. Mix builds only the admin now (`admin:dev`,
+  `admin:watch`, `admin:build`). Old `public/assets/{css,js}/app.*`
+  deleted.
+- `require` → `import`; `bootstrap.js` sets the jQuery global for
+  fancyBox 3. Vendored libraries unchanged.
+- Sass URLs are absolute (`/assets/img/…`, `/assets/css/fonts/…`) since
+  the CSS now sits in `public/build/assets`.
+- **Found by the comparison:** Vite's CSS step (lightningcss) rewrites the
+  legacy `:-moz-placeholder` / `:-ms-input-placeholder` (Firefox ≤ 18, IE)
+  to `:placeholder-shown`, so their `padding: 0; line-height: 1` hit the
+  empty login inputs. Deleted those rules (and the `::placeholder.is-invalid`
+  ones, invalid CSS that browsers drop) plus the `*zoom: 1` IE hack, so the
+  build needs no `errorRecovery` and fails on broken CSS.
+- Verified with Playwright (`.rewrite/tools/qa/`, Chromium) against the
+  Mix build on prod data: computed styles of every element identical on
+  9 pages (only `0%` vs `0px` in a `background-position`); screenshots of
+  13 pages at 1440/390 px identical apart from lazy-load timing; lazy
+  loading, menu, mehr/weniger, project info, lightbox (open, next,
+  caption, Esc) and imprint behave the same; no console errors.
+- Bundles: JS 170 KB (gzip 57), CSS 229 KB (gzip 34), as before.
 
 ## Tests
 
@@ -287,7 +319,8 @@ production renders in `.rewrite/tools/`.
 
 ## Deploy notes
 
-Order on the server (SSH + `git pull`, as oxid; built assets committed):
+Order on the server (SSH + `git pull`, as oxid; built assets committed —
+`public/build` for the site, `public/assets/{css,js}/cms` for the admin):
 
 1. Snapshot the production DB and `storage/`.
 2. Prepare `.env` (below), check Imagick and the PHP upload limits.
