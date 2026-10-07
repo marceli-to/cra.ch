@@ -32,7 +32,10 @@ CSS bundles byte-identical, admin bundle only lost lodash.
 image-cache replaced by Glide in the same step (image-cache only allows
 Laravel ≤ 11). See "Step 2" below.
 
-Next: `02` step 3 (slim skeleton).
+2026-10-07: `02` step 3 done — slim skeleton, config trimmed to what
+differs from Laravel 13's defaults. See "Step 3" below.
+
+Next: `02` step 4 (own login instead of `laravel/ui`).
 
 ## Backend
 
@@ -102,6 +105,37 @@ whether the server needs it).
 - Tests: `ImageRenditionTest` (8), re-crop clears the cache (1): 23 total.
 - After go-live: delete `storage/app/public/cache/` (image-cache's 249 MB).
 
+### Step 3: slim skeleton (2026-10-07)
+
+- `bootstrap/app.php` (`withRouting` / `withMiddleware` / `withExceptions`),
+  `bootstrap/providers.php` (only `AppServiceProvider`), `public/index.php`
+  and `artisan` as in Laravel 13. Deleted: both kernels, `Exceptions/Handler`,
+  `Auth`/`Event`/`RouteServiceProvider`, and eight middleware classes that
+  only restated the framework's (`CheckRole` stays, alias `role`).
+- Carried over in `bootstrap/app.php`: `api` group in the old order
+  (Sanctum stateful → `throttle:200,1` → bindings); CSRF exemption for
+  `api/image/upload` and `api/file/upload` (Dropzone sends no token);
+  logged-in users on guest pages go to `/administration` (admins) or `/`;
+  `api/*` always answers JSON. `RouteServiceProvider::HOME/DASHBOARD` in the
+  `Auth/*` controllers became literals.
+- Config: 19 files → 6. Kept only the differences: `app` (locale `de`,
+  `AppHelper`/`DateHelper` aliases), `auth` (reset table `password_resets`),
+  `filesystems` (local root `storage/app`, not Laravel 13's
+  `storage/app/private`), plus app-only `images`, `pages`, `seo`. Dropped
+  incl. `sanctum` (package defaults; the old file listed other projects'
+  domains), `cors` (same-origin; listed `/herkulesdesign/csrf-cookie`),
+  `client` (unused since the dead mail class went).
+- Verified against the previous commit in a separate worktree:
+  `route:list` 129 = 129 routes, only App→framework middleware class names
+  changed; global middleware and groups compared; over HTTP on both trees
+  with prod data: CSRF (419 without token, uploads exempt), full admin login
+  → admin → `/api/user` → `/api/projects` → logout with a temporary admin
+  user (removed again) — identical results. Public pages, 21 projects,
+  images, 404 all fine. Tests: `MiddlewareTest` (5) → 28 total.
+- Note: CSRF is skipped under PHPUnit, so the exemption is only checked
+  over HTTP. bcrypt rounds go 10 → 12; existing passwords keep working and
+  are rehashed on next login.
+
 ### Found on the way: gallery with an empty first slot (live bug)
 
 `/projekt/anlage-untere-vogelsangstrasse` returns **500 on production**
@@ -123,6 +157,15 @@ the admin, or remove the row.
 
 ## Deploy notes
 
+- **Production `.env` for Laravel 13** (config files now fall back to the
+  framework's defaults, which changed): set `DB_CONNECTION=mysql`,
+  `SESSION_DRIVER` (cookie, as locally — default is now `database`),
+  `CACHE_STORE=file` (was `CACHE_DRIVER`; default is now `database`),
+  `QUEUE_CONNECTION=sync`, `MAIL_MAILER=smtp`, `LOG_STACK=single,slack` and
+  `LOG_LEVEL=debug` (what the old logging config hard-coded),
+  `SANCTUM_STATEFUL_DOMAINS` with the production host(s), `APP_URL` the
+  exact origin. Remove `CACHE_DRIVER`, `MAIL_DRIVER`, `BROADCAST_DRIVER`,
+  `PUSHER_*`, `MIX_*`. (Local `.env` already done, 2026-10-07.)
 - The image work (`images:resize`, stricter uploads) ships with the rework,
   not separately: `master` stays as it is until go-live (decided
   2026-10-07). On the server, after `composer install` and before
