@@ -79,7 +79,11 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
   `SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8765` (else every API call is 401).
 - Local `.env` already uses the Laravel 13 names (`CACHE_STORE`,
   `LOG_STACK=single,slack`, `LOG_LEVEL=debug`; Pusher/MIX/BROADCAST/
-  MAIL_DRIVER removed). `DB_DATABASE` still points at `cristinarutz`.
+  MAIL_DRIVER removed). `DB_DATABASE=cristinarutz_prod` (switched
+  2026-10-07; before, it pointed at the old `cristinarutz`, so
+  cristinarutz.ch.test referenced files no longer in `uploads`).
+- A second dump from 2026-10-07 11:04 (`cristin4_cristina-07102026.sql`)
+  differs from the 08:16 one only in the header timestamp: no re-import.
 - 3 production users (all admins); passwords unknown. For login tests,
   insert a temporary admin into `cristinarutz_prod` and delete it after.
 
@@ -134,8 +138,8 @@ command and stricter uploads (`05`). Ran on the local copy of production:
 34 files resized, uploads 1.1 GB → 940M; crops verified.
 
 Local setup: `storage/app/public` holds a copy of the production snapshot,
-and the resized result. Use `DB_DATABASE=cristinarutz_prod` for commands
-and `artisan serve` against production data.
+and the resized result. `.env` now uses `DB_DATABASE=cristinarutz_prod`;
+override it per command for the scratch DB (`cristinarutz_qa`).
 
 2026-10-07: `02` step 1 done — dead code removed (see "Backend").
 Smoke test against `cristinarutz_prod`: all public pages 200, 21/21
