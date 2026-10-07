@@ -87,7 +87,7 @@ class ImageResizer
       return null;
     }
 
-    $image = $this->manager()->read($path);
+    $image = $this->manager()->decodePath($path);
 
     if ($image->width() >= $image->height())
     {

@@ -28,7 +28,11 @@ Smoke test against `cristinarutz_prod`: all public pages 200, 21/21
 project pages 200, 30/30 image URLs on a project page 200; public JS and
 CSS bundles byte-identical, admin bundle only lost lodash.
 
-Next: `02` step 2 (Laravel 13).
+2026-10-07: `02` step 2 done — Laravel 13.35 on the old skeleton, with
+image-cache replaced by Glide in the same step (image-cache only allows
+Laravel ≤ 11). See "Step 2" below.
+
+Next: `02` step 3 (slim skeleton).
 
 ## Backend
 
@@ -62,6 +66,41 @@ Left for later steps: the other `Auth/*` controllers and views and the
 `EventServiceProvider` (imports a non-existent listener; goes with the slim
 skeleton, step 3), both TinyMCE folders (Tiptap), `composer.phar` (check
 whether the server needs it).
+
+### Step 2: Laravel 13 + Glide (2026-10-07)
+
+- composer: PHP `^8.3` (platform pinned to 8.3.0), `laravel/framework`
+  13.35, sanctum 4.3, tinker 3, ui 4.6 (until step 4), log-viewer 3.24,
+  model-flags 1.5, sluggable 4, `intervention/image` 4.3, `league/glide`
+  4.1, phpunit 12, collision 8.9, ignition 2.12, Carbon 3 (via the
+  framework). Dropped `marceli-to/image-cache`, `intervention/image-laravel`
+  (and its provider + the dead v2 `Image` facade alias), explicit `guzzle`
+  and `nesbot/carbon`; `config/image.php`, `config/image-cache.php`.
+  **`composer audit`: 0 advisories (was 42).**
+- Intervention 4: `read()` → `decodePath()` in `ImageResizer`.
+- The old skeleton (kernels, providers, `Handler`) still boots on 13;
+  config/route/view caching all work.
+- `App\Http\Controllers\ImageController` + `App\Support\Glide` keep the
+  image-cache URLs and rules: `/img/original/{file}`, `/img/thumbnail/{file}`
+  (300×300 cover), `/img/crop/{file}/{maxSize?}/{coords?}/{ratio?}` (crop,
+  clamped to the image, else centre-crop to ratio; longer side scaled down to
+  maxSize, default 2400, max 2600; never upscales; jpg/png at q75 as
+  Intervention's default). Unknown sizes/coords/templates are 404s.
+  Coords may be decimals (the admin sends the stored values; image-cache
+  answered those with 400, so cropped previews in the admin were broken).
+  Cache in `storage/app/.glide-cache`; `Glide::forget()` on re-crop, delete
+  and `images:resize` (guarded against `..`).
+- **Verified against production:** `.rewrite/tools/image-cache-match.py`
+  maps 1,047 of the 1,049 cached production crops to the URL that made them
+  (by image-cache's md5 of the params); `glide-compare.php` renders those plus
+  the 333 thumbnails from the untouched snapshot. **1,380/1,380 same
+  dimensions, 0 errors**, RMSE median 0.005, max 0.03 (a thumbnail;
+  same framing on inspection — production rendered with GD, local Glide
+  with Imagick). EXIF-rotated photos come out upright, as before.
+- Smoke test (prod data, local copy): all pages 200, 21/21 projects,
+  **581/581 image URLs** used on the site 200.
+- Tests: `ImageRenditionTest` (8), re-crop clears the cache (1): 23 total.
+- After go-live: delete `storage/app/public/cache/` (image-cache's 249 MB).
 
 ### Found on the way: gallery with an empty first slot (live bug)
 

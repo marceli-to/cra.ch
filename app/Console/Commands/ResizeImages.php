@@ -2,6 +2,7 @@
 namespace App\Console\Commands;
 use App\Models\Image;
 use App\Services\ImageResizer;
+use App\Support\Glide;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -47,7 +48,6 @@ class ResizeImages extends Command
       return self::SUCCESS;
     }
 
-    $renditions = $this->renditions();
     $rows = [];
     $bytesBefore = 0;
     $bytesAfter = 0;
@@ -102,7 +102,7 @@ class ResizeImages extends Command
           }
         });
 
-        File::delete($renditions[$name] ?? []);
+        Glide::forget($name);
 
         $rows[] = [$name, "{$oldWidth}×{$oldHeight} → {$newWidth}×{$newHeight}", $this->mb($sizeBefore) . ' → ' . $this->mb($size), $this->usage($records)];
       }
@@ -125,25 +125,6 @@ class ResizeImages extends Command
     }
 
     return $failed ? self::FAILURE : self::SUCCESS;
-  }
-
-  /**
-   * Cached renditions by file name. image-cache stores them under
-   * cache/{template}[/{hash}]/{name}.
-   */
-  private function renditions(): array
-  {
-    $cache = storage_path(config('image-cache.cache_path', 'app/public/cache'));
-
-    if (!File::isDirectory($cache))
-    {
-      return [];
-    }
-
-    return collect(File::allFiles($cache))
-      ->groupBy(fn ($file) => $file->getFilename())
-      ->map(fn ($files) => $files->map(fn ($file) => $file->getPathname())->all())
-      ->all();
   }
 
   private function usage($records): string

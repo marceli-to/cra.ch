@@ -79,6 +79,13 @@ Production before running it: `php -m | grep imagick` (else GD with
 `--memory`), and PHP `upload_max_filesize`/`post_max_size` ≥ 30M for the
 new upload limit.
 
+## Done 2026-10-07: Glide with the old URLs
+
+Came forward into `02` step 2, because image-cache blocks Laravel 13.
+Details and verification in `06-progress.md` ("Step 2"). Still to do from
+the target below: `<x-image>` with real sizes + AVIF/WebP, stored
+dimensions, signed URLs and the redirect of the old shapes, `images:warm`.
+
 ## Target
 
 - Port oxid's image controller / `IsImage` / `<x-image>`:

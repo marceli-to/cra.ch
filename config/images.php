@@ -9,7 +9,7 @@ return [
   |
   | Longest side of a stored original, in pixels. Larger uploads are scaled
   | down on upload; `php artisan images:resize` does the same for existing
-  | files. The largest rendition served is 2600 px (image-cache max_size),
+  | files. The largest rendition served is 2600 px (ImageController::MAX_SIZE),
   | so this leaves room for crops of a part of an image.
   |
   */

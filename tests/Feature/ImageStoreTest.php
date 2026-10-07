@@ -71,6 +71,29 @@ class ImageStoreTest extends TestCase
         $this->assertSame(0, Image::count());
     }
 
+    public function testRecropClearsCachedRenditions()
+    {
+        $name = 'test_image_recrop.jpg';
+        $path = storage_path('app/public/uploads/' . $name);
+        $image = new \Imagick();
+        $image->newImage(800, 600, new \ImagickPixel('#808080'));
+        $image->setImageFormat('jpeg');
+        $image->writeImage($path);
+
+        try {
+            $id = $this->store(['name' => $name])->assertOk()->json('imageId');
+            $this->get("/img/thumbnail/{$name}")->assertOk();
+            $cache = storage_path('app/.glide-cache/uploads/' . $name);
+            $this->assertDirectoryExists($cache);
+
+            $this->putJson("/api/image/coords/{$id}", ['coords_w' => 400, 'coords_h' => 300, 'coords_x' => 0, 'coords_y' => 0])->assertOk();
+            $this->assertDirectoryDoesNotExist($cache);
+        } finally {
+            \App\Support\Glide::forget($name);
+            @unlink($path);
+        }
+    }
+
     public function testRejectsFilesThatWereNotUploaded()
     {
         foreach (['missing.jpg', '../uploads/' . $this->name, '..', '.gitignore', ''] as $name) {
