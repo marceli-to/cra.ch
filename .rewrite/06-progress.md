@@ -1,6 +1,86 @@
 # Progress
 
-## Where things stand
+## Where things stand (handover, 2026-10-07)
+
+**Backend and images: done. Frontend: not started.**
+
+- Branch `rework/laravel-13-vue-3`, local only (**not pushed**, no
+  upstream), on top of `e22f376` (= `origin/master` =
+  production). `master` stays untouched until go-live (user's decision);
+  nothing from the branch is to be cherry-picked there.
+- Laravel 13.35 on the slim skeleton, PHP `^8.3` (platform 8.3.0),
+  `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
+  login (`AuthController`), 48 PHPUnit tests (`php artisan test`).
+- Admin is still **Vue 2 + Laravel Mix** (bundle rebuilt with
+  `npm run production` after admin changes, built files committed). The
+  public site JS is still jQuery + Mix.
+
+### Next: the frontend
+
+Order (see `03-frontend-vue3.md`, `07-frontend-js.md`, `08-admin-ui.md`):
+
+1. Vite for the public site (`07`): oxid's `vite.config.js` with this
+   site's entries (`resources/{sass,js}/web/app.*`), replace `mix()` in
+   the layouts; then jQuery out (only `fancybox.js`, `truncate.js` use it),
+   fancyBox v3 → `@fancyapps/ui` v5 (or oxid's lightbox), drop the vendored
+   `vhcheck` (`scrollTo`/`debounce` are already gone). Keep `data-srcset` lazy loading working
+   (`<x-image>` emits it; vanilla-lazyload in `resources/js/web/vendor`).
+2. Admin to Vite + Vue 3 in one go (`03`): `<script setup>`, composables
+   for the 35 mixins, oxid's uploader / notifications / SortableJS /
+   Phosphor icons, vue-router 4, `lib/http.js`, Tiptap 3 instead of
+   TinyMCE 7 (8 forms; run oxid's `tiptap-roundtrip.mjs` over the stored
+   HTML first), cropper v2. Grid builder (`modules/grid/Index.vue`,
+   1,150 LOC) last. Uploader must send the CSRF token, then drop the
+   `validateCsrfTokens(except:)` for the two upload routes in
+   `bootstrap/app.php`. Login could move into the SPA as in oxid (JSON
+   `AuthController` there), or stay Blade.
+3. Admin UI refresh (`08`, decided yes) while porting.
+
+Copy building blocks from oxid
+(`github.com/jamon-marcel/oxid.ch`, branch `rework/laravel-13-vue-3`;
+a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<path>`).
+
+### Local environment
+
+- `.rewrite/data/` (gitignored): production DB dump + `storage/app/public`
+  snapshot (untouched originals).
+- MySQL 5.7 on 127.0.0.1:3306 (DBngin; `mysql -uroot -h127.0.0.1 -P3306`):
+  - `cristinarutz` — the old local DB (outdated schema, ignore)
+  - `cristinarutz_prod` — production copy **after** a local
+    `images:resize` run (34 originals scaled, coords scaled) and the
+    width/height migration; matches `storage/app/public/uploads`
+  - `cristinarutz_snapshot` — untouched production dump (for comparisons)
+- `storage/app/public/` holds the production files (resized as above);
+  `storage/app/originals/` the untouched copies of the 34 resized files;
+  `storage/app/.glide-cache/` warm.
+- Local `.env` already uses the Laravel 13 names (`CACHE_STORE`,
+  `LOG_STACK=single,slack`, `LOG_LEVEL=debug`; Pusher/MIX/BROADCAST/
+  MAIL_DRIVER removed). `DB_DATABASE` still points at `cristinarutz`.
+- 3 production users (all admins); passwords unknown. For login tests,
+  insert a temporary admin into `cristinarutz_prod` and delete it after.
+
+### Gotchas
+
+- `php artisan serve` doesn't pass `DB_DATABASE=...` through to the
+  server. Run PHP's server from `public/` instead:
+  `cd public && DB_DATABASE=cristinarutz_prod php -S 127.0.0.1:8765 ../vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php`
+- CSRF checks are skipped under PHPUnit; check CSRF over HTTP.
+- Mail with `MAIL_MAILER=log` is quoted-printable in the log; decode
+  before extracting links. Real `.env` mail is SMTP — don't send for tests.
+- zsh: `git show "$R:path"` breaks on `:a`, `:r` modifiers — use `"${R}:path"`.
+- A git worktree sharing `vendor/` autoloads `App\` from the main tree;
+  copy `vendor/` and `composer dump-autoload` there instead.
+- `composer.phar` is still in the repo — unclear if the server needs it.
+
+### Open items (not code)
+
+- "Leistungen" text links to two project URLs that 404 (also live), see
+  log below — content, fix in the admin.
+- Production: confirm Imagick (`php -m | grep imagick`) and
+  `upload_max_filesize`/`post_max_size` ≥ 30M; prepare the `.env` changes
+  (Deploy notes).
+
+## Log
 
 2026-10-07: survey written. `marceli-to/wiretap` removed (package,
 `config/wiretap.php`, the `report()` hook in `Exceptions/Handler.php`,
@@ -186,13 +266,40 @@ the admin, or remove the row.
 
 ## Images
 
+See `05-image-pipeline.md` ("Done 2026-10-07" sections).
+
 ## Admin
+
+Not started (Vue 2). Changes so far on the Vue 2 admin: uploader shows the
+server's error message; logout posts a form. Rebuilt with Mix.
 
 ## Public site JS
 
+Not started.
+
 ## Tests
 
+48 PHPUnit feature tests, in-memory SQLite (`php artisan test`):
+`AuthTest`, `ImageRenditionTest`, `ImageStoreTest`, `ImageUploadTest`,
+`MiddlewareTest`, `ProjectVisibilityTest`, `ResizeImagesTest`. No public
+pages test yet (oxid has `PublicPagesTest`). Verification scripts against
+production renders in `.rewrite/tools/`.
+
 ## Deploy notes
+
+Order on the server (SSH + `git pull`, as oxid; built assets committed):
+
+1. Snapshot the production DB and `storage/`.
+2. Prepare `.env` (below), check Imagick and the PHP upload limits.
+3. `git pull`, `composer install --no-dev --optimize-autoloader`
+4. `php artisan migrate --force` (one new migration: image width/height)
+5. `php artisan images:resize --dry-run`, then `php artisan images:resize`
+6. `php artisan optimize:clear && php artisan optimize`
+7. `php artisan images:warm` (a few minutes; AVIF is slow to encode)
+8. Delete `storage/app/public/cache/` (image-cache's old renditions, 249 MB)
+9. Check: login, admin, a project page, an image upload.
+
+Details:
 
 - **Production `.env` for Laravel 13** (config files now fall back to the
   framework's defaults, which changed): set `DB_CONNECTION=mysql`,

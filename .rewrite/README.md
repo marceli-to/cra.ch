@@ -3,8 +3,8 @@
 Survey done **2026-10-07** against commit `e6c0bae` (branch `master`, clean tree).
 Written so the next session can skip re-deriving all of this.
 
-**Status: planned, not started.** Open questions answered 2026-10-07
-except the production snapshot (`04` #1).
+**Status (2026-10-07): backend and images done, frontend not started.**
+Start at `06-progress.md` → "Where things stand".
 
 Modelled on the rework of **oxid.ch** (`.rewrite/` on branch
 `rework/laravel-13-vue-3` in `github.com/jamon-marcel/oxid.ch`, done
