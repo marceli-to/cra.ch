@@ -6,7 +6,7 @@
  */
 
 .listing {
-  border-bottom: 2px solid $color-light;
+  border-bottom: $border-width solid $color-light;
   //@include responsive-prop('margin-bottom', $space-xs);
 
   &.is-grouped {
@@ -14,10 +14,10 @@
   }
 
   &.is-form {
-    border-bottom: 2px solid $color-light-grey;
+    border-bottom: $border-width solid $color-light-grey;
 
     .listing__item {
-      border-top: 2px solid $color-light-grey;
+      border-top: $border-width solid $color-light-grey;
     }
   }
 
@@ -41,12 +41,12 @@
 }
 
 .listing-group {
-  border-bottom: 2px solid $color-light;
+  border-bottom: $border-width solid $color-light;
   @include responsive-prop('margin-bottom', $space-md);
 }
 
 .listing__item {
-  border-top: 2px solid $color-light;
+  border-top: $border-width solid $color-light;
   display: grid;
   grid-template-columns: auto auto;
   padding-left: 2px;

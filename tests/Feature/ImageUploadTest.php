@@ -71,7 +71,7 @@ class ImageUploadTest extends TestCase
     {
         $this->upload($this->image(400, 400, 'gif', 'anim.gif'))
             ->assertStatus(422)
-            ->assertJson(['error' => 'Erlaubt sind nur JPG- und PNG-Dateien.']);
+            ->assertJsonPath('errors.file.0', 'Erlaubt sind nur JPG- und PNG-Dateien.');
 
         $this->upload(UploadedFile::fake()->create('plan.pdf', 100, 'application/pdf'))
             ->assertStatus(422);
@@ -85,7 +85,7 @@ class ImageUploadTest extends TestCase
 
         $this->upload(new UploadedFile($path, 'photo.jpg', null, null, true))
             ->assertStatus(422)
-            ->assertJson(['error' => 'Der Inhalt der Datei ist kein JPG oder PNG.']);
+            ->assertJsonPath('errors.file.0', 'Der Inhalt der Datei ist kein JPG oder PNG.');
 
         $this->upload($this->image(400, 400, 'gif', 'renamed.jpg'))
             ->assertStatus(422);
@@ -97,7 +97,7 @@ class ImageUploadTest extends TestCase
 
         $this->upload($this->image(4000, 3000, 'jpeg', 'huge.jpg'))
             ->assertStatus(422)
-            ->assertJsonPath('error', 'Das Bild hat 4000×3000 Pixel (12 MP), erlaubt sind max. 10 MP.');
+            ->assertJsonPath('errors.file.0', 'Das Bild hat 4000×3000 Pixel (12 MP), erlaubt sind max. 10 MP.');
     }
 
     public function testRejectsTooLargeFiles()
@@ -106,7 +106,7 @@ class ImageUploadTest extends TestCase
 
         $this->upload(UploadedFile::fake()->image('big.jpg', 100, 100)->size(200))
             ->assertStatus(422)
-            ->assertJson(['error' => 'Die Datei ist grösser als 0 MB.']);
+            ->assertJsonPath('errors.file.0', 'Die Datei ist grösser als 0 MB.');
     }
 
     public function testRequiresLogin()

@@ -1,185 +1,50 @@
 <template>
   <div class="listing__item-action">
-
-    <div v-if="hasGrid">
-      <router-link
-        :to="{name: routes.grid, params: { id: id }}"
-        class="feather-icon"
-      >
-        <grid-icon size="18"></grid-icon>
+    <div v-if="gridRoute">
+      <router-link :to="{ name: gridRoute, params: { id: record.id } }" class="feather-icon" title="Layout">
+        <PhSquaresFour :size="18" weight="light" />
       </router-link>
     </div>
-
-    <div v-if="hasList">
-      <router-link
-        :to="{name: routes.list, params: { id: id }}"
-        class="feather-icon"
-      >
-        <menu-icon size="18"></menu-icon>
+    <div v-if="listRoute">
+      <router-link :to="{ name: listRoute, params: { id: record.id } }" class="feather-icon" title="Lebenslauf">
+        <PhListBullets :size="18" weight="light" />
       </router-link>
     </div>
-
-    <div v-if="hasDownload">
-      <a
-        :href="'/storage/uploads/' + record.file"
-        target="_blank"
-        class="feather-icon"
-      >
-        <download-cloud-icon size="18"></download-cloud-icon>
-      </a>
-    </div>
-
-    <div v-if="hasEdit">
-      <router-link
-        :to="{name: routes.edit, params: { id: id }}"
-        class="feather-icon"
-      >
-        <edit-icon size="18"></edit-icon>
+    <div v-if="editRoute">
+      <router-link :to="{ name: editRoute, params: { id: record.id } }" class="feather-icon" title="Bearbeiten">
+        <PhPencilSimple :size="18" weight="light" />
       </router-link>
     </div>
-
     <div v-if="hasToggle">
-      <a
-        href="javascript:;"
-        @click.prevent="$emit('toggle', id)"
-      >
-        <span v-if="record.publish" class="feather-icon">
-          <eye-icon size="18"></eye-icon>
-        </span>
-        <span v-else>
-          <eye-off-icon size="18" class="feather-icon"></eye-off-icon>
-        </span>
+      <a href="javascript:;" class="feather-icon" :title="record.publish == 1 ? 'Verbergen' : 'Publizieren'" @click.prevent="emit('toggle', record.id)">
+        <PhEye v-if="record.publish == 1" :size="18" weight="light" />
+        <PhEyeSlash v-else :size="18" weight="light" />
       </a>
     </div>
-
     <div v-if="hasCopy">
-      <a
-        href="javascript:;"
-        class="feather-icon"
-        @click.prevent="$emit('copy', id)"
-      >
-        <copy-icon size="18"></copy-icon>
+      <a href="javascript:;" class="feather-icon" title="Duplizieren" @click.prevent="emit('copy', record.id)">
+        <PhCopy :size="18" weight="light" />
       </a>
     </div>
-
     <div v-if="hasDestroy">
-      <a
-        href="javascript:;"
-        class="feather-icon"
-        @click.prevent="$emit('destroy', id)"
-      >
-        <trash2-icon size="18"></trash2-icon>
+      <a href="javascript:;" class="feather-icon" title="Löschen" @click.prevent="emit('destroy', record.id)">
+        <PhTrash :size="18" weight="light" />
       </a>
     </div>
-
   </div>
 </template>
-<script>
+<script setup>
+import { PhSquaresFour, PhListBullets, PhPencilSimple, PhEye, PhEyeSlash, PhCopy, PhTrash } from '@phosphor-icons/vue';
 
-import { 
-  EyeIcon,
-  EyeOffIcon,
-  EditIcon,
-  Trash2Icon,
-  CopyIcon,
-  DownloadCloudIcon,
-  SettingsIcon,
-  LayersIcon,
-  UserIcon,
-  UsersIcon,
-  DollarSignIcon,
-  ClipboardIcon,
-  MailIcon,
-  XCircleIcon,
-  GridIcon,
-  MenuIcon,
-}
-from 'vue-feather-icons';
+defineProps({
+  record: { type: Object, required: true },
+  editRoute: { type: String, default: null },
+  gridRoute: { type: String, default: null },
+  listRoute: { type: String, default: null },
+  hasToggle: { type: Boolean, default: true },
+  hasCopy: { type: Boolean, default: false },
+  hasDestroy: { type: Boolean, default: true },
+});
 
-export default {
-
-  components: {
-    EyeIcon,
-    EyeOffIcon,
-    EditIcon,
-    Trash2Icon,
-    CopyIcon,
-    DownloadCloudIcon,
-    SettingsIcon,
-    LayersIcon,
-    UserIcon,
-    UsersIcon,
-    DollarSignIcon,
-    ClipboardIcon,
-    MailIcon,
-    XCircleIcon,
-    GridIcon,
-    MenuIcon
-  },
-
-  props: {
-
-    id: {
-      type: Number,
-      default: null
-    },
-
-    hasEdit: {
-      type: Boolean,
-      default: true
-    },
-    
-    hasDestroy: {
-      type: Boolean,
-      default: true
-    },
-    
-    hasToggle: {
-      type: Boolean,
-      default: true
-    },
-
-    hasCopy: {
-      type: Boolean,
-      default: false
-    },
-
-    hasDownload: {
-      type: Boolean,
-      default: false,
-    },
-
-    hasDraggable: {
-      type: Boolean,
-      default: false
-    },
-
-    hasGrid: {
-      type: Boolean,
-      default: false
-    },
-
-    hasList: {
-      type: Boolean,
-      default: false
-    },
-
-    isCollapsible: {
-      type: Boolean,
-      default: false,
-    },
-
-    model: {
-      type: String,
-      default: null,
-    },
-    routes: Object,
-    record: Object,
-  },
-
-  methods: {
-
-  },
-}
+const emit = defineEmits(['toggle', 'copy', 'destroy']);
 </script>
-

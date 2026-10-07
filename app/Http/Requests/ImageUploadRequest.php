@@ -1,9 +1,7 @@
 <?php
 namespace App\Http\Requests;
 use App\Services\ImageResizer;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ImageUploadRequest extends FormRequest
 {
@@ -55,19 +53,5 @@ class ImageUploadRequest extends FormRequest
       'file.mimes' => 'Der Inhalt der Datei ist kein JPG oder PNG.',
       'file.max' => "Die Datei ist grösser als {$mb} MB.",
     ];
-  }
-
-  /**
-   * Dropzone shows `error`; the rest is the usual validation payload
-   */
-  protected function failedValidation(Validator $validator)
-  {
-    $message = $validator->errors()->first('file');
-
-    throw new HttpResponseException(response()->json([
-      'error' => $message,
-      'message' => $message,
-      'errors' => $validator->errors(),
-    ], 422));
   }
 }

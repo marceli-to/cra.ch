@@ -1,13 +1,11 @@
 <?php
 namespace App\Http\Requests;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 /**
  * A form of the admin. Access is checked by the route (auth, role:admin).
- * Errors go out as `errors: {field: [{field, error}]}`: the admin marks
- * the fields by `field` (mixins/ErrorHandling.js).
+ * Errors go out in Laravel's format, `errors: {field: [message]}`; the admin
+ * marks the fields by key (lib/http.js).
  */
 abstract class AdminRequest extends FormRequest
 {
@@ -22,17 +20,6 @@ abstract class AdminRequest extends FormRequest
   public function fields(): array
   {
     return collect($this->validated())->except(['publish', 'images'])->all();
-  }
-
-  protected function failedValidation(Validator $validator)
-  {
-    $errors = collect($validator->errors()->messages())
-      ->map(fn (array $messages, string $field) => array_map(fn ($message) => ['field' => $field, 'error' => $message], $messages));
-
-    throw new HttpResponseException(response()->json([
-      'message' => $validator->errors()->first(),
-      'errors' => $errors,
-    ], 422));
   }
 
   /**

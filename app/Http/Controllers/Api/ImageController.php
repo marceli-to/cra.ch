@@ -29,7 +29,7 @@ class ImageController extends Controller
   }
 
   /**
-   * Step 1: the file (Dropzone)
+   * Step 1: the file (the admin's uploader)
    */
   public function upload(ImageUploadRequest $request)
   {

@@ -345,53 +345,40 @@
   }
 }
 
-.grid-asset-selector {
-  align-items: center;
-  background-color: rgba(0, 0, 0, .6);
+// Image and article picker of a grid slot (in a Lightbox)
+.grid-picker__types {
   display: flex;
-  height: 100%;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1001;
+  gap: 10px;
+  @include responsive-prop('margin-bottom', $space-sm);
 
-  > div {
-    @extend %page-block;
-    @extend %p-3x;
-    @extend %py-4x;
-    @extend %pb-6x;
-    background-color: $color-white;
-    box-shadow: $box-shadow-lg;
-    border-radius: 6px;
-    min-width: 480px;
-    max-width: 720px !important;
-    position: relative;
+  .is-active {
+    background-color: $color-dark;
+    color: $color-white;
   }
+}
 
-  .grid-asset-selector__images {
-    @extend %mt-5x;
-    display: flex;
-    flex-flow: wrap;
-  }
-
-  h2 {
-    @include font-size($fs-md);
-  }
+.grid-picker__images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  @include responsive-prop('margin-bottom', $space-sm);
 
   img {
-    @extend %m-1x;
     cursor: pointer;
     display: block;
-    height: 100px;
-    flex: 0 0 auto;
-    opacity: 1;
+    height: 120px;
+    object-fit: cover;
     transition: opacity .1s ease-in;
-    width: auto;
+    width: 120px;
 
     &:hover {
       opacity: .7;
     }
   }
 }
+
+.lightbox h2 + .grid-picker__images,
+.lightbox__body > div > h2 {
+  margin-top: 0;
+}
+

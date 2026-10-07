@@ -83,8 +83,7 @@ class ProjectApiTest extends ApiTestCase
     {
         $this->postJson('/api/project', $this->payload(['title' => '']))
             ->assertStatus(422)
-            ->assertJsonPath('errors.title.0.field', 'title')
-            ->assertJsonPath('errors.title.0.error', 'Titel wird benötigt');
+            ->assertJsonPath('errors.title.0', 'Titel wird benötigt');
         $this->assertSame(0, Project::count());
     }
 

@@ -17,15 +17,15 @@
 }
 
 .cropper-info {
-  color: $color-dark;
-  padding: 5px;
-  position: absolute;
-  top: 0;
-  z-index: 100;
+  color: $color-dark-grey;
+  @include font-size($fs-xs);
+  margin-left: auto;
 }
 
 .cropper-formats {
+  align-items: center;
   display: flex;
+  flex: none;
   margin-bottom: 15px;
 }
 
@@ -40,7 +40,11 @@
   padding: 5px;
   text-decoration: none;
   height: 40px;
-  width: 100px;
+  min-width: 100px;
+
+  &.is-active {
+    border-style: solid;
+  }
 }
 
 .is-portrait {

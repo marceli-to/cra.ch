@@ -6,7 +6,7 @@
 
 nav.page {
   background-color: $color-white;
-  border-left: 2px solid $color-light;
+  border-left: $border-width solid $color-light;
   height: 100%;
   right: 0;
   position: fixed;
@@ -53,48 +53,56 @@ nav.page {
     }
   }
 
-  ul {
-    border-top: 2px solid $color-light;
+  // Sections: a label with its pages below, or a page of its own
+  > ul {
+    border-top: $border-width solid $color-light;
+    padding: 15px 0;
     width: 100%;
   }
 
   li {
     display: block;
-  
-    a {
-      align-items: center;
-      color: $color-primary;
-      border-bottom: 2px solid $color-light;
-      display: flex;
-      @include font-regular();
-      @include font-size($fs-sm);
-      @include responsive-prop('padding-bottom', $space-sm);
-      padding-left: 20px;
-      @include responsive-prop('padding-top', $space-sm);
-      width: 100%;
-      transition: color .1s ease-out;
+  }
 
-      &.is-active,
-      &:hover {
-        color: $color-secondary;
-      }
+  a {
+    color: $color-primary;
+    display: inline-block;
+    @include font-regular();
+    @include font-size($fs-sm);
+    padding: 7px 20px;
+    text-decoration: none;
+    transition: color .1s ease-out;
+
+    &:hover {
+      color: $color-secondary;
     }
 
-    .is-parent,
-    span {
-      padding-bottom: 0 !important;
+    // The page and the forms below it
+    &.is-active {
+      text-decoration: underline;
+      text-underline-offset: 5px;
     }
   }
 
-  ul ul {
-    @include responsive-prop('margin-left', $space-xs);
+  .is-parent {
+    color: $color-medium-grey;
+    display: block;
+    @include font-regular();
+    @include font-size($fs-xs);
+    padding: 15px 20px 3px;
+  }
 
-    li {
-      a {
-        @include font-size($fs-sm);
-        padding-top: 5px !important;
-        padding-bottom: 5px !important;
-      }
-    }
+  > ul > li:first-child > .is-parent {
+    padding-top: 7px;
+  }
+
+  // Pages without a section line up with the sections' labels
+  > ul > li > a {
+    margin-top: 8px;
+  }
+
+  ul ul a {
+    padding-bottom: 4px;
+    padding-top: 4px;
   }
 }

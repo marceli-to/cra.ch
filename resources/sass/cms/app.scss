@@ -35,32 +35,23 @@
 @import 'components/buttons/primary';
 @import 'components/buttons/secondary';
 @import 'components/buttons/tertiary';
-@import 'components/buttons/danger';
 @import 'components/buttons/misc';
-@import 'components/cards/global';
-@import 'components/chip';
-@import 'components/collapsible';
 @import 'components/headings/global';
 @import 'components/headings/h1';
 @import 'components/headings/h2';
 @import 'components/headings/h3';
-@import 'components/hr';
 @import 'components/icons/global';
 @import 'components/icons/feather';
-@import 'components/icons/close';
-@import 'components/icons/move';
 @import 'components/icons/view';
 @import 'components/listing/global';
 @import 'components/overlay/global';
 @import 'components/images';
+@import 'components/lightbox';
+@import 'components/uploader';
+@import 'components/editor';
 @import 'components/tables/global';
-@import 'components/pagination/global';
-@import 'components/pills';
 @import 'components/underline';
-@import 'components/upload/global';
 @import 'components/upload/listing';
-@import 'components/upload/overlay';
-@import 'components/widgets/global';
 
 // Forms
 @import 'form/global';
@@ -71,6 +62,7 @@
 @import 'form/placeholder';
 @import 'form/select';
 @import 'form/validation';
+@import 'form/toggle';
 
 // Navigation
 @import 'navigation/global';
@@ -85,7 +77,6 @@
 @import 'layout/main';
 @import 'layout/grid';
 @import 'layout/header';
-@import 'layout/sidebar';
 
 // Theme
 @import 'theme/brand';
@@ -96,9 +87,6 @@
 @import 'modules/grid';
 
 // Vendor
-@import 'vendor/dropzone';
-@import 'vendor/dropzone-custom';
 @import 'vendor/notifications';
 @import 'vendor/draggable';
 @import 'vendor/cropper';
-@import 'vendor/vdp';

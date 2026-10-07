@@ -1,0 +1,1 @@
+function e(e,t=`crop`){if(t!==`crop`)return`/img/${t}/${e.name}`;let n=[e.coords_w,e.coords_h,e.coords_x,e.coords_y].map(e=>Math.floor(e||0));return`/img/crop/${e.name}/1500?c=${n.join(`,`)}`}function t(e){return new Promise((t,n)=>{let r=new Image;r.onload=()=>t(e),r.onerror=n,r.src=e})}export{t as n,e as t};

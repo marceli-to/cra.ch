@@ -1,30 +1,16 @@
 <template>
-<div>
-  <notifications classes="notification" />
-  <page-header :user="$store.state.user"></page-header>
-  <main class="site">
-    <router-view></router-view>
-  </main>
-</div>
+  <div>
+    <Notifications />
+    <SiteHeader />
+    <main class="site">
+      <router-view :key="route.fullPath" />
+    </main>
+  </div>
 </template>
-<script>
-import PageHeader from '@/views/layout/PageHeader.vue';
-export default {
-  components: {
-    PageHeader
-  },
-  mounted() {
-    this.fetchUser();
-  },
+<script setup>
+import { useRoute } from 'vue-router';
+import SiteHeader from '@/views/layout/SiteHeader.vue';
+import Notifications from '@/components/ui/Notifications.vue';
 
-  methods: {
-    fetchUser() {
-      if (!this.$store.state.user) {
-        this.axios.get(`/api/user`).then(response => {
-          this.$store.commit('user', `${response.data.firstname} ${response.data.name}`);
-        });
-      }
-    },
-  }
-}
+const route = useRoute();
 </script>

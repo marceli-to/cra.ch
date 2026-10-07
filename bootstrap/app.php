@@ -23,11 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
 
-        // Dropzone posts uploads without the CSRF header
-        $middleware->validateCsrfTokens(except: [
-            'api/image/upload',
-        ]);
-
         $middleware->redirectUsersTo(
             fn (Request $request) => $request->user()?->isAdmin() ? '/administration' : '/'
         );

@@ -20,5 +20,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="format-detection" content="telephone=no">
 @vite('resources/sass/web/app.scss')
+@stack('head')
 </head>
 <body>

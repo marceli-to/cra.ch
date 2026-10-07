@@ -53,7 +53,7 @@ footer.page-footer {
 
     .icon-delete {
       @include background-default();
-      background-image: url($url-icons +'x-circle.svg');
+      background-image: url($url-icons + 'x-circle.svg');
       background-size: 24px auto;
       background-position: center center;
       height: 46px;
@@ -66,13 +66,13 @@ footer.page-footer {
   }
 
   input[type=text].search {
-    border: 2px solid $color-light-grey;
+    border: $border-width solid $color-light-grey;
   }
 }
 
 footer.content-footer {
   background-color: $color-white;
-  border-top: 2px solid $color-light;
+  border-top: $border-width solid $color-light;
   bottom: 0;
   left: 0;
   position: fixed;

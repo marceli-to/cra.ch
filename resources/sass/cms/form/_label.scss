@@ -13,7 +13,7 @@ label {
   &.form-control {
     align-items: center;
     background-color: transparent;
-    border: 2px solid $color-light-grey;
+    border: $border-width solid $color-light-grey;
     border-radius: 2px;
     color: $color-grey;
     cursor: pointer;
@@ -32,6 +32,6 @@ label {
 input[type="radio"]:checked + .form-control,
 input[type="checkbox"]:checked + .form-control {
   background-color: $color-primary;
-  border: 2px solid $color-primary;
+  border: $border-width solid $color-primary;
   color: $color-white;
 }

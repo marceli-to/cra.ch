@@ -29,7 +29,7 @@ nav.tabs {
   }
 
   a {
-    border-bottom: 2px solid $color-light-grey;
+    border-bottom: $border-width solid $color-light-grey;
     color: $color-grey;
     display: block;
     @include font-mono();
@@ -41,13 +41,13 @@ nav.tabs {
 
     &:hover,
     &.is-active {
-      border-bottom: 2px solid $color-primary;
+      border-bottom: $border-width solid $color-primary;
       color: $color-primary;
     }
 
     &.has-error {
       color: $color-danger;
-      border-bottom: 2px solid $color-danger;
+      border-bottom: $border-width solid $color-danger;
     }
   }
 }

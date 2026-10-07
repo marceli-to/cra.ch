@@ -1,38 +1,28 @@
 {
     "private": true,
+    "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "admin:dev": "mix",
-        "admin:watch": "mix watch",
-        "admin:build": "mix --production"
+        "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^1.6.7",
-        "cross-env": "^7.0",
-        "laravel-mix": "^6.0.49",
+        "@vitejs/plugin-vue": "^6.0.9",
+        "axios": "^1.20.0",
         "laravel-vite-plugin": "^3.2.0",
-        "postcss": "^8.4.35",
-        "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.0",
-        "sass-loader": "^12.1.0",
-        "vite": "^8.3.3",
-        "vue": "^2.7.16",
-        "vue-loader": "^15.11.1",
-        "vue-template-compiler": "^2.7.16"
+        "vite": "^8.3.3"
     },
     "dependencies": {
-        "@tinymce/tinymce-vue": "^3.2.8",
-        "postcss-loader": "^6.2.1",
+        "@phosphor-icons/vue": "^2.2.1",
+        "@tiptap/extension-link": "^3.31.4",
+        "@tiptap/extension-superscript": "^3.31.4",
+        "@tiptap/pm": "^3.31.4",
+        "@tiptap/starter-kit": "^3.31.4",
+        "@tiptap/vue-3": "^3.31.4",
+        "sortablejs": "^1.15.7",
         "vanilla-lazyload": "^19.1.3",
-        "vue-advanced-cropper": "^0.16.5",
-        "vue-axios": "^2.1.5",
-        "vue-axios-interceptors": "^0.3.1",
-        "vue-feather-icons": "^5.1.0",
-        "vue-notification": "^1.3.20",
-        "vue-router": "^3.6.5",
-        "vue2-dropzone": "^3.6.0",
-        "vuedraggable": "^2.24.3",
-        "vuex": "^3.6.2"
+        "vue": "^3.5.43",
+        "vue-advanced-cropper": "^2.8.9",
+        "vue-router": "^4.6.4"
     }
 }

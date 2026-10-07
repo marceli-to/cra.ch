@@ -1,25 +1,10 @@
 <template>
-  <div :class="'loading-indicator ' + classNames">
-    <chrome-icon :size="iconSize" class="loading-indicator__icon"></chrome-icon>
+  <div class="loading-indicator">
+    <PhCircleNotch :size="32" weight="light" class="loading-indicator__icon" />
   </div>
 </template>
-<script>
-import { ChromeIcon } from 'vue-feather-icons';
-export default {
-  components: {
-    ChromeIcon
-  },
-  props: {
-    classNames: {
-      type: String,
-      default: null,
-    },
-    iconSize: {
-      type: String,
-      default: '24',
-    }
-  }
-}
+<script setup>
+import { PhCircleNotch } from '@phosphor-icons/vue';
 </script>
 <style>
 .loading-indicator {
@@ -28,16 +13,11 @@ export default {
   display: flex;
   justify-content: center;
   height: 100%;
-  min-height: 100px;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 501;
-}
-
-.loading-indicator.is-widget {
-  position: absolute;
 }
 
 .loading-indicator__icon {

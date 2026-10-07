@@ -20,12 +20,12 @@
   }
 
   > .is-list {
-    border-top: 2px solid $color-light-grey;
+    border-top: $border-width solid $color-light-grey;
     display: block;
   }
 
   .upload-item {
-    border: 2px solid $color-light-grey;
+    border: $border-width solid $color-light-grey;
     border-radius: 2px;
     display: inline-block;
     position: relative;
@@ -85,7 +85,7 @@
 
   .upload-item-file {
     align-items: center;
-    border-top: 2px solid $color-light-grey;
+    border-top: $border-width solid $color-light-grey;
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
@@ -93,7 +93,7 @@
     width: 100%;
 
     &:last-child {
-      border-bottom: 2px solid $color-light-grey;
+      border-bottom: $border-width solid $color-light-grey;
     }
 
     input[type=text] {
@@ -121,7 +121,7 @@
 
   .upload-item-row {
     align-items: center;
-    border-bottom: 2px solid $color-light-grey;
+    border-bottom: $border-width solid $color-light-grey;
     cursor: move;
     display: flex;
     justify-content: space-between;

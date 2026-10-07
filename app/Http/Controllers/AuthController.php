@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\ResetPasswordAction;
+use App\Models\Image;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -13,7 +15,7 @@ class AuthController extends Controller
 {
   public function showLogin()
   {
-    return view('auth.login');
+    return view('auth.login', ['splash' => $this->splash()]);
   }
 
   public function login(Request $request)
@@ -77,5 +79,18 @@ class AuthController extends Controller
     $request->session()->regenerate();
 
     return redirect('/administration')->with('status', __($status));
+  }
+
+  /**
+   * Background of the login: a landscape image of a published project
+   */
+  protected function splash(): ?Image
+  {
+    return Image::where('imageable_type', Project::class)
+      ->whereIn('imageable_id', Project::flagged('isPublish')->select('id'))
+      ->where('publish', 1)
+      ->where('orientation', 'landscape')
+      ->inRandomOrder()
+      ->first();
   }
 }

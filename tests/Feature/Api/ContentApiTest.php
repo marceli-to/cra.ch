@@ -144,7 +144,7 @@ class ContentApiTest extends ApiTestCase
 
         $this->postJson("/api/{$route}", $payload)
             ->assertStatus(422)
-            ->assertJsonPath("errors.{$field}.0.field", $field);
+            ->assertJsonValidationErrors([$field]);
         $this->assertSame(0, $model::count());
     }
 

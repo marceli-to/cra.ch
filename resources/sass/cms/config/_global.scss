@@ -26,8 +26,11 @@ $easing: cubic-bezier(0.980, 0.310, 0.940, 0.840);
 /* Urls
  * -------------------- */
  
+// Lines: borders, rules, inputs
+$border-width: 1px;
+
 $url-images: '../img/';
-$url-icons:  '../../img/cms/icons/';
+$url-icons:  '/assets/img/cms/icons/';
 
 
 /* Breakpoints
