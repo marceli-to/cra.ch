@@ -4,12 +4,47 @@
  * -----------------------------------------------------------------------------
  */
 
+%btn-outline {
+  @extend %btn-base;
+  background-color: $color-white;
+  border-color: $color-light-grey;
+  color: $color-primary !important;
+
+  &:hover,
+  &.is-active {
+    border-color: $color-primary;
+  }
+}
+
 .btn-secondary {
-  @extend %btn-primary;
-  @include font-regular();
-  background-color: darken($color-grey, 10);
-  color: $color-primary;
-	&:hover {
-		background-color: $color-grey;
-	}
+  @extend %btn-outline;
+}
+
+// Inline actions
+%btn-small {
+  @extend %btn-outline;
+  height: 30px;
+  padding: 0 10px;
+
+  &.has-icon {
+    padding-left: 7px;
+  }
+}
+
+.btn-add,
+.btn-move,
+.btn-select {
+  @extend %btn-small;
+}
+
+// Delete: muted until hovered
+.btn-delete {
+  @extend %btn-small;
+  border-color: transparent;
+  color: $color-dark-grey !important;
+
+  &:hover {
+    border-color: transparent;
+    color: $color-danger !important;
+  }
 }

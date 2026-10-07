@@ -50,19 +50,16 @@
           <PhX :size="24" weight="light" />
         </a>
       </header>
-      <ul>
-        <li v-for="item in menu" :key="item.label">
-          <template v-if="item.children">
-            <span class="is-parent">{{ item.label }}</span>
-            <ul>
-              <li v-for="child in item.children" :key="child.route">
-                <router-link :to="{ name: child.route }" :class="{ 'is-active': isActive(child) }">{{ child.label }}</router-link>
-              </li>
-            </ul>
-          </template>
-          <router-link v-else :to="{ name: item.route }" :class="{ 'is-active': isActive(item) }">{{ item.label }}</router-link>
-        </li>
-      </ul>
+      <div class="page-nav">
+        <section v-for="group in menu" :key="group.label" class="page-nav__group">
+          <h2 class="page-nav__label">{{ group.label }}</h2>
+          <ul role="list">
+            <li v-for="item in group.items" :key="item.route">
+              <router-link :to="{ name: item.route }" :class="{ 'is-active': isActive(item) }">{{ item.label }}</router-link>
+            </li>
+          </ul>
+        </section>
+      </div>
     </nav>
   </div>
 </template>
@@ -72,23 +69,24 @@ import { useRoute } from 'vue-router';
 import { PhList, PhX, PhSignOut } from '@phosphor-icons/vue';
 import http from '@/lib/http';
 
-// A menu item is active on its list and on the pages below it (forms, grids)
+// Every group has a label; a menu item is active on its list and on the
+// pages below it (forms, grids)
 const menu = [
-  { label: 'Startseite', children: [
+  { label: 'Startseite', items: [
     { label: 'Layout', route: 'home-grid', prefix: 'home' },
     { label: 'Artikel', route: 'articles', prefix: 'article' },
   ] },
-  { label: 'Projekte', children: [
+  { label: 'Projekte', items: [
     { label: 'Projekte', route: 'projects', prefix: 'project' },
     { label: 'Kategorien', route: 'categories', prefix: 'categor' },
   ] },
-  { label: 'Tagebuch', route: 'diaries', prefix: 'diar' },
-  { label: 'Leistungen', route: 'services', prefix: 'service' },
-  { label: 'Über uns', children: [
-    { label: 'Text', route: 'about', prefix: 'about' },
+  { label: 'Seiten', items: [
+    { label: 'Tagebuch', route: 'diaries', prefix: 'diar' },
+    { label: 'Leistungen', route: 'services', prefix: 'service' },
+    { label: 'Über uns', route: 'about', prefix: 'about' },
     { label: 'Team', route: 'team', prefix: 'team' },
+    { label: 'Kontakt', route: 'contact', prefix: 'contact' },
   ] },
-  { label: 'Kontakt', route: 'contact', prefix: 'contact' },
 ];
 
 const route = useRoute();

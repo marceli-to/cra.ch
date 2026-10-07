@@ -6,28 +6,47 @@
 
 .grid-gallery {
   @extend %mb-8x;
-  
-  .btn-delete {
-    @extend %mb-3x;
-    background-color: $color-red;
+
+  // Row: the layout's name and a quiet delete above it
+  > .btn-delete {
+    margin-bottom: 8px;
+    margin-left: -10px;
+  }
+
+  // Empty slot: the add buttons centred
+  .grid-slot__empty {
+    align-items: center;
+    border: $border-width dashed $color-light-grey;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  // Filled slot: an icon button in the corner, on hover
+  .btn-delete-item {
+    background-color: $color-white;
+    border-color: $color-white;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    transition: opacity .12s ease-out, color .12s ease-out;
+    width: 30px;
+    justify-content: center;
+
     &:hover {
-      background-color: $color-secondary;
+      border-color: $color-white;
+    }
+
+    &:focus-visible {
+      opacity: 1;
     }
   }
 
-  .btn-select,
-  .btn-delete-item {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  .btn-select {
-    min-width: 164px;
-  }
-
-  .btn-select + .btn-select {
-    top: 60px;
+  [class*="aspect-ratio-"]:hover .btn-delete-item {
+    opacity: 1;
   }
 }
 
@@ -205,7 +224,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
+  background-color: $color-light;
 }
 
 .grid-gallery .grid-area-a {
@@ -346,39 +365,97 @@
 }
 
 // Image and article picker of a grid slot (in a Lightbox)
-.grid-picker__types {
+.grid-picker-root {
   display: flex;
-  gap: 10px;
-  @include responsive-prop('margin-bottom', $space-sm);
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
 
-  .is-active {
-    background-color: $color-dark;
-    color: $color-white;
+// Home: sources on the left, their images on the right; each pane scrolls
+.grid-picker {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 32px;
+  grid-template-columns: 260px 1fr;
+  min-height: 0;
+
+  > * {
+    min-height: 0;
+    overflow-y: auto;
   }
 }
 
-.grid-picker__images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  @include responsive-prop('margin-bottom', $space-sm);
+.grid-picker__sources {
+  border-right: $border-width solid $color-light-grey;
+  padding-right: 16px;
 
-  img {
-    cursor: pointer;
+  section + section {
+    margin-top: 24px;
+  }
+
+  li {
     display: block;
-    height: 120px;
-    object-fit: cover;
-    transition: opacity .1s ease-in;
-    width: 120px;
+  }
+
+  a {
+    align-items: baseline;
+    border-radius: 2px;
+    color: $color-dark;
+    display: flex;
+    font-size: 14px;
+    gap: 12px;
+    justify-content: space-between;
+    line-height: 1.3;
+    padding: 6px 8px;
+    margin-left: -8px;
+    text-decoration: none;
 
     &:hover {
-      opacity: .7;
+      background-color: $color-light;
+    }
+
+    &.is-active {
+      background-color: $color-light;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
   }
 }
 
-.lightbox h2 + .grid-picker__images,
-.lightbox__body > div > h2 {
-  margin-top: 0;
+.grid-picker__count {
+  color: $color-medium-grey;
+  flex: none;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
 }
+
+.grid-picker__images {
+  align-content: start;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+
+  img {
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    outline: $border-width solid transparent;
+    outline-offset: 2px;
+    transition: outline-color .1s ease-out;
+    width: 100%;
+
+    &:hover {
+      outline-color: $color-primary;
+    }
+  }
+}
+
+.grid-picker__empty {
+  color: $color-medium-grey;
+}
+
 

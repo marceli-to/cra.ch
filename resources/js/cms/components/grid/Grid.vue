@@ -6,11 +6,11 @@
       <div class="flex">
         <a href="" class="btn-add has-icon mr-2x" @click.prevent="hasLayoutPicker = !hasLayoutPicker">
           <PhPlus :size="16" weight="light" />
-          <span>Hinzufügen</span>
+          <span>Zeile hinzufügen</span>
         </a>
         <a href="" :class="['btn-move has-icon', { 'is-active': isSorting }]" @click.prevent="isSorting = !isSorting">
           <PhArrowsDownUp :size="16" weight="light" />
-          <span>{{ isSorting ? 'Fertig' : 'Verschieben' }}</span>
+          <span>{{ isSorting ? 'Fertig' : 'Reihenfolge' }}</span>
         </a>
       </div>
     </ContentHeader>
@@ -56,7 +56,7 @@
       <p class="no-records" v-if="!rows.length">Es sind noch keine Zeilen vorhanden...</p>
     </template>
 
-    <Lightbox :open="picker?.type === 'image'" title="Bild wählen" @close="picker = null">
+    <Lightbox :open="picker?.type === 'image'" title="Bild wählen" fill @close="picker = null">
       <ImagePicker v-if="picker?.type === 'image'" :owner="owner" @select="setItem" />
     </Lightbox>
     <Lightbox :open="picker?.type === 'article'" title="Artikel wählen" size="small" @close="picker = null">

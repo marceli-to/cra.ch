@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid-picker-root">
     <LoadingIndicator v-if="isLoading" />
     <template v-if="owner.name !== 'Home'">
       <div class="grid-picker__images" v-if="owner.model.images.length">
@@ -9,67 +9,43 @@
           :src="imageUrl(image, 'thumbnail')"
           height="300"
           width="300"
+          loading="lazy"
           @click="emit('select', { image_id: image.id, project_id: owner.name === 'Project' ? owner.model.id : null })"
         >
       </div>
-      <p v-else>Es sind noch keine Bilder vorhanden.</p>
+      <p class="grid-picker__empty" v-else>Es sind noch keine Bilder vorhanden.</p>
     </template>
-    <template v-else-if="isFetched">
-      <div class="grid-picker__types">
-        <a href="javascript:;" :class="['btn-secondary', { 'is-active': type === 'projects' }]" @click="type = 'projects'" v-if="projects.length">Projekt</a>
-        <a href="javascript:;" :class="['btn-secondary', { 'is-active': type === 'diary' }]" @click="type = 'diary'" v-if="diaryImages.length">Tagebuch</a>
-        <a href="javascript:;" :class="['btn-secondary', { 'is-active': type === 'content' }]" @click="type = 'content'" v-if="pages.some(page => page.images.length)">Inhalte</a>
-      </div>
-      <template v-if="type === 'projects'">
-        <div class="form-row">
-          <label>Projekt</label>
-          <div class="select-wrapper">
-            <select v-model="projectId">
-              <option :value="null">Bitte wählen...</option>
-              <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.title }}</option>
-            </select>
-          </div>
-        </div>
-        <template v-if="project">
-          <div class="grid-picker__images" v-if="project.images.length">
-            <img
-              v-for="image in project.images"
-              :key="image.id"
-              :src="imageUrl(image, 'thumbnail')"
-              height="300"
-              width="300"
-              @click="emit('select', { image_id: image.id, project_id: project.id })"
-            >
-          </div>
-          <p v-else>Es sind keine Bilder für dieses Projekt vorhanden.</p>
-        </template>
-      </template>
-      <div class="grid-picker__images" v-if="type === 'diary'">
+    <div class="grid-picker" v-else-if="isFetched">
+      <nav class="grid-picker__sources">
+        <section v-for="group in groups" :key="group.label">
+          <h3 class="page-nav__label">{{ group.label }}</h3>
+          <ul role="list">
+            <li v-for="source in group.sources" :key="source.key">
+              <a
+                href="javascript:;"
+                :class="{ 'is-active': source === current }"
+                @click="current = source"
+              >
+                <span>{{ source.label }}</span>
+                <span class="grid-picker__count">{{ source.images.length }}</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </nav>
+      <div class="grid-picker__images" v-if="current?.images.length">
         <img
-          v-for="image in diaryImages"
+          v-for="image in current.images"
           :key="image.id"
           :src="imageUrl(image, 'thumbnail')"
           height="300"
           width="300"
-          @click="emit('select', { image_id: image.id, page: 'about.diary' })"
+          loading="lazy"
+          @click="emit('select', { image_id: image.id, ...current.selection })"
         >
       </div>
-      <template v-if="type === 'content'">
-        <template v-for="page in pages" :key="page.page">
-          <h2>{{ page.label }}</h2>
-          <div class="grid-picker__images">
-            <img
-              v-for="image in page.images"
-              :key="image.id"
-              :src="imageUrl(image, 'thumbnail')"
-              height="300"
-              width="300"
-              @click="emit('select', { image_id: image.id, page: page.page })"
-            >
-          </div>
-        </template>
-      </template>
-    </template>
+      <p class="grid-picker__empty" v-else>Keine Bilder vorhanden.</p>
+    </div>
   </div>
 </template>
 <script setup>
@@ -79,7 +55,8 @@ import http from '@/lib/http';
 import { imageUrl } from '@/lib/images';
 
 // Picks the image for a grid slot. Projects and diaries pick from their own
-// images; the home from published projects, the diary and the pages.
+// images; the home from published projects and the pages, listed on the
+// left (the first project is shown at once).
 const props = defineProps({
   // { name: 'Home' | 'Diary' | 'Project', model }
   owner: { type: Object, required: true },
@@ -90,28 +67,40 @@ const emit = defineEmits(['select']);
 
 const isLoading = ref(false);
 const isFetched = ref(false);
-const type = ref(null);
 const projects = ref([]);
-const projectId = ref(null);
-const project = computed(() => projects.value.find(project => project.id === projectId.value));
-const diaryImages = ref([]);
-const pages = ref([
-  { page: 'service', label: 'Leistungen', url: '/api/service/images', images: [] },
-  { page: 'about.team', label: 'Team', url: '/api/about/images', images: [] },
-  { page: 'contact', label: 'Kontakt', url: '/api/contact/images', images: [] },
-]);
+const pages = ref([]);
+const current = ref(null);
+
+// Sources without images are left out
+const groups = computed(() => [
+  { label: 'Projekte', sources: projects.value },
+  { label: 'Seiten', sources: pages.value },
+].map(group => ({ ...group, sources: group.sources.filter(source => source.images.length) }))
+  .filter(group => group.sources.length));
 
 async function fetch() {
   isLoading.value = true;
   try {
-    const [projectList, diary, ...pageImages] = await Promise.all([
+    const [projectList, diary, service, about, contact] = await Promise.all([
       http.get('/api/projects/1'),
       http.get('/api/diary/1'),
-      ...pages.value.map(page => http.get(page.url)),
+      http.get('/api/service/images'),
+      http.get('/api/about/images'),
+      http.get('/api/contact/images'),
     ]);
-    projects.value = projectList.data.data;
-    diaryImages.value = diary.data.diary.images;
-    pageImages.forEach((response, index) => pages.value[index].images = response.data.data);
+    projects.value = projectList.data.data.map(project => ({
+      key: `project-${project.id}`,
+      label: project.title,
+      images: project.images,
+      selection: { project_id: project.id },
+    }));
+    pages.value = [
+      { key: 'diary', label: 'Tagebuch', images: diary.data.diary.images, selection: { page: 'about.diary' } },
+      { key: 'service', label: 'Leistungen', images: service.data.data, selection: { page: 'service' } },
+      { key: 'team', label: 'Team', images: about.data.data, selection: { page: 'about.team' } },
+      { key: 'contact', label: 'Kontakt', images: contact.data.data, selection: { page: 'contact' } },
+    ];
+    current.value = groups.value[0]?.sources[0] ?? null;
     isFetched.value = true;
   }
   catch {

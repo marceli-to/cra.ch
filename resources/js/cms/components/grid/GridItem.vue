@@ -4,9 +4,8 @@
       <figure>
         <img :src="imageUrl(item.image)" height="300" width="300">
       </figure>
-      <a href="" class="btn-delete btn-delete-item has-icon" @click.prevent="emit('reset', item)">
+      <a href="" class="btn-delete btn-delete-item" title="Entfernen" aria-label="Entfernen" @click.prevent="emit('reset', item)">
         <PhTrash :size="16" weight="light" />
-        <span>Löschen</span>
       </a>
     </template>
     <template v-else-if="item.article">
@@ -15,19 +14,18 @@
         <h2 class="mb-2x" v-if="item.article.title">{{ item.article.title }}</h2>
         <div v-if="item.article.text" v-html="item.article.text"></div>
       </article>
-      <a href="" class="btn-delete btn-delete-item has-icon" @click.prevent="emit('reset', item)">
+      <a href="" class="btn-delete btn-delete-item" title="Entfernen" aria-label="Entfernen" @click.prevent="emit('reset', item)">
         <PhTrash :size="16" weight="light" />
-        <span>Löschen</span>
       </a>
     </template>
-    <div v-else>
+    <div v-else class="grid-slot__empty">
       <a href="" class="btn-select has-icon" @click.prevent="emit('select-image', item)">
         <PhPlus :size="16" weight="light" />
-        <span>Bild hinzufügen</span>
+        <span>Bild</span>
       </a>
       <a v-if="articles" href="" class="btn-select has-icon" @click.prevent="emit('select-article', item)">
         <PhPlus :size="16" weight="light" />
-        <span>Text hinzufügen</span>
+        <span>Text</span>
       </a>
     </div>
   </div>
