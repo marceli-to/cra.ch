@@ -10,7 +10,13 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+import axios from 'axios';
+
+// One axios instance for everything: `require('axios')` and `import axios`
+// are two different instances with axios 1.x, and the interceptors
+// (vue-axios-interceptors) and these headers must be on the one the
+// components use (vue-axios)
+window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
