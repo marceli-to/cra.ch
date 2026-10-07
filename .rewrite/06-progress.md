@@ -21,7 +21,8 @@ review in the browser by the user, the open items below, deploy.
 
 ### Next
 
-1. The user reviews the admin (QA login on the scratch DB, see below).
+1. The user reviews the admin further (first review done 2026-10-07:
+   buttons, menu, picker refined).
 2. Open items (not code), below.
 3. Deploy (see "Deploy notes").
 
@@ -157,6 +158,8 @@ identical to the 08:16 one. `npm run build` and `npm run admin:build`
 rerun: output unchanged from the committed build.
 
 2026-10-07: admin on Vue 3 + Vite, with the UI refresh (see "Admin").
+Then UI refinements after the user's review (buttons, menu, picker,
+toggle; see "Admin" → "UI refinements"). All pushed (`ae69ab8`).
 Validation errors in Laravel's default format; upload CSRF exemption gone;
 login background. 111 tests.
 
@@ -471,6 +474,22 @@ building blocks from oxid, look kept from cristinarutz's own admin Sass
   article picker, reset slot, add/delete row, sort view; logout; login
   background. Not tested by hand: drag ordering (SortableList as in oxid),
   Firefox/Safari.
+
+### UI refinements (2026-10-07, after the user's review)
+
+- Buttons: two sizes (38px page actions, 30px inline), one solid button
+  per page (Speichern); add/sort/fill as outline buttons; "Zeile löschen"
+  a muted text button; a slot's delete is a trash icon shown on hover;
+  empty slots dashed. Old button partials (global, tertiary, colour
+  variants) removed.
+- Menu: every group labelled (Startseite, Projekte, Seiten), one link
+  style, current page underlined, panel 320px, above the fixed footer.
+- Home image picker: sources (published projects, then Tagebuch,
+  Leistungen, Team, Kontakt) on the left, the selected one's images on
+  the right under its name; the first project is shown at once. Images
+  whole on a light square via the new `/img/small/{file}` rendition
+  (within 400 × 400, `ImageController::small`, tested).
+- Toggle black when on.
 
 Not done (not needed for go-live):
 
