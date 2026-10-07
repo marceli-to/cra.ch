@@ -159,7 +159,9 @@ rerun: output unchanged from the committed build.
 
 2026-10-07: admin on Vue 3 + Vite, with the UI refresh (see "Admin").
 Then UI refinements after the user's review (buttons, menu, picker,
-toggle; see "Admin" → "UI refinements"). All pushed (`ae69ab8`).
+toggle, picker spacing, menu over footer, checkboxes, upload hint; see
+"Admin" → "UI refinements"). All pushed (`7294e59`). Session ended here;
+the user continues another day.
 Validation errors in Laravel's default format; upload CSRF exemption gone;
 login background. 111 tests.
 
@@ -490,6 +492,10 @@ building blocks from oxid, look kept from cristinarutz's own admin Sass
   whole on a light square via the new `/img/small/{file}` rendition
   (within 400 × 400, `ImageController::small`, tested).
 - Toggle black when on.
+- Later the same day: picker hover outline and scrollbar spacing, menu
+  above the fixed footer, category checkboxes as a compact list (whole
+  row clickable), upload hint flush under the drop zone without grey
+  background.
 
 Not done (not needed for go-live):
 
