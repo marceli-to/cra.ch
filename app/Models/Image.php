@@ -1,20 +1,20 @@
 <?php
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\ImageResizer;
 use App\Support\Glide;
 
 class Image extends Model
 {
-  use HasFactory, SoftDeletes;
+  use SoftDeletes;
 
   protected $casts = [
     'created_at' => "datetime:d.m.Y",
   ];
 
-	protected $fillable = [
+  protected $fillable = [
     'uuid',
     'name',
     'original_name',
@@ -24,7 +24,7 @@ class Image extends Model
     'description',
     'orientation',
     'ratio',
-		'coords_w',
+    'coords_w',
     'coords_h',
     'coords_x',
     'coords_y',
@@ -36,61 +36,23 @@ class Image extends Model
     'imageable_type'
   ];
 
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
   protected $appends = [
     'coords',
   ];
 
-  /**
-   * Relationships
-   * 
-   */
-
-  public function imageable()
+  public function imageable(): MorphTo
   {
     return $this->morphTo();
   }
 
-	/**
-   * Scope for preview images
+  /**
+   * Get the cropping coordinates
+   *
+   * @return string
    */
 
-	public function scopePreview($query)
-	{
-		return $query->where('preview', 1);
-	}
-
-	/**
-   * Scope for published images
-   */
-
-	public function scopePublish($query)
-	{
-		return $query->where('publish', 1);
-	}
-
-	/**
-   * Scope for locked images
-   */
-
-	public function scopeLocked($query)
-	{
-		return $query->where('locked', 1);
-	}
-
-	/**
-	 * Get the cropping coordinates
-	 *
-	 * @return string
-	 */
-
-	public function getCoordsAttribute()
-	{
+  public function getCoordsAttribute()
+  {
     $coords = '0,0,0,0';
     if ($this->coords_w && $this->coords_h)
     {

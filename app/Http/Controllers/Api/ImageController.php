@@ -1,229 +1,89 @@
 <?php
 namespace App\Http\Controllers\Api;
-use App\Models\Image;
-use App\Models\GridItem;
-use App\Services\Media;
-use App\Http\Resources\DataCollection;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Cache;
-use App\Support\Glide;
+use App\Actions\Content\ReorderAction;
+use App\Actions\Content\SaveAction;
+use App\Actions\Content\ToggleAttributeAction;
+use App\Actions\Image\CropAction;
+use App\Actions\Image\DeleteAction;
+use App\Actions\Image\StoreAction;
+use App\Actions\Image\UploadAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImageCropRequest;
+use App\Http\Requests\ImageStoreRequest;
+use App\Http\Requests\ImageUpdateRequest;
 use App\Http\Requests\ImageUploadRequest;
+use App\Http\Resources\DataCollection;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-  /**
-   * Models that have images (morphMany/morphOne 'imageable')
-   */
-  private const IMAGEABLE_TYPES = ['About', 'Article', 'Contact', 'Diary', 'Home', 'Project', 'Service'];
-
-  /**
-   * Get a list of images
-   * 
-   * @return \Illuminate\Http\Response
-   */
   public function get()
   {
     return new DataCollection(Image::orderBy('created_at')->get());
   }
 
-  /**
-   * Get a single image for a given image
-   * 
-   * @param Image $image
-   * @return \Illuminate\Http\Response
-   */
   public function find(Image $image)
   {
-    $image = Image::findOrFail($image->id);
     return response()->json($image);
   }
 
   /**
-   * Store a newly added image
-   *
-   * @param  \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
+   * Step 1: the file (Dropzone)
    */
-  public function store(Request $request)
+  public function upload(ImageUploadRequest $request)
   {
-    $request->validate([
-      // A file that was uploaded before, not a path
-      'name' => ['required', 'string', 'regex:/^[^.\/\\\\][^\/\\\\]*$/', function ($attribute, $name, $fail) {
-        if (!Storage::exists('public/uploads/' . $name))
-        {
-          $fail('Die Bilddatei existiert nicht.');
-        }
-      }],
-      'imageable_type' => ['nullable', 'in:' . implode(',', self::IMAGEABLE_TYPES)],
-      'imageable_id' => ['nullable', 'integer', 'required_with:imageable_type'],
-    ]);
+    return response()->json((new UploadAction)->execute($request->file('file')));
+  }
 
-    $data = $request->all();
-
-    // Generate UUID
-    $data['uuid'] = \Str::uuid();
-
-    // Add imagable id & type
-    $data['imageable_id']   = $request->input('imageable_type') ? $request->input('imageable_id') : NULL;
-    $data['imageable_type'] = $request->input('imageable_type') ? "App\Models\\" . $request->input('imageable_type') : NULL;
-
-    // Create image
-    $image = Image::create($data);
-    $image->save();
+  /**
+   * Step 2: its record
+   */
+  public function store(ImageStoreRequest $request)
+  {
+    $image = (new StoreAction)->execute($request->validated());
     return response()->json(['imageId' => $image->id]);
   }
 
-  /**
-   * Update a image for a given image
-   *
-   * @param Image $image
-   * @param  \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Image $image, Request $request)
+  public function update(ImageUpdateRequest $request, Image $image)
   {
-    $image = Image::findOrFail($image->id);
-    $image->update($request->all());
+    (new SaveAction)->execute($image, $request->validated());
     return response()->json('successfully updated');
   }
-
-  /**
-   * Update the order of the given images
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
 
   public function order(Request $request)
   {
-    $images = $request->get('images');
-
-    foreach($images as $image)
-    {
-      $i = Image::find($image['id']);
-      $i->order = $image['order'];
-      $i->save(); 
-    }
-    
+    (new ReorderAction)->execute(Image::class, $this->orderItems($request, 'images'));
     return response()->json('successfully updated');
   }
 
-  /**
-   * Toggle the publish state a given image
-   *
-   * @param  Image $image
-   * @return \Illuminate\Http\Response
-   */
   public function toggle(Image $image)
   {
-    $image->publish = $image->publish == 0 ? 1 : 0;
-    $image->save();
-    return response()->json($image->publish);
+    return response()->json((new ToggleAttributeAction)->execute($image, 'publish'));
   }
 
   /**
-   * Toggle the preview state a given image
-   *
-   * @param  Image $image
-   * @return \Illuminate\Http\Response
+   * The project's preview image (work list)
    */
   public function preview(Image $image)
   {
-    $image->preview = $image->preview == 0 ? 1 : 0;
-    $image->save();
-    return response()->json($image->preview);
+    return response()->json((new ToggleAttributeAction)->execute($image, 'preview'));
   }
 
-  /**
-   * Update the cropping coords of the specified image
-   *
-   * @param Image $image
-   * @param  \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
-   */
-  public function coords(Image $image, Request $request)
+  public function coords(ImageCropRequest $request, Image $image)
   {
-    $image = Image::findOrFail($image->id);
-    $image->coords_w = round($request->input('coords_w'), 12);
-    $image->coords_h = round($request->input('coords_h'), 12);
-    $image->coords_x = round($request->input('coords_x'), 12);
-    $image->coords_y = round($request->input('coords_y'), 12);
-    $image->save();
-    $this->removeCachedImage($image);
+    (new CropAction)->execute($image, $request->validated());
     return response()->json('successfully updated');
   }
 
   /**
-   * Remove the specified image from storage
-   *
-   * @param  string $image
-   * @return \Illuminate\Http\Response
+   * By file name, not id
    */
-  
-  public function destroy($image)
+  public function destroy(string $image)
   {
-    // Delete from grid items
-    $gridItems = GridItem::where('image_id', '=', $image)->get();
-    foreach($gridItems as $gridItem)
-    {
-      $gridItem->delete();
-    }
-    
-    // Delete from database
-    $record = Image::where('name', '=', $image)->first();
-   
-    if ($record)
-    {
-      $record->delete();
-    }
+    abort_unless(preg_match('/^[^.\/\\\\][^\/\\\\]*$/', $image), 404);
 
-    // Delete from storage
-    Glide::forget($image);
-    $directories = Storage::allDirectories('public');
-    foreach($directories as $d)
-    {
-      Storage::delete($d . '/'. $image);
-    }
-    
+    (new DeleteAction)->execute($image);
     return response()->json('successfully deleted');
-  }
-
-  /**
-   * Upload an image
-   * 
-   * @param  ImageUploadRequest $request
-   * @return \Illuminate\Http\Response
-   */
-
-  public function upload(ImageUploadRequest $request)
-  { 
-    $media = (new Media(['force_lowercase' => false]))->store($request);
-    return response()->json($media);
-  }
-
-  /**
-   * Delete an image
-   * 
-   * @param  String $image
-   * @return \Illuminate\Http\Response
-   */
-
-  public function delete($image)
-  { 
-    $media = (new Media())->remove($image, TRUE);
-    return response()->json($media);
-  }
-
-  /**
-   * Remove cached images
-   *
-   * @param  App\Models\Image $image
-   * @return void
-   */
-  private function removeCachedImage(Image $image)
-  {
-    Glide::forget($image->name);
   }
 }

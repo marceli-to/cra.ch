@@ -1,83 +1,28 @@
 <?php
 namespace App\Models;
+use App\Models\Concerns\HasGrids;
+use App\Models\Concerns\HasImages;
+use App\Models\Concerns\HasPublishFlag;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Diary extends Model
 {
-  use HasFlags;
+  use HasGrids, HasImages, HasPublishFlag;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-   
-	protected $fillable = [
+  protected $fillable = [
     'description',
   ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
 
   protected $appends = [
     'publish',
     'articleContent',
   ];
 
-  /*
-  |--------------------------------------------------------------------------
-  | Relationships
-  |--------------------------------------------------------------------------
-  |
-  |
-  */
-
   /**
-   * The images that belong to this model.
+   * The description as it appears in a grid slot
    */
-
-  public function images()
+  public function getArticleContentAttribute(): string
   {
-    return $this->morphMany(Image::class, 'imageable')->orderBy('order');
+    return '<article>' . $this->description . '</article>';
   }
-
-  public function publishedImages()
-  {
-    return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
-  }
-
-  public function grids()
-  {
-    return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
-  }
-
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublish') ? 1 : 0;    
-  }
-
-  /**
-   * Get the article attribute
-   */
-
-  public function getArticleContentAttribute()
-  {
-    $article = '<article>';
-    if ($this->description)
-    {
-      $article .= $this->description;
-    }
-    $article .= '</article>';
-    return $article;
-  }
-
 }

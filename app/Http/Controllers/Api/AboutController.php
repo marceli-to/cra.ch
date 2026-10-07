@@ -1,162 +1,53 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Actions\Content\DeleteAction;
+use App\Actions\Content\SaveAction;
+use App\Actions\Content\ToggleFlagAction;
 use App\Http\Controllers\Controller;
-use App\Models\About;
-use App\Models\Image;
+use App\Http\Requests\AboutRequest;
 use App\Http\Resources\DataCollection;
-use App\Http\Requests\AboutStoreRequest;
-use Illuminate\Http\Request;
+use App\Models\About;
 
 class AboutController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
   public function get()
   {
-    return new DataCollection(About::with('images')->get());
+    return new DataCollection(About::with('images', 'flags')->get());
   }
 
   /**
-   * Get the about images
-   *
-   * @return \Illuminate\Http\Response
+   * All about images (grid image picker)
    */
   public function getImages()
   {
-    $about = About::with('images')->get();
-    $images = [];
-    foreach ($about as $a)
-    {
-      foreach ($a->images as $image)
-      {
-        $images[] = $image;
-      }
-    }
-    return response()->json(['data' => $images]);
+    return response()->json(['data' => About::with('images')->get()->flatMap->images->values()]);
   }
 
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  About $about
-   * @return \Illuminate\Http\Response
-   */
   public function find(About $about)
   {
-    return response()->json(['about' => About::with('images')->find($about->id)]);
+    return response()->json(['about' => $about->load('images')]);
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\AboutStoreRequest  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(AboutStoreRequest $request)
+  public function store(AboutRequest $request)
   {
-    $about = About::create([
-      'description' => $request->input('description'),
-      'former_employees' => $request->input('former_employees'),
-      'cooperation' => $request->input('cooperation'),
-      'membership' => $request->input('membership'),
-    ]);
-    $this->handleFlag($about, 'isPublish', $request->input('publish'));
-    $this->handleImages($about, $request->input('images'));
+    $about = (new SaveAction)->execute(new About, $request->fields(), ['isPublish' => $request->boolean('publish')], $request->input('images', []));
     return response()->json(['aboutId' => $about->id]);
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\AboutStoreRequest  $request
-   * @param  About $about
-   * @return \Illuminate\Http\Response
-   */
-  public function update(AboutStoreRequest $request, About $about)
+  public function update(AboutRequest $request, About $about)
   {
-    $about = About::findOrFail($about->id);
-    $about->description = $request->input('description');
-    $about->former_employees = $request->input('former_employees');
-    $about->cooperation = $request->input('cooperation');
-    $about->membership = $request->input('membership');
-    $about->save();
-    $this->handleFlag($about, 'isPublish', $request->input('publish'));
-    $this->handleImages($about, $request->input('images'));
+    (new SaveAction)->execute($about, $request->fields(), ['isPublish' => $request->boolean('publish')], $request->input('images', []));
     return response()->json('successfully updated');
   }
 
-  /**
-   * Toggle the status a given about
-   *
-   * @param  About $about
-   * @return \Illuminate\Http\Response
-   */
   public function toggle(About $about)
   {
-    if ($about->hasFlag('isPublish'))
-    {
-      $about->unflag('isPublish');
-    }
-    else
-    {
-      $about->flag('isPublish');
-    } 
-    return response()->json($about->hasFlag('isPublish'));
+    return response()->json((new ToggleFlagAction)->execute($about));
   }
 
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  About $about
-   * @return \Illuminate\Http\Response
-   */
   public function destroy(About $about)
   {
-    $about->delete();
+    (new DeleteAction)->execute($about);
     return response()->json('successfully deleted');
-  }
-
-  /**
-   * Handle flags of a about
-   *
-   * @param About $about
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(About $about, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $about->flag($flag);
-    }
-    else
-    {
-      $about->unflag($flag);
-    }
-    return $about->hasFlag($flag);
-  }
-  /**
-   * Handle associated images
-   *
-   * @param About $about
-   * @param Array $images
-   * @return void
-   */  
-
-  protected function handleImages(About $about, $images = NULL)
-  {
-    foreach($images as $image)
-    {
-      $i = Image::findOrFail($image['id']);
-      $i->imageable_id = $about->id;
-      $i->imageable_type = About::class;
-      $i->save();
-    }
   }
 }

@@ -1,27 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\BaseController;
-use App\Models\Contact;
-use Illuminate\Http\Request;
+use App\Actions\Site\GetContact;
 
-class ContactController extends BaseController
+class ContactController extends Controller
 {
-  protected $viewPath = 'pages.contact.';
-
-  public function __construct()
+  public function index(GetContact $action)
   {
-    parent::__construct();
-  }
-
-  /**
-   * Show the homepage
-   *
-   * @return \Illuminate\Http\Response
-   */
-
-  public function index()
-  {
-    $contact = Contact::with('publishedImages')->first();
-    return view($this->viewPath . 'index', ['contact' => $contact]);
+    return view('pages.contact.index', $action->execute());
   }
 }

@@ -16,7 +16,7 @@ class ImageStoreTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->actingAs(new User(), 'sanctum');
+        $this->actingAs((new User())->forceFill(['role' => 'admin']), 'sanctum');
         file_put_contents(storage_path('app/public/uploads/' . $this->name), 'x');
     }
 

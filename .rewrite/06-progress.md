@@ -10,7 +10,11 @@
   nothing from the branch is to be cherry-picked there.
 - Laravel 13.35 on the slim skeleton, PHP `^8.3` (platform 8.3.0),
   `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
-  login (`AuthController`), 48 PHPUnit tests (`php artisan test`).
+  login (`AuthController`), 111 PHPUnit tests (`php artisan test`).
+- Backend on **action classes** (`app/Actions/<Module>/…Action`,
+  `execute()`), thin controllers, request classes for every write; see
+  "Backend structure". The API's responses are unchanged for the Vue 2
+  admin.
 - Public site: built with **Vite 8** (`npm run build` → `public/build`,
   committed; `npm run dev` for the dev server). JS is vanilla ES modules
   (13.8 KB), own lightbox instead of fancyBox, no jQuery.
@@ -53,6 +57,9 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
 - `storage/app/public/` holds the production files (resized as above);
   `storage/app/originals/` the untouched copies of the 34 resized files;
   `storage/app/.glide-cache/` warm.
+- Local `.env` has `SANCTUM_STATEFUL_DOMAINS=cristinarutz.ch.test`: for
+  the admin on the PHP server, start it with
+  `SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8765` (else every API call is 401).
 - Local `.env` already uses the Laravel 13 names (`CACHE_STORE`,
   `LOG_STACK=single,slack`, `LOG_LEVEL=debug`; Pusher/MIX/BROADCAST/
   MAIL_DRIVER removed). `DB_DATABASE` still points at `cristinarutz`.
@@ -73,6 +80,16 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
 - `composer.phar` is still in the repo — unclear if the server needs it.
 
 ### Open items (not code)
+
+- **Change the live password of m@marceli.to**: it was in plain text in
+  `database/seeds/UserSeeder.php` (now deleted, but still in the git
+  history and on GitHub) and still matched production (checked
+  2026-10-07 against the prod copy). The other seeded account's no longer
+  matches.
+- Three grid slots on live project pages show images that were deleted
+  (grid_items 269, 298, 724 on projects 4, 3, 25), so they render empty:
+  fill or empty them in the admin. Deleting an image now empties its
+  slots; before, the cleanup never matched (see "Backend structure").
 
 - "Leistungen" text links to two project URLs that 404 (also live), see
   log below — content, fix in the admin.
@@ -134,6 +151,10 @@ Next: the frontend (`03`, `07`).
 2026-10-07: public site built with Vite (see "Public site JS").
 
 2026-10-07: public JS without jQuery, own lightbox (see "Public site JS").
+
+2026-10-07: action classes for all controllers, request classes, models
+slimmed, dead code out; bugs found by the new tests fixed (see "Backend
+structure").
 
 ## Backend
 
@@ -268,6 +289,109 @@ positions in id order, and their HTML is unchanged (21 pages + home +
 diary compared). On production until go-live: fill slot 1 of that grid in
 the admin, or remove the row.
 
+### Backend structure (2026-10-07)
+
+Pattern as in rework.strut.ch (`../rework.strut.ch`, newest of the
+user's projects with it): `app/Actions/<Module>/<Verb>Action` with
+`execute()`, called from thin controllers; site pages get their data from
+`Actions/Site/Get…`.
+
+- **Actions**: `Content/{Save,Delete,Reorder,ToggleFlag,ToggleAttribute}`
+  (shared by about, contact, service, diary, article, resume, team,
+  image), `Image/{Upload,Store,Attach,Crop,Delete,Duplicate,Render}`,
+  `Project/{Save,Copy,MakeSlug}`, `Category/Save`,
+  `Grid/{StoreRow,DeleteRow,SetItem,ResetItem}`, `Auth/{Login,
+  ResetPassword}`, `Site/{GetHome,GetTeam,GetDiary,GetContact,
+  GetService,GetProject,GetWorklist,GetNavigation}`. Reads that are one
+  query stay in the controller. The menu's data comes from a view composer
+  (`AppServiceProvider`) instead of `BaseController`'s constructor (which
+  also ran on the login page).
+- **Requests**: `AdminRequest` (base) answers 422 with
+  `errors: {field: [{field, error}]}`, what the admin's ErrorHandling
+  reads; plain string messages. One request per form with rules for
+  every field (`validated()` is what gets saved); new: `ImageStore`,
+  `ImageUpdate` (caption, description only), `ImageCrop`, `GridRow`
+  (owner from a whitelist instead of `"App\Models\" . input`),
+  `GridItem`. Reorder endpoints validate `{key: [{id, order}]}`
+  (`Controller::orderItems`).
+- **Models**: traits `HasPublishFlag` (`publish` attribute; `hasFlag()`
+  reads eager-loaded flags, `flags` hidden from JSON), `HasImages`,
+  `HasGrids`; `GridItem::captionFor()` replaces `AppHelper::caption()`;
+  `GridItem::loadLinkedProjects()`. Return types, no empty docblocks.
+- **Removed**: `AppHelper`, `DateHelper` and their aliases (only
+  `caption()` was used), empty `app/Facades`, `Base` model, `CategoryProject`
+  pivot, the `File` model + `FileController` + `/api/file*` routes (the
+  files module is imported in the admin but never rendered; `files` is
+  empty on production; its upload took any file type into public storage)
+  and its CSRF exemption, `UploadController` (no route), unrouted
+  `delete()` methods, `Services/Media` (store → `Image/UploadAction`,
+  duplicate → `Image/DuplicateAction`; the rest unused), unused relations
+  and scopes, `BaseController`, `database/seeds` (could not load: composer
+  pointed at `database/seeders`; plaintext passwords) and the Laravel 7
+  `UserFactory`, `fakerphp/faker`, the dead `/api/user` closure (shadowed
+  by the controller route).
+- **API needs `role:admin`** now, not only a login. `CheckRole` 403s
+  instead of failing on a missing user.
+
+Bugs found by the new tests (fixed):
+
+- **Every validation error of the admin forms was a 500** on this branch:
+  the request classes returned arrays as messages, which Laravel 13 no
+  longer formats. And even a 422 never reached the user: the admin
+  registered its interceptors on `require('axios')` while the components
+  use `import axios` — two instances with axios 1.x, so 401/403/404/422/500
+  handling (notice, field marking, redirect to login) never ran (likely on
+  production too, same axios). One instance now (`cms/bootstrap.js`);
+  checked in the browser: empty title → notice + field marked.
+- Deleting an image looked up grid slots by `image_id = <file name>`, so
+  slots kept pointing at the deleted image (3 on production, see Open
+  items). Now the slots are emptied (kept, so the admin can fill them).
+- A project whose slug has a suffix (`wohnhaus-im-zwei-29`) got a new
+  slug, i.e. URL, on every save; now only when the title changes.
+- `ResumeStoreRequest` sent the description error to the `periode` field;
+  `ServiceStoreRequest` defined one message key twice.
+- Copied images kept the original's uuid.
+
+Changed on purpose (otherwise identical): the project page's browse
+links for a project not in the list (unpublished preview, or published
+without detail page: 3 on production) — previous is the last, next now
+the first (was the second); `GetProject` uses modulo now.
+
+Verified:
+
+- `.rewrite/tools/snapshot.php`: status and body of every public page,
+  21 projects as guest and admin, 5 legacy image redirects and every admin
+  GET with every id (888 requests) on the prod copy, before and after:
+  **identical**, except the browse link above (10 pages). Queries:
+  **4,538 → 2,351** (work list 66 → 7, project page 28 → 9, team 23 → 7,
+  admin project form up to 99 → 14).
+- New tests (in-memory SQLite): `Api/ContentApiTest` (8 modules: store,
+  update, toggle, delete, validation format), `Api/ProjectApiTest`,
+  `Api/ImageApiTest`, `Api/GridApiTest`, `PublicPagesTest`; written
+  against the old code first. 111 tests.
+- Admin in Chromium on a scratch DB copy (`cristinarutz_qa`, with a QA
+  admin user; can be dropped): login, project save, validation display,
+  toggle, image caption + crop, grid slot reset/set, reorder, upload →
+  record → delete by name.
+
+Not done now (with the admin port, `03`):
+
+- **JSON resources / response shapes.** The Vue 2 admin reads the models'
+  array form (incl. appended attributes like `abstract`, `preview` that it
+  never uses, and `categories` on every project). Kept identical; define
+  resources when the admin is rewritten.
+- **Routes**: toggles and project copy are GETs that write; URLs like
+  `image/state/{id}`, `resumes/{teamMember}` vs `resume/{id}`. Change
+  with the admin's API module.
+- Image upload: CSRF exemption stays until the uploader sends the token.
+- Admin: `.then()` without `.catch()` everywhere (unhandled rejections in
+  the console on every error); dead modules `files`, `links`, `videos`,
+  `galleries`; the diary list posts `/api/diary/order`, which never
+  existed.
+- The empty `files` table stays (a drop migration wasn't worth it now).
+- Mix admin bundle rebuilt for the axios fix (it also picks up the
+  dependency versions moved by the Vite install).
+
 ## Images
 
 See `05-image-pipeline.md` ("Done 2026-10-07" sections).
@@ -341,11 +465,12 @@ server's error message; logout posts a form. Rebuilt with Mix.
 
 ## Tests
 
-48 PHPUnit feature tests, in-memory SQLite (`php artisan test`):
+111 PHPUnit feature tests, in-memory SQLite (`php artisan test`):
 `AuthTest`, `ImageRenditionTest`, `ImageStoreTest`, `ImageUploadTest`,
-`MiddlewareTest`, `ProjectVisibilityTest`, `ResizeImagesTest`. No public
-pages test yet (oxid has `PublicPagesTest`). Verification scripts against
-production renders in `.rewrite/tools/`.
+`MiddlewareTest`, `ProjectVisibilityTest`, `PublicPagesTest`,
+`ResizeImagesTest`, `Api/*` (content modules, projects, images, grids).
+Verification scripts in `.rewrite/tools/`: `snapshot.php` (every page and
+admin GET on prod data, for before/after diffs), `qa/` (Playwright).
 
 ## Deploy notes
 

@@ -1,86 +1,52 @@
 <?php
 namespace App\Models;
+use App\Models\Concerns\HasGrids;
+use App\Models\Concerns\HasPublishFlag;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
+/**
+ * A teaser on the home page grid
+ */
 class Article extends Model
 {
-  use HasFlags;
-  
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-   
+  use HasGrids, HasPublishFlag;
+
   protected $fillable = [
     'date',
     'title',
     'text',
     'link',
-    'linkText'
+    'linkText',
   ];
 
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-   protected $appends = [
+  protected $appends = [
     'publish',
     'displayTitle',
     'articleContent',
   ];
 
-  /*
-  |--------------------------------------------------------------------------
-  | Relationships
-  |--------------------------------------------------------------------------
-  |
-  |
-  */
-
-  public function grids()
-  {
-    return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
-  }
-
   /**
-   * Get the publish attribute
-   * 
+   * "date • title", or the start of the text (admin lists)
    */
-
-  public function getPublishAttribute()
+  public function getDisplayTitleAttribute(): string
   {
-    return $this->hasFlag('isPublish') ? 1 : 0;    
-  }
-
-  /**
-   * Get the displayTitle attribute
-   * 
-   */
-
-   public function getDisplayTitleAttribute()
-   {
     if ($this->title)
     {
       return $this->date ? $this->date . ' &bull; ' . $this->title : $this->title;
-    } 
+    }
     return substr(strip_tags($this->text), 0, 25) . '...';
-   }
+  }
 
   /**
-   * Get the article content attribute
+   * The teaser as it appears in a grid slot
    */
-
-  public function getArticleContentAttribute()
+  public function getArticleContentAttribute(): string
   {
     $article = '<article class="teaser">';
     if ($this->date)
     {
       $article .= '<div class="teaser__date">' . $this->date . '</div>';
-    } 
+    }
 
     if ($this->title)
     {
@@ -102,10 +68,9 @@ class Article extends Model
           </a>
         </div>
       ';
-    }  
+    }
 
     $article .= '</article>';
     return $article;
   }
-
 }

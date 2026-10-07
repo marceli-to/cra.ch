@@ -1,43 +1,17 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\BaseController;
-use App\Models\Diary;
-use App\Models\About;
-use App\Models\Resume;
-use App\Models\TeamMember;
-use Illuminate\Http\Request;
+use App\Actions\Site\GetDiary;
+use App\Actions\Site\GetTeam;
 
-class AboutController extends BaseController
+class AboutController extends Controller
 {
-  protected $viewPath = 'pages.about.';
-
-  public function __construct()
+  public function team(GetTeam $action)
   {
-    parent::__construct();
+    return view('pages.about.team', $action->execute());
   }
-  
-  /**
-   * Show the team page
-   *
-   * @return \Illuminate\Http\Response
-   */
 
-   public function team()
-   {
-     $about = About::first();
-     $teamMembers = TeamMember::with('resumes')->flagged('isPublish')->orderBy('id')->get();
-     return view($this->viewPath . 'team', ['about' => $about, 'teamMembers' => $teamMembers]);
-   }
-
-  /**
-   * Show the diary page
-   *
-   * @return \Illuminate\Http\Response
-   */
-
-  public function diary()
+  public function diary(GetDiary $action)
   {
-    $diary = Diary::with('grids.gridItems.image')->flagged('isPublish')->first();
-    return view($this->viewPath . 'diary', ['diary' => $diary]);
+    return view('pages.about.diary', $action->execute());
   }
 }

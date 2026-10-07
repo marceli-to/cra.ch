@@ -26,7 +26,6 @@ return Application::configure(basePath: dirname(__DIR__))
         // Dropzone posts uploads without the CSRF header
         $middleware->validateCsrfTokens(except: [
             'api/image/upload',
-            'api/file/upload',
         ]);
 
         $middleware->redirectUsersTo(

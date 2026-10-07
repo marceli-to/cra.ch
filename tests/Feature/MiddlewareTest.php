@@ -40,9 +40,16 @@ class MiddlewareTest extends TestCase
         $this->actingAs($user)->get('/login')->assertRedirect('/administration');
     }
 
+    public function testApiNeedsTheAdminRole()
+    {
+        $this->actingAs((new User())->forceFill(['role' => 'editor']), 'sanctum');
+
+        $this->getJson('/api/states')->assertForbidden();
+    }
+
     public function testApiIsThrottledAt200PerMinute()
     {
-        $this->actingAs(new User(), 'sanctum');
+        $this->actingAs((new User())->forceFill(['role' => 'admin']), 'sanctum');
 
         $this->getJson('/api/states')->assertHeader('X-RateLimit-Limit', 200);
     }

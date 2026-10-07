@@ -1,7 +1,7 @@
 @props(['items', 'article', 'view'])
 <div class="grid-area-a aspect-ratio-c">
   @if ($items[0] && $items[0]->isImage)
-    @php $caption = \AppHelper::caption($items[0], $view); @endphp
+    @php $caption = $items[0]->captionFor($view); @endphp
     <x-galleries.gallery-link :item="$items[0]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[0 => 1200]" 
@@ -14,7 +14,7 @@
 </div>
 <div class="grid-area-b aspect-ratio-c">
   @if ($items[1] && $items[1]->isImage)
-    @php $caption = \AppHelper::caption($items[1], $view); @endphp
+    @php $caption = $items[1]->captionFor($view); @endphp
     <x-galleries.gallery-link :item="$items[1]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 900, 0 => 1200]" 
@@ -27,7 +27,7 @@
 </div>
 <div class="grid-area-c aspect-ratio-c">
   @if ($items[2] && $items[2]->isImage)
-    @php $caption = \AppHelper::caption($items[2], $view); @endphp  
+    @php $caption = $items[2]->captionFor($view); @endphp  
     <x-galleries.gallery-link :item="$items[2]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 900, 0 => 1200]" 
@@ -40,7 +40,7 @@
 </div>
 <div class="grid-area-d aspect-ratio-c">
   @if ($items[3] && $items[3]->isImage)
-    @php $caption = \AppHelper::caption($items[3], $view); @endphp
+    @php $caption = $items[3]->captionFor($view); @endphp
     <x-galleries.gallery-link :item="$items[3]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 900, 0 => 1200]" 
@@ -53,7 +53,7 @@
 </div>
 <div class="grid-area-e aspect-ratio-b">
   @if ($items[4] && $items[4]->isImage)
-    @php $caption = \AppHelper::caption($items[4], $view); @endphp  
+    @php $caption = $items[4]->captionFor($view); @endphp  
     <x-galleries.gallery-link :item="$items[4]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 900, 0 => 1200]"

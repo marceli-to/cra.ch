@@ -1,46 +1,24 @@
 <?php
-
 namespace App\Models;
+use App\Models\Concerns\HasPublishFlag;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Resume extends Model
 {
-  use HasFlags;
-  
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-   
+  use HasPublishFlag;
+
   protected $fillable = [
     'team_member_id',
     'periode',
-    'description'
+    'description',
   ];
 
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-   protected $appends = [
+  protected $appends = [
     'publish',
   ];
 
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublish') ? 1 : 0;
-  }
-
-  public function teamMember()
+  public function teamMember(): BelongsTo
   {
     return $this->belongsTo(TeamMember::class);
   }

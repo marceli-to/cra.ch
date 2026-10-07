@@ -1,90 +1,50 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Actions\Category\SaveAction;
+use App\Actions\Content\DeleteAction;
+use App\Actions\Content\ReorderAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\DataCollection;
 use App\Models\Category;
-use App\Http\Requests\CategoryStoreRequest;
 use Illuminate\Http\Request;
 
+/**
+ * Project categories (the work list's sections)
+ */
 class CategoryController extends Controller
 {
-  
-  /**
-   * Get a list of categories
-   * 
-   * @return \Illuminate\Http\Response
-   */
   public function get()
   {
     return new DataCollection(Category::orderBy('order')->get());
   }
 
-  /**
-   * Get a single category
-   * 
-   * @param Category $category
-   * @return \Illuminate\Http\Response
-   */
   public function find(Category $category)
   {
-    $category = Category::find($category->id);
     return response()->json($category);
   }
 
-  /**
-   * Store a newly created category
-   *
-   * @param  \Illuminate\Http\CategoryStoreRequest $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(CategoryStoreRequest $request)
-  { 
-    $category = Category::create([
-      'title' => $request->input('title'),
-      'slug' => \Str::slug($request->input('title')),
-    ]);
+  public function store(CategoryRequest $request)
+  {
+    $category = (new SaveAction)->execute(new Category, $request->validated('title'));
     return response()->json(['categoryId' => $category->id]);
   }
 
-  /**
-   * Update a category for a given category
-   *
-   * @param Category $category
-   * @param  \Illuminate\Http\CategoryStoreRequest $request
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Category $category, CategoryStoreRequest $request)
+  public function update(CategoryRequest $request, Category $category)
   {
-    $category->update([
-      'title' => $request->input('title'),
-      'slug' => \Str::slug($request->input('title')),
-    ]);
+    (new SaveAction)->execute($category, $request->validated('title'));
     return response()->json('successfully updated');
   }
 
-  /**
-   * Remove a category
-   *
-   * @param  Category $category
-   * @return \Illuminate\Http\Response
-   */
   public function destroy(Category $category)
   {
-    $category->delete();
+    (new DeleteAction)->execute($category);
     return response()->json('successfully deleted');
   }
 
   public function order(Request $request)
   {
-    $categories = $request->get('categories');
-    foreach($categories as $cat)
-    {
-      $c = Category::find($cat['id']);
-      $c->order = $cat['order'];
-      $c->save();
-    }
+    (new ReorderAction)->execute(Category::class, $this->orderItems($request, 'categories'));
     return response()->json('successfully updated');
   }
-
 }
-

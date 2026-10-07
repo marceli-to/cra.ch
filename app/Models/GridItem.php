@@ -1,15 +1,15 @@
 <?php
 namespace App\Models;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * A slot in a grid row: an image (optionally linking to a project or a
+ * page), or an article
+ */
 class GridItem extends Model
 {
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-
   protected $fillable = [
     'position',
     'project_id',
@@ -17,16 +17,10 @@ class GridItem extends Model
     'article_id',
     'image_id',
     'grid_id',
-    'page'
+    'page',
   ];
 
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-   protected $appends = [
+  protected $appends = [
     'isArticle',
     'isPage',
     'isDiary',
@@ -36,129 +30,102 @@ class GridItem extends Model
   ];
 
   /**
-   * The grid that belongs to this image grid item.
+   * Load the projects that slots link to (their caption reads them) in a
+   * few queries instead of three per slot. Slots without a project stay
+   * without the relation, so their array form has no `project` key.
    */
-  
-  public function grid()
+  public static function loadLinkedProjects(iterable $items): void
+  {
+    (new Collection($items))
+      ->filter(fn (GridItem $item) => $item->project_id)
+      ->values()
+      ->load('project.flags', 'project.categories');
+  }
+
+  public function grid(): BelongsTo
   {
     return $this->belongsTo(Grid::class);
   }
 
-  /**
-   * The image that belongs to this image grid item.
-   */
-  
-  public function image()
+  public function image(): BelongsTo
   {
     return $this->belongsTo(Image::class);
   }
 
-  /**
-   * The published image that belongs to this image grid item.
-   */
-  
-  public function publishedImage()
-  {
-    return $this->belongsTo(Image::class);
-  }
-
-  /**
-   * The project that belongs to this image grid item.
-   */
-  
-  public function project()
+  public function project(): BelongsTo
   {
     return $this->belongsTo(Project::class);
   }
 
-  /**
-   * The diary that belongs to this image grid item.
-   */
-  
-  public function diary()
+  public function diary(): BelongsTo
   {
     return $this->belongsTo(Diary::class);
   }
 
-  /**
-   * The article that belongs to this image grid item.
-   */
-  
-  public function article()
+  public function article(): BelongsTo
   {
     return $this->belongsTo(Article::class);
   }
 
-  /**
-   * The published article that belongs to this image grid item.
-   */
-  
-   public function publishedArticle()
-   {
-     return $this->belongsTo(Article::class)->flagged('isPublish');
-   }
-
-  /**
-   * Get the isArticle attribute.
-   * @return bool
-   */
-
-  public function getIsArticleAttribute()
+  public function getIsArticleAttribute(): bool
   {
-    return $this->article_id && !$this->image_id ? true : false;
+    return $this->article_id && !$this->image_id;
+  }
+
+  public function getIsDiaryAttribute(): bool
+  {
+    return (bool) $this->diary_id;
+  }
+
+  public function getIsImageAttribute(): bool
+  {
+    return (bool) $this->image_id;
+  }
+
+  public function getIsProjectAttribute(): bool
+  {
+    return (bool) $this->project_id;
   }
 
   /**
-   * Get the isDiary attribute.
-   * @return bool
+   * An image linking to a page (config/pages.php)
    */
-
-  public function getIsDiaryAttribute()
+  public function getIsPageAttribute(): bool
   {
-    return $this->diary_id ? true : false;
+    return $this->page && $this->image_id;
   }
 
   /**
-   * Get the isImage attribute.
-   * @return bool
+   * The project's title, else the image's caption
    */
-  
-  public function getIsImageAttribute()
-  {
-    return $this->image_id ? true : false;
-  }
-
-  /**
-   * Get the isProject attribute.
-   * @return bool
-   */
-
-  public function getIsProjectAttribute()
-  {
-    return $this->project_id ? true : false;
-  }
-  
-  /**
-   * Get the isPage attribute.
-   * @return bool
-   */
-
-  public function getIsPageAttribute()
-  {
-    return $this->page && $this->image_id ? true : false;
-  }
-  
-  /**
-   * Get the caption attribute.
-   * @return string
-   */
-
-  public function getCaptionAttribute()
+  public function getCaptionAttribute(): ?string
   {
     if ($this->isProject)
     {
       return $this->project?->title;
     }
-    return $this->image && $this->image->caption ? $this->image->caption : null;
+    return $this->image?->caption ?: null;
+  }
+
+  /**
+   * The caption on the site: on the home page the title of the project or
+   * page the slot links to, elsewhere the image's caption
+   */
+  public function captionFor(?string $view): ?string
+  {
+    if ($view == 'home')
+    {
+      if ($this->isProject)
+      {
+        return $this->project?->title;
+      }
+
+      if ($this->isPage)
+      {
+        return config('pages')[$this->page];
+      }
+    }
+
+    return $this->image?->caption ?: null;
   }
 }

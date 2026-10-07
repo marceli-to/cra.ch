@@ -1,10 +1,7 @@
 <?php
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\ImageController;
-use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\StateController;
@@ -19,22 +16,8 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\GridController;
 use App\Http\Controllers\Api\GridItemController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-  return $request->user();
-});
-
-Route::middleware('auth:sanctum')->group(function() {
+// The admin's API (/api/...)
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function() {
   Route::get('user', [UserController::class, 'find']);
 
   // Images
@@ -48,16 +31,6 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::get('image/state/{image}', [ImageController::class, 'toggle']);
   Route::get('image/preview/state/{image}', [ImageController::class, 'preview']);
   Route::delete('image/{image}', [ImageController::class, 'destroy']);
-
-  // Files
-  Route::get('files', [FileController::class, 'get']);
-  Route::post('files/order', [FileController::class, 'order']);
-  Route::get('file/{file}', [FileController::class, 'find']);
-  Route::post('file/upload', [FileController::class, 'upload']);
-  Route::post('file', [FileController::class, 'store']);
-  Route::put('file/{file}', [FileController::class, 'update']);
-  Route::get('file/state/{file}', [FileController::class, 'toggle']);
-  Route::delete('file/{file}', [FileController::class, 'destroy']);
 
   // Article
   Route::controller(ArticleController::class)->group(function () {

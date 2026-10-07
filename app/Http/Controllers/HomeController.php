@@ -1,32 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\BaseController;
-use App\Models\Home;
-use Illuminate\Http\Request;
+use App\Actions\Site\GetHome;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
-  protected $viewPath = 'pages.home.';
-
-  public function __construct()
+  public function index(GetHome $action)
   {
-    parent::__construct();
+    return view('pages.home.index', $action->execute());
   }
-
-  /**
-   * Show the homepage
-   *
-   * @return \Illuminate\Http\Response
-   */
-
-  public function index()
-  {
-    $grid = Home::with(
-      'grids.gridItems.image', 
-      'grids.gridItems.project', 
-      'grids.gridItems.article'
-    )->find(1);
-    return view($this->viewPath . 'index', ['grid' => $grid]);
-  }
-
 }

@@ -13,7 +13,7 @@ class ImageUploadTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->actingAs(new User(), 'sanctum');
+        $this->actingAs((new User())->forceFill(['role' => 'admin']), 'sanctum');
     }
 
     protected function tearDown(): void

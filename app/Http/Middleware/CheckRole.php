@@ -1,24 +1,17 @@
 <?php
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
 use Closure;
+use Illuminate\Http\Request;
 
+/**
+ * `role:editor`: users with that role, and admins (who may do everything)
+ */
 class CheckRole
 {
-  /**
-   * Handle the incoming request.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \Closure  $next
-   * @param  string  $role
-   * @return mixed
-   */
-  public function handle($request, Closure $next, $role)
+  public function handle(Request $request, Closure $next, string $role)
   {
-    if (Auth::user()->role !== $role && Auth::user()->role !== 'admin')
-    {
-      return abort(403);
-    }
+    abort_unless(in_array($request->user()?->role, [$role, 'admin'], true), 403);
+
     return $next($request);
   }
 }

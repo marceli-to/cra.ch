@@ -1,30 +1,18 @@
 <?php
 namespace App\Models;
-use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
-
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-   
-	protected $fillable = [
+  protected $fillable = [
     'title',
     'slug',
     'order',
   ];
 
-  /**
-   * The courses that belong to this category
-   */
-  
-  public function projects()
+  public function projects(): BelongsToMany
   {
     return $this->belongsToMany(Project::class);
   }
-
 }

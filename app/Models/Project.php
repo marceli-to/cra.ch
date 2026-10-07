@@ -1,20 +1,18 @@
 <?php
 namespace App\Models;
+use App\Models\Concerns\HasGrids;
+use App\Models\Concerns\HasImages;
+use App\Models\Concerns\HasPublishFlag;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
-  use SoftDeletes, HasFlags;
+  use HasGrids, HasImages, HasPublishFlag, SoftDeletes;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-   
-	protected $fillable = [
+  protected $fillable = [
     'title',
     'slug',
     'text',
@@ -24,98 +22,34 @@ class Project extends Model
     'location',
     'periode',
     'order',
-    'state_id'
+    'state_id',
   ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
 
   protected $appends = [
     'abstract',
     'preview',
     'publish',
     'has_detail_page',
-    'category_ids'
+    'category_ids',
   ];
 
-  /*
-  |--------------------------------------------------------------------------
-  | Relationships
-  |--------------------------------------------------------------------------
-  |
-  |
-  */
-
-  /**
-   * The images that belong to this model.
-   */
-
-  public function image()
-  {
-    return $this->morphOne(Image::class, 'imageable');
-  }
-
-  public function publishedImage()
-  {
-    return $this->morphOne(Image::class, 'imageable')->where('publish', 1);
-  }
-
-  public function previewImage()
-  {
-    return $this->morphOne(Image::class, 'imageable')->where('preview', 1);
-  }
-
-  public function images()
-  {
-    return $this->morphMany(Image::class, 'imageable')->orderBy('order');
-  }
-
-  public function state()
+  public function state(): BelongsTo
   {
     return $this->belongsTo(State::class);
   }
 
-  public function grids()
-  {
-    return $this->morphMany(Grid::class, 'gridable')->orderBy('order');
-  }
-
-  /**
-   * The categories that belong to this project.
-   */
-  
-  public function categories()
+  public function categories(): BelongsToMany
   {
     return $this->belongsToMany(Category::class);
   }
 
   /**
-   * Get the publish attribute
-   * 
+   * Whether the project has its own page (otherwise only in the work list)
    */
-
-  public function getPublishAttribute()
+  public function getHasDetailPageAttribute(): int
   {
-    return $this->hasFlag('isPublish') ? 1 : 0;    
+    return $this->hasFlag('hasDetailPage') ? 1 : 0;
   }
-
-  /**
-   * Get the has_detail_page attribute
-   * 
-   */
-
-  public function getHasDetailPageAttribute()
-  {
-    return $this->hasFlag('hasDetailPage') ? 1 : 0;    
-  }
-
-  /**
-   * Get array of ids from the m:n topic relationship
-   *
-   */
 
   public function getCategoryIdsAttribute()
   {
@@ -123,23 +57,18 @@ class Project extends Model
   }
 
   /**
-   * Get the abstract attribute
-   * 
+   * The text without tags or line breaks, 200 characters
    */
-
-  public function getAbstractAttribute()
+  public function getAbstractAttribute(): string
   {
-    // remove all html tags, shorten to 200 chars and remove line breaks
     return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
   }
 
   /**
-   * Get the preview attribute
-   * 
+   * Same as abstract (kept for the admin's data)
    */
-
-  public function getPreviewAttribute()
+  public function getPreviewAttribute(): string
   {
-    return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
+    return $this->abstract;
   }
 }

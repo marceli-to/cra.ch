@@ -1,48 +1,25 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Actions\Grid\ResetItemAction;
+use App\Actions\Grid\SetItemAction;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DataCollection;
+use App\Http\Requests\GridItemRequest;
 use App\Models\GridItem;
-use Illuminate\Http\Request;
 
+/**
+ * The slots of a grid row
+ */
 class GridItemController extends Controller
 {
-
-  /**
-   * Store a grid item
-   *
-   * @param  \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
-   */
-
-  public function store(Request $request)
+  public function store(GridItemRequest $request)
   {
-    $gridItem = GridItem::find($request->input('id'));
-    $gridItem->image_id = $request->input('image_id') ? $request->input('image_id') : NULL;
-    $gridItem->project_id = $request->input('project_id') ? $request->input('project_id') : NULL;
-    $gridItem->diary_id = $request->input('diary_id') ? $request->input('diary_id') : NULL;
-    $gridItem->article_id = $request->input('article_id') ? $request->input('article_id') : NULL;
-    $gridItem->page = $request->input('page') ? $request->input('page') : NULL;
-    $gridItem->position = $request->input('position');
-    $gridItem->save();
-    return response()->json($gridItem);
+    $item = (new SetItemAction)->execute(GridItem::findOrFail($request->validated('id')), $request->validated());
+    return response()->json($item);
   }
 
-  /**
-   * Reset a grid item
-   *
-   * @param  GridItem $gridItem
-   * @return \Illuminate\Http\Response
-   */
   public function reset(GridItem $gridItem)
   {
-    $gridItem->image_id = NULL;
-    $gridItem->project_id = NULL;
-    $gridItem->diary_id = NULL;
-    $gridItem->article_id = NULL;
-    $gridItem->page = NULL;
-    $gridItem->save();
+    (new ResetItemAction)->execute($gridItem);
     return response()->json('successfully deleted');
   }
-
 }

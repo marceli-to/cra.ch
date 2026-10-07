@@ -1,27 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\BaseController;
-use App\Models\Service;
-use Illuminate\Http\Request;
+use App\Actions\Site\GetService;
 
-class ServiceController extends BaseController
+class ServiceController extends Controller
 {
-  protected $viewPath = 'pages.service.';
-
-  public function __construct()
+  public function index(GetService $action)
   {
-    parent::__construct();
-  }
-
-  /**
-   * Show the homepage
-   *
-   * @return \Illuminate\Http\Response
-   */
-
-  public function index()
-  {
-    $service = Service::with('publishedImages')->first();
-    return view($this->viewPath . 'index', ['service' => $service]);
+    return view('pages.service.index', $action->execute());
   }
 }

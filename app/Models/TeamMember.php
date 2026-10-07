@@ -1,11 +1,12 @@
 <?php
 namespace App\Models;
+use App\Models\Concerns\HasPublishFlag;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TeamMember extends Model
 {
-  use HasFlags;
+  use HasPublishFlag;
 
   protected $fillable = [
     'slug',
@@ -16,13 +17,8 @@ class TeamMember extends Model
     'publish',
   ];
 
-  public function resumes()
+  public function resumes(): HasMany
   {
     return $this->hasMany(Resume::class)->orderBy('order');
-  }
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublish') ? 1 : 0;
   }
 }

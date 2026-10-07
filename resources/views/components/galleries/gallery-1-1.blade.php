@@ -1,7 +1,7 @@
 @props(['items', 'view'])
 <div class="grid-area-a aspect-ratio-b">
   @if ($items[0] && $items[0]->isImage)
-    @php $caption = \AppHelper::caption($items[0], $view); @endphp
+    @php $caption = $items[0]->captionFor($view); @endphp
     <x-galleries.gallery-link :item="$items[0]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 1600, 0 => 1200]" 
@@ -14,7 +14,7 @@
 </div>
 <div class="grid-area-b aspect-ratio-b">
   @if ($items[1] && $items[1]->isImage)
-    @php $caption = \AppHelper::caption($items[1], $view); @endphp
+    @php $caption = $items[1]->captionFor($view); @endphp
     <x-galleries.gallery-link :item="$items[1]" :view="$view" :caption="$caption">
       <x-image 
         :maxSizes="[1024 => 1600, 0 => 1200]" 

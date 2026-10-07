@@ -1,143 +1,62 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Actions\Content\DeleteAction;
+use App\Actions\Content\ReorderAction;
+use App\Actions\Content\SaveAction;
+use App\Actions\Content\ToggleFlagAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResumeRequest;
+use App\Http\Resources\DataCollection;
 use App\Models\Resume;
 use App\Models\TeamMember;
-use App\Http\Resources\DataCollection;
-use App\Http\Requests\ResumeStoreRequest;
 use Illuminate\Http\Request;
 
+/**
+ * The CV entries of a team member
+ */
 class ResumeController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
   public function get()
   {
-    return new DataCollection(Resume::orderBy('order')->get());
+    return new DataCollection(Resume::with('flags')->orderBy('order')->get());
   }
 
   public function getByTeamMember(TeamMember $teamMember)
   {
-    return new DataCollection($teamMember->resumes);
+    return new DataCollection($teamMember->resumes()->with('flags')->get());
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  Resume $resume
-   * @return \Illuminate\Http\Response
-   */
   public function find(Resume $resume)
   {
-    return response()->json(['resume' => Resume::find($resume->id)]);
+    return response()->json(['resume' => $resume]);
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\ResumeStoreRequest  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(ResumeStoreRequest $request)
+  public function store(ResumeRequest $request)
   {
-    $resume = Resume::create([
-      'team_member_id' => $request->input('team_member_id'),
-      'periode' => $request->input('periode'),
-      'description' => $request->input('description'),
-    ]);
-    $this->handleFlag($resume, 'isPublish', $request->input('publish'));
+    $resume = (new SaveAction)->execute(new Resume, $request->fields(), ['isPublish' => $request->boolean('publish')]);
     return response()->json(['resumeId' => $resume->id]);
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\ResumeStoreRequest  $request
-   * @param  Resume $resume
-   * @return \Illuminate\Http\Response
-   */
-  public function update(ResumeStoreRequest $request, Resume $resume)
+  public function update(ResumeRequest $request, Resume $resume)
   {
-    $resume = Resume::findOrFail($resume->id);
-    $resume->periode = $request->input('periode');
-    $resume->description = $request->input('description');
-    $resume->save();
-    $this->handleFlag($resume, 'isPublish', $request->input('publish'));
+    (new SaveAction)->execute($resume, $request->fields(), ['isPublish' => $request->boolean('publish')]);
     return response()->json('successfully updated');
   }
 
-  /**
-   * Toggle the status a given resume
-   *
-   * @param  Resume $resume
-   * @return \Illuminate\Http\Response
-   */
   public function toggle(Resume $resume)
   {
-    if ($resume->hasFlag('isPublish'))
-    {
-      $resume->unflag('isPublish');
-    }
-    else
-    {
-      $resume->flag('isPublish');
-    } 
-    return response()->json($resume->hasFlag('isPublish'));
+    return response()->json((new ToggleFlagAction)->execute($resume));
   }
 
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  Resume $resume
-   * @return \Illuminate\Http\Response
-   */
   public function destroy(Resume $resume)
   {
-    $resume->delete();
+    (new DeleteAction)->execute($resume);
     return response()->json('successfully deleted');
   }
 
-  /**
-   * Update the order the resumes
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-
-   public function order(Request $request)
-   {
-     $resumes = $request->get('resumes');
-     foreach($resumes as $res)
-     {
-       $r = Resume::find($res['id']);
-       $r->order = $res['order'];
-       $r->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a resume
-   *
-   * @param Resume $resume
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Resume $resume, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
-    {
-      $resume->flag($flag);
-    }
-    else
-    {
-      $resume->unflag($flag);
-    }
-    return $resume->hasFlag($flag);
+    (new ReorderAction)->execute(Resume::class, $this->orderItems($request, 'resumes'));
+    return response()->json('successfully updated');
   }
 }

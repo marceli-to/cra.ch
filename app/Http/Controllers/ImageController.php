@@ -1,13 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+use App\Actions\Image\RenderAction;
 use App\Models\Image;
 use App\Support\Glide;
 use App\Support\ImageSupport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
-use League\Glide\Server;
 use League\Glide\Signatures\SignatureException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -21,8 +20,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ImageController extends Controller
 {
-  public const FORMAT_QUALITY = ['jpg' => 75, 'png' => 75, 'webp' => 80, 'avif' => 70];
-
   /**
    * Sizes the old /img/crop URLs used: the site's, the admin's preview
    * (1500) and image-cache's default when the URL has none (2400)
@@ -30,13 +27,6 @@ class ImageController extends Controller
   public const LEGACY_SIZES = [900, 1000, 1200, 1500, 1600, 2000, 2400, 2600];
 
   public const LEGACY_DEFAULT_SIZE = 2400;
-
-  protected Server $server;
-
-  public function __construct()
-  {
-    $this->server = Glide::server();
-  }
 
   /**
    * Renders exactly what the signed parameters ask for
@@ -97,59 +87,19 @@ class ImageController extends Controller
 
   protected function respond(string $filename, array $params, int $maxAge, array $cacheDirectives = []): Response
   {
-    $fallback = $this->sourceFormat($filename);
-    $format = in_array($params['fm'] ?? null, ImageSupport::modernFormats(), true) ? $params['fm'] : $fallback;
-    $image = $this->render($filename, $params, $format);
-
-    // The encoder failed twice: the upload's own format for now, cached
-    // briefly so the modern format is tried again soon
-    if ($image === null && $format !== $fallback)
-    {
-      Log::warning("Broken {$format} rendition of {$filename}, served as {$fallback}", $params);
-      $format = $fallback;
-      $image = $this->render($filename, $params, $format);
-      [$maxAge, $cacheDirectives] = [300, []];
-    }
+    [$image, $format, $fellBack] = (new RenderAction)->execute($filename, $params);
 
     abort_if($image === null, 500, 'Image could not be rendered');
+
+    // Cached briefly, so the requested format is tried again soon
+    if ($fellBack)
+    {
+      [$maxAge, $cacheDirectives] = [300, []];
+    }
 
     return response($image, 200, [
       'Content-Type' => 'image/' . ($format === 'jpg' ? 'jpeg' : $format),
     ] + $this->cacheHeaders($maxAge, $cacheDirectives));
-  }
-
-  /**
-   * The rendition, or null if it is undecodable twice. A broken one is
-   * removed from the cache, so the next request renders it again (oxid saw
-   * Imagick write empty AVIFs in forked PHP workers).
-   */
-  protected function render(string $filename, array $params, string $format): ?string
-  {
-    $params['fm'] = $format;
-    $params['q'] = self::FORMAT_QUALITY[$format];
-
-    for ($attempt = 1; $attempt <= 2; $attempt++)
-    {
-      $cachedPath = $this->server->makeImage('uploads/' . $filename, $params);
-      $image = $this->server->getCache()->read($cachedPath);
-
-      if (@getimagesizefromstring($image))
-      {
-        return $image;
-      }
-
-      $this->server->getCache()->delete($cachedPath);
-    }
-
-    return null;
-  }
-
-  /**
-   * A PNG stays a PNG (it may have transparency)
-   */
-  protected function sourceFormat(string $filename): string
-  {
-    return strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'png' ? 'png' : 'jpg';
   }
 
   /**
