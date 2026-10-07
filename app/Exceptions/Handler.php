@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use MarceliTo\Wiretap\Facades\Wiretap;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,25 +25,6 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-
-    /**
-     * Report or log an exception.
-     *
-     * @param  \Throwable  $exception
-     * @return void
-     *
-     * @throws \Exception
-     */
-    public function report(Throwable $exception)
-    {
-      Wiretap::exception($exception, [
-        'url' => request()->fullUrl(),
-        'method' => request()->method(),
-        'user_id' => auth()->id(),
-        'ip' => request()->ip()
-      ]);
-      parent::report($exception);
-    }
 
     /**
      * Render an exception into an HTTP response.
