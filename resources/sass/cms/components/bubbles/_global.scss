@@ -22,11 +22,10 @@
     background-color: $color-info;
   }
 
+  // Upload hint below the drop zone, lined up with its edge
   &.is-restriction {
-    background-color: $color-light-grey;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    color: $color-dark;
+    color: $color-dark-grey;
+    padding-left: 0;
     text-transform: uppercase;
     top: 0;
   }
