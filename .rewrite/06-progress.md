@@ -177,6 +177,11 @@ Next: the frontend (`03`, `07`).
 slimmed, dead code out; bugs found by the new tests fixed (see "Backend
 structure").
 
+2026-10-07: local `.env` switched to `cristinarutz_prod` (a homepage tile
+was broken because the old DB referenced replaced files). Fresh 11:04 dump
+identical to the 08:16 one. `npm run build` and `npm run admin:build`
+rerun: output unchanged from the committed build.
+
 ## Backend
 
 ### Step 1: dead code (2026-10-07)
