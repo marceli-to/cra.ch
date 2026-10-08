@@ -6,11 +6,28 @@
 
 body.auth {
   background-color: #f9f9f9;
+  background-image: url('/assets/img/auth/splash-2000.jpg');
+  background-image: image-set(
+    url('/assets/img/auth/splash-2000.avif') type('image/avif'),
+    url('/assets/img/auth/splash-2000.webp') type('image/webp'),
+    url('/assets/img/auth/splash-2000.jpg') type('image/jpeg')
+  );
+  background-position: center;
+  background-size: cover;
   height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
+
+  @media (max-width: 1200px) {
+    background-image: url('/assets/img/auth/splash-1200.jpg');
+    background-image: image-set(
+      url('/assets/img/auth/splash-1200.avif') type('image/avif'),
+      url('/assets/img/auth/splash-1200.webp') type('image/webp'),
+      url('/assets/img/auth/splash-1200.jpg') type('image/jpeg')
+    );
+  }
 
   main.site-auth {
     min-height: 100vh;

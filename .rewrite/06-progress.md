@@ -462,9 +462,9 @@ building blocks from oxid, look kept from cristinarutz's own admin Sass
   Text/Team, Kontakt) — Team was missing from the old menu — with the
   current page underlined and a close button; yes/no as toggles; list
   rows labelled with their text instead of "Kontakt"/"Leistungen";
-  `/administration` lands on the project list; login with a random
-  landscape image of a published project as background
-  (`AuthController::splash()`). Login stays a Blade page.
+  `/administration` lands on the project list; auth screens (login,
+  password reset) with a fixed splash image as background
+  (`public/assets/img/auth/`, set in `_auth.scss`). Login stays a Blade page.
   Not applied from `08`: regular weight for buttons/labels/tabs (the
   admin's own type was kept) and oxid's one card for images and files
   (there are no files here; images keep the upload tiles).
