@@ -63,6 +63,11 @@ article.teaser {
     }
   }
 
+  // The paragraph spacing the text's last paragraph no longer has
+  .teaser__text + .teaser__link {
+    @extend %mt-16x;
+  }
+
   .teaser__link {
     flex: none;
     @include font-size($fs-sm);
