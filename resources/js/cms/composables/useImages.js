@@ -45,7 +45,7 @@ export function useImages({ images, isLoading }) {
   }
 
   async function destroy(image) {
-    if (!confirmDelete()) {
+    if (!await confirmDelete('Bild löschen?')) {
       return;
     }
     if (await request(() => http.delete(`/api/image/${image.name}`))) {

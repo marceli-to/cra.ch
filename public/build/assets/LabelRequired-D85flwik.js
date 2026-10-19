@@ -1,0 +1,1 @@
+import{X as e,j as t,y as n}from"./app-M_MRp8XC.js";var r={class:`is-required`},i={__name:`LabelRequired`,props:{text:{type:String,default:`Pflichtfeld`}},setup(i){return(a,o)=>(t(),n(`div`,r,e(i.text),1))}};export{i as t};

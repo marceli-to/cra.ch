@@ -55,7 +55,8 @@ class Article extends Model
 
     if ($this->text)
     {
-      $article .= $this->text;
+      // Clamped to the slot by resources/js/web/modules/teaser.js
+      $article .= '<div class="teaser__text" data-teaser-text>' . $this->text . '</div>';
     }
 
     if ($this->link)

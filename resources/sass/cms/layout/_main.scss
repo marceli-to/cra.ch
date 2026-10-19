@@ -12,6 +12,10 @@ $space-bottom: (
 );
 
 main.site {
+  @include bp-md() {
+    margin-left: $sidebar-width;
+  }
+
   @include responsive-prop('padding-top', $space-md);
   @include responsive-prop('padding-bottom', $space-bottom);
 

@@ -63,6 +63,9 @@ $site-max-width: (
 );
 
 // Header
+// The sidebar, fixed on the left from md up
+$sidebar-width:     248px;
+
 $header-height:     80px;
 $header-height-sm:  80px;
 $header-height-md:  100px;

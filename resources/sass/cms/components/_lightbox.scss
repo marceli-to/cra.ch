@@ -5,6 +5,12 @@
  * -----------------------------------------------------------------------------
  */
 
+// The page doesn't scroll behind an overlay. The scrollbar's room stays
+// reserved, so hiding it doesn't shift the page
+html {
+  scrollbar-gutter: stable;
+}
+
 html:has(dialog.lightbox[open]) {
   overflow: hidden;
 }
@@ -35,8 +41,8 @@ html:has(dialog.lightbox[open]) {
 
   &.lightbox--small {
     background-color: $color-white;
+    border: $border-width solid $color-light-grey;
     border-radius: 2px;
-    box-shadow: $box-shadow-lg;
     max-width: 480px;
     width: calc(100% - 32px);
 
@@ -134,4 +140,10 @@ html:has(dialog.lightbox[open]) {
 
 .lightbox__loading {
   color: $color-medium-grey;
+}
+
+// The confirm dialog (ConfirmDialog)
+.confirm-dialog__text {
+  color: $color-dark-grey;
+  margin: 0;
 }

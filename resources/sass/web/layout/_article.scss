@@ -42,11 +42,29 @@ article {
 }
 
 article.teaser {
+  display: flex;
+  flex-direction: column;
+
   h2 {
     @extend %mb-16x;
   }
 
+  // Never taller than the slot; teaser.js ends it on a whole line with "…"
+  .teaser__text {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow: hidden;
+
+    &.is-clamped {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--teaser-lines);
+      line-clamp: var(--teaser-lines);
+    }
+  }
+
   .teaser__link {
+    flex: none;
     @include font-size($fs-sm);
 
     a {

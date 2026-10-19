@@ -4,11 +4,16 @@
  * -----------------------------------------------------------------------------
  */
 
+// Small screens only: from md up the sidebar holds the logo
 header.page-header {
   background-color: $color-white;
   border-bottom: $border-width solid $color-light;
   position: relative;
   width: 100%;
+
+  @include bp-md() {
+    display: none;
+  }
 
   > div {
     @extend %page-block;

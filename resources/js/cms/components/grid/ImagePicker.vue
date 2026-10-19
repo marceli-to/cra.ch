@@ -2,47 +2,42 @@
   <div class="grid-picker-root">
     <LoadingIndicator v-if="isLoading" />
     <template v-if="owner.name !== 'Home'">
-      <div class="grid-picker__images" v-if="owner.model.images.length">
-        <img
-          v-for="image in owner.model.images"
-          :key="image.id"
-          :src="imageUrl(image, 'small')"
-          height="300"
-          width="300"
-          loading="lazy"
-          @click="emit('select', { image_id: image.id, project_id: owner.name === 'Project' ? owner.model.id : null })"
-        >
-      </div>
+      <ul role="list" class="grid-picker__images" v-if="owner.model.images.length">
+        <li v-for="image in owner.model.images" :key="image.id">
+          <button type="button" class="grid-picker__image" @click="emit('select', { image_id: image.id, project_id: owner.name === 'Project' ? owner.model.id : null })">
+            <img :src="imageUrl(image, 'small')" height="300" width="300" loading="lazy" alt="">
+            <span>{{ image.caption || image.original_name }}</span>
+          </button>
+        </li>
+      </ul>
       <p class="grid-picker__empty" v-else>Es sind noch keine Bilder vorhanden.</p>
     </template>
     <div class="grid-picker" v-else-if="isFetched">
-      <nav class="grid-picker__sources">
+      <nav class="grid-picker__sources" aria-label="Bilder von">
         <section v-for="group in groups" :key="group.label">
-          <h3 class="page-nav__label">{{ group.label }}</h3>
+          <h3 class="grid-picker__label">{{ group.label }}</h3>
           <ul role="list">
             <li v-for="source in group.sources" :key="source.key">
-              <a
-                href="javascript:;"
+              <button
+                type="button"
                 :class="{ 'is-active': source === current }"
+                :aria-current="source === current ? 'true' : undefined"
                 @click="current = source"
-              >{{ source.label }}</a>
+              >{{ source.label }}</button>
             </li>
           </ul>
         </section>
       </nav>
       <div v-if="current">
         <h3 class="grid-picker__title">{{ current.label }}</h3>
-        <div class="grid-picker__images">
-          <img
-            v-for="image in current.images"
-          :key="image.id"
-          :src="imageUrl(image, 'small')"
-          height="300"
-          width="300"
-          loading="lazy"
-            @click="emit('select', { image_id: image.id, ...current.selection })"
-          >
-        </div>
+        <ul role="list" class="grid-picker__images">
+          <li v-for="image in current.images" :key="image.id">
+            <button type="button" class="grid-picker__image" @click="emit('select', { image_id: image.id, ...current.selection })">
+              <img :src="imageUrl(image, 'small')" height="300" width="300" loading="lazy" alt="">
+              <span>{{ image.caption || image.original_name }}</span>
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -55,7 +50,8 @@ import { imageUrl } from '@/lib/images';
 
 // Picks the image for a grid slot. Projects and diaries pick from their own
 // images; the home from published projects and the pages, listed on the
-// left (the first project is shown at once).
+// left (the first project is shown at once). The Lightbox body scrolls, the
+// list stays in place.
 const props = defineProps({
   // { name: 'Home' | 'Diary' | 'Project', model }
   owner: { type: Object, required: true },

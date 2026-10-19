@@ -21,6 +21,3 @@ body {
 	@include font-size($fs-sm);
 	text-rendering: optimizeLegibility;
 }
-
-// Scrollbars
-@include scrollbar(6px, #ccc, #fff);

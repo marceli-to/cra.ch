@@ -46,7 +46,7 @@ export function useListing({ list, resource, isLoading = ref(false) }) {
   }
 
   async function destroy(id) {
-    if (!confirmDelete()) {
+    if (!await confirmDelete()) {
       return;
     }
     isLoading.value = true;

@@ -37,7 +37,7 @@
         </a>
         <div>
           <div v-if="grid.layout === '1t_1-1_1-1'" class="grid-area-a aspect-ratio-c p-2x">
-            <figure class="text-xs" style="flex-direction: column; align-items: flex-start;" v-html="owner.model.articleContent"></figure>
+            <figure class="grid-text text-xs" v-html="owner.model.articleContent"></figure>
           </div>
           <template v-for="(slot, index) in layouts[grid.layout]" :key="index">
             <GridItem
@@ -56,7 +56,7 @@
       <p class="no-records" v-if="!rows.length">Es sind noch keine Zeilen vorhanden...</p>
     </template>
 
-    <Lightbox :open="picker?.type === 'image'" title="Bild wählen" fill @close="picker = null">
+    <Lightbox :open="picker?.type === 'image'" title="Bild wählen" @close="picker = null">
       <ImagePicker v-if="picker?.type === 'image'" :owner="owner" @select="setItem" />
     </Lightbox>
     <Lightbox :open="picker?.type === 'article'" title="Artikel wählen" size="small" @close="picker = null">
@@ -133,14 +133,15 @@ function addRow(layout) {
   request(() => http.post('/api/grid', grid), 'Zeile hinzugefügt');
 }
 
-function deleteRow(grid) {
-  if (confirmDelete()) {
+async function deleteRow(grid) {
+  if (await confirmDelete('Zeile löschen?')) {
     request(() => http.delete(`/api/grid/${grid.id}`), 'Zeile gelöscht');
   }
 }
 
-function resetItem(item) {
-  if (confirmDelete()) {
+async function resetItem(item) {
+  // Only the slot is emptied, the image or article stays
+  if (await confirmDelete('Aus der Zeile entfernen?', { text: 'Das Bild oder der Text selbst bleibt erhalten.', action: 'Entfernen' })) {
     request(() => http.put(`/api/grid-item/${item.id}`), 'Eintrag gelöscht');
   }
 }

@@ -279,9 +279,23 @@
   @extend %p-4x;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
   width: 100%;
+}
+
+// Texts never leave their slot: cut at the bottom, fading out (the site
+// itself ends them on a whole line with "…")
+[class*="aspect-ratio-"] > article,
+.grid-gallery figure.grid-text {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+  overflow: hidden;
+}
+
+.grid-gallery figure.grid-text {
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 
@@ -358,102 +372,149 @@
   svg {
     display: block;
     height: auto;
-    color: $color-light-grey;
+    color: $color-medium-grey;
     width: 82px;
     transition: color .1s ease-in;
   }
 }
 
-// Image and article picker of a grid slot (in a Lightbox)
+// Image and article picker of a grid slot (in a Lightbox, whose body
+// scrolls: one scrollbar)
 .grid-picker-root {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-height: 0;
-  overflow-y: auto;
+  padding: 3px; // room for the focus and hover outline
 }
 
-// Home: sources on the left, their images on the right; each pane scrolls
+// Home: sources on the left, staying in place; their images on the right
 .grid-picker {
+  align-items: start;
   display: grid;
-  flex: 1 1 auto;
-  gap: 32px;
-  grid-template-columns: 260px 1fr;
-  min-height: 0;
+  gap: 24px;
+  grid-template-columns: 1fr;
 
-  > * {
-    min-height: 0;
-    overflow-y: auto;
-  }
-
-  // Room for the images' hover outline, and before the scrollbar
-  > div {
-    padding: 0 16px 3px 3px;
+  @include bp-sm() {
+    gap: 40px;
+    grid-template-columns: 220px 1fr;
   }
 }
 
 .grid-picker__sources {
-  border-right: $border-width solid $color-light-grey;
-  padding-right: 16px;
+  // Scrolls on its own only when the window is too low for the list
+  @include bp-sm() {
+    max-height: calc(100dvh - 140px);
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
 
   section + section {
-    margin-top: 24px;
+    margin-top: 20px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   li {
     display: block;
   }
 
-  a {
+  button {
+    background: none;
+    border: 0;
     border-radius: 2px;
     color: $color-dark-grey;
+    cursor: pointer;
     display: block;
     font-size: 14px;
     line-height: 1.3;
-    margin-left: -8px;
-    padding: 6px 8px;
-    text-decoration: none;
+    padding: 5px 8px;
+    text-align: left;
     transition: background-color .1s ease-out, color .1s ease-out;
+    width: 100%;
 
     &:hover {
+      background-color: $color-light;
       color: $color-dark;
     }
 
     &.is-active {
-      background-color: $color-light;
+      background-color: $color-active;
       color: $color-dark;
     }
   }
+}
+
+.grid-picker__label {
+  color: $color-medium-grey;
+  @include font-regular();
+  font-size: 12px;
+  letter-spacing: .04em;
+  line-height: 1;
+  margin: 0 0 6px;
+  padding: 0 8px;
+  text-transform: uppercase;
 }
 
 .grid-picker__title {
   @include font-regular();
   font-size: 14px;
   line-height: 1.3;
-  margin: 6px 0 16px;
+  margin: 5px 0 16px;
 }
 
 .grid-picker__images {
-  align-content: start;
   display: grid;
-  gap: 8px;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 24px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
 
-  // Whole image (plans, sections) on a light square
+// The whole image (plans, sections) on a light square, its name below
+.grid-picker__image {
+  background: none;
+  border: 0;
+  color: $color-dark-grey;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+
   img {
     aspect-ratio: 1;
     background-color: $color-light;
-    cursor: pointer;
     display: block;
     height: auto;
     object-fit: contain;
-    padding: 6px;
     outline: $border-width solid transparent;
     outline-offset: 2px;
+    padding: 8px;
     transition: outline-color .1s ease-out;
     width: 100%;
+  }
 
-    &:hover {
+  span {
+    font-size: 12px;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: transparent;
+    color: $color-dark;
+    outline: none;
+
+    img {
       outline-color: $color-primary;
     }
   }

@@ -1,5 +1,10 @@
-export function confirmDelete() {
-  return window.confirm('Bitte löschen bestätigen!');
+import { confirm } from '@/lib/confirm';
+
+/**
+ * Asks before deleting (the confirm dialog); resolves true or false.
+ */
+export function confirmDelete(title = 'Eintrag löschen?', options = {}) {
+  return confirm({ title, ...options });
 }
 
 /**

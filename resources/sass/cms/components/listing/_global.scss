@@ -6,7 +6,7 @@
  */
 
 .listing {
-  border-bottom: $border-width solid $color-light;
+  border-bottom: $border-width solid $color-light-grey;
   //@include responsive-prop('margin-bottom', $space-xs);
 
   &.is-grouped {
@@ -41,12 +41,12 @@
 }
 
 .listing-group {
-  border-bottom: $border-width solid $color-light;
+  border-bottom: $border-width solid $color-light-grey;
   @include responsive-prop('margin-bottom', $space-md);
 }
 
 .listing__item {
-  border-top: $border-width solid $color-light;
+  border-top: $border-width solid $color-light-grey;
   display: grid;
   grid-template-columns: auto auto;
   padding-left: 2px;
