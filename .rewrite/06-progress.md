@@ -1,16 +1,18 @@
 # Progress
 
-## Where things stand (handover, 2026-10-07)
+## Where things stand (handover, 2026-10-19)
 
 **Backend, images, public site and admin: done.** Left before go-live:
 review in the browser by the user, the open items below, deploy.
 
-- Branch `rework/laravel-13-vue-3`, pushed to `origin` (tracking,
-  2026-10-07), on top of `e22f376` (= `origin/master` = production). `master` stays untouched until go-live (user's decision);
+- Branch `rework/laravel-13-vue-3`, pushed to `origin` (last push
+  2026-10-19, `31cb8ba`), on top of `e22f376` (= `origin/master` = production). `master` stays untouched until go-live (user's decision);
   nothing from the branch is to be cherry-picked there.
 - Laravel 13.35 on the slim skeleton, PHP `^8.3` (platform 8.3.0),
   `composer audit` clean, Glide images with signed URLs + AVIF/WebP, own
-  login (`AuthController`), 111 PHPUnit tests (`php artisan test`).
+  login (`AuthController`), 119 PHPUnit tests (`php artisan test`).
+- SEO (2026-10-19): `/sitemap.xml`, `/robots.txt` as a route, full meta,
+  OG and JSON-LD tags, default OG card; see Log and "Deploy notes".
 - Backend on **action classes** (`app/Actions/<Module>/…Action`,
   `execute()`), thin controllers, request classes for every write; see
   "Backend structure".
@@ -21,8 +23,9 @@ review in the browser by the user, the open items below, deploy.
 
 ### Next
 
-1. The user reviews the admin further (first review done 2026-10-07:
-   buttons, menu, picker refined).
+1. The user reviews the admin further (reviews 2026-10-07 and
+   2026-10-19: buttons, menu, picker; then sidebar, confirm dialog,
+   picker scrolling, lines; see "Admin").
 2. Open items (not code), below.
 3. Deploy (see "Deploy notes").
 
@@ -62,6 +65,28 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
 - 3 production users (all admins); passwords unknown. For login tests,
   insert a temporary admin into `cristinarutz_prod` and delete it after.
 
+### Second machine (2026-10-19)
+
+The work above was done on another machine. On this one (MAMP-era `.env`
+from 2025, Herd for PHP and nginx, MySQL 5.7 on 127.0.0.1:3306, user
+`cristinarutz` with rights to create databases):
+
+- `DB_DATABASE=cristinarutz` holds the **19 Oct prod dump** (29 projects,
+  751 image rows, 384 not deleted; every one has its file), migrated
+  (width/height). There is no `cristinarutz_prod`/`_snapshot`/`_qa` here.
+- `storage/app/public` is the prod copy from 19 Oct, **not** resized:
+  `images:resize` and `images:warm` were not run on this machine.
+- `public/storage` pointed at a missing `../cra.ch`; relinked to this
+  project's `storage/app/public`.
+- `.env`: only `CACHE_DRIVER` → `CACHE_STORE=file` (Laravel 13 otherwise
+  wants a `cache` table). The other old keys (`WIRETAP_*`, `PUSHER_*`,
+  `MIX_*`, `BROADCAST_DRIVER`, `MAIL_DRIVER`) are still there; harmless.
+- Herd's certificate for cristinarutz.ch.test renewed (until 2027-10-22).
+- Playwright for admin checks: `npm i playwright` in a scratch dir;
+  `channel: 'chrome'` without `--hide-scrollbars` shows real scrollbars
+  (the bundled headless shell has none, so layout shifts don't show).
+  Log in with a temporary admin and delete it after.
+
 ### Gotchas
 
 - `php artisan serve` doesn't pass `DB_DATABASE=...` through to the
@@ -89,6 +114,13 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
 
 - "Leistungen" text links to two project URLs that 404 (also live), see
   log below — content, fix in the admin.
+- Published test project `marcelito-ai` ("marceli.to AI", type AI, 2006)
+  has a detail page, so it is also in the sitemap: unpublish or delete.
+- Content typo: Alterzentrum Rosental's location is "Wintertnur".
+- The home text's "Mehr" link points to `https://cristinarutz.ch/leistungen`
+  with `target="_blank"` (article link field).
+- Production: `APP_ENV=production` (robots.txt blocks everything
+  otherwise) and a global `composer` (composer.phar is gone).
 - Production: confirm Imagick (`php -m | grep imagick`) and
   `upload_max_filesize`/`post_max_size` ≥ 30M; prepare the `.env` changes
   (Deploy notes).
@@ -164,6 +196,21 @@ toggle, picker spacing, menu over footer, checkboxes, upload hint; see
 the user continues another day.
 Validation errors in Laravel's default format; upload CSRF exemption gone;
 login background. 111 tests.
+
+2026-10-19 (second machine, see "Local environment"): fresh prod dump and
+storage loaded. `composer.phar` removed. SEO (`38eccc8`): `SeoController`
+(`/sitemap.xml`: main pages + published projects with a detail page;
+`/robots.txt`: allow + sitemap only in production), head partial with
+canonical, OG (type, locale, image size/alt), twitter card, JSON-LD
+(`ProfessionalService`, from `config/seo.php`), `noindex` on auth pages;
+project descriptions via `App\Support\Seo::description()` (the stored
+`&uuml;` entities showed up literally in the old meta tags), fallback
+title/type/place/period; project OG image = first grid image, 1200 × 630
+via `Glide::ogUrl()`; default `public/assets/img/og.jpg` rendered from
+`.rewrite/tools/og-card/`. `SeoTest` (8 tests, 119 in all).
+Admin review (`948f5eb`, `31cb8ba`), see "Admin" → "UI refinements
+(2026-10-19)". Site: teaser text clamped above "Mehr"
+(`modules/teaser.js`), the 16px gap above "Mehr" kept.
 
 ## Backend
 
@@ -497,6 +544,31 @@ building blocks from oxid, look kept from cristinarutz's own admin Sass
   row clickable), upload hint flush under the drop zone without grey
   background.
 
+### UI refinements (2026-10-19, after the user's second review)
+
+- Sidebar instead of the slide-in menu: fixed on the left from md up
+  (`$sidebar-width` 248px; logo, groups, user + logout at the bottom,
+  as high as the fixed footer so their lines meet), active item on a soft
+  background (`$color-active`), same weight throughout; a drawer with a
+  backdrop below md (Escape, backdrop, navigation close it). The logo is
+  `components/ui/Logo.vue`; `page-header` only shows below md.
+- Confirm dialog in place of `window.confirm`: `lib/confirm.js`
+  (`await confirm({ title, text, action })`) and `ConfirmDialog.vue` in
+  `App.vue`, on the small Lightbox (border, no shadow). `confirmDelete()`
+  is async now.
+- Image picker: the Lightbox body scrolls (no `fill`), the source list
+  is sticky and only scrolls if the window is too low; tiles are buttons
+  (170px min) with the caption or file name; stacked below sm.
+- Grid texts start at the top and are cut with a fade (`mask-image`).
+- Lines: lists, tables and the content footer `$color-light-grey`
+  (was `$color-light`, near invisible); layout icons 1px `currentColor`
+  (grey, dark on hover).
+- The global `button:hover` background is overridden where buttons are
+  plain (toggles, logout, picker tiles). Logout: text underlined on hover.
+- Custom webkit scrollbar removed from the admin and `scrollbar-gutter:
+  stable` on `html`: with the custom scrollbar the gutter wasn't kept and
+  every overlay shifted the page by half the scrollbar's width.
+
 Not done (not needed for go-live):
 
 - JSON resources / REST-ier routes (toggles and project copy are GETs that
@@ -568,10 +640,11 @@ Not done (not needed for go-live):
 
 ## Tests
 
-111 PHPUnit feature tests, in-memory SQLite (`php artisan test`):
+119 PHPUnit feature tests, in-memory SQLite (`php artisan test`):
 `AuthTest`, `ImageRenditionTest`, `ImageStoreTest`, `ImageUploadTest`,
 `MiddlewareTest`, `ProjectVisibilityTest`, `PublicPagesTest`,
-`ResizeImagesTest`, `Api/*` (content modules, projects, images, grids).
+`ResizeImagesTest`, `SeoTest`, `Api/*` (content modules, projects,
+images, grids).
 Verification scripts in `.rewrite/tools/`: `snapshot.php` (every page and
 admin GET on prod data, for before/after diffs), `qa/` (Playwright).
 
