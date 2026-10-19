@@ -1,8 +1,10 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
-@section('seo_description', $project->abstract)
-@if (isset($og_image->name))
-  @section('og_image', url($og_image->url(1500)))
+@section('seo_description', $project->seo_description)
+@if ($og_image)
+  @section('og_image', url($og_image->ogUrl()))
+  @section('og_image_1200x630', 'true')
+  @section('og_image_alt', $og_image->caption ?: $project->title)
 @endif
 @section('content')
 @if ($project)

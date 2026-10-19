@@ -8,6 +8,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,10 @@ Route::get('/werkliste', [ProjectController::class, 'list'])->name('page.worklis
 Route::get('/projekt/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
 Route::get('/ueber-uns/team', [AboutController::class, 'team'])->name('page.about.team');
 Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page.about.diary');
+
+// Search engines
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 
 // Images
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);

@@ -3,6 +3,7 @@ namespace App\Models;
 use App\Models\Concerns\HasGrids;
 use App\Models\Concerns\HasImages;
 use App\Models\Concerns\HasPublishFlag;
+use App\Support\Seo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -61,7 +62,22 @@ class Project extends Model
    */
   public function getAbstractAttribute(): string
   {
-    return str_replace("\n", ' ', substr(strip_tags($this->text), 0, 200));
+    return str_replace("\n", ' ', substr(strip_tags((string) $this->text), 0, 200));
+  }
+
+  /**
+   * Meta description: the text, or type, location and period when there is none
+   */
+  public function getSeoDescriptionAttribute(): string
+  {
+    $description = Seo::description($this->text);
+
+    if ($description !== '')
+    {
+      return $description;
+    }
+
+    return collect([$this->title, $this->type, $this->location, $this->periode])->filter()->implode(', ') . '. ' . config('seo.title') . ', Winterthur';
   }
 
   /**

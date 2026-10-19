@@ -1,5 +1,6 @@
 <?php
 namespace App\Actions\Site;
+use App\Models\Image;
 use App\Models\Project;
 
 /**
@@ -13,8 +14,19 @@ class GetProject
     return [
       'project' => $project->load('grids.gridItems.image'),
       'browse' => $this->browse($project),
-      'og_image' => null,
+      'og_image' => $this->ogImage($project),
     ];
+  }
+
+  /**
+   * The first image on the page: the first slot of the first row
+   */
+  private function ogImage(Project $project): ?Image
+  {
+    return $project->grids
+      ->flatMap(fn ($grid) => $grid->gridItems->sortBy('position'))
+      ->first(fn ($item) => $item->image)
+      ?->image;
   }
 
   /**

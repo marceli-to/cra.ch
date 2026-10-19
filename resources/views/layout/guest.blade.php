@@ -1,3 +1,4 @@
+@section('noindex', 'true')
 @include('layout.partials.head')
 <body class="auth">
 <main role="main" class="site site-auth">

@@ -73,7 +73,7 @@ a local clone is at `../oxid.ch`, use `git show origin/rework/laravel-13-vue-3:<
 - zsh: `git show "$R:path"` breaks on `:a`, `:r` modifiers — use `"${R}:path"`.
 - A git worktree sharing `vendor/` autoloads `App\` from the main tree;
   copy `vendor/` and `composer dump-autoload` there instead.
-- `composer.phar` is still in the repo — unclear if the server needs it.
+- `composer.phar` removed 2026-10-19 (nothing used it; deploy runs `composer install`, so the server needs a global `composer` — not yet checked).
 
 ### Open items (not code)
 
@@ -593,6 +593,12 @@ Order on the server (SSH + `git pull`, as oxid; built assets committed —
 
 Details:
 
+- **SEO (2026-10-19):** `/robots.txt` is now a route (`SeoController`) and
+  `public/robots.txt` is deleted. It only allows indexing when
+  `APP_ENV=production`, otherwise it sends `Disallow: /`: check the server's
+  `APP_ENV` before go-live. `/sitemap.xml` is new; submit it in Google
+  Search Console after go-live. The default OG image `public/assets/img/og.jpg`
+  is rendered by `.rewrite/tools/og-card/render.sh`.
 - **Production `.env` for Laravel 13** (config files now fall back to the
   framework's defaults, which changed): set `DB_CONNECTION=mysql`,
   `SESSION_DRIVER` (cookie, as locally — default is now `database`),

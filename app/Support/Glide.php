@@ -51,6 +51,22 @@ class Glide
   }
 
   /**
+   * Signed /img/{file} URL: the upload cropped to w,h,x,y (if given), then
+   * filled into 1200 × 630 as a JPEG (Open Graph)
+   */
+  public static function ogUrl(string $filename, ?array $crop = null): string
+  {
+    $params = ['w' => 1200, 'h' => 630, 'fit' => 'crop', 'fm' => 'jpg'];
+
+    if ($crop)
+    {
+      $params['crop'] = implode(',', $crop);
+    }
+
+    return UrlBuilderFactory::create('/img/', self::signKey())->getUrl($filename, $params);
+  }
+
+  /**
    * The signature makes sure /img/{file} only renders what url() built
    */
   public static function signature(): SignatureInterface

@@ -111,4 +111,12 @@ class Image extends Model
   {
     return Glide::url($this->name, $size, $this->crop(), $format);
   }
+
+  /**
+   * Signed URL of the (cropped) image filled into 1200 × 630, for Open Graph
+   */
+  public function ogUrl(): string
+  {
+    return Glide::ogUrl($this->name, $this->crop());
+  }
 }
