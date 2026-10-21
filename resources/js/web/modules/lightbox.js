@@ -79,6 +79,10 @@ const build = () => {
     }
   });
   el.addEventListener('pointercancel', () => { start = null; });
+
+  // The page keeps its scrollbar (see components/_lightbox.scss), so stop
+  // the wheel from scrolling it; needs `passive: false`
+  el.addEventListener('wheel', (event) => event.preventDefault(), { passive: false });
 };
 
 const open = (i) => {
@@ -146,6 +150,11 @@ const onKeydown = (event) => {
     const at = buttons.indexOf(document.activeElement);
     const next = (at + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
     buttons[next].focus();
+    event.preventDefault();
+  }
+  // Scroll keys; Space still presses a focused button
+  else if (['PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'].includes(event.key)
+    || (event.key === ' ' && !event.target.matches('button'))) {
     event.preventDefault();
   }
 };

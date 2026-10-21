@@ -6,8 +6,13 @@
  * Gallery overlay, see js/web/modules/lightbox.js
  */
 
-html.has-lightbox {
-  overflow: hidden;
+// Only on touch screens: their scrollbars take no space. On the desktop,
+// hiding the permanent scrollbar would shift the page sideways; the wheel
+// and scroll keys are blocked in the JS instead.
+@media (pointer: coarse) {
+  html.has-lightbox {
+    overflow: hidden;
+  }
 }
 
 a[data-lightbox] {
