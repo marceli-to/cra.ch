@@ -412,6 +412,9 @@ Changed on purpose (otherwise identical): the project page's browse
 links for a project not in the list (unpublished preview, or published
 without detail page: 3 on production) — previous is the last, next now
 the first (was the second); `GetProject` uses modulo now.
+The menu lists only projects with a detail page (production also shows
+the others, as plain text; decided 2026-10-21). The Werkliste still lists
+every project.
 
 Verified:
 

@@ -15,16 +15,12 @@
           <ul>
             @foreach ($menuProjects as $menuProject)
               <li>
-                @if ($menuProject->hasFlag('hasDetailPage'))
-                  <a 
-                    href="{{ route('page.project.show', ['project' => $menuProject]) }}" 
-                    title="{{ $menuProject->title }}"
-                    class="{{ isset($project) && $project->id == $menuProject->id ? 'is-active' : '' }}">
-                    {{ $menuProject->title }}
-                  </a>
-                @else
-                  <span>{{ $menuProject->title }}</span>
-                @endif
+                <a 
+                  href="{{ route('page.project.show', ['project' => $menuProject]) }}" 
+                  title="{{ $menuProject->title }}"
+                  class="{{ isset($project) && $project->id == $menuProject->id ? 'is-active' : '' }}">
+                  {{ $menuProject->title }}
+                </a>
               </li>
             @endforeach
           </ul>

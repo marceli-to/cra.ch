@@ -47,8 +47,8 @@ class PublicPagesTest extends TestCase
 
         $a = $this->project('Haus A', 1);
         $b = $this->project('Haus B', 2);
-        $this->project('Nur Werkliste', 3, false);
-        Category::create(['title' => 'Wohnen', 'slug' => 'wohnen'])->projects()->attach([$a->id, $b->id]);
+        $c = $this->project('Nur Werkliste', 3, false);
+        Category::create(['title' => 'Wohnen', 'slug' => 'wohnen'])->projects()->attach([$a->id, $b->id, $c->id]);
 
         $home = new Home();
         $home->id = 1;
@@ -78,9 +78,10 @@ class PublicPagesTest extends TestCase
         $this->get('/gibt-es-nicht')->assertNotFound();
     }
 
-    public function testMenuListsPublishedProjects()
+    public function testMenuListsPublishedProjectsWithDetailPage()
     {
-        $this->get('/kontakt')->assertSee('/projekt/haus-a')->assertSee('/projekt/haus-b')->assertSee('/ueber-uns/tagebuch');
+        $this->get('/kontakt')->assertSee('/projekt/haus-a')->assertSee('/projekt/haus-b')->assertSee('/ueber-uns/tagebuch')
+            ->assertDontSee('Nur Werkliste');
     }
 
     public function testProjectPageBrowsesInOrder()
