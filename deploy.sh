@@ -10,7 +10,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 HOST=pumutuxu@pumutuxu.myhostpoint.ch
-DEST=/home/pumutuxu/www/cristinarutz.ch.marceli.to
+DEST=/home/pumutuxu/www/cristinarutz.ch
 
 if [[ -n $(git status --porcelain) ]]; then
   echo "You have uncommitted changes. Commit them first; only committed code is deployed."
