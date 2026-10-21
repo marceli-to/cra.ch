@@ -99,6 +99,12 @@ a[data-lightbox] {
   padding: 0;
   position: absolute;
   z-index: 1;
+
+  // Overrides the global button hover in form/_global.scss
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
 }
 
 .lightbox__close {
