@@ -29,6 +29,8 @@ footer.page-footer {
 
   > div {
     @extend %page-block;
+    margin-left: 0;
+    padding-left: 36px;
     @extend %flex;
     @extend %items-center;
     @include responsive-prop('height', $footer-heights);
@@ -93,6 +95,8 @@ footer.content-footer {
 
   > div {
     @extend %page-block;
+    margin-left: 0;
+    padding-left: 36px;
     align-items: center;
     display: flex;
     line-height: 1;
