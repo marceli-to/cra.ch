@@ -4,7 +4,7 @@ use App\Models\Project;
 use Illuminate\Http\Response;
 
 /**
- * /sitemap.xml and /robots.txt
+ * /sitemap.xml, /robots.txt and /llms.txt
  */
 class SeoController extends Controller
 {
@@ -39,6 +39,18 @@ class SeoController extends Controller
       : ['User-agent: *', 'Disallow: /'];
 
     return response(implode("\n", $lines) . "\n")
+      ->header('Content-Type', 'text/plain; charset=utf-8');
+  }
+
+  /**
+   * A markdown summary for language models (llmstxt.org): who the studio
+   * is, the main pages and every published project with its own page
+   */
+  public function llms(): Response
+  {
+    $projects = Project::flagged('isPublish')->flagged('hasDetailPage')->orderBy('order')->get();
+
+    return response(view('seo.llms', ['projects' => $projects])->render())
       ->header('Content-Type', 'text/plain; charset=utf-8');
   }
 }

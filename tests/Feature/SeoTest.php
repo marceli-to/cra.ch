@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
- * Sitemap, robots.txt, meta and Open Graph tags
+ * Sitemap, robots.txt, llms.txt, meta and Open Graph tags
  */
 class SeoTest extends TestCase
 {
@@ -58,6 +58,21 @@ class SeoTest extends TestCase
             ->assertHeader('Content-Type', 'text/plain; charset=utf-8')
             ->assertSee('Allow: /')
             ->assertSee('Sitemap: ' . route('sitemap'));
+    }
+
+    public function testLlmsTxtListsPagesAndPublishedProjectsWithADetailPage()
+    {
+        $this->project('offen');
+        $this->project('entwurf', published: false);
+        $this->project('nur-werkliste', detailPage: false);
+
+        $this->get('/llms.txt')->assertOk()
+            ->assertHeader('Content-Type', 'text/plain; charset=utf-8')
+            ->assertSee('# Cristina Rutz Architekten', false)
+            ->assertSee('- [Werkliste](' . route('page.worklist') . ')', false)
+            ->assertSee('- [Offen](' . url('/projekt/offen') . '): Neubau, Winterthur, 2020', false)
+            ->assertDontSee('/projekt/entwurf', false)
+            ->assertDontSee('/projekt/nur-werkliste', false);
     }
 
     public function testDescriptionIsPlainTextCutAtAWord()

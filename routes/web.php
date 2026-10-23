@@ -41,6 +41,7 @@ Route::get('/ueber-uns/tagebuch', [AboutController::class, 'diary'])->name('page
 // Search engines
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
+Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 
 // Images
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);
