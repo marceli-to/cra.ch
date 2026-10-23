@@ -32,7 +32,7 @@ nav.tabs {
     border-bottom: $border-width solid $color-light-grey;
     color: $color-grey;
     display: block;
-    @include font-mono();
+    @include font-regular();
     @include font-size($fs-xs);
     padding: 10px 0;
     text-decoration: none;
