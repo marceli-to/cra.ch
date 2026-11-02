@@ -64,7 +64,8 @@
           <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
         </div>
         <div class="form-row">
-          <Toggle label="Detailseite?" name="has_detail_page" v-model="record.has_detail_page" />
+          <Toggle label="Detailseite und Menü?" name="has_detail_page" v-model="record.has_detail_page" />
+          <p class="form-info">Bei «Nein» erscheint das Projekt nur auf der Werkliste – ohne Detailseite und nicht im Menü.</p>
         </div>
       </div>
       <ContentFooter :back="{ name: 'projects' }" submit />
