@@ -671,6 +671,10 @@ Target: `HOST`/`DEST` at the top of `deploy.sh`, since 2026-11-02 production
 site (`pumutuxu@pumutuxu.myhostpoint.ch:/home/pumutuxu/www/cristinarutz.ch`
 = https://cristinarutz.ch.marceli.to).
 
+On production the shell's `php` is 8.2: use `/usr/local/php84/bin/php artisan …`
+(`deploy.sh` does, via `PHP=`). The site's web PHP version is set in the
+Hostpoint panel (`public/.htaccess`).
+
 Go-live order:
 
 1. Snapshot the production DB and `storage/`.

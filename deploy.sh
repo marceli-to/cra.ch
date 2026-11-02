@@ -5,12 +5,14 @@
 # Frontend assets are built locally and committed (npm run build). The server's .env,
 # public/.htaccess (PHP version, set in the Hostpoint panel), public/.user.ini (PHP settings), public/storage (symlink from
 # `php artisan storage:link`), storage and caches are never overwritten or deleted.
-# Migrations are not run here: `ssh … php artisan migrate --force` when there are new ones.
+# Migrations are not run here: `ssh … /usr/local/php84/bin/php artisan migrate --force` when there are new ones.
 set -euo pipefail
 cd "$(dirname "$0")"
 
 HOST=cristin4@cristinarutz.ch
 DEST=/home/cristin4/www/cristinarutz.ch
+# The shell's default `php` on the server is 8.2; Laravel 13 needs 8.3+.
+PHP=/usr/local/php84/bin/php
 
 if [[ -n $(git status --porcelain) ]]; then
   echo "You have uncommitted changes. Commit them first; only committed code is deployed."
@@ -45,6 +47,6 @@ rsync -az --delete \
   "$STAGE/" "$HOST:$DEST/"
 
 echo "Refreshing caches…"
-ssh "$HOST" "cd '$DEST' && php artisan optimize:clear >/dev/null && php artisan optimize >/dev/null"
+ssh "$HOST" "cd '$DEST' && $PHP artisan optimize:clear >/dev/null && $PHP artisan optimize >/dev/null"
 
 echo "Deployed $(git rev-parse --short HEAD) to https://cristinarutz.ch"
