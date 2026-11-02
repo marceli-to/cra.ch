@@ -62,11 +62,14 @@ class Article extends Model
     if ($this->link)
     {
       $linkText = $this->linkText ? $this->linkText : "Mehr";
+      // A bare "Mehr" says nothing out of context (screen readers, crawlers):
+      // add the title, visible to them only
+      $context = !$this->linkText && $this->title
+        ? '<span class="visually-hidden">: ' . strip_tags($this->title) . '</span>'
+        : '';
       $article .= '
         <div class="teaser__link">
-          <a href="' . $this->link . '" target="_blank" title="' . $linkText . '">
-            ' .  $linkText . '
-          </a>
+          <a href="' . $this->link . '" target="_blank">' . $linkText . $context . '</a>
         </div>
       ';
     }
