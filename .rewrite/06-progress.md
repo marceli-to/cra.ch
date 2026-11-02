@@ -660,7 +660,8 @@ missing `public/build/manifest.json`, runs the tests, exports `HEAD` with
 Composer), rsyncs with `--delete` (so the old `public/assets/js/cms` and
 `public/assets/css/cms/app.css` go away) and finally runs
 `php artisan optimize:clear && php artisan optimize` on the server. Never
-overwritten: `.env`, `public/.htaccess` (PHP version), `public/storage`,
+overwritten: `.env`, `public/.htaccess` (PHP version), `public/.user.ini`
+(PHP settings, untracked on prod), `public/storage`,
 `storage/`, `bootstrap/cache`. Not uploaded: `tests`, `.rewrite`,
 `node_modules`, `deploy.sh`. Migrations are **not** run by the script.
 

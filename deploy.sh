@@ -3,7 +3,7 @@
 # over SSH, using your own SSH key. Run from your Mac: ./deploy.sh
 #
 # Frontend assets are built locally and committed (npm run build). The server's .env,
-# public/.htaccess (PHP version, set in the Hostpoint panel), public/storage (symlink from
+# public/.htaccess (PHP version, set in the Hostpoint panel), public/.user.ini (PHP settings), public/storage (symlink from
 # `php artisan storage:link`), storage and caches are never overwritten or deleted.
 # Migrations are not run here: `ssh … php artisan migrate --force` when there are new ones.
 set -euo pipefail
@@ -38,6 +38,7 @@ rsync -az --delete \
   --exclude '/.github' --exclude '/node_modules' --exclude '/tests' --exclude '/.rewrite' \
   --exclude '/.env' --exclude '/public/hot' --exclude '/deploy.sh' \
   --filter 'protect /public/.htaccess' \
+  --filter 'protect /public/.user.ini' \
   --filter 'protect /public/storage' \
   --filter 'protect /storage/**' \
   --filter 'protect /bootstrap/cache/*.php' \
