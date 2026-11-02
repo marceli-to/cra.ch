@@ -686,6 +686,9 @@ Go-live order:
 7. Delete `storage/app/public/cache/` (image-cache's old renditions, 249 MB)
 8. Check: login, admin, a project page, an image upload, a crop.
 
+2026-11-02: migration `2026_11_02_120000_alter_articles_table_add_link_description`
+(article field «Linkbeschreibung», hidden text after the teaser's «Mehr»).
+
 Later deploys: commit (with `npm run build` if assets changed), `./deploy.sh`,
 and `migrate --force` over SSH when there are new migrations.
 

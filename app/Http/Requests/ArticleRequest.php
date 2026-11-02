@@ -11,6 +11,7 @@ class ArticleRequest extends AdminRequest
       'text' => 'required|string',
       'link' => 'nullable|string|max:255',
       'linkText' => 'nullable|string|max:255',
+      'linkDescription' => 'nullable|string|max:255',
       'publish' => 'nullable',
     ];
   }

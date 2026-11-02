@@ -28,6 +28,11 @@
           <label>Linktext</label>
           <input type="text" v-model="record.linkText">
         </div>
+        <div class="form-row">
+          <label>Linkbeschreibung</label>
+          <input type="text" v-model="record.linkDescription">
+          <p class="form-info">Optional. Wird nicht angezeigt, sondern von Screenreadern und Suchmaschinen gelesen, z.B. «Zum Team». Ohne Angabe wird der Titel verwendet.</p>
+        </div>
       </div>
       <div v-show="tab === 'settings'">
         <div class="form-row">
@@ -69,6 +74,7 @@ const { record, errors, isLoading, isFetched, title, submit, clearError } = useR
     text: null,
     link: null,
     linkText: null,
+    linkDescription: null,
     publish: 1,
   }),
   redirect: { name: 'articles' },

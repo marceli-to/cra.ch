@@ -17,6 +17,7 @@ class Article extends Model
     'text',
     'link',
     'linkText',
+    'linkDescription',
   ];
 
   protected $appends = [
@@ -63,9 +64,10 @@ class Article extends Model
     {
       $linkText = $this->linkText ? $this->linkText : "Mehr";
       // A bare "Mehr" says nothing out of context (screen readers, crawlers):
-      // add the title, visible to them only
-      $context = !$this->linkText && $this->title
-        ? '<span class="visually-hidden">: ' . strip_tags($this->title) . '</span>'
+      // add the link description, or else the title, visible to them only
+      $description = $this->linkDescription ?: (!$this->linkText ? strip_tags((string) $this->title) : '');
+      $context = $description
+        ? '<span class="visually-hidden">: ' . e($description, false) . '</span>'
         : '';
       $article .= '
         <div class="teaser__link">
