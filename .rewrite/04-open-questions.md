@@ -56,9 +56,13 @@ roundtrip check oxid used (`.rewrite/tools/tiptap-roundtrip.mjs`).
 oxid got a light refresh (Phosphor, 1px lines, calmer menu, login image).
 The icon swap is needed anyway (feather is Vue 2 only). **Do all of it** (`08`).
 
-## 6. Deploy — ANSWERED 2026-10-07: as oxid
+## 6. Deploy — ANSWERED 2026-10-07: as oxid; changed: `deploy.sh`
 
-SSH + `git pull`, built assets committed, nothing built on the server.
+Was: SSH + `git pull`, built assets committed, nothing built on the server.
+Now: `./deploy.sh` from the Mac (as croc/wuff): tests, `git archive HEAD`,
+local `composer install --no-dev`, rsync to Hostpoint, `optimize` on the
+server. Built assets stay committed; migrations by hand over SSH. See
+`06-progress.md` → "Deploy notes".
 
 ## 7. wiretap — ANSWERED 2026-10-07: removed
 

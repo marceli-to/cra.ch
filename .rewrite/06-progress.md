@@ -98,7 +98,7 @@ from 2025, Herd for PHP and nginx, MySQL 5.7 on 127.0.0.1:3306, user
 - zsh: `git show "$R:path"` breaks on `:a`, `:r` modifiers — use `"${R}:path"`.
 - A git worktree sharing `vendor/` autoloads `App\` from the main tree;
   copy `vendor/` and `composer dump-autoload` there instead.
-- `composer.phar` removed 2026-10-19 (nothing used it; deploy runs `composer install`, so the server needs a global `composer` — not yet checked).
+- `composer.phar` removed 2026-10-19 (nothing used it; `deploy.sh` runs `composer install` locally, so the server needs no Composer).
 
 ### Open items (not code)
 
@@ -653,19 +653,34 @@ admin GET on prod data, for before/after diffs), `qa/` (Playwright).
 
 ## Deploy notes
 
-Order on the server (SSH + `git pull`, as oxid; built assets committed —
-`public/build` for site and admin; the old `public/assets/js/cms` and
-`public/assets/css/cms/app.css` are deleted by the pull):
+Deploy with `./deploy.sh` from the Mac (as croc/wuff; replaces the
+SSH + `git pull` plan of 2026-10-07). It refuses uncommitted changes and a
+missing `public/build/manifest.json`, runs the tests, exports `HEAD` with
+`git archive`, runs `composer install --no-dev` locally (the server needs no
+Composer), rsyncs with `--delete` (so the old `public/assets/js/cms` and
+`public/assets/css/cms/app.css` go away) and finally runs
+`php artisan optimize:clear && php artisan optimize` on the server. Never
+overwritten: `.env`, `public/.htaccess` (PHP version), `public/storage`,
+`storage/`, `bootstrap/cache`. Not uploaded: `tests`, `.rewrite`,
+`node_modules`, `deploy.sh`. Migrations are **not** run by the script.
+
+Target: `HOST`/`DEST` at the top of `deploy.sh`, currently the Hostpoint
+staging site (`pumutuxu@pumutuxu.myhostpoint.ch:/home/pumutuxu/www/cristinarutz.ch`
+= https://cristinarutz.ch.marceli.to).
+
+Go-live order:
 
 1. Snapshot the production DB and `storage/`.
-2. Prepare `.env` (below), check Imagick and the PHP upload limits.
-3. `git pull`, `composer install --no-dev --optimize-autoloader`
-4. `php artisan migrate --force` (one new migration: image width/height)
-5. `php artisan images:resize --dry-run`, then `php artisan images:resize`
-6. `php artisan optimize:clear && php artisan optimize`
-7. `php artisan images:warm` (a few minutes; AVIF is slow to encode)
-8. Delete `storage/app/public/cache/` (image-cache's old renditions, 249 MB)
-9. Check: login, admin, a project page, an image upload, a crop.
+2. Prepare the server's `.env` (below), check Imagick and the PHP upload limits.
+3. `./deploy.sh`
+4. `ssh … php artisan migrate --force` (one new migration: image width/height)
+5. `ssh … php artisan images:resize --dry-run`, then `images:resize`
+6. `ssh … php artisan images:warm` (a few minutes; AVIF is slow to encode)
+7. Delete `storage/app/public/cache/` (image-cache's old renditions, 249 MB)
+8. Check: login, admin, a project page, an image upload, a crop.
+
+Later deploys: commit (with `npm run build` if assets changed), `./deploy.sh`,
+and `migrate --force` over SSH when there are new migrations.
 
 Details:
 
@@ -691,7 +706,7 @@ Details:
   to encode). Delete `storage/app/public/cache/` (image-cache).
 - The image work (`images:resize`, stricter uploads) ships with the rework,
   not separately: `master` stays as it is until go-live (decided
-  2026-10-07). On the server, after `composer install` and before
+  2026-10-07). On the server, after `./deploy.sh` and before
   `images:warm`: `php artisan images:resize --dry-run`, then
   `php artisan images:resize`. Check `upload_max_filesize`/`post_max_size`
   ≥ 30M and Imagick first (`05`).
