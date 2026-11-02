@@ -46,7 +46,7 @@ class ArticleTeaserTest extends TestCase
     public function testLinkDescriptionIsReadButNotShown()
     {
         $html = $this->teaser(['link' => '/ueber-uns/team', 'linkDescription' => 'Unser Team & wir']);
-        $this->assertStringContainsString('Mehr<span class="visually-hidden">: Unser Team &amp; wir</span></a>', $html);
+        $this->assertStringContainsString('<a href="/ueber-uns/team" title="Unser Team &amp; wir">Mehr<span class="visually-hidden">: Unser Team &amp; wir</span></a>', $html);
 
         // It wins over the title
         $html = $this->teaser(['title' => 'Willkommen', 'link' => '/ueber-uns/team', 'linkDescription' => 'Zum Team']);

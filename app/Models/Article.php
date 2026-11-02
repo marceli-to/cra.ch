@@ -64,14 +64,15 @@ class Article extends Model
     {
       $linkText = $this->linkText ? $this->linkText : "Mehr";
       // A bare "Mehr" says nothing out of context (screen readers, crawlers):
-      // add the link description, or else the title, visible to them only
+      // add the link description, or else the title, visible to them only,
+      // and as a tooltip
       $description = $this->linkDescription ?: (!$this->linkText ? strip_tags((string) $this->title) : '');
       $context = $description
         ? '<span class="visually-hidden">: ' . e($description, false) . '</span>'
         : '';
       $article .= '
         <div class="teaser__link">
-          <a href="' . $this->link . '"' . ($this->isExternalLink() ? ' target="_blank"' : '') . '>' . $linkText . $context . '</a>
+          <a href="' . $this->link . '"' . ($description ? ' title="' . e($description, false) . '"' : '') . ($this->isExternalLink() ? ' target="_blank"' : '') . '>' . $linkText . $context . '</a>
         </div>
       ';
     }

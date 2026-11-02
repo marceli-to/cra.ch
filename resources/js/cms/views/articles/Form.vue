@@ -31,7 +31,7 @@
         <div class="form-row">
           <label>Linkbeschreibung</label>
           <input type="text" v-model="record.linkDescription">
-          <p class="form-info">Optional. Wird nicht angezeigt, sondern von Screenreadern und Suchmaschinen gelesen, z.B. «Zum Team». Ohne Angabe wird der Titel verwendet.</p>
+          <p class="form-info">Optional. Erscheint als Tooltip beim Link und wird von Screenreadern und Suchmaschinen gelesen, z.B. «Zum Team». Ohne Angabe wird der Titel verwendet.</p>
         </div>
       </div>
       <div v-show="tab === 'settings'">
