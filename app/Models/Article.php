@@ -69,12 +69,28 @@ class Article extends Model
         : '';
       $article .= '
         <div class="teaser__link">
-          <a href="' . $this->link . '" target="_blank">' . $linkText . $context . '</a>
+          <a href="' . $this->link . '"' . ($this->isExternalLink() ? ' target="_blank"' : '') . '>' . $linkText . $context . '</a>
         </div>
       ';
     }
 
     $article .= '</article>';
     return $article;
+  }
+
+  /**
+   * Links to another site open in a new tab; "/leistungen" or
+   * "https://cristinarutz.ch/leistungen" stay in this one
+   */
+  private function isExternalLink(): bool
+  {
+    $host = parse_url($this->link, PHP_URL_HOST);
+    if (!$host)
+    {
+      return false;
+    }
+    $strip = fn (string $h) => preg_replace('/^www\./', '', strtolower($h));
+    $own = [$strip(request()->getHost()), $strip((string) parse_url(config('app.url'), PHP_URL_HOST))];
+    return !in_array($strip($host), $own, true);
   }
 }
