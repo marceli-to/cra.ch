@@ -664,8 +664,10 @@ overwritten: `.env`, `public/.htaccess` (PHP version), `public/storage`,
 `storage/`, `bootstrap/cache`. Not uploaded: `tests`, `.rewrite`,
 `node_modules`, `deploy.sh`. Migrations are **not** run by the script.
 
-Target: `HOST`/`DEST` at the top of `deploy.sh`, currently the Hostpoint
-staging site (`pumutuxu@pumutuxu.myhostpoint.ch:/home/pumutuxu/www/cristinarutz.ch`
+Target: `HOST`/`DEST` at the top of `deploy.sh`, since 2026-11-02 production
+(`cristin4@cristinarutz.ch:/home/cristin4/www/cristinarutz.ch`
+= https://cristinarutz.ch). Before that it pointed at the Hostpoint staging
+site (`pumutuxu@pumutuxu.myhostpoint.ch:/home/pumutuxu/www/cristinarutz.ch`
 = https://cristinarutz.ch.marceli.to).
 
 Go-live order:

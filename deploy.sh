@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Deploys the committed state of this repository to cristinarutz.ch.marceli.to (Hostpoint)
+# Deploys the committed state of this repository to cristinarutz.ch (Hostpoint, production)
 # over SSH, using your own SSH key. Run from your Mac: ./deploy.sh
 #
 # Frontend assets are built locally and committed (npm run build). The server's .env,
@@ -9,8 +9,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-HOST=pumutuxu@pumutuxu.myhostpoint.ch
-DEST=/home/pumutuxu/www/cristinarutz.ch
+HOST=cristin4@cristinarutz.ch
+DEST=/home/cristin4/www/cristinarutz.ch
 
 if [[ -n $(git status --porcelain) ]]; then
   echo "You have uncommitted changes. Commit them first; only committed code is deployed."
@@ -46,4 +46,4 @@ rsync -az --delete \
 echo "Refreshing caches…"
 ssh "$HOST" "cd '$DEST' && php artisan optimize:clear >/dev/null && php artisan optimize >/dev/null"
 
-echo "Deployed $(git rev-parse --short HEAD) to https://cristinarutz.ch.marceli.to"
+echo "Deployed $(git rev-parse --short HEAD) to https://cristinarutz.ch"
